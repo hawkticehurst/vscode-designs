@@ -1,0 +1,10 @@
+# Scratchpad: generated, local-only files
+.trash/
+.cache/
+systems/*/dist/
+systems/*/dist.*/
+systems/*/skill/
+systems/*/skill.*/
+systems/*/source/
+systems/*/node_modules/
+systems/*/activity.jsonl
