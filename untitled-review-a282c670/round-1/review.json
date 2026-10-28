@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "title": "Inbox One (V1)",
+  "questions": [],
+  "presentation": "both",
+  "device": "desktop",
+  "round": 1,
+  "exportedAt": "2026-10-28T19:36:31.662Z",
+  "project": "VS Code",
+  "items": [
+    {
+      "key": "a",
+      "label": "Option A",
+      "entry": "prototypes/inbox-one/index.html",
+      "pages": []
+    },
+    {
+      "key": "b",
+      "label": "Option B",
+      "entry": "prototypes/inbox-one-composer-first/index.html",
+      "pages": []
+    },
+    {
+      "key": "c",
+      "label": "Option C",
+      "entry": "prototypes/inbox-one-v3/index.html",
+      "pages": []
+    }
+  ]
+}
