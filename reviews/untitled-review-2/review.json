@@ -1,0 +1,43 @@
+{
+  "title": "Inbox One",
+  "intro": "An initial explorations of an email inbox style agents window homepage.",
+  "questions": [
+    "Is it confusing that the big chat composer is only for new chats, while follow up messages sent to an existing session must be sent via the composer inside a list item?",
+    "There's no indication of what environment a session is running in. Does it feel important to include that info?",
+    "How does it feel to have expanded content live underneath the list item? Would you prefer this content to be in a second column to the right of the list?"
+  ],
+  "presentation": "both",
+  "device": "desktop",
+  "items": [
+    {
+      "prototype": "inbox-one-v3",
+      "label": "Inbox Top"
+    },
+    {
+      "prototype": "inbox-one-composer-first",
+      "label": "Inbox Bottom"
+    }
+  ],
+  "slug": "untitled-review-2-d51edad7",
+  "rounds": [
+    {
+      "round": 1,
+      "publishedAt": "2026-10-28T19:48:42.444Z",
+      "target": "github-pages",
+      "url": "https://hawkticehurst.github.io/vscode-designs/untitled-review-2-d51edad7/round-1/",
+      "path": "untitled-review-2-d51edad7/round-1",
+      "prototypes": [
+        {
+          "id": "inbox-one-v3",
+          "updatedAt": "2026-10-28T14:59:13.237Z"
+        },
+        {
+          "id": "inbox-one-composer-first",
+          "updatedAt": "2026-10-28T14:59:13.210Z"
+        }
+      ]
+    }
+  ],
+  "createdAt": "2026-10-28T19:39:15.210Z",
+  "updatedAt": "2026-10-28T19:49:53.751Z"
+}
