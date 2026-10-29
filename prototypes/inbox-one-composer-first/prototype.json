@@ -1,6 +1,6 @@
 {
   "title": "Inbox One",
-  "description": "Inbox One with the new-session composer first: greeting and the Agents window's new-session composer (environment, workspace, isolation | branch, harness, mode | permissions, model) above the inbox. Expanding a row shows an inline reply composer and an open session pins the session composer to the bottom, both in the session layout with that session's harness, model and permissions. Every picker opens its real options.",
+  "description": "Inbox One with the new-session composer first: greeting and the Agents window's new-session composer (environment, workspace, isolation | branch, harness, mode | permissions, model) above the inbox. Expanding a row shows an inline reply composer and an open session pins the session composer to the bottom, both in the session layout with that session's harness, model and permissions. Every picker opens its real options. Visual sessions in Ready for you (tagged \"Visual\", from a fake \"Fernwood\" storefront repo) carry before/after screenshots of the shop's own UI: a phone product page, a cart drawer and a 1280px desktop homepage (wide shots open in swipe mode). The card sits 4px above the reply composer, with side by side / swipe icon toggles and an expand view. Request Changes is always on the card while you can reply; a PR adds Ready to Merge, and a question leads the card with its options as tabs on the After screenshot plus Choose, so no separate question card is shown.",
   "status": "draft",
   "tags": [
     "vscode",
@@ -20,5 +20,5 @@
     "vscode"
   ],
   "createdAt": "2026-10-27T20:17:30.348Z",
-  "updatedAt": "2026-10-28T14:59:13.210Z"
+  "updatedAt": "2026-10-29T19:28:05.204Z"
 }

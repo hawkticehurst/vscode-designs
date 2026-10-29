@@ -124,6 +124,77 @@
   .open-full:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
   .open-full .codicon { font-size: 14px !important; color: inherit !important; }
 
+  /* Visual changes: before/after screenshots the agent captured, with a side-by-side or swipe comparison and the session's decision. */
+  /* Border-box so its 760px cap matches the reply composer's outer edge exactly. */
+  .vc { container-type: inline-size; box-sizing: border-box; max-width: 760px; margin: 4px 0 12px; border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border)); border-radius: var(--vscode-cornerRadius-large, 8px);
+        background: var(--vscode-editorWidget-background); overflow: hidden; line-height: normal; }
+  .vc-head { display: flex; flex-wrap: nowrap; align-items: center; gap: 2px 8px; min-height: 36px; box-sizing: border-box; padding: 4px 4px 4px 12px; }
+  /* The toolbar keeps the title's line; a long question wraps instead. */
+  .vc-title { flex: 1; display: flex; align-items: center; gap: 6px; min-width: 0; font-weight: 600; line-height: 18px; }
+  .vc-title .codicon { flex: none; }
+  .vc-title:has(.codicon-report-question) .codicon { color: var(--vscode-list-warningForeground) !important; }
+  .vc-tools { flex: none; margin-left: auto; }
+  .vc-sep { width: 1px; height: 16px; margin: 0 4px; align-self: center; background: var(--vscode-widget-border, var(--vscode-panel-border)); }
+  /* Option tabs: the inbox's pill tabs, sized down to sit in the After label. */
+  /* Same height whether or not the label holds option tabs, so side-by-side screenshots start on the same line. */
+  .vc-lab { display: flex; align-items: center; gap: 6px; min-width: 0; height: 32px; }
+  .vc-lab vsc-view-tabs { min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .vc-lab vsc-view-tabs .composite.title { width: max-content; }
+  .vc-body { display: grid; gap: 12px; padding: 0 12px 12px; }
+  .vc-body.split:not(.stack) { grid-template-columns: 1fr 1fr; }
+  /* Narrow cards: portrait shots stay side by side (small, but comparable at a glance; Expand for detail), the option tabs
+     become a dropdown in the After label, and the labels drop their branch chips. */
+  .vc-lab vsc-select { display: none; }
+  .vc-lab vsc-select { position: relative; }
+  .vc-lab vsc-select select { appearance: none; width: 100%; height: 24px; padding: 0 22px 0 6px; border: 1px solid; border-radius: var(--vscode-cornerRadius-small); font: inherit; font-size: 12px; text-overflow: ellipsis; }
+  /* A chevron so it reads as a dropdown (codicon chevron-down). */
+  .vc-lab vsc-select::after { content: "\eab4"; position: absolute; right: 5px; top: 50%; translate: 0 -50%; font: 14px/1 codicon; color: var(--vscode-dropdown-foreground); pointer-events: none; }
+  @container (max-width: 480px) {
+    .vc-body.split:not(.stack) { gap: 8px; }
+    .vc-lab vsc-view-tabs, .vc-lab code { display: none; }
+    .vc-lab vsc-select { display: block; flex: 1; min-width: 0; max-width: 180px; }
+  }
+  .vc-pane { margin: 0; display: grid; gap: 6px; min-width: 0; }
+  .vc-pane figcaption { display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 12px; line-height: 16px; color: var(--vscode-descriptionForeground); }
+  .vc-pane figcaption b { font-weight: 600; color: var(--vscode-foreground); }
+  .vc-pane figcaption code { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .vc-shot { position: relative; line-height: 0; border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border)); border-radius: var(--vscode-cornerRadius-medium); }
+  .vc-shot img { display: block; width: 100%; height: auto; border-radius: calc(var(--vscode-cornerRadius-medium) - 1px); }
+  /* Swipe: the after image sits over the before image and is clipped at the handle. */
+  .vc-swipe { --pos: 50%; position: relative; line-height: 0; cursor: ew-resize; touch-action: none; user-select: none; -webkit-user-select: none;
+              border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border)); border-radius: var(--vscode-cornerRadius-medium); overflow: hidden; }
+  .vc-swipe img { display: block; width: 100%; height: auto; pointer-events: none; }
+  .vc-swipe img.after { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--pos)); }
+  /* Swipe labels sit above the image so they never cover the change. */
+  .vc-swipe-cap { justify-content: space-between; gap: 12px; }
+  .vc-handle { position: absolute; z-index: 2; top: 0; bottom: 0; left: var(--pos); width: 2px; translate: -1px 0; background: var(--vscode-focusBorder); outline: none; }
+  .vc-handle .grip { position: absolute; top: 50%; left: 50%; translate: -50% -50%; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
+                     background: var(--vscode-editorWidget-background); border: 1px solid var(--vscode-focusBorder); color: var(--vscode-foreground); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+  .vc-handle .grip .codicon { font-size: 14px !important; }
+  .vc-handle:focus-visible .grip { outline: 2px solid var(--vscode-focusBorder); outline-offset: 1px; }
+  .vc-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 12px; border-top: 1px solid var(--vscode-widget-border, var(--vscode-panel-border)); }
+  .vc-hint { flex: 1 1 auto; display: flex; align-items: center; gap: 6px; min-width: 0; color: var(--vscode-descriptionForeground); font-size: 12px; line-height: 16px; }
+  .vc-hint .codicon { flex: none; font-size: 14px !important; color: inherit !important; }
+  /* Dialog-style buttons: sized to their label, not the full width of a .monaco-text-button. */
+  /* Actions stay right-aligned, also when the hint wraps them onto their own line. */
+  .vc-actions { display: flex; gap: 8px; margin-left: auto; }
+  .vc-foot vsc-button { flex: none; width: auto; min-width: 80px; padding: 4px 12px; }
+  /* Expanded comparison: a modal over the window with the same card, larger. */
+  .vc-lightbox { position: fixed; inset: 0; z-index: 2500; display: grid; place-items: center; padding: 24px; box-sizing: border-box; background: rgba(0, 0, 0, 0.5); }
+  .vc-lightbox .vc { width: min(1200px, 100%); max-width: none; max-height: 100%; margin: 0; overflow: auto; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); }
+  .vc-lightbox .vc-body.split:not(.stack) { gap: 16px; }
+  /* Anchored 4px above the composer, like the question card: inline before a reply, and in a session's composer area. */
+  .preview .vc:has(+ .reply) { margin-bottom: 0; }
+  .preview .vc + .reply { margin-top: 0; }
+  .s-ask .vc { max-width: none; margin: 0 0 8px; }
+  /* In a session's transcript the card spans the chat column, the same width as the composer below. */
+  .s-chat .vc { max-width: none; }
+  /* The composer area stays compact: shots are capped in height and shrink to their own width (so the swipe overlay still lines up). */
+  .s-ask .vc-shot, .s-ask .vc-swipe { width: fit-content; max-width: 100%; margin: 0 auto; }
+  .s-ask :is(.vc-shot, .vc-swipe) img { width: auto; max-width: 100%; max-height: min(34vh, 320px); }
+  .s-ask .vc-swipe img.after { width: 100%; height: 100%; }
+  @media (max-width: 600px) { .vc-lightbox { padding: 8px; } }
+
   /* Full session: header, transcript and a composer pinned to the bottom of the panel. */
   #home[hidden], .session[hidden] { display: none; }
   .session { min-height: 100%; display: flex; flex-direction: column; }
@@ -297,6 +368,7 @@ function tags(s) {
   if (s.merging) out.push(`<span class="tag">${icon("git-merge")}${esc(s.merging.status)}</span>`);
   else if (s.state === "working") { const d = s.steps.filter(x => x[1] === "done").length; out.push(`<span class="tag st-working">${d + 1}/${s.steps.length}</span>`); }
   if (s.pr) out.push(`<span class="tag"><span class="${s.pr.status === "Merged" ? "pr-merged" : "pr-open"}">${icon("git-pull-request")}</span>#${s.pr.num}</span>`);
+  if (s.visual) out.push(`<span class="tag" title="Includes before and after screenshots">${icon("file-media")}Visual</span>`);
   const { a, d, n } = diffStat(s);
   if (n) out.push(`<span class="tag"><span class="add">+${a}</span><span class="del">−${d}</span></span>`);
   return out.join("");
@@ -353,8 +425,9 @@ function detailHtml(s) {
     body += `<div class="steps">${s.steps.map(([l, st]) => `<div class="step ${st}">${st === "done" ? `<span class="st-done">${icon("pass")}</span>` : st === "active" ? `<span class="st-working">${icon("loading", " spin")}</span>` : icon("circle-large-outline")}${md(l)}</div>`).join("")}</div>`;
   } else {
     body += (s.body || []).map(p => `<p>${p}</p>`).join("");
+    body += visualHtml(s);
   }
-  if (s.state === "input") body += `<div class="ask"><vsc-chat-view>${carouselHtml(s)}</vsc-chat-view></div>`;
+  if (s.state === "input" && !choiceInCard(s)) body += `<div class="ask"><vsc-chat-view>${carouselHtml(s)}</vsc-chat-view></div>`;
   if (s.state !== "done") body += `<div class="reply">${composerHtml(s)}</div>`;
   return `<div class="preview">${body}</div>`;
 }
@@ -374,6 +447,163 @@ function composerHtml(s) {
   return `<vsc-session-view><vsc-chat-input ${Object.entries(attrs).filter(([, v]) => v).map(([k, v]) => `${k}="${esc(v)}"`).join(" ")} notice></vsc-chat-input></vsc-session-view>`;
 }
 
+// ---- Visual changes: before/after screenshots for sessions whose change is visual ----
+// Shots live in assets/shots as {key}-{dark|light}.png and follow the window's theme, or as {key}.png when the UI has its own (themed: false).
+const isLight = () => /light/i.test(wb.getAttribute("data-theme") || wb.getAttribute("theme") || "");
+const shotSrc = (key) => `assets/shots/${key}-${isLight() ? "light" : "dark"}.png`;
+const vcState = (s) => s._vc ||= { mode: s.visual.mode || "split", pick: 0, pos: 50 };
+// The card offers the session's decision while one is pending: pick an option (a question with screenshot options) or review a PR.
+const vcDecision = (s) => s.state === "input" && s.answerIndex == null && s.visual.after.length > 1 ? "choose" : s.state === "review" && !s.merging && !s.onHold ? "review" : null;
+// A question whose options each have a screenshot is answered from the comparison card, so the question card isn't shown too.
+const choiceInCard = (s) => !!s.question && s.visual?.after.some(a => a.option != null);
+// While that choice is pending, the card sits just above the composer like a question card; once answered it joins the transcript.
+const pendingChoice = (s) => s.state === "input" && s.answerIndex == null && choiceInCard(s);
+function visualHtml(s, { large = false } = {}) {
+  const v = s.visual; if (!v) return "";
+  const st = vcState(s), after = v.after[st.pick] || v.after[0], decision = vcDecision(s), multi = v.after.length > 1;
+  const img = (key, cls = "", alt = "") => v.themed === false ? `<img class="${cls}" src="assets/shots/${key}.png" alt="${esc(alt)}" draggable="false">`
+    : `<img data-shot="${key}" class="${cls}" src="${shotSrc(key)}" alt="${esc(alt)}" draggable="false">`;
+  // With several "after" shots, tabs switch between them (the agent's options); otherwise the After label names the branch.
+  // Wide cards show tabs in the After label; narrow ones a dropdown in its place (CSS picks one).
+  const optTabs = multi ? `<vsc-view-tabs label="Options" active="${st.pick}">${v.after.map((a, i) => `<vsc-view-tab value="${i}">${esc(a.label)}</vsc-view-tab>`).join("")}</vsc-view-tabs>` : "";
+  const optSelect = multi ? `<vsc-select label="Option to compare" options="${esc(v.after.map(a => a.label).join(","))}" value="${esc(after.label)}"></vsc-select>` : "";
+  const afterLabel = multi ? optTabs + optSelect : `<code>${esc(after.label)}</code>`;
+  const before = `<span class="vc-lab"><b>Before</b><code>main</code></span>`, afterCap = `<span class="vc-lab after"><b>After</b>${afterLabel}</span>`;
+  const body = st.mode === "swipe"
+    ? `<figure class="vc-pane"><figcaption class="vc-swipe-cap">${before}${afterCap}</figcaption>
+      <div class="vc-swipe" style="--pos:${st.pos}%" data-vc-swipe="${s.id}">
+        ${img(v.before, "", `Before: ${v.caption}`)}${img(after.key, "after", `After: ${v.caption}`)}
+        <div class="vc-handle" role="slider" tabindex="0" aria-label="Before and after divider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(st.pos)}"><span class="grip">${icon("arrow-both")}</span></div>
+      </div></figure>`
+    : `<figure class="vc-pane before"><figcaption>${before}</figcaption><div class="vc-shot">${img(v.before, "", `Before: ${v.caption}`)}</div></figure>
+       <figure class="vc-pane after"><figcaption>${afterCap}</figcaption><div class="vc-shot">${img(after.key, "", `After: ${v.caption}`)}</div></figure>`;
+  // Request Changes is always offered while you can still reply; the primary action only while its decision is open.
+  let foot = "";
+  if (s.state !== "done") {
+    const hint = st.mode === "swipe" ? `${icon("arrow-both")}Drag the divider to compare.` : "";
+    const primary = decision === "choose" ? `<vsc-button data-vc-do="choose">Choose ${esc(after.label)}</vsc-button>`
+      : decision === "review" ? `<vsc-button data-vc-do="merge">Ready to Merge</vsc-button>` : "";
+    foot = `<div class="vc-foot">${hint ? `<span class="vc-hint">${hint}</span>` : ""}<span class="vc-actions"><vsc-button secondary data-vc-do="changes">Request Changes</vsc-button>${primary}</span></div>`;
+  }
+  // A card that answers the agent's question leads with the question; the view toggles and Expand are icon actions.
+  const asks = multi && s.question && choiceInCard(s);
+  const toggle = (mode, ic, label) => `<vsc-action icon="${ic}" label="${label}" data-vc-do="mode" data-v="${mode}" checked="${st.mode === mode}"></vsc-action>`;
+  return `<section class="vc" data-vc="${s.id}" aria-label="Visual changes">
+    <div class="vc-head"><span class="vc-title">${icon(asks ? "report-question" : "file-media")}${esc(asks ? s.question.text : "Visual changes")}</span>
+      <vsc-toolbar label="Visual changes" class="vc-tools" highlight-toggled>${toggle("split", "split-horizontal", "Side by Side")}${toggle("swipe", "arrow-both", "Swipe")}<span class="vc-sep"></span>
+        <vsc-action icon="${large ? "close" : "screen-full"}" label="${large ? "Close (Escape)" : "Expand"}" data-vc-do="${large ? "close" : "expand"}"></vsc-action></vsc-toolbar></div>
+    <div class="vc-body ${st.mode}${v.layout === "stack" ? " stack" : ""}">${body}</div>${foot}
+  </section>`;
+}
+// Focus is restored for keyboard users only, so a mouse click doesn't leave a focus ring behind.
+let lastInput = "pointer";
+addEventListener("keydown", () => { lastInput = "key"; }, true);
+addEventListener("pointerdown", () => { lastInput = "pointer"; }, true);
+function refreshVisual(s, focusSel) {
+  // Re-rendering replaces the card; keep keyboard focus on the same control (or the newly selected option tab).
+  const a = document.activeElement?.closest?.(".vc [data-vc-do], .vc vsc-view-tab, .vc vsc-select");
+  const sel = focusSel ?? (a?.localName === "vsc-view-tab" ? "vsc-view-tab[checked]" : a?.localName === "vsc-select" ? "vsc-select select" : a ? `[data-vc-do="${a.dataset.vcDo}"]${a.dataset.v != null ? `[data-v="${a.dataset.v}"]` : ""}` : null);
+  document.querySelectorAll(`.vc[data-vc="${s.id}"]`).forEach(el => {
+    const large = !!el.closest(".vc-lightbox");
+    el.outerHTML = visualHtml(s, { large });
+  });
+  if (sel && lastInput === "key") requestAnimationFrame(() => {
+    // The option tabs exist twice (After label and their own row); focus the visible copy.
+    const t = [...(lightbox || document).querySelectorAll(`.vc[data-vc="${s.id}"] ${sel}`)].find(x => x.offsetParent);
+    (t?.localName === "vsc-action" ? t.querySelector("a") : t)?.focus();
+  });
+}
+// The composer this session's reply goes to: the full session's, or the inbox preview's.
+const replyEditor = (s) => state.view === s.id ? $("#session .s-composer .dt-editor-text") : $("#rows .preview .reply .dt-editor-text");
+function focusEnd(ed) {
+  ed.focus();
+  const r = document.createRange(); r.selectNodeContents(ed); r.collapse(false);
+  const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+}
+let lightbox = null;
+function openLightbox(s) {
+  closeLightbox();
+  lightbox = document.createElement("div");
+  lightbox.className = "vc-lightbox"; lightbox.setAttribute("role", "dialog"); lightbox.setAttribute("aria-modal", "true"); lightbox.setAttribute("aria-label", `Visual changes: ${s.title.replace(/`/g, "")}`);
+  lightbox._return = document.activeElement;
+  lightbox.innerHTML = visualHtml(s, { large: true });
+  wb.append(lightbox);
+  requestAnimationFrame(() => lightbox?.querySelector(".monaco-custom-radio .active")?.focus());
+}
+function closeLightbox() {
+  if (!lightbox) return;
+  const back = lightbox._return; lightbox.remove(); lightbox = null;
+  if (back?.isConnected) back.focus();
+}
+const vcSession = (el) => state.sessions.find(x => x.id === el.closest(".vc")?.dataset.vc);
+document.addEventListener("click", (e) => {
+  if (lightbox && e.target === lightbox) { closeLightbox(); return; }
+  const el = e.target.closest("[data-vc-do]"); if (!el) return;
+  const s = vcSession(el); if (!s) return;
+  e.stopPropagation();
+  const st = vcState(s), d = el.dataset.vcDo;
+  if (d === "mode") { st.mode = el.dataset.v; refreshVisual(s); }
+  else if (d === "expand") openLightbox(s);
+  else if (d === "close") closeLightbox();
+  else if (d === "choose") { closeLightbox(); answer(s, s.question.options[s.visual.after[st.pick].option]); }
+  else if (d === "merge") { closeLightbox(); act(s, "merge"); }
+  else if (d === "changes") {
+    closeLightbox();
+    const ed = replyEditor(s);
+    if (ed) { ed.closest(".reply, .s-composer")?.scrollIntoView({ block: "nearest", behavior: "smooth" }); focusEnd(ed); }
+  }
+}, true);
+// The After label's option tabs. The tab bar drops focus while it re-renders, so a keyboard change refocuses the new tab itself.
+let vcTabKey = false;
+document.addEventListener("keydown", (e) => { vcTabKey = !!e.target.closest?.(".vc vsc-view-tab"); }, true);
+document.addEventListener("change", (e) => {
+  if (e.target.localName !== "vsc-view-tabs" || !e.target.closest(".vc")) return;
+  const s = vcSession(e.target); if (s) { vcState(s).pick = +e.detail.value; refreshVisual(s, vcTabKey ? "vsc-view-tab[checked]" : undefined); }
+  vcTabKey = false;
+});
+// The narrow card's option dropdown (a native select).
+document.addEventListener("change", (e) => {
+  if (!e.target.matches?.(".vc vsc-select select")) return;
+  const s = vcSession(e.target), i = s?.visual.after.findIndex(a => a.label === e.target.value);
+  if (i >= 0) { vcState(s).pick = i; refreshVisual(s); }
+});
+// The card's icon actions and buttons are role="button" elements without native activation: Enter and Space click them.
+document.addEventListener("keydown", (e) => {
+  if ((e.key === "Enter" || e.key === " ") && e.target.closest?.(".vc vsc-action > a, .vc vsc-button")) { e.preventDefault(); e.stopPropagation(); e.target.click(); }
+});
+// Swipe: drag anywhere on the image or use the arrow keys on the divider.
+function setSwipe(s, el, pos) {
+  const st = vcState(s); st.pos = Math.max(0, Math.min(100, pos));
+  el.style.setProperty("--pos", `${st.pos}%`);
+  el.querySelector(".vc-handle").setAttribute("aria-valuenow", Math.round(st.pos));
+}
+document.addEventListener("pointerdown", (e) => {
+  const el = e.target.closest(".vc-swipe"); if (!el || e.button !== 0) return;
+  const s = vcSession(el), r = el.getBoundingClientRect(), at = (x) => setSwipe(s, el, (x - r.left) / r.width * 100);
+  e.preventDefault(); el.querySelector(".vc-handle").focus(); at(e.clientX);
+  const move = (ev) => at(ev.clientX), up = () => { removeEventListener("pointermove", move); removeEventListener("pointerup", up); };
+  addEventListener("pointermove", move); addEventListener("pointerup", up);
+});
+document.addEventListener("keydown", (e) => {
+  const h = e.target.closest?.(".vc-handle"); if (!h) return;
+  const el = h.closest(".vc-swipe"), s = vcSession(el), pos = vcState(s).pos, step = e.shiftKey ? 25 : 5;
+  const next = { ArrowLeft: pos - step, ArrowRight: pos + step, Home: 0, End: 100 }[e.key];
+  if (next != null) { e.preventDefault(); setSwipe(s, el, next); }
+});
+document.addEventListener("keydown", (e) => {
+  if (!lightbox) return;
+  if (e.key === "Escape") { e.preventDefault(); e.stopImmediatePropagation(); closeLightbox(); }
+  // Keep Tab inside the dialog.
+  else if (e.key === "Tab") {
+    const f = [...lightbox.querySelectorAll("button, [tabindex='0'], vsc-button, vsc-action a, vsc-view-tab[tabindex='0']")].filter(x => x.offsetParent && x.tabIndex >= 0);
+    if (!f.length) return;
+    const i = f.indexOf(document.activeElement);
+    if (e.shiftKey && i <= 0) { e.preventDefault(); f.at(-1).focus(); } else if (!e.shiftKey && (i === f.length - 1 || i < 0)) { e.preventDefault(); f[0].focus(); }
+  }
+}, true);
+new MutationObserver(() => document.querySelectorAll("img[data-shot]").forEach(i => { i.src = shotSrc(i.dataset.shot); }))
+  .observe(wb, { attributes: true, attributeFilter: ["data-theme", "theme"] });
+
 // ---- Full session: the chat transcript rebuilt from the session's data with the design system's chat parts ----
 const stepsTime = (n) => { const t = 14 + (n * 37) % 150; return t < 60 ? `${t}s` : `${Math.floor(t / 60)}m ${t % 60}s`; };
 function transcriptHtml(s) {
@@ -391,6 +621,7 @@ function transcriptHtml(s) {
     const summary = n ? ` summary="Completed ${n} step${n > 1 ? "s" : ""} in ${stepsTime(n + s.title.length)}"${a || d ? ` added="${a}" removed="${d}"` : ""}` : "";
     let parts = n ? `<vsc-chat-tool-chain slot="steps">${calls.join("")}</vsc-chat-tool-chain>` : "";
     parts += `<vsc-chat-markdown>${s.body.map(p => `<p>${p}</p>`).join("")}</vsc-chat-markdown>`;
+    if (!pendingChoice(s)) parts += visualHtml(s);
     if (s.question && s.answerIndex != null) parts += `<vsc-chat-question-summary question="${esc(s.question.text)}" answer="${esc(replies[s.answerIndex])}"></vsc-chat-question-summary>`;
     out.push(`<vsc-chat-response${summary}>${parts}</vsc-chat-response>`);
   }
@@ -424,7 +655,7 @@ function renderSession() {
   const opening = sec._id !== s.id;
   sec._key = key; sec._id = s.id;
   sec.innerHTML = `<div class="s-head">${head}</div><div class="s-chat"><vsc-chat-view>${transcriptHtml(s)}</vsc-chat-view></div>` +
-    (s.state !== "done" ? `<div class="s-composer">${s.state === "input" && s.answerIndex == null ? `<div class="s-ask"><vsc-chat-view>${carouselHtml(s)}</vsc-chat-view></div>` : ""}${composerHtml(s)}</div>` : "");
+    (s.state !== "done" ? `<div class="s-composer">${pendingChoice(s) ? `<div class="s-ask">${visualHtml(s)}</div>` : s.state === "input" && s.answerIndex == null ? `<div class="s-ask"><vsc-chat-view>${carouselHtml(s)}</vsc-chat-view></div>` : ""}${composerHtml(s)}</div>` : "");
   wireComposer(sec.querySelector(".s-composer"), (t) => reply(s, t));
   // Like a chat view, open (and follow new turns) at the latest message.
   requestAnimationFrame(() => $("#page").scrollTo({ top: $("#page").scrollHeight, behavior: opening ? "instant" : "smooth" }));
@@ -749,7 +980,8 @@ document.addEventListener("change", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  if (e.target.closest("input, textarea, [contenteditable], vsc-chat-question-carousel, vsc-action-list, vsc-chat-model-list") || e.metaKey || e.ctrlKey || e.altKey) { if (e.key === "Escape") e.target.blur?.(); return; }
+  if (lightbox) return;
+  if (e.target.closest("input, textarea, [contenteditable], vsc-chat-question-carousel, vsc-action-list, vsc-chat-model-list, .vc") || e.metaKey || e.ctrlKey || e.altKey) { if (e.key === "Escape") e.target.blur?.(); return; }
   // In a full session, Escape goes back to the inbox; the inbox shortcuts don't apply.
   if (state.view) { if (e.key === "Escape") { e.preventDefault(); closeSession(); } return; }
   const list = visible(), i = list.findIndex(s => s.id === state.cur), s = list[i];

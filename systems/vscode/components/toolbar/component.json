@@ -13,6 +13,11 @@
       "name": "label",
       "type": "string",
       "description": "Accessible name"
+    },
+    {
+      "name": "highlight-toggled",
+      "type": "boolean",
+      "description": "Fill checked actions with actionBar.toggledBackground (ActionBar's highlightToggledItems), for toggle buttons such as view switchers"
     }
   ],
   "slots": [
@@ -44,6 +49,10 @@
     {
       "title": "Actions",
       "html": "<vsc-toolbar><vsc-action icon=\"new-file\" label=\"New File...\"></vsc-action><vsc-action icon=\"new-folder\" label=\"New Folder...\"></vsc-action><vsc-action icon=\"refresh\" label=\"Refresh Explorer\"></vsc-action><vsc-action icon=\"collapse-all\" label=\"Collapse Folders in Explorer\"></vsc-action></vsc-toolbar>"
+    },
+    {
+      "title": "Toggle buttons",
+      "html": "<vsc-toolbar highlight-toggled label=\"View\"><vsc-action icon=\"split-horizontal\" label=\"Side by Side\" checked></vsc-action><vsc-action icon=\"arrow-both\" label=\"Swipe\" checked=\"false\"></vsc-action></vsc-toolbar>"
     }
   ],
   "references": [],

@@ -17,6 +17,7 @@ window.INBOX_DATA = {
     { id: "copilot-chat", label: "vscode-copilot-chat", repo: "microsoft/vscode-copilot-chat", color: "var(--vscode-charts-purple)" },
     { id: "ts-go", label: "typescript-go", repo: "microsoft/typescript-go", color: "var(--vscode-charts-green)" },
     { id: "design-tool", label: "design-tool", repo: "hawkticehurst/design-tool", color: "var(--vscode-charts-orange)" },
+    { id: "fernwood", label: "fernwood-shop", repo: "fernwood/shop", color: "var(--vscode-charts-yellow)" },
   ],
 
   groups: [
@@ -27,17 +28,29 @@ window.INBOX_DATA = {
   sessions: [
     {
       id: "s1", state: "input", unread: true, time: "2m", day: "Today",
-      title: "Make chat input pickers collapse responsively",
-      harness: "copilot", model: "Claude Sonnet 5", workspace: "vscode", env: "Worktree", branch: "agents/responsive-pickers", group: "agents-polish",
-      prompt: "The chat input toolbar overflows when the secondary side bar is narrow. Make the mode, model and target pickers collapse responsively instead of clipping.",
-      preview: "Below 360px the model picker still overflows. Should I collapse it into the overflow menu or truncate its label?",
+      title: "Keep Add to cart visible on mobile product pages",
+      harness: "copilot", model: "Claude Sonnet 5", workspace: "fernwood", env: "Worktree", branch: "agents/mobile-add-to-cart",
+      prompt: "On phones the Add to cart button gets pushed below the fold by the photo gallery and description. Keep it reachable without scrolling.",
+      preview: "Add to cart sits 1,140px down on a 375px phone. I prototyped three placements. Which one should I finish?",
       body: [
-        "I moved the mode, model and session target pickers onto the responsive toolbar and added a ResizeObserver to <code>ChatInputPart</code> so they collapse to icon-only below 420px.",
-        "Below 360px the model picker still overflows because its label is the longest. I need a decision before continuing:",
+        "On a 375px phone, <b>Add to cart</b> sits 1,140px down the product page, below the gallery, swatches and description. Mobile add-to-cart rate is 38% lower than desktop.",
+        "I prototyped three placements that keep it within reach. Pick one and I'll finish it with analytics events and tests:",
       ],
-      question: { text: "How should the model picker behave below 360px?", options: ["Collapse into overflow menu", "Truncate label with ellipsis", "Show icon only"] },
-      files: [["chat/browser/widget/input/chatInputPart.ts", 86, 31], ["chat/browser/widget/media/chat.css", 42, 12], ["chat/test/browser/chatInputPart.test.ts", 58, 0]],
-      checks: [["Unit tests", "pass"], ["Hygiene", "pass"]],
+      question: { text: "Where should Add to cart sit on phones?", options: ["Sticky bar at the bottom", "Inline under the price", "Floating cart button"] },
+      // Screenshots the agent captured of the product page on a 375px phone; each "after" matches one of the question's options.
+      // The storefront has its own palette, so the shots don't follow the editor theme.
+      visual: {
+        caption: "Product page on a 375px phone",
+        themed: false,
+        before: "s1-before",
+        after: [
+          { key: "s1-sticky", label: "Sticky bar", option: 0 },
+          { key: "s1-inline", label: "Inline", option: 1 },
+          { key: "s1-fab", label: "Floating button", option: 2 },
+        ],
+      },
+      files: [["src/components/product/ProductPage.tsx", 64, 22], ["src/components/product/AddToCartBar.tsx", 48, 0], ["src/styles/product.css", 37, 11], ["tests/e2e/product-mobile.spec.ts", 41, 0]],
+      checks: [["Unit tests", "pass"], ["Playwright (mobile)", "pass"]],
     },
     {
       id: "d2", state: "working", unread: false, time: "9m", day: "Today",
@@ -109,17 +122,34 @@ window.INBOX_DATA = {
     },
     {
       id: "s5", state: "review", unread: true, time: "1h", day: "Today",
-      title: "Show unread count badge on the sidebar toggle",
-      harness: "copilot", model: "Claude Sonnet 5", workspace: "vscode", env: "Worktree", branch: "agents/unread-badge", group: "agents-polish",
-      prompt: "When the sessions sidebar is collapsed, show how many sessions have unread results on the sidebar toggle.",
-      preview: "Done. Added an unread count badge using agentsUnreadBadge colors. PR #284112 is ready for review.",
+      title: "Add free-shipping progress to the cart drawer",
+      harness: "copilot", model: "Claude Sonnet 5", workspace: "fernwood", env: "Worktree", branch: "agents/free-shipping-progress",
+      prompt: "Customers abandon carts just under the free shipping threshold. Show progress toward free shipping in the cart drawer and tidy up the order summary.",
+      preview: "Done. The cart drawer shows free-shipping progress and a full order summary. PR #482 is ready for review.",
       body: [
-        "Added an unread sessions badge to the sidebar toggle in the Agents window titlebar. It reads from <code>ISessionsManagementService.onDidChangeUnread</code>, caps at <b>99+</b>, and uses the new <code>agentsUnreadBadge.*</code> theme colors.",
-        "Screen readers announce the count through the toggle's aria-label, and the badge hides while the sidebar is visible.",
+        "Added a free-shipping progress bar to the cart drawer. It reads the $75 threshold from <code>storeConfig.shipping</code>, suggests one add-on that crosses it, and switches to a \"Free shipping unlocked\" message once you're over.",
+        "The order summary now lists shipping and estimated tax up front, so the checkout total holds no surprises. Lighthouse accessibility stays at 100.",
       ],
-      files: [["sessions/browser/parts/titlebarPart.ts", 61, 8], ["sessions/browser/media/titlebar.css", 34, 2], ["workbench/common/agentsColors.ts", 14, 0], ["sessions/test/browser/titlebarPart.test.ts", 33, 0]],
-      checks: [["Unit tests", "pass"], ["Hygiene", "pass"], ["Layer check", "pass"]],
-      pr: { num: 284112, title: "Agents: unread badge on sidebar toggle", status: "Open" },
+      files: [["src/components/cart/CartDrawer.tsx", 72, 18], ["src/components/cart/ShippingProgress.tsx", 46, 0], ["src/lib/cart/totals.ts", 29, 6], ["tests/unit/totals.test.ts", 38, 0]],
+      checks: [["Unit tests", "pass"], ["Playwright", "pass"], ["Lighthouse", "pass"]],
+      pr: { num: 482, title: "Cart: free-shipping progress and order summary", status: "Open" },
+      visual: { caption: "Cart drawer with a $70 order", themed: false, before: "s5-before", after: [{ key: "s5-after", label: "agents/free-shipping-progress" }] },
+    },
+    {
+      id: "s15", state: "review", unread: true, time: "2h", day: "Today",
+      title: "Refresh the homepage hero for the spring collection",
+      harness: "claude", model: "Claude Opus 5", workspace: "fernwood", env: "Cloud", branch: "agents/spring-hero",
+      prompt: "Replace the generic homepage banner with a hero for the spring collection: a clear headline, two calls to action and the new glazes front and center.",
+      preview: "Done. A split hero with the spring glazes, two calls to action and a perks strip. PR #491 is ready for review.",
+      body: [
+        "Replaced the centered banner with a split hero: headline and two calls to action on the left, a collage of the three spring glazes on the right. Each tile links to its product page.",
+        "The free-shipping promo bar moved into a perks strip under the hero, and <b>Spring collection</b> leads the main nav until the season ends (<code>storeConfig.campaigns.spring</code>). LCP is unchanged at 1.4s.",
+      ],
+      files: [["src/components/home/Hero.tsx", 118, 41], ["src/components/home/PerksStrip.tsx", 36, 0], ["src/components/layout/SiteNav.tsx", 12, 4], ["src/config/campaigns.ts", 22, 0]],
+      checks: [["Unit tests", "pass"], ["Playwright", "pass"], ["Lighthouse", "pass"]],
+      pr: { num: 491, title: "Home: spring collection hero", status: "Open" },
+      // Desktop shots are wide, so the panes stack and the card opens in swipe mode.
+      visual: { caption: "Homepage at 1280px", themed: false, layout: "stack", mode: "swipe", before: "s15-before", after: [{ key: "s15-after", label: "agents/spring-hero" }] },
     },
     {
       id: "s6", state: "review", unread: true, time: "3:42 PM", day: "Today",

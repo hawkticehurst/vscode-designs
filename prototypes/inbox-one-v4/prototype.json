@@ -1,0 +1,23 @@
+{
+  "title": "Inbox One",
+  "description": "Explores an email-style inbox split view: selecting a session opens its existing interactive preview in a sticky right-hand reader pane, selecting it again closes the pane, and narrow layouts fall back to the original stacked treatment.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "inbox",
+    "composer"
+  ],
+  "system": "vscode",
+  "group": "agents-inbox",
+  "variantOf": "inbox-one-v3",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "human"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-10-29T19:39:58.781Z",
+  "updatedAt": "2026-10-29T19:54:47.716Z"
+}
