@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "title": "Inbox One",
+  "intro": "An initial explorations of an email inbox style agents window homepage.",
+  "questions": [
+    "How does image comparison component feel?",
+    "How do we like inbox split view?"
+  ],
+  "presentation": "both",
+  "device": "desktop",
+  "round": 2,
+  "exportedAt": "2026-10-29T19:58:59.825Z",
+  "project": "VS Code",
+  "items": [
+    {
+      "key": "a",
+      "label": "Inbox Top",
+      "note": "Changed: Image comparison component added.",
+      "entry": "prototypes/inbox-one-v3/index.html",
+      "pages": []
+    },
+    {
+      "key": "b",
+      "label": "Inbox Split View",
+      "entry": "prototypes/inbox-one-v4/index.html",
+      "pages": []
+    }
+  ]
+}
