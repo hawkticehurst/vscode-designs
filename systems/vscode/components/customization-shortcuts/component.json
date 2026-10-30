@@ -1,0 +1,109 @@
+{
+  "tag": "vsc-customization-shortcuts",
+  "kind": "component",
+  "title": "Customization shortcuts (Agents sidebar)",
+  "category": "chat",
+  "description": "The Customizations section at the bottom of the Agents window's sessions sidebar (`.agent-sessions-customizations-section`): a collapsible \"Customizations\" header and the shortcut links (Overview, Plugins, MCP Servers, Skills, Instructions, Agents, Hooks, Tools, Extensions) with their counts. Each link opens the Customizations editor on that section. Verified geometry, fonts and colors against the live sidebar; the remaining diff is the color of a `border-style: none` border (`currentcolor`), which isn't painted.",
+  "usage": "Bottom of the Agents window sessions sidebar (280px wide). Listen for `open-customizations` to open <vsc-customizations-editor> on that section.",
+  "attributes": [
+    {
+      "name": "active",
+      "type": "string",
+      "description": "Section id of the link to highlight (overview, plugins, mcp, skills, instructions, agents, hooks, tools, extensions)."
+    },
+    {
+      "name": "counts",
+      "type": "string",
+      "default": "2,5,32,2,3,1,36",
+      "description": "Counts for Plugins, MCP Servers, Skills, Instructions, Agents, Hooks, Tools."
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "default": "300"
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "open",
+      "trigger": "Click a link: fires `open-customizations` with the section (Overview → browse)."
+    },
+    {
+      "name": "active",
+      "trigger": "`active` highlights the link of the open section (prototype affordance; the product doesn't track it)."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "cssCaptures": [
+    "agents-customizations-shortcuts-dark",
+    "agents-customizations-shortcuts-light"
+  ],
+  "requires": [
+    "vsc-workbench"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/sessions/contrib/sessions/browser/customizationsToolbar.contribution.ts",
+      "line": 199
+    }
+  ],
+  "examples": [
+    {
+      "title": "Sidebar shortcuts",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 280px; height: 300px;\"><vsc-customization-shortcuts></vsc-customization-shortcuts></vsc-workbench>",
+      "width": 280
+    }
+  ],
+  "references": [
+    {
+      "capture": "agents-customizations-shortcuts-dark",
+      "example": 0,
+      "theme": "dark-2026",
+      "width": 280,
+      "ignore": []
+    },
+    {
+      "capture": "agents-customizations-shortcuts-light",
+      "example": 0,
+      "theme": "light-2026",
+      "width": 280,
+      "ignore": []
+    }
+  ],
+  "status": "draft",
+  "verification": {
+    "status": "drift",
+    "checkedAt": "2026-10-30T19:23:57.523Z",
+    "compared": 162,
+    "diffs": 20,
+    "theme": "dark-2026",
+    "summary": [
+      "[agents-customizations-shortcuts-dark] ai-customization-shortcuts-widget > ai-customization-toolbar > ai-customization-header > ai-customization-header-label h: expected 14, got 15",
+      "[agents-customizations-shortcuts-dark] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[0] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(191, 191, 191)\", got \"0px none rgb(51, 53, 54)\"",
+      "[agents-customizations-shortcuts-dark] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[1] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(191, 191, 191)\", got \"0px none rgb(51, 53, 54)\"",
+      "[agents-customizations-shortcuts-dark] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[2] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(191, 191, 191)\", got \"0px none rgb(51, 53, 54)\"",
+      "[agents-customizations-shortcuts-dark] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[3] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(191, 191, 191)\", got \"0px none rgb(51, 53, 54)\"",
+      "[agents-customizations-shortcuts-dark] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[4] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(191, 191, 191)\", got \"0px none rgb(51, 53, 54)\"",
+      "[agents-customizations-shortcuts-dark] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[5] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(191, 191, 191)\", got \"0px none rgb(51, 53, 54)\"",
+      "[agents-customizations-shortcuts-dark] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[6] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(191, 191, 191)\", got \"0px none rgb(51, 53, 54)\"",
+      "[agents-customizations-shortcuts-dark] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[7] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(191, 191, 191)\", got \"0px none rgb(51, 53, 54)\"",
+      "[agents-customizations-shortcuts-dark] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[8] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(191, 191, 191)\", got \"0px none rgb(51, 53, 54)\"",
+      "[agents-customizations-shortcuts-light] ai-customization-shortcuts-widget > ai-customization-toolbar > ai-customization-header > ai-customization-header-label h: expected 14, got 15",
+      "[agents-customizations-shortcuts-light] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[0] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(32, 32, 32)\", got \"0px none rgb(234, 234, 234)\"",
+      "[agents-customizations-shortcuts-light] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[1] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(32, 32, 32)\", got \"0px none rgb(234, 234, 234)\"",
+      "[agents-customizations-shortcuts-light] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[2] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(32, 32, 32)\", got \"0px none rgb(234, 234, 234)\"",
+      "[agents-customizations-shortcuts-light] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[3] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(32, 32, 32)\", got \"0px none rgb(234, 234, 234)\"",
+      "[agents-customizations-shortcuts-light] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[4] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(32, 32, 32)\", got \"0px none rgb(234, 234, 234)\"",
+      "[agents-customizations-shortcuts-light] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[5] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(32, 32, 32)\", got \"0px none rgb(234, 234, 234)\"",
+      "[agents-customizations-shortcuts-light] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[6] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(32, 32, 32)\", got \"0px none rgb(234, 234, 234)\"",
+      "[agents-customizations-shortcuts-light] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[7] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(32, 32, 32)\", got \"0px none rgb(234, 234, 234)\"",
+      "[agents-customizations-shortcuts-light] ai-customization-shortcuts-widget > ai-customization-toolbar > mac.monaco-scrollable-element > ai-customization-toolbar-content-scrollable > ai-customization-toolbar-content.sidebar-action-list > monaco-toolbar > monaco-action-bar > actions-container > action-item.customization-link-widget.sidebar-action[8] > customization-link-button-container > customization-link-button.monaco-button.monaco-text-button.secondary.sidebar-action-button border: expected \"0px none rgb(32, 32, 32)\", got \"0px none rgb(234, 234, 234)\""
+    ]
+  },
+  "createdAt": "2026-10-30T19:23:49.311Z",
+  "updatedAt": "2026-10-30T19:24:21.317Z"
+}

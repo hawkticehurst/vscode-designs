@@ -1,0 +1,100 @@
+{
+  "tag": "vsc-customization-browse",
+  "kind": "pattern",
+  "title": "Customization Browse page",
+  "category": "chat",
+  "description": "The Browse page of the Customizations editor when marketplace discovery is on (`chat.customizations.marketplace.enabled`): a rounded panel with the \"Browse customizations\" title, Add Customization menu button, description with Learn more, the marketplace search box (filter action) with the source picker (All Sources), and the scrolling list of discovery sections. Below 800px wide it switches to the single-column `.narrow` grid, like the product. The product's search box is a suggest-enabled Monaco input; here a plain input sits in the same container.",
+  "usage": "Inside <vsc-customizations-editor> as the `section=\"browse\"` page. Put discovery sections in the default slot (first one `featured` for Editor's picks).",
+  "attributes": [
+    {
+      "name": "section",
+      "type": "string",
+      "default": "browse",
+      "description": "Section id used by <vsc-customizations-editor>."
+    },
+    {
+      "name": "heading",
+      "type": "string",
+      "default": "Browse customizations"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "default": "Tailor your agent to your tools, your team, and your workflow."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "Search MCP servers, plugins, skills and more..."
+    },
+    {
+      "name": "source",
+      "type": "string",
+      "default": "All Sources"
+    },
+    {
+      "name": "narrow",
+      "type": "boolean",
+      "description": "Force the narrow layout (single-column grid). Otherwise applied automatically below 800px like the product."
+    }
+  ],
+  "slots": [
+    {
+      "name": "",
+      "description": "<vsc-customization-discovery-section> elements."
+    }
+  ],
+  "states": [
+    {
+      "name": "narrow",
+      "trigger": "Container narrower than 800px: single-column grid."
+    },
+    {
+      "name": "searching",
+      "trigger": "Typing fires `search` with the query; the placeholder hides."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "cssCaptures": [
+    "customizations-modal-browse-dark",
+    "customizations-modal-browse-light",
+    "customizations-modal-browse-narrow-dark",
+    "customizations-modal-browse-narrow-light",
+    "agents-docked-customizations-browse-dark",
+    "agents-docked-customizations-browse-light"
+  ],
+  "requires": [
+    "vsc-workbench",
+    "vsc-customizations-editor"
+  ],
+  "tokens": [],
+  "uses": [
+    "vsc-customization-discovery-section",
+    "vsc-customization-discovery-card"
+  ],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/aiCustomizationDiscoveryPage.ts",
+      "line": 2810
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/media/aiCustomizationDiscovery.css"
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/customizationMarketplaceConfiguration.ts",
+      "note": "chat.customizations.marketplace.enabled"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Browse (narrow)",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 470px; height: 643px;\"><vsc-customizations-editor section=\"browse\" sidebar-width=\"0\" style=\"height: 643px;\"><vsc-customization-browse section=\"browse\"><vsc-customization-discovery-section heading=\"Editor's picks\" featured><vsc-customization-discovery-card name=\"Azure DevOps Copilot Plugin\" meta=\"Plugin · GitHub Feed\" description=\"The Azure DevOps Copilot Plugin integrates Azure DevOps work into the GitHub Copilot App.\" fallback-icon=\"extensions\"></vsc-customization-discovery-card></vsc-customization-discovery-section></vsc-customization-browse></vsc-customizations-editor></vsc-workbench>",
+      "width": 470
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-10-30T19:08:02.809Z",
+  "updatedAt": "2026-10-30T19:13:56.134Z"
+}

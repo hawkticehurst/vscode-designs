@@ -1,0 +1,392 @@
+/*
+ * Captured from vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/vs/sessions/electron-browser/sessions.html
+ * Selector: .modal-editor-part .modal-editor-header
+ * On: 2026-10-30T18:50:47.044Z
+ */
+
+/* @capture sessions.desktop.main.css@201 */
+.monaco-action-bar {
+  white-space: nowrap;
+  height: 100%;
+}
+
+/* @capture sessions.desktop.main.css@202 */
+.monaco-action-bar .actions-container {
+  display: flex;
+  margin: 0px auto;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+}
+
+/* @capture sessions.desktop.main.css@204 */
+.monaco-action-bar .action-item {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+/* @capture sessions.desktop.main.css@205 */
+.monaco-action-bar .action-item.disabled {
+  cursor: default;
+}
+
+/* @capture sessions.desktop.main.css@206 */
+.monaco-action-bar .action-item .codicon {
+  display: block;
+}
+
+/* @capture sessions.desktop.main.css@207 */
+.monaco-action-bar .action-item .codicon {
+  display: flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+}
+
+/* @capture sessions.desktop.main.css@208 */
+.monaco-action-bar .action-label {
+  display: flex;
+  font-size: 11px;
+  padding: 3px;
+  border-radius: var(--vscode-cornerRadius-medium);
+}
+
+/* @capture sessions.desktop.main.css@209 */
+.monaco-action-bar .action-item.disabled .action-label:not(.icon),
+.monaco-action-bar .action-item.disabled .action-label:not(.icon)::before,
+.monaco-action-bar .action-item.disabled .action-label:not(.icon):hover {
+  color: var(--vscode-disabledForeground);
+}
+
+/* @capture sessions.desktop.main.css@258 */
+.monaco-toolbar {
+  height: 100%;
+}
+
+/* @capture sessions.desktop.main.css@387 */
+.monaco-button.disabled:focus,
+.monaco-button.disabled {
+  opacity: 0.4 !important;
+  cursor: default;
+}
+
+/* @capture sessions.desktop.main.css@472 */
+.monaco-action-bar .actions-container.highlight-toggled .action-label.checked {
+  background: var(--vscode-actionBar-toggledBackground) !important;
+}
+
+/* @capture sessions.desktop.main.css@530 */
+.codicon[class*="codicon-"] {
+  font: 16px / 1 codicon;
+  display: inline-block;
+  text-decoration: none;
+  text-rendering: auto;
+  text-align: center;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* @capture sessions.desktop.main.css@789 */
+.monaco-icon-label {
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* @capture sessions.desktop.main.css@790 */
+.monaco-icon-label::before {
+  background-size: 16px;
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding-right: 6px;
+  width: 16px;
+  height: 22px;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  vertical-align: top;
+  flex-shrink: 0;
+  line-height: inherit !important;
+}
+
+/* @capture sessions.desktop.main.css@792 */
+.monaco-icon-label-container.disabled {
+  color: var(--vscode-disabledForeground);
+}
+
+/* @capture sessions.desktop.main.css@793 */
+.monaco-icon-label > .monaco-icon-label-container {
+  min-width: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1 1 0%;
+}
+
+/* @capture sessions.desktop.main.css@794 */
+.monaco-icon-label > .monaco-icon-label-container > .monaco-icon-name-container > .label-name {
+  color: inherit;
+  white-space: pre;
+}
+
+/* @capture sessions.desktop.main.css@797 */
+.monaco-icon-label > .monaco-icon-label-container > .monaco-icon-description-container > .label-description {
+  opacity: 0.7;
+  margin-left: 0.5em;
+  font-size: 0.9em;
+  white-space: pre;
+}
+
+/* @capture sessions.desktop.main.css@804 */
+.monaco-icon-label::after {
+  opacity: 0.75;
+  font-size: 90%;
+  font-weight: 600;
+  margin: auto 16px 0px 5px;
+  text-align: center;
+}
+
+/* @capture sessions.desktop.main.css@8420 */
+.monaco-workbench a {
+  text-decoration: none;
+}
+
+/* @capture sessions.desktop.main.css@8424 */
+.monaco-workbench a:active {
+  color: inherit;
+  background-color: inherit;
+}
+
+/* @capture sessions.desktop.main.css@8437 */
+.monaco-workbench .codicon {
+  color: var(--vscode-icon-foreground);
+}
+
+/* @capture sessions.desktop.main.css@8438 */
+.monaco-workbench .codicon[class*="codicon-"] {
+  font-size: 16px;
+}
+
+/* @capture sessions.desktop.main.css@8439 */
+.monaco-workbench .predefined-file-icon[class*="codicon-"]::before {
+  width: 16px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+/* @capture sessions.desktop.main.css@8440 */
+.predefined-file-icon::before {
+  font-family: codicon;
+}
+
+/* @capture sessions.desktop.main.css@8446 */
+.monaco-workbench a:focus-visible,
+.monaco-workbench [tabindex="0"]:focus,
+.monaco-workbench [tabindex="-1"]:focus {
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: -1px;
+  outline-color: var(--vscode-focusBorder);
+  opacity: 1;
+}
+
+/* @capture sessions.desktop.main.css@8449 */
+.monaco-workbench [tabindex="0"]:active,
+.monaco-workbench [tabindex="-1"]:active {
+  outline: 0px !important;
+}
+
+/* @capture sessions.desktop.main.css@8458 */
+.monaco-workbench .monaco-action-bar:not(.vertical) .action-label:not(.disabled):hover {
+  background-color: var(--vscode-toolbar-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@8459 */
+.monaco-workbench .monaco-action-bar:not(.vertical) .action-item.active .action-label:not(.disabled) {
+  background-color: var(--vscode-toolbar-activeBackground);
+}
+
+/* @capture sessions.desktop.main.css@8460 */
+.monaco-workbench .monaco-action-bar:not(.vertical) .action-item .action-label:hover:not(.disabled) {
+  outline: 1px dashed var(--vscode-toolbar-hoverOutline);
+  outline-offset: -1px;
+}
+
+/* @capture sessions.desktop.main.css@8461 */
+.agent-sessions-workbench .monaco-action-bar .action-label {
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+/* @capture sessions.desktop.main.css@9001 */
+.monaco-modal-editor-block .modal-editor-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  grid-column: 1 / -1;
+  align-items: center;
+  height: 32px;
+  min-height: 32px;
+  padding: 0px 8px 0px 10px;
+  color: var(--vscode-titleBar-activeForeground);
+  background-color: var(--vscode-titleBar-activeBackground);
+  border-bottom: 1px solid var(--vscode-titleBar-border, transparent);
+}
+
+/* @capture sessions.desktop.main.css@9001.1 */
+:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-sidebar-toggle {
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
+
+/* @capture sessions.desktop.main.css@9001.2 */
+:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-title {
+  grid-column: 2;
+  font-size: 12px;
+  font-weight: var(--vscode-fontWeight-semiBold);
+  color: var(--vscode-titleBar-activeForeground);
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@9001.2.0 */
+:is(:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-title) .monaco-icon-label {
+  color: inherit;
+  height: 32px;
+  line-height: 32px;
+}
+
+/* @capture sessions.desktop.main.css@9001.2.0.0 */
+:is(:is(:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-title) .monaco-icon-label)::before {
+  height: 32px;
+}
+
+/* @capture sessions.desktop.main.css@9001.3 */
+:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-navigation {
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--vscode-commandCenter-border, transparent);
+  overflow: hidden;
+  user-select: none;
+}
+
+/* @capture sessions.desktop.main.css@9001.3.0 */
+:is(:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-navigation) .modal-editor-nav-button.monaco-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 100%;
+  padding: 0px;
+  border-width: medium;
+  border-style: none;
+  border-color: currentcolor;
+  border-image: none;
+  border-radius: 0px;
+  background: none;
+  color: inherit;
+  opacity: 0.7;
+}
+
+/* @capture sessions.desktop.main.css@9001.3.1 */
+:is(:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-navigation) .modal-editor-nav-button.monaco-button:hover:not(.disabled) {
+  opacity: 1;
+  background-color: var(--vscode-commandCenter-activeBackground);
+}
+
+/* @capture sessions.desktop.main.css@9001.3.2 */
+:is(:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-navigation) .modal-editor-nav-button.monaco-button.disabled {
+  opacity: 0.3;
+}
+
+/* @capture sessions.desktop.main.css@9001.3.3 */
+:is(:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-navigation) .modal-editor-nav-label {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+  white-space: nowrap;
+  padding: 0px 6px;
+}
+
+/* @capture sessions.desktop.main.css@9001.4 */
+:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-action-container {
+  grid-column: 4;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* @capture sessions.desktop.main.css@9001.4.0 */
+:is(:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-action-container) .actions-container {
+  gap: 4px;
+}
+
+/* @capture sessions.desktop.main.css@9001.4.0.0 */
+:is(:is(:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-action-container) .actions-container) .codicon {
+  color: inherit;
+}
+
+/* @capture sessions.desktop.main.css@9001.4.1 */
+:is(:is(.monaco-modal-editor-block .modal-editor-header) .modal-editor-action-container) .modal-editor-action-separator {
+  width: 1px;
+  height: 16px;
+  margin: 0px 4px;
+  background-color: var(--vscode-titleBar-activeForeground);
+  opacity: 0.3;
+}
+
+/* @capture sessions.desktop.main.css@9002 */
+.monaco-modal-editor-block.compact-header .modal-editor-header {
+  background-color: var(--vscode-editor-background);
+  border-bottom-width: medium;
+  border-bottom-style: none;
+  border-bottom-color: currentcolor;
+  height: 40px;
+  min-height: 40px;
+}
+
+/* @capture sessions.desktop.main.css@9003 */
+.monaco-modal-editor-block.compact-header .modal-editor-title .monaco-icon-label::before {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@9004 */
+.monaco-modal-editor-block.compact-header .modal-editor-title .ai-customization-management-editor-label .label-description {
+  font-size: inherit;
+  font-weight: var(--vscode-fontWeight-regular);
+}
+
+/* @capture codiconStyles@58 */
+.codicon-close::before {
+  content: "\ea76";
+}
+
+/* @capture codiconStyles@159 */
+.codicon-chevron-left::before {
+  content: "\eab5";
+}
+
+/* @capture codiconStyles@160 */
+.codicon-chevron-right::before {
+  content: "\eab6";
+}
+
+/* @capture codiconStyles@314 */
+.codicon-screen-full::before {
+  content: "\eb4c";
+}
+
+/* @capture codiconStyles@318 */
+.codicon-settings-gear::before {
+  content: "\eb51";
+}
+
+/* @capture codiconStyles@492 */
+.codicon-layout-sidebar-left::before {
+  content: "\ebf3";
+}

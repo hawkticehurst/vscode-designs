@@ -1,0 +1,804 @@
+/*
+ * Captured from vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/vs/sessions/electron-browser/sessions.html
+ * Selector: .ai-customization-management-editor .management-sidebar
+ * On: 2026-10-30T18:54:27.491Z
+ */
+
+/* @capture sessions.desktop.main.css@23 */
+.monaco-scrollable-element > .invisible {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* @capture sessions.desktop.main.css@26 */
+.monaco-scrollable-element > .shadow {
+  position: absolute;
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@31 */
+.monaco-scrollable-element > .scrollbar {
+  background: var(--vscode-scrollbar-background);
+}
+
+/* @capture sessions.desktop.main.css@32 */
+.monaco-scrollable-element > .scrollbar > .slider {
+  background: var(--vscode-scrollbarSlider-background);
+}
+
+/* @capture sessions.desktop.main.css@33 */
+.monaco-scrollable-element > .scrollbar > .slider:hover {
+  background: var(--vscode-scrollbarSlider-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@34 */
+.monaco-scrollable-element > .scrollbar > .slider.active {
+  background: var(--vscode-scrollbarSlider-activeBackground);
+}
+
+/* @capture sessions.desktop.main.css@124 */
+.monaco-list {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@125 */
+.monaco-list.mouse-support {
+  user-select: none;
+}
+
+/* @capture sessions.desktop.main.css@126 */
+.monaco-list > .monaco-scrollable-element {
+  height: 100%;
+}
+
+/* @capture sessions.desktop.main.css@127 */
+.monaco-list-rows {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* @capture sessions.desktop.main.css@129 */
+.monaco-list-row {
+  position: absolute;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* @capture sessions.desktop.main.css@130 */
+.monaco-list.mouse-support .monaco-list-row {
+  cursor: pointer;
+  touch-action: none;
+}
+
+/* @capture sessions.desktop.main.css@131 */
+.monaco-list .monaco-scrollable-element > .scrollbar.vertical {
+  z-index: 14;
+}
+
+/* @capture sessions.desktop.main.css@133 */
+.monaco-list.element-focused,
+.monaco-list.selection-single {
+  outline: 0px !important;
+}
+
+/* @capture sessions.desktop.main.css@5751 */
+.ai-customization-management-editor .management-sidebar {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@5752 */
+.ai-customization-management-editor .sidebar-content {
+  height: 100%;
+  padding: 0px 12px 4px 4px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: var(--vscode-editor-background);
+}
+
+/* @capture sessions.desktop.main.css@5753 */
+.ai-customization-management-editor .sidebar-header-row {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* @capture sessions.desktop.main.css@5754 */
+.ai-customization-management-editor .sidebar-home-button {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 8px;
+  border-width: medium;
+  border-style: none;
+  border-color: currentcolor;
+  border-image: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--vscode-foreground);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  font-family: inherit;
+  transition: background-color 0.1s;
+}
+
+/* @capture sessions.desktop.main.css@5755 */
+.ai-customization-management-editor .sidebar-home-button:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@5756 */
+.ai-customization-management-editor .sidebar-home-button.selected {
+  background-color: var(--vscode-list-inactiveSelectionBackground);
+  color: var(--vscode-list-inactiveSelectionForeground);
+  outline: var(--vscode-strokeThickness) solid var(--vscode-contrastActiveBorder, transparent);
+  outline-offset: -1px;
+}
+
+/* @capture sessions.desktop.main.css@5757 */
+.ai-customization-management-editor .sidebar-home-button:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+/* @capture sessions.desktop.main.css@5758 */
+.ai-customization-management-editor .sidebar-home-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@5759 */
+.ai-customization-management-editor .sidebar-sections-list {
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@5760 */
+.ai-customization-management-editor .sidebar-migration-shortcut {
+  flex-shrink: 0;
+  margin-top: var(--vscode-spacing-size80);
+  padding-top: var(--vscode-spacing-size40);
+}
+
+/* @capture sessions.desktop.main.css@5761 */
+.ai-customization-management-editor .sidebar-migration-separator {
+  height: var(--vscode-strokeThickness);
+  margin: 0px 8px 6px;
+  background-color: var(--vscode-widget-border, var(--vscode-editorWidget-border, transparent));
+}
+
+/* @capture sessions.desktop.main.css@5762 */
+.ai-customization-management-editor .sidebar-migration-shortcut > button.sidebar-migration-button {
+  color-scheme: unset;
+  forced-color-adjust: unset;
+  math-depth: unset;
+  position: unset;
+  position-anchor: unset;
+  text-size-adjust: unset;
+  appearance: unset;
+  font-feature-settings: unset;
+  font-kerning: unset;
+  font-language-override: unset;
+  font-optical-sizing: unset;
+  font-palette: unset;
+  font-size-adjust: unset;
+  font-stretch: unset;
+  font-style: unset;
+  font-synthesis: unset;
+  font-variant: unset;
+  font-variation-settings: unset;
+  position-area: unset;
+  text-orientation: unset;
+  text-rendering: unset;
+  text-spacing-trim: unset;
+  -webkit-font-smoothing: unset;
+  -webkit-locale: unset;
+  -webkit-text-orientation: unset;
+  -webkit-writing-mode: unset;
+  writing-mode: unset;
+  zoom: unset;
+  accent-color: unset;
+  place-content: unset;
+  place-self: unset;
+  alignment-baseline: unset;
+  anchor-name: unset;
+  anchor-scope: unset;
+  animation-composition: unset;
+  animation: unset;
+  animation-trigger: unset;
+  app-region: unset;
+  aspect-ratio: unset;
+  backdrop-filter: unset;
+  backface-visibility: unset;
+  background-blend-mode: unset;
+  baseline-shift: unset;
+  baseline-source: unset;
+  block-size: unset;
+  border-block: unset;
+  border-collapse: unset;
+  border-end-end-radius: unset;
+  border-end-start-radius: unset;
+  border-inline: unset;
+  border-shape: unset;
+  border-start-end-radius: unset;
+  border-start-start-radius: unset;
+  inset: unset;
+  box-decoration-break: unset;
+  box-shadow: unset;
+  break-after: unset;
+  break-before: unset;
+  break-inside: unset;
+  buffered-rendering: unset;
+  caption-side: unset;
+  caret-animation: unset;
+  caret-color: unset;
+  caret-shape: unset;
+  clear: unset;
+  clip: unset;
+  clip-path: unset;
+  clip-rule: unset;
+  color-interpolation: unset;
+  color-interpolation-filters: unset;
+  color-rendering: unset;
+  columns: unset;
+  column-fill: unset;
+  rule-break: unset;
+  rule: unset;
+  rule-inset: unset;
+  rule-visibility-items: unset;
+  column-span: unset;
+  contain: unset;
+  contain-intrinsic-block-size: unset;
+  contain-intrinsic-size: unset;
+  contain-intrinsic-inline-size: unset;
+  container: unset;
+  content: unset;
+  content-visibility: unset;
+  corner-shape: unset;
+  corner-block-end-shape: unset;
+  corner-block-start-shape: unset;
+  counter-increment: unset;
+  counter-reset: unset;
+  counter-set: unset;
+  cx: unset;
+  cy: unset;
+  d: unset;
+  dominant-baseline: unset;
+  dynamic-range-limit: unset;
+  -electron-corner-smoothing: unset;
+  empty-cells: unset;
+  field-sizing: unset;
+  fill: unset;
+  fill-opacity: unset;
+  fill-rule: unset;
+  filter: unset;
+  flex: unset;
+  flex-flow: unset;
+  flex-line-count: unset;
+  float: unset;
+  flood-color: unset;
+  flood-opacity: unset;
+  grid: unset;
+  grid-area: unset;
+  height: unset;
+  hyphenate-character: unset;
+  hyphenate-limit-chars: unset;
+  hyphens: unset;
+  image-orientation: unset;
+  image-rendering: unset;
+  initial-letter: unset;
+  inline-size: unset;
+  inset-block: unset;
+  inset-inline: unset;
+  interactivity: unset;
+  interest-delay: unset;
+  interpolate-size: unset;
+  isolation: unset;
+  justify-items: unset;
+  letter-spacing: unset;
+  lighting-color: unset;
+  line-break: unset;
+  list-style: unset;
+  margin-block: unset;
+  margin: unset;
+  margin-inline: unset;
+  marker: unset;
+  mask: unset;
+  mask-type: unset;
+  math-shift: unset;
+  math-style: unset;
+  max-block-size: unset;
+  max-height: unset;
+  max-inline-size: unset;
+  max-width: unset;
+  min-block-size: unset;
+  min-height: unset;
+  min-inline-size: unset;
+  min-width: unset;
+  mix-blend-mode: unset;
+  object-fit: unset;
+  object-position: unset;
+  object-view-box: unset;
+  offset: unset;
+  opacity: unset;
+  order: unset;
+  orphans: unset;
+  outline: unset;
+  outline-offset: unset;
+  overflow-anchor: unset;
+  overflow-block: unset;
+  overflow-clip-margin: unset;
+  overflow-inline: unset;
+  overflow-wrap: unset;
+  overflow: unset;
+  overlay: unset;
+  overscroll-behavior-block: unset;
+  overscroll-behavior-inline: unset;
+  overscroll-behavior: unset;
+  padding-block: unset;
+  padding-inline: unset;
+  page: unset;
+  page-margin-safety: unset;
+  page-orientation: unset;
+  paint-order: unset;
+  perspective: unset;
+  perspective-origin: unset;
+  pointer-events: unset;
+  position-try: unset;
+  position-visibility: unset;
+  print-color-adjust: unset;
+  quotes: unset;
+  r: unset;
+  reading-flow: unset;
+  reading-order: unset;
+  resize: unset;
+  rotate: unset;
+  ruby-align: unset;
+  ruby-position: unset;
+  rule-overlap: unset;
+  rx: unset;
+  ry: unset;
+  scale: unset;
+  scroll-behavior: unset;
+  scroll-initial-target: unset;
+  scroll-margin-block: unset;
+  scroll-margin: unset;
+  scroll-margin-inline: unset;
+  scroll-marker-group: unset;
+  scroll-padding-block: unset;
+  scroll-padding: unset;
+  scroll-padding-inline: unset;
+  scroll-snap-align: unset;
+  scroll-snap-stop: unset;
+  scroll-snap-type: unset;
+  scroll-target-group: unset;
+  scroll-timeline: unset;
+  scrollbar-color: unset;
+  scrollbar-gutter: unset;
+  scrollbar-width: unset;
+  shape-image-threshold: unset;
+  shape-margin: unset;
+  shape-outside: unset;
+  shape-rendering: unset;
+  size: unset;
+  speak: unset;
+  stop-color: unset;
+  stop-opacity: unset;
+  stroke: unset;
+  stroke-dasharray: unset;
+  stroke-dashoffset: unset;
+  stroke-linecap: unset;
+  stroke-linejoin: unset;
+  stroke-miterlimit: unset;
+  stroke-opacity: unset;
+  stroke-width: unset;
+  tab-size: unset;
+  table-layout: unset;
+  text-align-last: unset;
+  text-anchor: unset;
+  text-autospace: unset;
+  text-box: unset;
+  text-combine-upright: unset;
+  text-decoration: unset;
+  text-decoration-skip-ink: unset;
+  text-emphasis: unset;
+  text-emphasis-position: unset;
+  text-fit: unset;
+  text-indent: unset;
+  text-justify: unset;
+  text-overflow: unset;
+  text-shadow: unset;
+  text-transform: unset;
+  text-underline-offset: unset;
+  text-underline-position: unset;
+  text-wrap: unset;
+  timeline-scope: unset;
+  timeline-trigger: unset;
+  touch-action: unset;
+  transform: unset;
+  transform-box: unset;
+  transform-origin: unset;
+  transform-style: unset;
+  transition: unset;
+  translate: unset;
+  trigger-scope: unset;
+  user-select: unset;
+  vector-effect: unset;
+  vertical-align: unset;
+  view-timeline: unset;
+  view-transition-class: unset;
+  view-transition-group: unset;
+  view-transition-name: unset;
+  view-transition-scope: unset;
+  visibility: unset;
+  border-spacing: unset;
+  -webkit-box-align: unset;
+  -webkit-box-decoration-break: unset;
+  -webkit-box-direction: unset;
+  -webkit-box-flex: unset;
+  -webkit-box-ordinal-group: unset;
+  -webkit-box-orient: unset;
+  -webkit-box-pack: unset;
+  -webkit-box-reflect: unset;
+  -webkit-line-break: unset;
+  -webkit-line-clamp: unset;
+  -webkit-mask-box-image: unset;
+  -webkit-rtl-ordering: unset;
+  -webkit-ruby-position: unset;
+  -webkit-tap-highlight-color: unset;
+  -webkit-text-combine: unset;
+  -webkit-text-decorations-in-effect: unset;
+  -webkit-text-fill-color: unset;
+  -webkit-text-security: unset;
+  -webkit-text-stroke: unset;
+  -webkit-user-drag: unset;
+  white-space-collapse: unset;
+  widows: unset;
+  will-change: unset;
+  word-break: unset;
+  word-spacing: unset;
+  x: unset;
+  y: unset;
+  z-index: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 4px 8px;
+  border-width: medium;
+  border-style: none;
+  border-color: currentcolor;
+  border-image: none;
+  border-radius: var(--vscode-cornerRadius-small);
+  background: transparent;
+  color: var(--vscode-foreground);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  font-family: inherit;
+  text-align: left;
+}
+
+/* @capture sessions.desktop.main.css@5763 */
+.ai-customization-management-editor .sidebar-migration-shortcut > button.sidebar-migration-button:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@5764 */
+.ai-customization-management-editor .sidebar-migration-shortcut > button.sidebar-migration-button.selected {
+  background-color: var(--vscode-list-activeSelectionBackground);
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* @capture sessions.desktop.main.css@5765 */
+.ai-customization-management-editor .sidebar-migration-shortcut > button.sidebar-migration-button:focus-visible {
+  outline: var(--vscode-strokeThickness) solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+/* @capture sessions.desktop.main.css@5766 */
+.ai-customization-management-editor .sidebar-migration-label {
+  flex: 1 1 0%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* @capture sessions.desktop.main.css@5767 */
+.ai-customization-management-editor .sidebar-migration-count {
+  margin-left: auto;
+  flex-shrink: 0;
+  min-width: 14px;
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-label2);
+  font-weight: var(--vscode-fontWeight-semiBold);
+  line-height: 16px;
+  text-align: center;
+}
+
+/* @capture sessions.desktop.main.css@5768 */
+.ai-customization-management-editor .sidebar-migration-button.selected .sidebar-migration-count {
+  color: inherit;
+}
+
+/* @capture sessions.desktop.main.css@5769 */
+.ai-customization-management-editor .section-list-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.1s, opacity 0.1s;
+}
+
+/* @capture sessions.desktop.main.css@5770 */
+.ai-customization-management-editor .section-list-item:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@5771 */
+.ai-customization-management-editor .section-list-item.section-separator-before::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: var(--vscode-spacing-size80);
+  right: var(--vscode-spacing-size80);
+  height: var(--vscode-strokeThickness);
+  background-color: var(--vscode-widget-border, var(--vscode-editorWidget-border, transparent));
+  pointer-events: none;
+}
+
+/* @capture sessions.desktop.main.css@5772 */
+.ai-customization-management-editor .monaco-list .monaco-list-row.section-list-item.selected .section-count {
+  color: inherit;
+}
+
+/* @capture sessions.desktop.main.css@5773 */
+.ai-customization-management-editor .section-label {
+  flex: 1 1 0%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* @capture sessions.desktop.main.css@5774 */
+.ai-customization-management-editor .section-list-item .section-count {
+  flex-shrink: 0;
+  font-size: var(--vscode-fontSize-label2);
+  font-weight: var(--vscode-fontWeight-semiBold);
+  color: var(--vscode-descriptionForeground);
+  border-radius: 8px;
+  min-width: 14px;
+  text-align: right;
+  line-height: 16px;
+}
+
+/* @capture sessions.desktop.main.css@5775 */
+.ai-customization-management-editor .section-list-item .section-badge {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--vscode-spacing-size80);
+  height: var(--vscode-spacing-size80);
+  border: var(--vscode-strokeThickness) solid var(--vscode-contrastBorder, transparent);
+  border-radius: var(--vscode-cornerRadius-circle);
+  background-color: var(--vscode-activityBarBadge-background);
+}
+
+/* @capture sessions.desktop.main.css@8446 */
+.monaco-workbench [tabindex="0"]:focus,
+.monaco-workbench button:focus {
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: -1px;
+  outline-color: var(--vscode-focusBorder);
+  opacity: 1;
+}
+
+/* @capture sessions.desktop.main.css@8449 */
+.monaco-workbench [tabindex="0"]:active {
+  outline: 0px !important;
+}
+
+/* @capture sessions.desktop.main.css@8456 */
+.monaco-workbench .monaco-list:focus {
+  outline: 0px !important;
+}
+
+/* @capture sessions.desktop.main.css@8464 */
+.agent-sessions-workbench .monaco-scrollable-element > .scrollbar > .slider {
+  background: transparent !important;
+}
+
+/* @capture sessions.desktop.main.css@8465 */
+.agent-sessions-workbench .monaco-scrollable-element > .scrollbar.vertical > .slider::before,
+.agent-sessions-workbench .monaco-scrollable-element > .scrollbar.horizontal > .slider::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: var(--vscode-cornerRadius-circle);
+  background: var(--vscode-scrollbarSlider-background);
+}
+
+/* @capture sessions.desktop.main.css@8466 */
+.agent-sessions-workbench .monaco-scrollable-element > .scrollbar > .slider:hover::before {
+  background: var(--vscode-scrollbarSlider-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@8467 */
+.agent-sessions-workbench .monaco-scrollable-element > .scrollbar > .slider.active::before {
+  background: var(--vscode-scrollbarSlider-activeBackground);
+}
+
+/* @capture contributedColorTheme@177 */
+.monaco-workbench .monaco-list-row.selected {
+  --vscode-debug-ansi-terminal-ansiBlack: #939393;
+  --vscode-debug-ansi-terminal-ansiRed: #db6a6a;
+  --vscode-debug-ansi-terminal-ansiGreen: #0dbc79;
+  --vscode-debug-ansi-terminal-ansiYellow: #e5e510;
+  --vscode-debug-ansi-terminal-ansiBlue: #4e8ed3;
+  --vscode-debug-ansi-terminal-ansiMagenta: #c965c9;
+  --vscode-debug-ansi-terminal-ansiCyan: #11a8cd;
+  --vscode-debug-ansi-terminal-ansiWhite: #e5e5e5;
+  --vscode-debug-ansi-terminal-ansiBrightBlack: #919191;
+  --vscode-debug-ansi-terminal-ansiBrightRed: #f35e5e;
+  --vscode-debug-ansi-terminal-ansiBrightGreen: #23d18b;
+  --vscode-debug-ansi-terminal-ansiBrightYellow: #f5f543;
+  --vscode-debug-ansi-terminal-ansiBrightBlue: #3b8eea;
+  --vscode-debug-ansi-terminal-ansiBrightMagenta: #d670d6;
+  --vscode-debug-ansi-terminal-ansiBrightCyan: #29b8db;
+  --vscode-debug-ansi-terminal-ansiBrightWhite: #e5e5e5;
+}
+
+/* @capture contributedColorTheme@178 */
+.monaco-workbench .monaco-list-row.focused {
+  --vscode-debug-ansi-terminal-ansiBlack: #000000;
+  --vscode-debug-ansi-terminal-ansiRed: #cd3131;
+  --vscode-debug-ansi-terminal-ansiGreen: #0dbc79;
+  --vscode-debug-ansi-terminal-ansiYellow: #e5e510;
+  --vscode-debug-ansi-terminal-ansiBlue: #2472c8;
+  --vscode-debug-ansi-terminal-ansiMagenta: #bc3fbc;
+  --vscode-debug-ansi-terminal-ansiCyan: #11a8cd;
+  --vscode-debug-ansi-terminal-ansiWhite: #e5e5e5;
+  --vscode-debug-ansi-terminal-ansiBrightBlack: #666666;
+  --vscode-debug-ansi-terminal-ansiBrightRed: #f14c4c;
+  --vscode-debug-ansi-terminal-ansiBrightGreen: #23d18b;
+  --vscode-debug-ansi-terminal-ansiBrightYellow: #f5f543;
+  --vscode-debug-ansi-terminal-ansiBrightBlue: #3b8eea;
+  --vscode-debug-ansi-terminal-ansiBrightMagenta: #d670d6;
+  --vscode-debug-ansi-terminal-ansiBrightCyan: #29b8db;
+  --vscode-debug-ansi-terminal-ansiBrightWhite: #e5e5e5;
+}
+
+/* @capture contributedColorTheme@179 */
+.monaco-workbench .monaco-list:focus .monaco-list-row.focused {
+  --vscode-debug-ansi-terminal-ansiBlack: #000000;
+  --vscode-debug-ansi-terminal-ansiRed: #cd3131;
+  --vscode-debug-ansi-terminal-ansiGreen: #088857;
+  --vscode-debug-ansi-terminal-ansiYellow: #787807;
+  --vscode-debug-ansi-terminal-ansiBlue: #2472c8;
+  --vscode-debug-ansi-terminal-ansiMagenta: #bc3fbc;
+  --vscode-debug-ansi-terminal-ansiCyan: #0d87a5;
+  --vscode-debug-ansi-terminal-ansiWhite: #787878;
+  --vscode-debug-ansi-terminal-ansiBrightBlack: #666666;
+  --vscode-debug-ansi-terminal-ansiBrightRed: #d84444;
+  --vscode-debug-ansi-terminal-ansiBrightGreen: #15885a;
+  --vscode-debug-ansi-terminal-ansiBrightYellow: #818122;
+  --vscode-debug-ansi-terminal-ansiBrightBlue: #357fd2;
+  --vscode-debug-ansi-terminal-ansiBrightMagenta: #ac5aac;
+  --vscode-debug-ansi-terminal-ansiBrightCyan: #1c859f;
+  --vscode-debug-ansi-terminal-ansiBrightWhite: #787878;
+}
+
+/* @capture contributedColorTheme@180 */
+.monaco-workbench .monaco-list:focus .monaco-list-row.selected {
+  --vscode-debug-ansi-terminal-ansiBlack: #000000;
+  --vscode-debug-ansi-terminal-ansiRed: #cd3131;
+  --vscode-debug-ansi-terminal-ansiGreen: #088857;
+  --vscode-debug-ansi-terminal-ansiYellow: #787807;
+  --vscode-debug-ansi-terminal-ansiBlue: #2472c8;
+  --vscode-debug-ansi-terminal-ansiMagenta: #bc3fbc;
+  --vscode-debug-ansi-terminal-ansiCyan: #0d87a5;
+  --vscode-debug-ansi-terminal-ansiWhite: #787878;
+  --vscode-debug-ansi-terminal-ansiBrightBlack: #666666;
+  --vscode-debug-ansi-terminal-ansiBrightRed: #d84444;
+  --vscode-debug-ansi-terminal-ansiBrightGreen: #15885a;
+  --vscode-debug-ansi-terminal-ansiBrightYellow: #818122;
+  --vscode-debug-ansi-terminal-ansiBrightBlue: #357fd2;
+  --vscode-debug-ansi-terminal-ansiBrightMagenta: #ac5aac;
+  --vscode-debug-ansi-terminal-ansiBrightCyan: #1c859f;
+  --vscode-debug-ansi-terminal-ansiBrightWhite: #787878;
+}
+
+/* @capture inline-is541y@0 */
+.monaco-list.list_id_c6:focus .monaco-list-row.focused {
+  background-color: var(--vscode-list-focusBackground);
+}
+
+/* @capture inline-is541y@2 */
+.monaco-list.list_id_c6:focus .monaco-list-row.focused {
+  color: var(--vscode-list-focusForeground);
+}
+
+/* @capture inline-is541y@3 */
+.monaco-list.list_id_c6:focus .monaco-list-row.selected {
+  background-color: var(--vscode-list-activeSelectionBackground);
+}
+
+/* @capture inline-is541y@5 */
+.monaco-list.list_id_c6:focus .monaco-list-row.selected {
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* @capture inline-is541y@7 */
+.monaco-list.list_id_c6:focus .monaco-list-row.selected.focused {
+  background-color: var(--vscode-list-activeSelectionBackground);
+}
+
+/* @capture inline-is541y@8 */
+.monaco-list.list_id_c6:focus .monaco-list-row.selected.focused {
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* @capture inline-is541y@10 */
+.monaco-list.list_id_c6 .monaco-list-row.focused {
+  background-color: var(--vscode-list-inactiveFocusBackground);
+}
+
+/* @capture inline-is541y@12 */
+.monaco-list.list_id_c6 .monaco-list-row.selected {
+  background-color: var(--vscode-list-inactiveSelectionBackground);
+}
+
+/* @capture inline-is541y@14 */
+.monaco-list.list_id_c6 .monaco-list-row.selected {
+  color: var(--vscode-list-inactiveSelectionForeground);
+}
+
+/* @capture inline-is541y@17 */
+.monaco-list.list_id_c6:focus .monaco-list-row.focused.selected {
+  outline: 1px solid var(--vscode-list-focusAndSelectionOutline, var(--vscode-contrastActiveBorder, var(--vscode-list-focusOutline)));
+  outline-offset: -1px;
+}
+
+/* @capture inline-is541y@18 */
+.monaco-list.list_id_c6:focus .monaco-list-row.focused {
+  outline: 1px solid var(--vscode-list-focusOutline);
+  outline-offset: -1px;
+}
+
+/* @capture inline-is541y@19 */
+.monaco-list.list_id_c6 .monaco-list-row.focused.selected {
+  outline: 1px dotted var(--vscode-contrastActiveBorder, var(--vscode-list-inactiveFocusOutline));
+  outline-offset: -1px;
+}
+
+/* @capture inline-is541y@20 */
+.monaco-list.list_id_c6 .monaco-list-row.selected {
+  outline: 1px dotted var(--vscode-contrastActiveBorder);
+  outline-offset: -1px;
+}
+
+/* @capture inline-is541y@21 */
+.monaco-list.list_id_c6 .monaco-list-row.focused {
+  outline: 1px dotted var(--vscode-list-inactiveFocusOutline);
+  outline-offset: -1px;
+}

@@ -170,12 +170,12 @@
   "status": "draft",
   "verification": {
     "status": "verified",
-    "checkedAt": "2026-10-28T01:34:53.036Z",
+    "checkedAt": "2026-10-30T19:22:09.390Z",
     "compared": 150,
     "diffs": 0,
     "theme": "light-2026",
     "summary": []
   },
   "createdAt": "2026-10-28T01:15:18.714Z",
-  "updatedAt": "2026-10-28T01:34:53.036Z"
+  "updatedAt": "2026-10-30T19:22:09.390Z"
 }

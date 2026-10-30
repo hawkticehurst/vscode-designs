@@ -1,0 +1,86 @@
+{
+  "tag": "vsc-customization-discovery-section",
+  "kind": "component",
+  "title": "Discovery section",
+  "category": "chat",
+  "description": "A section of the Browse page (`.customization-discovery-section`): heading (with an optional View All link) above a grid of result cards. `featured` is the tinted Editor's picks panel.",
+  "usage": "Inside <vsc-customization-browse>. Product sections: Editor's picks (featured), Plan, build, and ship, Connect your work, Copilot Connectors (show-all), MCP Gallery (show-all).",
+  "attributes": [
+    {
+      "name": "heading",
+      "type": "string"
+    },
+    {
+      "name": "featured",
+      "type": "boolean",
+      "description": "Editor's picks treatment: tinted rounded panel."
+    },
+    {
+      "name": "show-all",
+      "type": "boolean",
+      "description": "Show the \"View All\" link in the header."
+    }
+  ],
+  "slots": [
+    {
+      "name": "",
+      "description": "<vsc-customization-discovery-card> elements."
+    }
+  ],
+  "states": [],
+  "variants": [],
+  "hostDisplay": "block",
+  "cssCaptures": [
+    "customization-discovery-section-featured-dark",
+    "customization-discovery-section-featured-light"
+  ],
+  "requires": [
+    "vsc-workbench"
+  ],
+  "tokens": [],
+  "uses": [
+    "vsc-customization-discovery-card"
+  ],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/aiCustomizationDiscoveryPage.ts",
+      "line": 2168
+    }
+  ],
+  "examples": [
+    {
+      "title": "Editor's picks",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 840px;\"><div class=\"ai-customization-management-editor\"><div class=\"customization-discovery\"><div class=\"customization-discovery-sections\"><vsc-customization-discovery-section heading=\"Editor's picks\" featured><vsc-customization-discovery-card name=\"Azure DevOps Copilot Plugin\" meta=\"Plugin · GitHub Feed\" description=\"The Azure DevOps Copilot Plugin integrates Azure DevOps work into the GitHub Copilot App, allowing users to manage work items and pull requests seamlessly.\" fallback-icon=\"extensions\" icon-src=\"https://raw.githubusercontent.com/github/agentfinder-catalog/08dc319501a58ca849999e2b7cc1d34225e13d3a/icons/microsoft/azure-devops.png\"></vsc-customization-discovery-card><vsc-customization-discovery-card name=\"Impeccable Design Tool\" meta=\"Skill · GitHub Feed\" description=\"A tool for designing and improving frontend interfaces, including websites, dashboards, and mobile screens, with features for UX review, typography, color, and accessibility.\" fallback-icon=\"lightbulb\" icon-src=\"https://raw.githubusercontent.com/github/agentfinder-catalog/86f63e3d82c25067b6a3f943f9853d53a2ab7a30/icons/pbakaus/impeccable.png\"></vsc-customization-discovery-card><vsc-customization-discovery-card name=\"Microsoft Foundry Canvas\" meta=\"Plugin · GitHub Feed\" description=\"A GitHub Copilot App extension for designing, configuring, testing, and deploying Microsoft Foundry hosted agents, featuring live project resources and an embedded local Agent Inspector.\" fallback-icon=\"extensions\" icon-src=\"https://raw.githubusercontent.com/github/agentfinder-catalog/86f63e3d82c25067b6a3f943f9853d53a2ab7a30/icons/microsoft/microsoft-foundry.png\"></vsc-customization-discovery-card></vsc-customization-discovery-section></div></div></div></vsc-workbench>",
+      "width": 840
+    }
+  ],
+  "references": [
+    {
+      "capture": "customization-discovery-section-featured-dark",
+      "example": 0,
+      "theme": "dark-2026",
+      "width": 840,
+      "root": ".customization-discovery-section",
+      "ignore": []
+    },
+    {
+      "capture": "customization-discovery-section-featured-light",
+      "example": 0,
+      "theme": "light-2026",
+      "width": 840,
+      "root": ".customization-discovery-section",
+      "ignore": []
+    }
+  ],
+  "status": "draft",
+  "verification": {
+    "status": "verified",
+    "checkedAt": "2026-10-30T19:14:28.564Z",
+    "compared": 74,
+    "diffs": 0,
+    "theme": "dark-2026",
+    "summary": []
+  },
+  "createdAt": "2026-10-30T19:08:35.896Z",
+  "updatedAt": "2026-10-30T19:14:28.564Z"
+}

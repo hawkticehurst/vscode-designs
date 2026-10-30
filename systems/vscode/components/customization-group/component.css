@@ -1,0 +1,8 @@
+/*
+ * @capture sessions.desktop.main.css@5823 — restated with one more class of specificity. The bundle also carries a
+ * component-explorer fixture sheet (used by the chat captures) whose `.codicon[class*="codicon-"]` base rule lands
+ * after this one and would otherwise show the group icon, which the product hides.
+ */
+.ai-customization-group-header .group-icon.codicon {
+  display: none;
+}

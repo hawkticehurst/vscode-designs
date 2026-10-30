@@ -1,0 +1,113 @@
+{
+  "label": "modal-editor-header-dark",
+  "url": "vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/vs/sessions/electron-browser/sessions.html",
+  "selector": ".modal-editor-part .modal-editor-header",
+  "theme": "dark-2026",
+  "capturedAt": "2026-10-30T18:50:47.104Z",
+  "rect": {
+    "x": 145,
+    "y": 108.59375,
+    "w": 1150,
+    "h": 40
+  },
+  "parentWidth": 1152,
+  "ancestors": [
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "part editor modal-editor-part",
+      "w": 1152,
+      "h": 684.796875,
+      "display": "grid",
+      "bg": "rgb(18, 19, 20)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "modal-editor-shadow",
+      "w": 1152,
+      "h": 684.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "modal-editor-resizable",
+      "w": 1152,
+      "h": 684.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-modal-editor-block compact-header",
+      "w": 1440,
+      "h": 900,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0.5)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "modern-ui-connected-editor-tabs monaco-enable-motion monaco-workbench agent-sessions-workbench modern-ui-tabs modern-ui-notifications-dialogs mac chromium nomaineditorarea nopanel nocustomviewgrid nostatusbar panel-alignment-justify macos-tahoe agents-side-pane-multiple-tabs dock-detail-panel file-icons-enabled vs-dark vscode-theme-defaults-themes-2026-dark-json modern-ui-frosted-glass sash-grippers-hidden",
+      "w": 1440,
+      "h": 900,
+      "display": "block",
+      "bg": "rgb(18, 19, 20)"
+    },
+    {
+      "tag": "body",
+      "id": "",
+      "classes": "",
+      "w": 1440,
+      "h": 900,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    }
+  ],
+  "inherited": {
+    "color": "rgb(140, 140, 140)",
+    "font-family": "-apple-system, \"system-ui\", sans-serif",
+    "font-size": "13px",
+    "font-weight": "400",
+    "line-height": "18.2px",
+    "letter-spacing": "normal",
+    "-webkit-font-smoothing": "auto",
+    "user-select": "none"
+  },
+  "vars": {
+    "--vscode-cornerRadius-medium": "6px",
+    "--vscode-disabledForeground": "#555555",
+    "--vscode-actionBar-toggledBackground": "#383a49",
+    "--vscode-icon-foreground": "#8c8c8c",
+    "--vscode-focusBorder": "rgba(57, 148, 188, 0.7)",
+    "--vscode-toolbar-hoverBackground": "rgba(90, 93, 94, 0.31)",
+    "--vscode-toolbar-activeBackground": "rgba(255, 255, 255, 0.2)",
+    "--vscode-cornerRadius-small": "4px",
+    "--vscode-titleBar-activeForeground": "#8c8c8c",
+    "--vscode-titleBar-activeBackground": "#191a1b",
+    "--vscode-titleBar-border": "#2a2b2c",
+    "--vscode-fontWeight-semiBold": "600",
+    "--vscode-commandCenter-border": "#2e3031",
+    "--vscode-commandCenter-activeBackground": "rgba(255, 255, 255, 0.06)",
+    "--vscode-editor-background": "#121314",
+    "--vscode-fontWeight-regular": "400"
+  },
+  "fontFaces": [
+    {
+      "family": "codicon",
+      "css": "@font-face { font-family: codicon; font-display: block; src: url(\"../../media/codicon.ttf\") format(\"truetype\"); }",
+      "urls": [
+        "vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/media/codicon.ttf"
+      ]
+    }
+  ],
+  "rules": 54,
+  "scale": 2,
+  "viewport": {
+    "width": 414,
+    "height": 57
+  }
+}

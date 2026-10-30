@@ -1,0 +1,57 @@
+{
+  "tag": "vsc-customization-item",
+  "kind": "component",
+  "title": "Customization item",
+  "category": "chat",
+  "description": "A prompt-file row (skill, instruction, agent, hook) in a customization list (`.ai-customization-list-item`): bold name, middle-ellipsized path below and a ⋯ More actions button.",
+  "usage": "Rows of a kind=\"prompts\" <vsc-customization-list>, after their group header.",
+  "attributes": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "description": "File path, shown middle-ellipsized (split before the last /)."
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "default": "ai-customization-skill"
+    },
+    {
+      "name": "badge",
+      "type": "string",
+      "description": "Inline badge after the name."
+    }
+  ],
+  "slots": [],
+  "states": [],
+  "variants": [],
+  "hostDisplay": "block",
+  "hostTag": "div",
+  "cssCaptures": [],
+  "requires": [
+    "vsc-workbench",
+    "vsc-customization-list"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/aiCustomizationListWidget.ts"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Skills",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 470px; height: 300px;\"><div class=\"ai-customization-management-editor\" style=\"height: 300px;\"><div class=\"management-content\"><div class=\"content-inner\"><vsc-customization-list kind=\"prompts\" heading=\"Skills\"><vsc-customization-group label=\"User\" count=\"16\" add-label=\"New Skill\" first></vsc-customization-group><vsc-customization-item name=\"comparison-screenshot\" path=\"~/.copilot/skills/comparison-screenshot/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"ffmpeg\" path=\"~/.agents/skills/ffmpeg/SKILL.md\"></vsc-customization-item></vsc-customization-list></div></div></div></vsc-workbench>",
+      "width": 470
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-10-30T19:11:21.976Z",
+  "updatedAt": "2026-10-30T19:13:56.142Z"
+}

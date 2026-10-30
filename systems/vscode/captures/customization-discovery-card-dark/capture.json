@@ -1,0 +1,356 @@
+{
+  "label": "customization-discovery-card-dark",
+  "url": "vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/vs/sessions/electron-browser/sessions.html",
+  "selector": ".customization-discovery-section:not(.featured) .customization-discovery-card",
+  "theme": "dark-2026",
+  "capturedAt": "2026-10-30T18:50:47.057Z",
+  "rect": {
+    "x": 396,
+    "y": 512.1953125,
+    "w": 414,
+    "h": 56
+  },
+  "parentWidth": 840,
+  "ancestors": [
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "customization-discovery-grid",
+      "w": 840,
+      "h": 116,
+      "display": "grid",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "customization-discovery-section",
+      "w": 840,
+      "h": 144.203125,
+      "display": "flex",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "customization-discovery-sections",
+      "w": 840,
+      "h": 893.015625,
+      "display": "flex",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "customization-discovery-browse",
+      "w": 840,
+      "h": 470.6015625,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-scrollable-element mac customization-discovery-browse-scrollable",
+      "w": 940,
+      "h": 470.6015625,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "customization-discovery-content",
+      "w": 940,
+      "h": 576.796875,
+      "display": "flex",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "customization-discovery",
+      "w": 940,
+      "h": 576.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "welcome-page-host",
+      "w": 942,
+      "h": 634.796875,
+      "display": "block",
+      "bg": "rgb(25, 26, 27)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "content-inner",
+      "w": 950,
+      "h": 642.796875,
+      "display": "flex",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "management-content",
+      "w": 950,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgb(18, 19, 20)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-view visible",
+      "w": 950,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-container",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-scrollable-element  mac",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-split-view2 horizontal",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "management-split-view",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "ai-customization-management-editor pointer-focus",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "flex",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "editor-instance",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "editor-container agent-feedback-editor-overlay-host",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgb(18, 19, 20)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "editor-group-container active",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-view visible",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-container",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-scrollable-element  mac",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-split-view2 vertical separator-border",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-grid-branch-node",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-grid-view",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "grid-view-container",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "content",
+      "w": 1150,
+      "h": 642.796875,
+      "display": "block",
+      "bg": "rgb(18, 19, 20)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "part editor modal-editor-part",
+      "w": 1152,
+      "h": 684.796875,
+      "display": "grid",
+      "bg": "rgb(18, 19, 20)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "modal-editor-shadow",
+      "w": 1152,
+      "h": 684.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "modal-editor-resizable",
+      "w": 1152,
+      "h": 684.796875,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-modal-editor-block compact-header",
+      "w": 1440,
+      "h": 900,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0.5)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "modern-ui-connected-editor-tabs monaco-enable-motion monaco-workbench agent-sessions-workbench modern-ui-tabs modern-ui-notifications-dialogs mac chromium nomaineditorarea nopanel nocustomviewgrid nostatusbar panel-alignment-justify macos-tahoe agents-side-pane-multiple-tabs dock-detail-panel file-icons-enabled vs-dark vscode-theme-defaults-themes-2026-dark-json modern-ui-frosted-glass sash-grippers-hidden",
+      "w": 1440,
+      "h": 900,
+      "display": "block",
+      "bg": "rgb(18, 19, 20)"
+    },
+    {
+      "tag": "body",
+      "id": "",
+      "classes": "",
+      "w": 1440,
+      "h": 900,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    }
+  ],
+  "inherited": {
+    "color": "rgb(191, 191, 191)",
+    "font-family": "-apple-system, \"system-ui\", sans-serif",
+    "font-size": "13px",
+    "font-weight": "400",
+    "line-height": "18.2px",
+    "letter-spacing": "normal",
+    "-webkit-font-smoothing": "auto",
+    "user-select": "none"
+  },
+  "vars": {
+    "--vscode-button-border": "#297aa0",
+    "--vscode-button-secondaryBorder": "#333536",
+    "--vscode-spacing-size80": "8px",
+    "--vscode-spacing-size40": "4px",
+    "--vscode-cornerRadius-small": "4px",
+    "--vscode-list-hoverBackground": "rgba(255, 255, 255, 0.08)",
+    "--vscode-spacing-size400": "40px",
+    "--vscode-descriptionForeground": "#8c8c8c",
+    "--vscode-editorWidget-background": "#202122",
+    "--vscode-fontSize-body1": "13px",
+    "--vscode-fontWeight-semiBold": "600",
+    "--vscode-fontSize-body2": "11px",
+    "--vscode-fontSize-label2": "11px",
+    "--vscode-strokeThickness": "1px",
+    "--vscode-focusBorder": "rgba(57, 148, 188, 0.7)",
+    "--vscode-icon-foreground": "#8c8c8c"
+  },
+  "fontFaces": [
+    {
+      "family": "codicon",
+      "css": "@font-face { font-family: codicon; font-display: block; src: url(\"../../media/codicon.ttf\") format(\"truetype\"); }",
+      "urls": [
+        "vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/media/codicon.ttf"
+      ]
+    }
+  ],
+  "rules": 31,
+  "scale": 2,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "tag": "vsc-agents-editor-part",
+  "kind": "context",
+  "title": "Agents docked editor part",
+  "category": "workbench",
+  "description": "The Agents window's docked editor part on the right (`#workbench.parts.editor.part.editor` under `.dock-detail-panel`, inside the workbench `.monaco-grid-view`): a connected tab bar (e.g. Changes · Files · Customizations, the + Add Tab dropdown and Maximize Editor Area) above the active editor. With `workbench.editor.useModal: off`, editors such as Customizations open here as a tab instead of in a modal (captured from VS Code Insiders 1.145.0, 2026-10-29 build). Verification: 874 elements compared against the live docked Skills page in both themes; the only differences are the virtualized list's total scroll height (the product sizes `.monaco-list-rows` for all 32 skills; the example lists the User group) and an invisible disabled sash that belongs to the hidden auxiliary bar.",
+  "usage": "Right-hand docked editor area of the Agents window. Wrap in <vsc-workbench window=\"agents\"> and give it a height. Set `tabs` and `active`; listen for `tab-select`, `tab-close` and `tab-add` events to make tabs interactive. Put the active editor in the default slot.",
+  "attributes": [
+    {
+      "name": "tabs",
+      "type": "string",
+      "default": "Changes,Files",
+      "description": "Comma-separated tab labels, in order."
+    },
+    {
+      "name": "active",
+      "type": "string",
+      "description": "Label of the active tab."
+    }
+  ],
+  "slots": [
+    {
+      "name": "",
+      "description": "The active editor (e.g. <vsc-customizations-editor>)."
+    }
+  ],
+  "states": [
+    {
+      "name": "active-tab",
+      "description": "Active tab: top border, selected background, close action visible."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "cssCaptures": [
+    "agents-docked-customizations-browse-dark",
+    "agents-docked-customizations-browse-light",
+    "agents-docked-customizations-mcp-dark",
+    "agents-docked-customizations-mcp-light",
+    "agents-docked-customizations-skills-dark",
+    "agents-docked-customizations-skills-light"
+  ],
+  "requires": [
+    "vsc-workbench"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/sessions/contrib/layout/browser/baseSessionLayoutController.ts",
+      "note": "Docked editor layout and useModal handling"
+    },
+    {
+      "path": "src/vs/workbench/browser/parts/editor/multiEditorTabsControl.ts",
+      "note": "Tab DOM and inline tab styles"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Customizations tab (Skills)",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 578px; height: 852px;\"><vsc-agents-editor-part tabs=\"Changes,Files,Customizations\" active=\"Customizations\" style=\"height: 852px;\"><vsc-customizations-editor section=\"skills\" sidebar-width=\"150\" style=\"height: 100%;\"><vsc-customization-list section=\"skills\" kind=\"prompts\" heading=\"Skills\" description=\"Folders of instructions, scripts, and resources that Copilot loads when relevant to perform specialized tasks.\" link=\"Learn more about agent skills\"><vsc-customization-group label=\"User\" count=\"16\" add-label=\"New Skill\" first></vsc-customization-group><vsc-customization-item name=\"comparison-screenshot\" path=\"~/.copilot/skills/comparison-screenshot/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"cpr\" path=\"~/.copilot/skills/cpr/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"end-of-day-pr-report\" path=\"~/.copilot/skills/end-of-day-pr-report/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"ffmpeg\" path=\"~/.agents/skills/ffmpeg/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"find-skills\" path=\"~/.copilot/skills/find-skills/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"grilling\" path=\"~/.copilot/skills/grilling/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"local-section-repro\" path=\"~/.copilot/skills/local-section-repro/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"user-configured-prompt\" path=\"~/.copilot/skills/user-configured-prompt/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"user-configured-skill\" path=\"~/.copilot/skills/user-configured-skill/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"user-review\" path=\"~/.copilot/skills/user-review/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"user-review-2\" path=\"~/.copilot/skills/user-review-2/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"vsc-launch\" path=\"~/.agents/skills/vsc-launch/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"vscode-bsky\" path=\"~/.copilot/skills/vscode-bsky/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"vscode-issue-dispatcher\" path=\"~/.copilot/skills/vscode-issue-dispatcher/SKILL.md\"></vsc-customization-item></vsc-customization-list></vsc-customizations-editor></vsc-agents-editor-part></vsc-workbench>",
+      "width": 578
+    }
+  ],
+  "references": [
+    {
+      "capture": "agents-docked-customizations-skills-dark",
+      "example": 0,
+      "theme": "dark-2026",
+      "width": 578,
+      "root": ".part.editor",
+      "ignore": [
+        ".scrollbar",
+        ".shadow",
+        ".sash-container",
+        ".monaco-sash.disabled",
+        ".editor-group-header",
+        ".monaco-progress-container",
+        ".editor-group-watermark-wrapper",
+        ".drop-block-overlay",
+        ".auxiliarybar"
+      ]
+    },
+    {
+      "capture": "agents-docked-customizations-skills-light",
+      "example": 0,
+      "theme": "light-2026",
+      "width": 578,
+      "root": ".part.editor",
+      "ignore": [
+        ".scrollbar",
+        ".shadow",
+        ".sash-container",
+        ".monaco-sash.disabled",
+        ".editor-group-header",
+        ".monaco-progress-container",
+        ".editor-group-watermark-wrapper",
+        ".drop-block-overlay",
+        ".auxiliarybar"
+      ]
+    }
+  ],
+  "status": "draft",
+  "verification": {
+    "status": "drift",
+    "checkedAt": "2026-10-30T19:34:20.905Z",
+    "compared": 874,
+    "diffs": 4,
+    "theme": "dark-2026",
+    "summary": [
+      "[agents-docked-customizations-skills-dark] missing: disabled.mac.monaco-sash.vertical",
+      "[agents-docked-customizations-skills-dark] content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > agent-feedback-editor-overlay-host.editor-container > editor-instance > ai-customization-management-editor.pointer-focus > management-split-view > horizontal.monaco-split-view2 > mac.monaco-scrollable-element > split-view-container > split-view-view.visible[1] > management-content > content-inner > prompts-content-container > ai-customization-list-widget.narrow-layout > list-container > list_id_c8.monaco-list.mouse-support.selection-none > mac.monaco-scrollable-element > monaco-list-rows h: expected 1564, got 652",
+      "[agents-docked-customizations-skills-light] missing: disabled.mac.monaco-sash.vertical",
+      "[agents-docked-customizations-skills-light] content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > agent-feedback-editor-overlay-host.editor-container > editor-instance > ai-customization-management-editor.pointer-focus > management-split-view > horizontal.monaco-split-view2 > mac.monaco-scrollable-element > split-view-container > split-view-view.visible[1] > management-content > content-inner > prompts-content-container > ai-customization-list-widget.narrow-layout > list-container > list_id_c8.monaco-list.mouse-support.selection-none > mac.monaco-scrollable-element > monaco-list-rows h: expected 1564, got 652"
+    ]
+  },
+  "createdAt": "2026-10-30T19:06:16.615Z",
+  "updatedAt": "2026-10-30T19:34:20.905Z"
+}

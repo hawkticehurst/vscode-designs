@@ -1,0 +1,98 @@
+{
+  "tag": "vsc-mcp-server-item",
+  "kind": "component",
+  "title": "MCP server item",
+  "category": "chat",
+  "description": "An MCP server row (`.mcp-server-item`): server icon, name, config source path or connector detail, then actions — Start / Sign In, error state, the enablement switch and ⋯ More actions.",
+  "usage": "Rows of a kind=\"mcp\" <vsc-customization-list>.",
+  "attributes": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "source",
+      "type": "string",
+      "description": "Config file the server comes from (middle-ellipsized)."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Detail line instead of a source path, e.g. \"Connector: Work IQ\"."
+    },
+    {
+      "name": "icon-src",
+      "type": "string",
+      "description": "Custom icon image; otherwise the MCP server codicon."
+    },
+    {
+      "name": "builtin",
+      "type": "boolean",
+      "description": "Configured server (adds `.builtin`)."
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "description": "Switch on."
+    },
+    {
+      "name": "no-toggle",
+      "type": "boolean",
+      "description": "No enablement switch (connectors)."
+    },
+    {
+      "name": "action",
+      "type": "enum",
+      "values": [
+        "",
+        "start",
+        "sign-in"
+      ]
+    },
+    {
+      "name": "error",
+      "type": "boolean",
+      "description": "Error state icon."
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "enabled",
+      "trigger": "Click the switch; fires `toggle`."
+    },
+    {
+      "name": "error",
+      "trigger": "Server failed to start."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "hostTag": "div",
+  "cssCaptures": [],
+  "requires": [
+    "vsc-workbench",
+    "vsc-customization-list"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/mcpListWidget.ts"
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/customizationToggle.ts"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Configured servers",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 470px; height: 300px;\"><div class=\"ai-customization-management-editor\" style=\"height: 300px;\"><div class=\"management-content\"><div class=\"content-inner\"><vsc-customization-list kind=\"mcp\" heading=\"MCP Servers\"><vsc-customization-group label=\"User\" count=\"4\" icon=\"account\" actions=\"add\" add-label=\"Add Server\" first></vsc-customization-group><vsc-mcp-server-item name=\"sprue\" source=\"~/.copilot/mcp-config.json\" builtin enabled></vsc-mcp-server-item><vsc-mcp-server-item name=\"playwright\" source=\"~/.copilot/mcp-config.json\" builtin enabled action=\"start\" error></vsc-mcp-server-item></vsc-customization-list></div></div></div></vsc-workbench>",
+      "width": 470
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-10-30T19:11:21.977Z",
+  "updatedAt": "2026-10-30T19:13:56.148Z"
+}

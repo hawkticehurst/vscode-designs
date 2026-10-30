@@ -1,0 +1,330 @@
+{
+  "label": "agents-customizations-shortcuts-dark",
+  "url": "vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/vs/sessions/electron-browser/sessions.html",
+  "selector": ".agent-sessions-customizations-section",
+  "theme": "dark-2026",
+  "capturedAt": "2026-10-30T19:23:03.102Z",
+  "rect": {
+    "x": 0,
+    "y": 596,
+    "w": 280,
+    "h": 300
+  },
+  "parentWidth": 280,
+  "ancestors": [
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-view visible",
+      "w": 280,
+      "h": 300,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-container",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-scrollable-element  mac",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-split-view2 vertical separator-border",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "agent-sessions-sidebar-splitview-container",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "agent-sessions-container",
+      "w": 280,
+      "h": 852,
+      "display": "flex",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "pane-body agent-sessions-viewpane",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "pane expanded vertical merged-header",
+      "w": 280,
+      "h": 852,
+      "display": "flex",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-view visible",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-container",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-scrollable-element  mac",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-split-view2 vertical",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-pane-view",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "agentic.workbench.view.sessionsContainer",
+      "classes": "composite viewlet",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "content",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "workbench.parts.sidebar",
+      "classes": "part sidebar left pane-composite-part",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-view visible",
+      "w": 280,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-container",
+      "w": 1436,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-scrollable-element  mac",
+      "w": 1436,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-split-view2 horizontal",
+      "w": 1436,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-grid-branch-node",
+      "w": 1436,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-view visible",
+      "w": 1436,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-container",
+      "w": 1436,
+      "h": 896,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-scrollable-element  mac",
+      "w": 1436,
+      "h": 896,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-split-view2 vertical",
+      "w": 1436,
+      "h": 896,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-grid-branch-node",
+      "w": 1436,
+      "h": 896,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-grid-view",
+      "w": 1436,
+      "h": 896,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "file-icons-enabled modern-ui-connected-editor-tabs monaco-enable-motion monaco-workbench agent-sessions-workbench modern-ui-tabs modern-ui-notifications-dialogs mac chromium nopanel nocustomviewgrid nostatusbar panel-alignment-justify macos-tahoe agents-side-pane-multiple-tabs dock-detail-panel modern-ui-frosted-glass noauxiliarybar vs-dark vscode-theme-defaults-themes-2026-dark-json sash-grippers-hidden",
+      "w": 1440,
+      "h": 900,
+      "display": "block",
+      "bg": "rgb(18, 19, 20)"
+    },
+    {
+      "tag": "body",
+      "id": "",
+      "classes": "",
+      "w": 1440,
+      "h": 900,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    }
+  ],
+  "inherited": {
+    "color": "rgb(191, 191, 191)",
+    "font-family": "-apple-system, \"system-ui\", sans-serif",
+    "font-size": "13px",
+    "font-weight": "400",
+    "line-height": "18.2px",
+    "letter-spacing": "normal",
+    "-webkit-font-smoothing": "auto",
+    "user-select": "none"
+  },
+  "vars": {
+    "--vscode-scrollbarSlider-background": "rgba(168, 169, 170, 0.52)",
+    "--vscode-scrollbarSlider-hoverBackground": "rgba(168, 169, 170, 0.56)",
+    "--vscode-scrollbarSlider-activeBackground": "rgba(168, 169, 170, 0.61)",
+    "--vscode-button-border": "#297aa0",
+    "--vscode-button-secondaryBorder": "#333536",
+    "--vscode-icon-foreground": "#8c8c8c",
+    "--vscode-focusBorder": "rgba(57, 148, 188, 0.7)",
+    "--vscode-cornerRadius-circle": "9999px",
+    "--vscode-fontSize-label1": "12px",
+    "--vscode-agentsPanel-foreground": "#bfbfbf",
+    "--vscode-foreground": "#bfbfbf",
+    "--vscode-cornerRadius-small": "4px",
+    "--vscode-toolbar-hoverBackground": "rgba(90, 93, 94, 0.31)",
+    "--vscode-spacing-size40": "4px",
+    "--vscode-fontWeight-semiBold": "600",
+    "--vscode-cornerRadius-medium": "6px",
+    "--vscode-strongForeground": "#ffffff",
+    "--vscode-descriptionForeground": "#8c8c8c",
+    "--vscode-fontSize-label2": "11px",
+    "--vscode-fontWeight-regular": "400",
+    "--vscode-spacing-size80": "8px",
+    "--vscode-strokeThickness": "1px",
+    "--vscode-activityBarBadge-background": "#307e9f",
+    "--vscode-spacing-size100": "10px",
+    "--vscode-codiconFontSize-compact": "12px",
+    "--vscode-list-hoverBackground": "rgba(255, 255, 255, 0.08)"
+  },
+  "fontFaces": [
+    {
+      "family": "codicon",
+      "css": "@font-face { font-family: codicon; font-display: block; src: url(\"../../media/codicon.ttf\") format(\"truetype\"); }",
+      "urls": [
+        "vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/media/codicon.ttf"
+      ]
+    }
+  ],
+  "rules": 74,
+  "scale": 2,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  }
+}

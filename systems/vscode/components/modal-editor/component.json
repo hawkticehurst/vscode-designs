@@ -1,0 +1,112 @@
+{
+  "tag": "vsc-modal-editor",
+  "kind": "context",
+  "title": "Modal editor",
+  "category": "overlays",
+  "description": "Modal editor (`.monaco-modal-editor-block.compact-header`): the dimmed backdrop, a centered resizable rounded panel with a 40px compact header (title + muted description, Maximize and Close actions) and one editor group whose editor fills the rest. This is how the Agents window shows Customizations by default (`workbench.editor.useModal: some`).",
+  "usage": "Wrap an editor that opens modally (Customizations, Settings in the Agents window). Use `contained` inside a positioned mock window so the backdrop covers only that window. Listen for `modal-close` / `modal-maximize`.",
+  "attributes": [
+    {
+      "name": "heading",
+      "type": "string",
+      "default": "Customizations"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Muted text after the title, e.g. \"(Copilot · scratchpad)\"."
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "default": "settings-gear",
+      "description": "Codicon for the title label (hidden in the compact header)."
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "default": "1152"
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "default": "684.8"
+    },
+    {
+      "name": "contained",
+      "type": "boolean",
+      "description": "Fill the nearest positioned ancestor instead of the viewport (for previews/prototypes)."
+    }
+  ],
+  "slots": [
+    {
+      "name": "",
+      "description": "The editor (e.g. <vsc-customizations-editor style=\"height: 100%\">)."
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "trigger": "Shown while present; Close / backdrop click fire `modal-close`."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "contents",
+  "cssCaptures": [
+    "modal-editor-header-dark",
+    "modal-editor-header-light",
+    "customizations-modal-browse-dark",
+    "customizations-modal-browse-light"
+  ],
+  "requires": [
+    "vsc-workbench"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/workbench/browser/parts/editor/modalEditorPart.ts"
+    },
+    {
+      "path": "src/vs/workbench/browser/workbench.contribution.ts",
+      "line": 374,
+      "note": "workbench.editor.useModal (off | some | all)"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Customizations modal",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"position: relative; width: 1152px; height: 685px;\"><vsc-modal-editor contained heading=\"Customizations\" description=\"(Copilot · scratchpad)\" width=\"1152\" height=\"684.8\"><vsc-customizations-editor section=\"skills\" style=\"height: 100%;\"></vsc-customizations-editor></vsc-modal-editor></vsc-workbench>",
+      "width": 1152
+    }
+  ],
+  "references": [
+    {
+      "capture": "modal-editor-header-dark",
+      "example": 0,
+      "theme": "dark-2026",
+      "width": 1152,
+      "root": ".modal-editor-header",
+      "ignore": []
+    },
+    {
+      "capture": "modal-editor-header-light",
+      "example": 0,
+      "theme": "light-2026",
+      "width": 1152,
+      "root": ".modal-editor-header",
+      "ignore": []
+    }
+  ],
+  "status": "draft",
+  "verification": {
+    "status": "verified",
+    "checkedAt": "2026-10-30T19:17:17.444Z",
+    "compared": 32,
+    "diffs": 0,
+    "theme": "dark-2026",
+    "summary": []
+  },
+  "createdAt": "2026-10-30T19:07:29.607Z",
+  "updatedAt": "2026-10-30T19:17:17.444Z"
+}

@@ -6,9 +6,11 @@ class Workbench extends ds.Element {
     this.setAttribute("role", "application");
     this.style.setProperty("--modern-ui-shell-background", "var(--vscode-modernUI-shellBackground)");
     // The Agents window (src/vs/sessions) root: its styles are scoped to `.agent-sessions-workbench`, its menus are
-    // frosted, and it doesn't carry the editor window's `modern-ui` flag (whose list rules would round rows 4px).
+    // frosted, and it doesn't carry the editor window's `modern-ui` / `floating-panels` flags (whose rules would round
+    // list rows and the editor part's content). `dock-detail-panel` is its layout flag for the editor part docked on
+    // the right (Changes / Files / editors such as Customizations).
     const agents = this.attr("window", "") === "agents";
-    this.setClasses({ "agent-sessions-workbench modern-ui-frosted-glass": agents, "modern-ui": !agents });
+    this.setClasses({ "agent-sessions-workbench modern-ui-frosted-glass dock-detail-panel": agents, "modern-ui floating-panels": !agents });
     return undefined;
   }
 }

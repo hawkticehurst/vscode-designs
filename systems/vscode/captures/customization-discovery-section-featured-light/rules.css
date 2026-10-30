@@ -1,0 +1,312 @@
+/*
+ * Captured from vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/vs/sessions/electron-browser/sessions.html
+ * Selector: .customization-discovery-section.featured
+ * On: 2026-10-30T18:55:58.168Z
+ */
+
+/* @capture sessions.desktop.main.css@382 */
+.monaco-text-button {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--vscode-button-border, transparent);
+  line-height: 16px;
+  font-size: 12px;
+  overflow-wrap: normal;
+}
+
+/* @capture sessions.desktop.main.css@383 */
+.monaco-text-button.secondary {
+  border-color: var(--vscode-button-secondaryBorder, var(--vscode-button-border, transparent));
+}
+
+/* @capture sessions.desktop.main.css@384 */
+.monaco-text-button.small {
+  line-height: 14px;
+  font-size: 11px;
+  padding: 3px 6px;
+}
+
+/* @capture sessions.desktop.main.css@385 */
+.monaco-text-button:focus {
+  outline-offset: 2px !important;
+}
+
+/* @capture sessions.desktop.main.css@386 */
+.monaco-text-button:hover {
+  text-decoration: none !important;
+}
+
+/* @capture sessions.desktop.main.css@387 */
+.monaco-button.disabled:focus,
+.monaco-button.disabled {
+  opacity: 0.4 !important;
+  cursor: default;
+}
+
+/* @capture sessions.desktop.main.css@530 */
+.codicon[class*="codicon-"] {
+  font: 16px / 1 codicon;
+  display: inline-block;
+  text-decoration: none;
+  text-rendering: auto;
+  text-align: center;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* @capture sessions.desktop.main.css@5750 */
+.ai-customization-management-editor .monaco-button:focus {
+  outline-offset: -1px !important;
+}
+
+/* @capture sessions.desktop.main.css@6500 */
+.customization-discovery-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vscode-spacing-size100);
+}
+
+/* @capture sessions.desktop.main.css@6501 */
+.customization-discovery-section.featured {
+  padding: var(--vscode-spacing-size120);
+  border-radius: var(--vscode-cornerRadius-medium);
+  background: color-mix(in srgb,var(--vscode-foreground) 4%,var(--vscode-editorWidget-background));
+}
+
+/* @capture sessions.desktop.main.css@6502 */
+.customization-discovery-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vscode-spacing-size120);
+}
+
+/* @capture sessions.desktop.main.css@6503 */
+.customization-discovery-section-title {
+  min-width: 0px;
+  margin: 0px;
+  font-size: var(--vscode-fontSize-heading3);
+  font-weight: var(--vscode-fontWeight-semiBold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6504 */
+.customization-discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0px, 1fr));
+  gap: var(--vscode-spacing-size40) var(--vscode-spacing-size120);
+}
+
+/* @capture sessions.desktop.main.css@6506 */
+.customization-discovery-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size80);
+  min-width: 0px;
+  min-height: 48px;
+  padding: var(--vscode-spacing-size40);
+  border-radius: var(--vscode-cornerRadius-small);
+  background: transparent;
+}
+
+/* @capture sessions.desktop.main.css@6513 */
+.customization-discovery-card-primary {
+  position: absolute;
+  inset: 0px;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  border: 0px;
+  border-radius: var(--vscode-cornerRadius-small);
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* @capture sessions.desktop.main.css@6514 */
+.customization-discovery-section.featured .customization-discovery-card {
+  padding-inline: var(--vscode-spacing-size80);
+}
+
+/* @capture sessions.desktop.main.css@6515 */
+.customization-discovery-card:hover,
+.customization-discovery-card:focus-within {
+  background: var(--vscode-list-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@6516 */
+.customization-discovery-card-icon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--vscode-spacing-size400);
+  height: var(--vscode-spacing-size400);
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--vscode-cornerRadius-small);
+  color: var(--vscode-descriptionForeground);
+  background: var(--vscode-editorWidget-background);
+  pointer-events: none;
+}
+
+/* @capture sessions.desktop.main.css@6518 */
+.customization-discovery-card-icon:not(.is-fallback) > .codicon {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@6519 */
+.customization-discovery-card-icon img {
+  position: absolute;
+  inset: 0px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* @capture sessions.desktop.main.css@6520 */
+.customization-discovery-card-body {
+  position: relative;
+  z-index: 1;
+  min-width: 0px;
+  pointer-events: none;
+}
+
+/* @capture sessions.desktop.main.css@6521 */
+.customization-discovery-card-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size80);
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6523 */
+.customization-discovery-card-name {
+  flex: 0 1 auto;
+  min-width: 0px;
+  color: inherit;
+  font-size: var(--vscode-fontSize-body1);
+  font-weight: var(--vscode-fontWeight-semiBold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6526 */
+.customization-discovery-card-description {
+  display: -webkit-box;
+  margin-top: var(--vscode-spacing-size40);
+  overflow: hidden;
+  font-size: var(--vscode-fontSize-body2);
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+/* @capture sessions.desktop.main.css@6527 */
+.customization-discovery-card-metadata {
+  flex: 1 1 0%;
+}
+
+/* @capture sessions.desktop.main.css@6529 */
+.customization-discovery-card-metadata {
+  min-width: 0px;
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-label2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6530 */
+.customization-discovery-card-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size80);
+  margin-left: auto;
+  pointer-events: none;
+}
+
+/* @capture sessions.desktop.main.css@6531 */
+.customization-discovery-card-actions > .monaco-button {
+  width: auto;
+  pointer-events: auto;
+}
+
+/* @capture sessions.desktop.main.css@6535 */
+.customization-discovery-card-primary:focus-visible {
+  outline: var(--vscode-strokeThickness) solid var(--vscode-focusBorder);
+  outline-offset: calc(-1 * var(--vscode-strokeThickness));
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+/* @capture sessions.desktop.main.css@8418 */
+.monaco-workbench img {
+  border: 0px;
+}
+
+/* @capture sessions.desktop.main.css@8420 */
+.monaco-workbench a {
+  text-decoration: none;
+}
+
+/* @capture sessions.desktop.main.css@8424 */
+.monaco-workbench a:active {
+  color: inherit;
+  background-color: inherit;
+}
+
+/* @capture sessions.desktop.main.css@8437 */
+.monaco-workbench .codicon {
+  color: var(--vscode-icon-foreground);
+}
+
+/* @capture sessions.desktop.main.css@8438 */
+.monaco-workbench .codicon[class*="codicon-"] {
+  font-size: 16px;
+}
+
+/* @capture sessions.desktop.main.css@8446 */
+.monaco-workbench a:focus-visible,
+.monaco-workbench [tabindex="0"]:focus,
+.monaco-workbench button:focus {
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: -1px;
+  outline-color: var(--vscode-focusBorder);
+  opacity: 1;
+}
+
+/* @capture sessions.desktop.main.css@8449 */
+.monaco-workbench [tabindex="0"]:active {
+  outline: 0px !important;
+}
+
+/* @capture codiconStyles@4 */
+.codicon-lightbulb::before {
+  content: "\ea61";
+}
+
+/* @capture codiconStyles@209 */
+.codicon-extensions::before {
+  content: "\eae6";
+}

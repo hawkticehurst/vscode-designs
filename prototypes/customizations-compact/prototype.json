@@ -1,0 +1,24 @@
+{
+  "title": "Customizations",
+  "description": "Same real Customizations UI in the docked side panel, but the panel is widened toward the modal's proportions (820px) and the editor keeps its default 200px section sidebar. List pages switch to their wide layout; Browse stays single-column below 800px like the product. The inbox reflows to the narrower space (container queries), showing the cost of a wide panel.",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-10-30T18:42:57.161Z",
+  "updatedAt": "2026-10-30T19:33:43.914Z"
+}

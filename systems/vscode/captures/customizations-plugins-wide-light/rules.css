@@ -1,0 +1,3804 @@
+/*
+ * Captured from vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/vs/sessions/electron-browser/sessions.html
+ * Selector: .ai-customization-management-editor .management-content
+ * On: 2026-10-30T18:56:48.808Z
+ */
+
+/* @capture sessions.desktop.main.css@2 */
+.monaco-editor {
+  position: relative;
+  overflow: visible;
+  text-size-adjust: 100%;
+  text-spacing-trim: space-all;
+  color: var(--vscode-editor-foreground);
+  background-color: var(--vscode-editor-background);
+  overflow-wrap: initial;
+}
+
+/* @capture sessions.desktop.main.css@3 */
+.monaco-editor-background {
+  background-color: var(--vscode-editor-background);
+}
+
+/* @capture sessions.desktop.main.css@9 */
+.monaco-editor .overflow-guard {
+  position: relative;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@10 */
+.monaco-editor .view-overlays {
+  position: absolute;
+  top: 0px;
+}
+
+/* @capture sessions.desktop.main.css@11 */
+.monaco-editor .view-overlays > div,
+.monaco-editor .margin-view-overlays > div {
+  position: absolute;
+  width: 100%;
+}
+
+/* @capture sessions.desktop.main.css@23 */
+.monaco-scrollable-element > .invisible {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* @capture sessions.desktop.main.css@24 */
+.monaco-scrollable-element > .invisible.fade {
+  transition: opacity 0.8s linear;
+}
+
+/* @capture sessions.desktop.main.css@26 */
+.monaco-scrollable-element > .shadow {
+  position: absolute;
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@31 */
+.monaco-scrollable-element > .scrollbar {
+  background: var(--vscode-scrollbar-background);
+}
+
+/* @capture sessions.desktop.main.css@32 */
+.monaco-scrollable-element > .scrollbar > .slider {
+  background: var(--vscode-scrollbarSlider-background);
+}
+
+/* @capture sessions.desktop.main.css@33 */
+.monaco-scrollable-element > .scrollbar > .slider:hover {
+  background: var(--vscode-scrollbarSlider-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@34 */
+.monaco-scrollable-element > .scrollbar > .slider.active {
+  background: var(--vscode-scrollbarSlider-activeBackground);
+}
+
+/* @capture sessions.desktop.main.css@35 */
+.monaco-editor .blockDecorations-container {
+  position: absolute;
+  top: 0px;
+  pointer-events: none;
+}
+
+/* @capture sessions.desktop.main.css@37 */
+.monaco-editor .margin-view-overlays .current-line {
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+/* @capture sessions.desktop.main.css@40 */
+.monaco-editor .glyph-margin {
+  position: absolute;
+  top: 0px;
+}
+
+/* @capture sessions.desktop.main.css@49 */
+.monaco-mouse-cursor-text {
+  cursor: text;
+}
+
+/* @capture sessions.desktop.main.css@54 */
+.monaco-editor.no-user-select .lines-content,
+.monaco-editor.no-user-select .view-line,
+.monaco-editor.no-user-select .view-lines {
+  user-select: none;
+}
+
+/* @capture sessions.desktop.main.css@55 */
+.monaco-editor.mac .lines-content:hover,
+.monaco-editor.mac .view-line:hover,
+.monaco-editor.mac .view-lines:hover {
+  user-select: text;
+}
+
+/* @capture sessions.desktop.main.css@57 */
+.monaco-editor .view-lines {
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@58 */
+.monaco-editor .view-line {
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+}
+
+/* @capture sessions.desktop.main.css@59 */
+.monaco-editor .lines-content > .view-lines > .view-line > span {
+  top: 0px;
+  bottom: 0px;
+  position: absolute;
+}
+
+/* @capture sessions.desktop.main.css@64 */
+.monaco-editor .margin {
+  background-color: var(--vscode-editorGutter-background);
+}
+
+/* @capture sessions.desktop.main.css@66 */
+.monaco-editor .minimap.slider-mouseover .minimap-slider {
+  opacity: 0;
+  transition: opacity 0.1s linear;
+}
+
+/* @capture sessions.desktop.main.css@67 */
+.monaco-editor .minimap.slider-mouseover:hover .minimap-slider,
+.monaco-editor .minimap.slider-mouseover .minimap-slider.active {
+  opacity: 1;
+}
+
+/* @capture sessions.desktop.main.css@68 */
+.monaco-editor .minimap-slider .minimap-slider-horizontal {
+  background: var(--vscode-minimapSlider-background);
+}
+
+/* @capture sessions.desktop.main.css@69 */
+.monaco-editor .minimap-slider:hover .minimap-slider-horizontal {
+  background: var(--vscode-minimapSlider-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@70 */
+.monaco-editor .minimap-slider.active .minimap-slider-horizontal {
+  background: var(--vscode-minimapSlider-activeBackground);
+}
+
+/* @capture sessions.desktop.main.css@72 */
+.monaco-editor .minimap-shadow-hidden {
+  position: absolute;
+  width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@78 */
+.monaco-editor .minimap {
+  z-index: 5;
+}
+
+/* @capture sessions.desktop.main.css@79 */
+.monaco-editor .minimap canvas {
+  opacity: 0.9;
+}
+
+/* @capture sessions.desktop.main.css@80 */
+.monaco-editor .overlayWidgets {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+/* @capture sessions.desktop.main.css@98 */
+.monaco-editor .cursors-layer {
+  position: absolute;
+  top: 0px;
+}
+
+/* @capture sessions.desktop.main.css@99 */
+.monaco-editor .cursors-layer > .cursor {
+  position: absolute;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@115 */
+.monaco-editor .native-edit-context {
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  z-index: -10;
+  white-space: pre-wrap;
+}
+
+/* @capture sessions.desktop.main.css@116 */
+.monaco-editor .ime-text-area {
+  min-width: 0px;
+  min-height: 0px;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  resize: none;
+  border-width: medium;
+  border-style: none;
+  border-color: currentcolor;
+  border-image: none;
+  overflow: hidden;
+  color: transparent;
+  background-color: transparent;
+  z-index: -10;
+  outline: none !important;
+}
+
+/* @capture sessions.desktop.main.css@124 */
+.monaco-list {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@125 */
+.monaco-list.mouse-support {
+  user-select: none;
+}
+
+/* @capture sessions.desktop.main.css@126 */
+.monaco-list > .monaco-scrollable-element {
+  height: 100%;
+}
+
+/* @capture sessions.desktop.main.css@127 */
+.monaco-list-rows {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* @capture sessions.desktop.main.css@129 */
+.monaco-list-row {
+  position: absolute;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* @capture sessions.desktop.main.css@130 */
+.monaco-list.mouse-support .monaco-list-row {
+  cursor: pointer;
+  touch-action: none;
+}
+
+/* @capture sessions.desktop.main.css@131 */
+.monaco-list .monaco-scrollable-element > .scrollbar.vertical {
+  z-index: 14;
+}
+
+/* @capture sessions.desktop.main.css@201 */
+.monaco-action-bar {
+  white-space: nowrap;
+  height: 100%;
+}
+
+/* @capture sessions.desktop.main.css@202 */
+.monaco-action-bar .actions-container {
+  display: flex;
+  margin: 0px auto;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+}
+
+/* @capture sessions.desktop.main.css@204 */
+.monaco-action-bar .action-item {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+/* @capture sessions.desktop.main.css@205 */
+.monaco-action-bar .action-item.disabled {
+  cursor: default;
+}
+
+/* @capture sessions.desktop.main.css@206 */
+.monaco-action-bar .action-item .codicon {
+  display: block;
+}
+
+/* @capture sessions.desktop.main.css@207 */
+.monaco-action-bar .action-item .codicon {
+  display: flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+}
+
+/* @capture sessions.desktop.main.css@208 */
+.monaco-action-bar .action-label {
+  display: flex;
+  font-size: 11px;
+  padding: 3px;
+  border-radius: var(--vscode-cornerRadius-medium);
+}
+
+/* @capture sessions.desktop.main.css@209 */
+.monaco-action-bar .action-item.disabled .action-label:not(.icon),
+.monaco-action-bar .action-item.disabled .action-label:not(.icon)::before,
+.monaco-action-bar .action-item.disabled .action-label:not(.icon):hover {
+  color: var(--vscode-disabledForeground);
+}
+
+/* @capture sessions.desktop.main.css@250 */
+.monaco-dropdown {
+  height: 100%;
+  padding: 0px;
+}
+
+/* @capture sessions.desktop.main.css@251 */
+.monaco-dropdown > .dropdown-label {
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* @capture sessions.desktop.main.css@252 */
+.monaco-dropdown > .dropdown-label > .action-label.disabled {
+  cursor: default;
+}
+
+/* @capture sessions.desktop.main.css@258 */
+.monaco-toolbar {
+  height: 100%;
+}
+
+/* @capture sessions.desktop.main.css@382 */
+.monaco-text-button {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--vscode-button-border, transparent);
+  line-height: 16px;
+  font-size: 12px;
+  overflow-wrap: normal;
+}
+
+/* @capture sessions.desktop.main.css@383 */
+.monaco-text-button.secondary {
+  border-color: var(--vscode-button-secondaryBorder, var(--vscode-button-border, transparent));
+}
+
+/* @capture sessions.desktop.main.css@384 */
+.monaco-text-button.small {
+  line-height: 14px;
+  font-size: 11px;
+  padding: 3px 6px;
+}
+
+/* @capture sessions.desktop.main.css@385 */
+.monaco-text-button:focus {
+  outline-offset: 2px !important;
+}
+
+/* @capture sessions.desktop.main.css@386 */
+.monaco-text-button:hover {
+  text-decoration: none !important;
+}
+
+/* @capture sessions.desktop.main.css@387 */
+.monaco-button.disabled:focus,
+.monaco-button.disabled {
+  opacity: 0.4 !important;
+  cursor: default;
+}
+
+/* @capture sessions.desktop.main.css@388 */
+.monaco-text-button .codicon {
+  margin: 0px 0.2em;
+  color: inherit !important;
+}
+
+/* @capture sessions.desktop.main.css@393 */
+.monaco-button-dropdown {
+  display: flex;
+  cursor: pointer;
+}
+
+/* @capture sessions.desktop.main.css@394 */
+.monaco-button-dropdown.disabled {
+  cursor: default;
+}
+
+/* @capture sessions.desktop.main.css@395 */
+.monaco-button-dropdown > .monaco-button:focus {
+  outline-offset: -1px !important;
+}
+
+/* @capture sessions.desktop.main.css@396 */
+.monaco-button-dropdown.disabled > .monaco-button.disabled,
+.monaco-button-dropdown.disabled > .monaco-button.disabled:focus,
+.monaco-button-dropdown.disabled > .monaco-button-dropdown-separator {
+  opacity: 0.4 !important;
+}
+
+/* @capture sessions.desktop.main.css@398 */
+.monaco-button-dropdown .monaco-button-dropdown-separator {
+  padding: 4px 0px;
+  cursor: default;
+}
+
+/* @capture sessions.desktop.main.css@399 */
+.monaco-button-dropdown .monaco-button-dropdown-separator > div {
+  height: 100%;
+  width: 1px;
+}
+
+/* @capture sessions.desktop.main.css@400 */
+.monaco-button-dropdown > .monaco-button.monaco-dropdown-button {
+  border:1px solid var(--vscode-button-border, transparent);border-left-width:0!important;border-radius:0 4px 4px 0;padding:0 4px;display:flex;align-items:center;
+}
+
+/* @capture sessions.desktop.main.css@420 */
+.monaco-switch {
+  position: relative;
+  container-type: size;
+  flex: 0 0 auto;
+  width: var(--vscode-spacing-size280);
+  height: var(--vscode-spacing-size160);
+  padding: 0px;
+  border: var(--vscode-strokeThickness) solid transparent;
+  border-radius: var(--vscode-cornerRadius-circle);
+  background: color-mix(in srgb,var(--vscode-descriptionForeground) 36%,transparent);
+  cursor: pointer;
+  transition: background-color 0.12s, border-color 0.12s;
+}
+
+/* @capture sessions.desktop.main.css@421 */
+.monaco-switch.checked {
+  background: var(--vscode-button-background);
+  border-color: var(--vscode-button-background);
+}
+
+/* @capture sessions.desktop.main.css@422 */
+.monaco-switch:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+/* @capture sessions.desktop.main.css@423 */
+.monaco-switch:focus-visible {
+  outline: var(--vscode-strokeThickness) solid var(--vscode-focusBorder);
+  outline-offset: var(--vscode-spacing-size20);
+}
+
+/* @capture sessions.desktop.main.css@424 */
+.monaco-switch-thumb {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  box-sizing: border-box;
+  width: 100cqh;
+  border: var(--vscode-strokeThickness) solid transparent;
+  border-radius: var(--vscode-cornerRadius-circle);
+  background-color: var(--vscode-button-foreground);
+  background-clip: padding-box;
+  transition: left 0.12s;
+}
+
+/* @capture sessions.desktop.main.css@425 */
+.monaco-switch.checked .monaco-switch-thumb {
+  left: calc(100% - 100cqh);
+}
+
+/* @capture sessions.desktop.main.css@472 */
+.monaco-action-bar .actions-container.highlight-toggled .action-label.checked {
+  background: var(--vscode-actionBar-toggledBackground) !important;
+}
+
+/* @capture sessions.desktop.main.css@523 */
+.monaco-link {
+  color: var(--vscode-textLink-foreground);
+}
+
+/* @capture sessions.desktop.main.css@524 */
+.monaco-link:hover {
+  color: var(--vscode-textLink-activeForeground);
+}
+
+/* @capture sessions.desktop.main.css@530 */
+.codicon[class*="codicon-"] {
+  font: 16px / 1 codicon;
+  display: inline-block;
+  text-decoration: none;
+  text-rendering: auto;
+  text-align: center;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* @capture sessions.desktop.main.css@652 */
+.monaco-inputbox {
+  position: relative;
+  display: block;
+  padding: 0px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: inherit;
+}
+
+/* @capture sessions.desktop.main.css@653 */
+.monaco-inputbox > .ibwrapper > .input {
+  padding: 4px 6px;
+}
+
+/* @capture sessions.desktop.main.css@654 */
+.monaco-inputbox > .ibwrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* @capture sessions.desktop.main.css@655 */
+.monaco-inputbox > .ibwrapper > .input {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  line-height: inherit;
+  border-width: medium;
+  border-style: none;
+  border-color: currentcolor;
+  border-image: none;
+  font-family: inherit;
+  font-size: inherit;
+  resize: none;
+  color: inherit;
+}
+
+/* @capture sessions.desktop.main.css@656 */
+.monaco-inputbox > .ibwrapper > input {
+  text-overflow: ellipsis;
+}
+
+/* @capture sessions.desktop.main.css@745 */
+.monaco-tl-row {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  position: relative;
+}
+
+/* @capture sessions.desktop.main.css@746 */
+.monaco-tl-row.disabled {
+  cursor: default;
+}
+
+/* @capture sessions.desktop.main.css@747 */
+.monaco-tl-indent {
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 16px;
+  pointer-events: none;
+}
+
+/* @capture sessions.desktop.main.css@751 */
+.monaco-tl-twistie,
+.monaco-tl-contents {
+  height: 100%;
+}
+
+/* @capture sessions.desktop.main.css@752 */
+.monaco-tl-twistie {
+  font-size: 10px;
+  text-align: right;
+  padding-right: 6px;
+  flex-shrink: 0;
+  width: 16px;
+  align-items: center;
+  justify-content: center;
+  transform: translate(3px);
+  display: flex !important;
+}
+
+/* @capture sessions.desktop.main.css@753 */
+.monaco-tl-contents {
+  flex: 1 1 0%;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@754 */
+.monaco-tl-twistie::before {
+  border-radius: 20px;
+}
+
+/* @capture sessions.desktop.main.css@755 */
+.monaco-tl-twistie.collapsed::before {
+  transform: rotate(-90deg);
+}
+
+/* @capture sessions.desktop.main.css@766 */
+.monaco-list .monaco-scrollable-element .monaco-tree-sticky-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 0px;
+  z-index: 13;
+  background-color: var(--vscode-sideBar-background);
+}
+
+/* @capture sessions.desktop.main.css@769 */
+.monaco-list .monaco-scrollable-element .monaco-tree-sticky-container.empty,
+.monaco-list .monaco-scrollable-element .monaco-tree-sticky-container.empty .monaco-tree-sticky-container-shadow {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@770 */
+.monaco-list .monaco-scrollable-element .monaco-tree-sticky-container .monaco-tree-sticky-container-shadow {
+  position: absolute;
+  bottom: -3px;
+  left: 0px;
+  height: 0px;
+  width: 100%;
+}
+
+/* @capture sessions.desktop.main.css@976 */
+.monaco-editor {
+  --inline-edit-border-radius: 3px;
+}
+
+/* @capture sessions.desktop.main.css@1114 */
+.monaco-progress-container {
+  width: 100%;
+  height: 2px;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@1115 */
+.monaco-progress-container .progress-bit {
+  width: 2%;
+  height: 2px;
+  position: absolute;
+  left: 0px;
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@1116 */
+.monaco-progress-container.active .progress-bit {
+  display: inherit;
+}
+
+/* @capture sessions.desktop.main.css@1912 */
+.suggest-input-container {
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* @capture sessions.desktop.main.css@1913 */
+.suggest-input-container .monaco-editor-background,
+.suggest-input-container .monaco-editor {
+  color: inherit;
+}
+
+/* @capture sessions.desktop.main.css@1914 */
+.suggest-input-container .suggest-input-placeholder {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  margin-top: 1px;
+}
+
+/* @capture sessions.desktop.main.css@1915 */
+.suggest-input-container .monaco-editor,
+.suggest-input-container .monaco-editor .lines-content {
+  background: none !important;
+}
+
+/* @capture sessions.desktop.main.css@5750 */
+.ai-customization-management-editor .monaco-button:focus,
+.ai-customization-list-widget .monaco-button:focus,
+.mcp-list-widget .monaco-button:focus {
+  outline-offset: -1px !important;
+}
+
+/* @capture sessions.desktop.main.css@5776 */
+.ai-customization-management-editor .management-content {
+  background-color: var(--vscode-editor-background);
+  height: 100%;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@5777 */
+.ai-customization-management-editor .content-inner {
+  height: 100%;
+  box-sizing: border-box;
+  padding-right: var(--vscode-spacing-size80);
+  padding-bottom: var(--vscode-spacing-size80);
+  display: flex;
+  flex-direction: column;
+}
+
+/* @capture sessions.desktop.main.css@5778 */
+.ai-customization-management-editor .content-inner .welcome-page-host {
+  flex: 1 1 auto;
+  min-height: 0px;
+  padding-block: var(--vscode-spacing-size400) var(--vscode-spacing-size160);
+  background: var(--vscode-agentsPanel-background);
+  border: 1px solid var(--vscode-agentsPanel-border);
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@5779 */
+.plugin-list-widget > .section-title-header,
+.plugin-list-widget > .plugin-marketplace-back-container,
+.plugin-list-widget > .list-search-and-button-container,
+.plugin-list-widget > .mcp-list-container,
+.ai-customization-list-widget > .section-title-header,
+.ai-customization-list-widget > .list-search-and-button-container,
+.ai-customization-list-widget > .list-container,
+.tools-list-widget > .section-title-header,
+.tools-list-widget > .tools-list-search-and-button-container,
+.tools-list-widget > .tools-list-tree {
+  width: min(100%, 840px);
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@5780 */
+.ai-customization-management-editor .contributed-section-container {
+  flex: 1 1 auto;
+  min-height: 0px;
+}
+
+/* @capture sessions.desktop.main.css@5786 */
+.ai-customization-list-widget {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@5793 */
+.ai-customization-list-widget .list-search-and-button-container,
+.mcp-list-widget .list-search-and-button-container {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: var(--vscode-spacing-size80) 0 0;
+  margin-bottom: var(--vscode-spacing-size160);
+}
+
+/* @capture sessions.desktop.main.css@5794 */
+.ai-customization-list-widget .list-search-and-button-container {
+  gap: var(--vscode-spacing-size80);
+}
+
+/* @capture sessions.desktop.main.css@5795 */
+.mcp-list-widget .list-search-and-button-container {
+  gap: var(--vscode-spacing-size40);
+}
+
+/* @capture sessions.desktop.main.css@5797 */
+.plugin-list-widget.narrow-layout .list-search-and-button-container {
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+/* @capture sessions.desktop.main.css@5798 */
+.plugin-list-widget.narrow-layout .list-search-container {
+  flex-basis: 100%;
+}
+
+/* @capture sessions.desktop.main.css@5803 */
+.ai-customization-list-widget .list-search-container,
+.mcp-list-widget .list-search-container {
+  flex: 1 1 0%;
+}
+
+/* @capture sessions.desktop.main.css@5804 */
+.ai-customization-list-widget .list-search-container .monaco-inputbox,
+.mcp-list-widget .list-search-container .monaco-inputbox {
+  width: 100%;
+}
+
+/* @capture sessions.desktop.main.css@5805 */
+.ai-customization-list-widget .list-add-button-container,
+.mcp-list-widget .list-add-button-container {
+  flex-shrink: 0;
+}
+
+/* @capture sessions.desktop.main.css@5806 */
+.ai-customization-list-widget .list-add-button,
+.mcp-list-widget .list-add-button {
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@5808 */
+.customization-tree-container .monaco-list-row,
+.ai-customization-list-widget .list-container .monaco-list-row {
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+/* @capture sessions.desktop.main.css@5809 */
+.customization-tree-container .monaco-list-row .group-chevron,
+.ai-customization-list-widget .list-container .monaco-list-row .group-chevron {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@5810 */
+.customization-tree-container .monaco-list-row .plugin-list-item:hover,
+.customization-tree-container .monaco-list-row .mcp-server-item:hover,
+.customization-tree-container .monaco-list-row .ai-customization-group-header:hover,
+.ai-customization-list-widget .list-container .monaco-list-row .ai-customization-list-item:hover,
+.ai-customization-list-widget .list-container .monaco-list-row .ai-customization-group-header:hover,
+.plugin-list-widget .mcp-list-container .monaco-list-row .plugin-list-item:hover {
+  background-color: transparent;
+}
+
+/* @capture sessions.desktop.main.css@5811 */
+.ai-customization-list-widget .list-container .ai-customization-list-item {
+  padding-inline: var(--vscode-spacing-size40) var(--vscode-spacing-size80);
+}
+
+/* @capture sessions.desktop.main.css@5812 */
+.ai-customization-list-widget .list-container {
+  flex: 1 1 0%;
+  min-height: 0px;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@5814 */
+.ai-customization-list-widget .list-empty-state,
+.ai-customization-management-editor .tools-list-widget .list-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  gap: 8px;
+  text-align: center;
+  flex: 1 1 0%;
+}
+
+/* @capture sessions.desktop.main.css@5815 */
+.ai-customization-list-widget .list-empty-state .empty-state-text {
+  font-size: 16px;
+  font-weight: var(--vscode-fontWeight-semiBold);
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@5816 */
+.ai-customization-list-widget .list-empty-state .empty-state-subtext {
+  font-size: var(--vscode-fontSize-body1);
+  color: var(--vscode-descriptionForeground);
+  max-width: 250px;
+  line-height: 1.4;
+}
+
+/* @capture sessions.desktop.main.css@5818 */
+.agent-sessions-workbench .ai-customization-list-widget .list-empty-state .empty-state-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+/* @capture sessions.desktop.main.css@5820 */
+.ai-customization-group-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+}
+
+/* @capture sessions.desktop.main.css@5821 */
+.ai-customization-group-header:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@5822 */
+.ai-customization-group-header .group-chevron {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--vscode-codiconFontSize-compact);
+  opacity: 0.7;
+  order: 10;
+  margin-left: auto;
+}
+
+/* @capture sessions.desktop.main.css@5823 */
+.ai-customization-group-header .group-icon {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@5824 */
+.ai-customization-group-header .group-label-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@5825 */
+.ai-customization-group-header .group-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size40);
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@5826 */
+.ai-customization-group-header .group-label {
+  font-weight: var(--vscode-fontWeight-semiBold);
+  color: var(--vscode-sideBarSectionHeader-foreground, var(--vscode-foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@5827 */
+.ai-customization-group-header .group-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: var(--vscode-fontSize-label2);
+  font-weight: var(--vscode-fontWeight-semiBold);
+  min-width: var(--vscode-spacing-size160);
+  height: var(--vscode-spacing-size160);
+  padding: 0 var(--vscode-spacing-size40);
+  border-radius: var(--vscode-cornerRadius-circle);
+  background-color: var(--vscode-toolbar-hoverBackground);
+  color: var(--vscode-descriptionForeground);
+  text-align: center;
+  line-height: normal;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@5829 */
+.ai-customization-group-header .group-info {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  opacity: 0;
+  color: var(--vscode-descriptionForeground);
+  transition: opacity 0.1s;
+}
+
+/* @capture sessions.desktop.main.css@5830 */
+.ai-customization-group-header:hover .group-info {
+  opacity: 0.7;
+}
+
+/* @capture sessions.desktop.main.css@5831 */
+.ai-customization-group-header .group-info:hover {
+  opacity: 1;
+}
+
+/* @capture sessions.desktop.main.css@5832 */
+.ai-customization-list-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px 6px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  min-height: 32px;
+}
+
+/* @capture sessions.desktop.main.css@5833 */
+.ai-customization-list-item:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@5834 */
+.ai-customization-list-widget .list-container .ai-customization-list-item {
+  min-height: 0px;
+}
+
+/* @capture sessions.desktop.main.css@5835 */
+.ai-customization-group-header .group-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* @capture sessions.desktop.main.css@5836 */
+.ai-customization-group-header .group-actions:empty {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@5837 */
+.ai-customization-group-header .group-actions .plugin-card-section-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size40);
+}
+
+/* @capture sessions.desktop.main.css@5838 */
+.customization-toggle {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* @capture sessions.desktop.main.css@5851 */
+.plugin-list-widget .plugin-installed-item .plugin-list-item-action,
+.plugin-list-widget .mcp-server-item .mcp-server-actions {
+  display: contents;
+}
+
+/* @capture sessions.desktop.main.css@5852 */
+.plugin-list-widget .plugin-installed-item .customization-toggle,
+.plugin-list-widget .mcp-server-item .customization-toggle {
+  order: 10;
+  margin-left: auto;
+}
+
+/* @capture sessions.desktop.main.css@5853 */
+.plugin-list-widget .plugin-installed-item .plugin-card-icon-button,
+.plugin-list-widget .mcp-server-item .plugin-card-icon-button {
+  order: 11;
+}
+
+/* @capture sessions.desktop.main.css@5854 */
+.ai-customization-list-item.disabled {
+  opacity: 0.5;
+}
+
+/* @capture sessions.desktop.main.css@5855 */
+.ai-customization-list-item .item-left {
+  display: flex;
+  align-items: center;
+  flex: 1 1 0%;
+  overflow: hidden;
+  gap: 10px;
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@5860 */
+.inline-badge {
+  flex-shrink: 0;
+  font-size: var(--vscode-fontSize-label3);
+  padding: 0px 4px;
+  border-radius: 3px;
+  color: var(--vscode-descriptionForeground);
+  background: var(--vscode-toolbar-hoverBackground, rgba(90, 93, 94, .31));
+  white-space: nowrap;
+  line-height: 16px;
+}
+
+/* @capture sessions.desktop.main.css@5861 */
+.ai-customization-list-item .item-status-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+/* @capture sessions.desktop.main.css@5863 */
+.mcp-server-item .mcp-server-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* @capture sessions.desktop.main.css@5864 */
+.mcp-server-item .mcp-server-secondary-line {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size40);
+  min-width: 0px;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@5865 */
+.mcp-server-item .mcp-server-secondary-line > * {
+  flex-shrink: 1;
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@5867 */
+.mcp-server-item .mcp-server-secondary-line > .mcp-server-source-path {
+  flex-shrink: 1;
+}
+
+/* @capture sessions.desktop.main.css@5868 */
+.ai-customization-list-item .item-type-icon {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@5872 */
+.ai-customization-list-item .item-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1 1 0%;
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@5873 */
+.ai-customization-list-item .item-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@5874 */
+.ai-customization-list-item .item-name {
+  font-size: var(--vscode-fontSize-body1);
+  font-weight: var(--vscode-fontWeight-semiBold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 18px;
+}
+
+/* @capture sessions.desktop.main.css@5875 */
+.ai-customization-list-item .item-description {
+  font-size: var(--vscode-fontSize-body2);
+  color: var(--vscode-descriptionForeground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 14px;
+}
+
+/* @capture sessions.desktop.main.css@5876 */
+.middle-ellipsis-path-label {
+  display: flex;
+  min-width: 0px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@5877 */
+.middle-ellipsis-path-label .middle-ellipsis-path-prefix {
+  flex: 0 1 auto;
+  min-width: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@5878 */
+.middle-ellipsis-path-label .middle-ellipsis-path-suffix {
+  flex: 0 0 auto;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@5879 */
+.middle-ellipsis-path-label.single-segment .middle-ellipsis-path-suffix {
+  max-width: 100%;
+}
+
+/* @capture sessions.desktop.main.css@5880 */
+.ai-customization-list-item .item-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 16px;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+/* @capture sessions.desktop.main.css@5881 */
+.ai-customization-list-item:hover .item-right,
+.ai-customization-list-item:focus-within .item-right,
+.monaco-list-row.focused .ai-customization-list-item .item-right {
+  opacity: 1;
+}
+
+/* @capture sessions.desktop.main.css@5882 */
+.ai-customization-list-item .item-right .action-label {
+  width: var(--vscode-spacing-size240);
+  min-width: var(--vscode-spacing-size240);
+  height: var(--vscode-spacing-size240);
+  padding: 0px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+/* @capture sessions.desktop.main.css@5884 */
+.ai-customization-list-widget .section-title-header,
+.mcp-list-widget .section-title-header,
+.ai-customization-management-editor .tools-list-widget .section-title-header {
+  flex-shrink: 0;
+  padding: 0px;
+}
+
+/* @capture sessions.desktop.main.css@5885 */
+.ai-customization-list-widget .section-title-header .section-title-row,
+.mcp-list-widget .section-title-header .section-title-row,
+.ai-customization-management-editor .tools-list-widget .section-title-header .section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0px 0px 6px;
+}
+
+/* @capture sessions.desktop.main.css@5886 */
+.ai-customization-list-widget .section-title-header .section-title-actions,
+.mcp-list-widget .section-title-header .section-title-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--vscode-spacing-size60);
+}
+
+/* @capture sessions.desktop.main.css@5887 */
+.ai-customization-list-widget .section-title-header .section-title-actions > .monaco-button,
+.mcp-list-widget .section-title-header .section-title-actions > .monaco-button {
+  width: auto;
+  height: var(--vscode-spacing-size240);
+  font-size: var(--vscode-fontSize-label1);
+}
+
+/* @capture sessions.desktop.main.css@5888 */
+.plugin-list-widget .section-title-header .section-title-actions > .section-title-more-action.monaco-button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--vscode-spacing-size240);
+  min-width: var(--vscode-spacing-size240);
+  padding: var(--vscode-spacing-sizeNone);
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+/* @capture sessions.desktop.main.css@5891 */
+.ai-customization-list-widget .section-title-header .section-title,
+.mcp-list-widget .section-title-header .section-title,
+.ai-customization-management-editor .tools-list-widget .section-title-header .section-title {
+  flex: 1 1 0%;
+  min-width: 0px;
+  font-size: var(--vscode-fontSize-heading2);
+  font-weight: var(--vscode-fontWeight-semiBold);
+  margin: 0px;
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@5892 */
+.ai-customization-list-widget .section-title-header .section-title-description,
+.mcp-list-widget .section-title-header .section-title-description,
+.ai-customization-management-editor .tools-list-widget .section-title-header .section-title-description {
+  font-size: var(--vscode-fontSize-body1);
+  line-height: 1.45;
+  color: var(--vscode-descriptionForeground);
+  margin: 0px 0px 8px;
+}
+
+/* @capture sessions.desktop.main.css@5893 */
+.ai-customization-list-widget .section-title-header .section-title-link,
+.mcp-list-widget .section-title-header .section-title-link,
+.ai-customization-management-editor .tools-list-widget .section-title-header .section-title-link {
+  font-size: var(--vscode-fontSize-body1);
+  line-height: 1.45;
+  color: var(--vscode-textLink-foreground);
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* @capture sessions.desktop.main.css@5894 */
+.ai-customization-list-widget .section-title-header .section-title-link:hover,
+.mcp-list-widget .section-title-header .section-title-link:hover,
+.ai-customization-management-editor .tools-list-widget .section-title-header .section-title-link:hover {
+  text-decoration: underline;
+}
+
+/* @capture sessions.desktop.main.css@5895 */
+.ai-customization-list-widget .section-title-header .section-title-link:focus-visible,
+.mcp-list-widget .section-title-header .section-title-link:focus-visible,
+.ai-customization-management-editor .tools-list-widget .section-title-header .section-title-link:focus-visible {
+  outline-offset: -1px;
+}
+
+/* @capture sessions.desktop.main.css@5909 */
+.ai-customization-management-editor .prompts-content-container,
+.ai-customization-management-editor .prompt-migration-content-container,
+.ai-customization-management-editor .mcp-content-container,
+.ai-customization-management-editor .plugin-content-container,
+.ai-customization-management-editor .tools-content-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-block: var(--vscode-spacing-size400) var(--vscode-spacing-sizeNone);
+  padding-inline: var(--vscode-spacing-size400);
+  background: var(--vscode-agentsPanel-background);
+  border: 1px solid var(--vscode-agentsPanel-border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@5910 */
+.ai-customization-management-editor .prompts-content-container,
+.ai-customization-management-editor .prompt-migration-content-container,
+.ai-customization-management-editor .mcp-content-container,
+.ai-customization-management-editor .plugin-content-container,
+.ai-customization-management-editor .tools-content-container {
+  padding-inline: var(--vscode-spacing-sizeNone);
+}
+
+/* @capture sessions.desktop.main.css@5911 */
+.ai-customization-management-editor .prompts-content-container > .ai-customization-list-widget > .section-title-header,
+.ai-customization-management-editor .prompts-content-container > .ai-customization-list-widget > .list-search-and-button-container,
+.ai-customization-management-editor .prompts-content-container > .ai-customization-list-widget > .list-container,
+.ai-customization-management-editor .mcp-content-container > .mcp-list-widget > .section-title-header,
+.ai-customization-management-editor .mcp-content-container > .mcp-list-widget > .list-search-and-button-container,
+.ai-customization-management-editor .mcp-content-container > .mcp-list-widget > .mcp-list-container,
+.ai-customization-management-editor .plugin-content-container > .plugin-list-widget > .section-title-header,
+.ai-customization-management-editor .plugin-content-container > .plugin-list-widget > .plugin-marketplace-back-container,
+.ai-customization-management-editor .plugin-content-container > .plugin-list-widget > .list-search-and-button-container,
+.ai-customization-management-editor .plugin-content-container > .plugin-list-widget > .mcp-list-container,
+.ai-customization-management-editor .tools-content-container > .tools-list-widget > .section-title-header,
+.ai-customization-management-editor .tools-content-container > .tools-list-widget > .tools-list-search-and-button-container,
+.ai-customization-management-editor .tools-list-tree {
+  width: min(calc(100% - var(--vscode-spacing-size400) - var(--vscode-spacing-size400)),840px);
+  margin-inline: auto;
+}
+
+/* @capture sessions.desktop.main.css@5912 */
+.ai-customization-management-editor .mcp-content-container > .mcp-list-widget > .plugin-card-scrollable,
+.ai-customization-management-editor .plugin-content-container > .plugin-list-widget > .plugin-card-scrollable {
+  max-width: none;
+}
+
+/* @capture sessions.desktop.main.css@5918 */
+.ai-customization-management-editor .tools-list-widget {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@5919 */
+.ai-customization-management-editor .tools-list-search-and-button-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  margin-block: var(--vscode-spacing-size80) var(--vscode-spacing-size160);
+}
+
+/* @capture sessions.desktop.main.css@5920 */
+.ai-customization-management-editor .tools-list-search-container {
+  flex: 1 1 0%;
+}
+
+/* @capture sessions.desktop.main.css@5921 */
+.ai-customization-management-editor .tools-list-search-container .monaco-inputbox {
+  width: 100%;
+}
+
+/* @capture sessions.desktop.main.css@5930 */
+.ai-customization-management-editor .tools-list-tree {
+  flex: 1 1 0%;
+  min-height: 0px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@5979 */
+.ai-customization-management-editor .mcp-detail-container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0px;
+  padding-block: var(--vscode-spacing-size400) var(--vscode-spacing-size160);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@5985 */
+.ai-customization-management-editor .mcp-detail-diagnostics {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--vscode-spacing-size120);
+}
+
+/* @capture sessions.desktop.main.css@5986 */
+.ai-customization-management-editor .mcp-detail-diagnostic-section {
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@5987 */
+.ai-customization-management-editor .mcp-detail-diagnostic-card {
+  min-height: 72px;
+  padding: var(--vscode-spacing-size120);
+  border: var(--vscode-strokeThickness) solid var(--vscode-agentsPanel-border);
+  border-radius: var(--vscode-cornerRadius-medium);
+  background: color-mix(in srgb,var(--vscode-foreground) 6%,var(--vscode-agentsPanel-background));
+  color: var(--vscode-foreground);
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@5988 */
+.ai-customization-management-editor .mcp-detail-diagnostic-card.warning {
+  background: color-mix(in srgb,var(--vscode-inputValidation-warningBackground) 45%,var(--vscode-agentsPanel-background));
+  border-color: color-mix(in srgb,var(--vscode-inputValidation-warningBorder) 70%,var(--vscode-agentsPanel-border));
+}
+
+/* @capture sessions.desktop.main.css@5990 */
+.ai-customization-management-editor .mcp-detail-diagnostic-card.migration {
+  border-radius: var(--vscode-cornerRadius-large);
+  background: color-mix(in srgb,var(--vscode-inputValidation-warningBackground) 35%,var(--vscode-agentsPanel-background));
+  border-color: color-mix(in srgb,var(--vscode-inputValidation-warningBorder) 70%,var(--vscode-agentsPanel-border));
+}
+
+/* @capture sessions.desktop.main.css@5992 */
+.ai-customization-management-editor .mcp-detail-diagnostic-header {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size80);
+}
+
+/* @capture sessions.desktop.main.css@5993 */
+.ai-customization-management-editor .mcp-detail-diagnostic-icon {
+  flex: 0 0 auto;
+  font-size: var(--vscode-codiconFontSize);
+  color: var(--vscode-icon-foreground);
+}
+
+/* @capture sessions.desktop.main.css@5994 */
+.ai-customization-management-editor .mcp-detail-diagnostic-card.warning .mcp-detail-diagnostic-icon {
+  color: var(--vscode-list-warningForeground, var(--vscode-editorWarning-foreground));
+}
+
+/* @capture sessions.desktop.main.css@5996 */
+.ai-customization-management-editor .mcp-detail-diagnostic-summary {
+  min-width: 0px;
+  font-size: var(--vscode-fontSize-label1);
+  font-weight: var(--vscode-fontWeight-semiBold);
+}
+
+/* @capture sessions.desktop.main.css@5997 */
+.ai-customization-management-editor .mcp-detail-diagnostic-details {
+  margin-top: var(--vscode-spacing-size80);
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-body2);
+  line-height: 1.45;
+}
+
+/* @capture sessions.desktop.main.css@5998 */
+.ai-customization-management-editor .mcp-detail-diagnostic-message {
+  margin: 0px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* @capture sessions.desktop.main.css@6005 */
+.ai-customization-management-editor .marketplace-detail-container,
+.ai-customization-management-editor .plugin-detail-container,
+.ai-customization-management-editor .connector-detail-container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0px;
+  padding: var(--vscode-spacing-size400) 0 var(--vscode-spacing-size160);
+  background: var(--vscode-agentsPanel-background);
+  border: var(--vscode-strokeThickness) solid var(--vscode-agentsPanel-border);
+  border-radius: var(--vscode-cornerRadius-medium);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@6006 */
+.ai-customization-management-editor .marketplace-detail-container .ai-customization-embedded-detail,
+.ai-customization-management-editor .plugin-detail-container .ai-customization-embedded-detail,
+.ai-customization-management-editor .connector-detail-container .ai-customization-embedded-detail {
+  padding: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6007 */
+.ai-customization-management-editor .marketplace-detail-container .ai-customization-embedded-detail .embedded-detail-header,
+.ai-customization-management-editor .plugin-detail-container .ai-customization-embedded-detail .embedded-detail-header,
+.ai-customization-management-editor .connector-detail-container .ai-customization-embedded-detail .embedded-detail-header {
+  align-items: center;
+}
+
+/* @capture sessions.desktop.main.css@6008 */
+.ai-customization-management-editor .marketplace-detail-container .ai-customization-embedded-detail .embedded-detail-leading-slot:not(:empty),
+.ai-customization-management-editor .plugin-detail-container .ai-customization-embedded-detail .embedded-detail-leading-slot:not(:empty),
+.ai-customization-management-editor .connector-detail-container .ai-customization-embedded-detail .embedded-detail-leading-slot:not(:empty) {
+  display: flex;
+  align-items: center;
+  margin-inline-end: var(--vscode-spacing-size200);
+}
+
+/* @capture sessions.desktop.main.css@6009 */
+.ai-customization-management-editor .marketplace-detail-container {
+  position: relative;
+  height: 100%;
+  min-height: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6010 */
+.ai-customization-management-editor .marketplace-detail-scrollable,
+.ai-customization-management-editor .plugin-detail-editor-scrollable {
+  position: relative;
+  flex: 1 1 0%;
+  min-height: 0px;
+  width: 100%;
+}
+
+/* @capture sessions.desktop.main.css@6011 */
+.ai-customization-management-editor .marketplace-detail-scrollable > .scrollbar > .slider,
+.ai-customization-management-editor .plugin-detail-editor-scrollable > .scrollbar > .slider {
+  border-radius: var(--vscode-cornerRadius-circle);
+}
+
+/* @capture sessions.desktop.main.css@6012 */
+.ai-customization-management-editor .marketplace-detail-editor-container {
+  position: absolute;
+  inset: 0px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+/* @capture sessions.desktop.main.css@6013 */
+.ai-customization-management-editor .embedded-marketplace-detail .embedded-detail-description,
+.ai-customization-management-editor .embedded-marketplace-detail .embedded-detail-section {
+  padding-inline-start: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6014 */
+.ai-customization-management-editor .marketplace-detail-description {
+  margin: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6015 */
+.ai-customization-management-editor .marketplace-detail-install-state {
+  padding-inline-start: var(--vscode-spacing-size320);
+}
+
+/* @capture sessions.desktop.main.css@6016 */
+.ai-customization-management-editor .marketplace-detail-install-state .mcp-detail-diagnostic-card {
+  min-height: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6017 */
+.ai-customization-management-editor .marketplace-detail-source-facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vscode-spacing-size40);
+}
+
+/* @capture sessions.desktop.main.css@6018 */
+.ai-customization-management-editor .marketplace-detail-query-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0px, 1fr));
+  gap: var(--vscode-spacing-size80);
+  margin: 0px;
+  padding: var(--vscode-spacing-size60);
+  border-radius: var(--vscode-cornerRadius-medium);
+  background: var(--vscode-textCodeBlock-background);
+  list-style: none;
+}
+
+/* @capture sessions.desktop.main.css@6030 */
+.ai-customization-management-editor .marketplace-detail-icon {
+  margin-inline-end: var(--vscode-spacing-size120);
+}
+
+/* @capture sessions.desktop.main.css@6033 */
+.ai-customization-management-editor .plugin-detail-editor-container {
+  position: absolute;
+  inset: 0px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+/* @capture sessions.desktop.main.css@6034 */
+.ai-customization-management-editor .connector-detail-container {
+  overflow: auto;
+}
+
+/* @capture sessions.desktop.main.css@6035 */
+.ai-customization-management-editor .connector-detail-container .ai-customization-embedded-detail {
+  margin-inline: auto;
+}
+
+/* @capture sessions.desktop.main.css@6036 */
+.ai-customization-management-editor .ai-customization-embedded-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vscode-spacing-size200);
+  width: min(calc(100% - var(--vscode-spacing-size400) - var(--vscode-spacing-size400)),840px);
+  min-height: 100%;
+  padding: var(--vscode-spacing-size400) 0 var(--vscode-spacing-size160);
+  min-width: 0px;
+  box-sizing: border-box;
+  user-select: text;
+}
+
+/* @capture sessions.desktop.main.css@6048 */
+.ai-customization-management-editor .ai-customization-embedded-detail.is-empty .embedded-detail-header,
+.ai-customization-management-editor .ai-customization-embedded-detail.is-empty .embedded-detail-description {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@6049 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0px;
+  min-width: 0px;
+  margin-bottom: var(--vscode-spacing-size40);
+}
+
+/* @capture sessions.desktop.main.css@6050 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-icon {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6052 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-header-text {
+  flex: 1 1 0%;
+  min-width: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* @capture sessions.desktop.main.css@6053 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-title-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--vscode-spacing-size60);
+  margin-left: auto;
+}
+
+/* @capture sessions.desktop.main.css@6057 */
+.ai-customization-management-editor :is(.embedded-plugin-detail, .embedded-connector-detail).narrow-layout .embedded-detail-header {
+  display: grid;
+  grid-template-columns: auto minmax(0px, 1fr);
+  row-gap: var(--vscode-spacing-size80);
+}
+
+/* @capture sessions.desktop.main.css@6058 */
+.ai-customization-management-editor :is(.embedded-plugin-detail, .embedded-connector-detail).narrow-layout .embedded-detail-leading-slot {
+  grid-area: 1 / 1;
+}
+
+/* @capture sessions.desktop.main.css@6060 */
+.ai-customization-management-editor :is(.embedded-plugin-detail, .embedded-connector-detail).narrow-layout .embedded-detail-header-text {
+  grid-area: 1 / 2;
+}
+
+/* @capture sessions.desktop.main.css@6062 */
+.ai-customization-management-editor :is(.embedded-plugin-detail, .embedded-connector-detail).narrow-layout .embedded-detail-title-actions {
+  grid-area: 2 / 2;
+  justify-content: flex-start;
+  margin-left: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6064 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size60);
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6065 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-status-badge {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* @capture sessions.desktop.main.css@6066 */
+.ai-customization-management-editor .embedded-marketplace-detail .embedded-detail-publisher {
+  align-self: flex-end;
+  flex-shrink: 1;
+  min-width: 0px;
+  max-width: 40%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-label1);
+  font-weight: var(--vscode-fontWeight-regular);
+}
+
+/* @capture sessions.desktop.main.css@6071 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-name {
+  margin: 0px;
+  font-size: var(--vscode-fontSize-heading2);
+  line-height: 22px;
+  font-weight: var(--vscode-fontWeight-semiBold);
+  word-break: break-word;
+}
+
+/* @capture sessions.desktop.main.css@6075 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-description {
+  color: var(--vscode-foreground);
+  font-size: var(--vscode-fontSize-body1);
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding-inline-start: 32px;
+  margin-bottom: var(--vscode-spacing-size40);
+}
+
+/* @capture sessions.desktop.main.css@6076 */
+.ai-customization-management-editor .ai-customization-embedded-detail.embedded-plugin-detail .embedded-detail-description,
+.ai-customization-management-editor .ai-customization-embedded-detail.embedded-connector-detail .embedded-detail-description,
+.ai-customization-management-editor .ai-customization-embedded-detail.embedded-plugin-detail .embedded-detail-section,
+.ai-customization-management-editor .ai-customization-embedded-detail.embedded-connector-detail .embedded-detail-section {
+  padding-inline-start: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6077 */
+.ai-customization-management-editor .ai-customization-embedded-detail:is(.embedded-plugin-detail, .embedded-marketplace-detail, .embedded-connector-detail) .embedded-detail-facts {
+  padding-inline-start: 0px;
+  margin-bottom: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6078 */
+.ai-customization-management-editor .embedded-plugin-detail .plugin-detail-source-facts,
+.ai-customization-management-editor .embedded-marketplace-detail .marketplace-detail-source-facts,
+.ai-customization-management-editor .embedded-connector-detail .connector-detail-facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vscode-spacing-size40);
+}
+
+/* @capture sessions.desktop.main.css@6081 */
+.ai-customization-management-editor :is(.embedded-plugin-detail, .embedded-marketplace-detail) .plugin-detail-readme > .plugin-detail-contribution-group-title {
+  font-weight: var(--vscode-fontWeight-semiBold);
+}
+
+/* @capture sessions.desktop.main.css@6082 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  padding-inline-start: 32px;
+  margin-bottom: var(--vscode-spacing-size80);
+}
+
+/* @capture sessions.desktop.main.css@6096 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-section {
+  padding-inline-start: 32px;
+}
+
+/* @capture sessions.desktop.main.css@6097 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-section-title {
+  margin: 0 0 var(--vscode-spacing-size60) 0;
+  font-size: var(--vscode-agents-fontSize-heading3);
+  font-weight: var(--vscode-agents-fontWeight-semiBold);
+  line-height: 18px;
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6098 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-chip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6099 */
+.ai-customization-management-editor .ai-customization-embedded-detail .plugin-detail-flat-list {
+  border: var(--vscode-strokeThickness) solid var(--vscode-widget-border, var(--vscode-agentsPanel-border));
+  border-radius: var(--vscode-cornerRadius-medium);
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@6103 */
+.ai-customization-management-editor .ai-customization-embedded-detail .plugin-detail-contribution-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--vscode-spacing-size60);
+  font-size: var(--vscode-agents-fontSize-label1);
+  font-weight: var(--vscode-agents-fontWeight-regular);
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6117 */
+.ai-customization-management-editor .ai-customization-embedded-detail .embedded-detail-empty {
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-body1);
+  padding-block: var(--vscode-spacing-size80);
+}
+
+/* @capture sessions.desktop.main.css@6130 */
+.mcp-list-widget {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0px;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@6131 */
+.mcp-list-widget .mcp-list-container {
+  flex: 1 1 0%;
+  min-height: 0px;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@6134 */
+.mcp-list-widget .mcp-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  gap: 8px;
+  text-align: center;
+  flex: 1 1 0%;
+}
+
+/* @capture sessions.desktop.main.css@6135 */
+.mcp-list-widget .mcp-empty-state .empty-text {
+  font-size: 16px;
+  font-weight: var(--vscode-fontWeight-semiBold);
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6136 */
+.mcp-list-widget .mcp-empty-state .empty-subtext {
+  font-size: var(--vscode-fontSize-body1);
+  color: var(--vscode-descriptionForeground);
+  max-width: 250px;
+  line-height: 1.4;
+}
+
+/* @capture sessions.desktop.main.css@6138 */
+.agent-sessions-workbench .mcp-empty-state .empty-state-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+/* @capture sessions.desktop.main.css@6140 */
+.mcp-list-widget .mcp-disabled-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  gap: 8px;
+  text-align: center;
+  flex: 1 1 0%;
+}
+
+/* @capture sessions.desktop.main.css@6141 */
+.mcp-list-widget .mcp-disabled-state .empty-state-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* @capture sessions.desktop.main.css@6143 */
+.mcp-list-widget .mcp-disabled-state .empty-icon {
+  opacity: 0.5;
+  margin-bottom: 8px;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* @capture sessions.desktop.main.css@6144 */
+.mcp-list-widget .mcp-disabled-state .empty-text {
+  font-size: 16px;
+  font-weight: var(--vscode-fontWeight-semiBold);
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6145 */
+.mcp-list-widget .mcp-disabled-state .empty-subtext {
+  font-size: var(--vscode-fontSize-body1);
+  color: var(--vscode-descriptionForeground);
+  max-width: 420px;
+  line-height: 1.5;
+}
+
+/* @capture sessions.desktop.main.css@6150 */
+.mcp-server-item {
+  display: flex;
+  align-items: center;
+  padding: var(--vscode-spacing-size60) var(--vscode-spacing-size80) var(--vscode-spacing-size60) var(--vscode-spacing-size160);
+  cursor: pointer;
+  border-radius: var(--vscode-cornerRadius-small);
+  min-height: 32px;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@6151 */
+.mcp-server-item:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@6152 */
+.mcp-server-item.builtin {
+  cursor: default;
+  opacity: 0.85;
+}
+
+/* @capture sessions.desktop.main.css@6153 */
+.mcp-server-item .mcp-server-icon {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@6154 */
+.mcp-list-widget.show-mcp-item-icons .mcp-server-item .mcp-server-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 var(--vscode-spacing-size240);
+  width: var(--vscode-spacing-size240);
+  height: var(--vscode-spacing-size240);
+}
+
+/* @capture sessions.desktop.main.css@6155 */
+.mcp-list-widget.show-mcp-item-icons .mcp-server-item .mcp-server-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+/* @capture sessions.desktop.main.css@6156 */
+.mcp-list-widget.show-mcp-item-icons .mcp-server-item .mcp-server-icon .codicon {
+  font-size: var(--vscode-codiconFontSize);
+}
+
+/* @capture sessions.desktop.main.css@6157 */
+.mcp-server-item .mcp-server-details {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6158 */
+.mcp-server-item .mcp-server-name {
+  font-size: var(--vscode-fontSize-body1);
+  font-weight: var(--vscode-fontWeight-semiBold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 18px;
+}
+
+/* @capture sessions.desktop.main.css@6159 */
+.mcp-server-item .mcp-server-description {
+  font-size: var(--vscode-fontSize-body2);
+  color: var(--vscode-descriptionForeground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 14px;
+}
+
+/* @capture sessions.desktop.main.css@6160 */
+.mcp-server-item .mcp-server-issue,
+.mcp-server-item .mcp-server-compatibility-message {
+  min-width: 0px;
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-body2);
+  line-height: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6161 */
+.mcp-server-item .mcp-server-issue {
+  color: var(--vscode-errorForeground);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@6162 */
+.mcp-server-item .mcp-server-compatibility-message {
+  color: var(--vscode-chat-mcpCompatibilityWarningForeground);
+}
+
+/* @capture sessions.desktop.main.css@6165 */
+.mcp-server-item .mcp-server-secondary-line.has-source .mcp-server-compatibility-message::after {
+  content: " ·";
+  color: var(--vscode-descriptionForeground);
+}
+
+/* @capture sessions.desktop.main.css@6169 */
+.mcp-server-item .mcp-server-source-path {
+  font-size: var(--vscode-fontSize-body2);
+  color: var(--vscode-descriptionForeground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 14px;
+}
+
+/* @capture sessions.desktop.main.css@6173 */
+.mcp-server-item .mcp-server-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size40);
+}
+
+/* @capture sessions.desktop.main.css@6174 */
+.plugin-list-widget .mcp-server-disabled-label {
+  flex-shrink: 0;
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-body2);
+  line-height: 14px;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6175 */
+.plugin-list-widget .mcp-server-error-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size80);
+}
+
+/* @capture sessions.desktop.main.css@6176 */
+.mcp-server-item .mcp-server-error-actions .mcp-server-status {
+  width: var(--vscode-codiconFontSize);
+}
+
+/* @capture sessions.desktop.main.css@6177 */
+.mcp-server-item .mcp-server-sign-in.monaco-button,
+.mcp-server-item .mcp-server-start.monaco-button {
+  width: auto;
+  flex: 0 0 auto;
+  min-width: 0px;
+  min-height: var(--vscode-spacing-size240);
+  padding: 0 var(--vscode-spacing-size80);
+  font-size: var(--vscode-fontSize-label1);
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+/* @capture sessions.desktop.main.css@6178 */
+.mcp-server-item .mcp-server-sign-in.monaco-button:hover,
+.mcp-server-item .mcp-server-start.monaco-button:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@6179 */
+.mcp-server-item .mcp-server-status {
+  flex-shrink: 0;
+  width: var(--vscode-spacing-size240);
+  height: var(--vscode-spacing-size240);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--vscode-codiconFontSize);
+}
+
+/* @capture sessions.desktop.main.css@6183 */
+.mcp-server-item.disabled {
+  opacity: 0.5;
+}
+
+/* @capture sessions.desktop.main.css@6184 */
+.plugin-list-widget .mcp-server-state-icon {
+  flex-shrink: 0;
+  font-size: var(--vscode-codiconFontSize);
+  color: var(--vscode-disabledForeground);
+}
+
+/* @capture sessions.desktop.main.css@6185 */
+.plugin-list-widget .mcp-server-state-icon.error {
+  color: var(--vscode-errorForeground);
+}
+
+/* @capture sessions.desktop.main.css@6191 */
+.plugin-list-widget .plugin-list-item {
+  display: flex;
+  align-items: center;
+  padding: var(--vscode-spacing-size80);
+  border-radius: var(--vscode-cornerRadius-small);
+  gap: var(--vscode-spacing-size120);
+  min-height: 44px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@6192 */
+.plugin-list-widget .mcp-list-container .plugin-list-item {
+  padding-block: var(--vscode-spacing-size40);
+}
+
+/* @capture sessions.desktop.main.css@6193 */
+.plugin-list-widget .mcp-list-container .monaco-list-row {
+  border-radius: var(--vscode-cornerRadius-small);
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@6194 */
+.plugin-list-widget .plugin-installed-item:not(.plugin-home-row) {
+  cursor: pointer;
+}
+
+/* @capture sessions.desktop.main.css@6209 */
+.plugin-list-widget .plugin-list-item:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@6210 */
+.plugin-list-widget .plugin-list-item.disabled {
+  opacity: 0.6;
+}
+
+/* @capture sessions.desktop.main.css@6215 */
+.plugin-list-widget .plugin-list-item .item-sync-toggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* @capture sessions.desktop.main.css@6216 */
+.plugin-list-widget .plugin-list-item-details {
+  flex: 1 1 0%;
+  min-width: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--vscode-spacing-size20);
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@6217 */
+.plugin-list-widget .plugin-list-item-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size60);
+  min-width: 0px;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@6218 */
+.plugin-list-widget .plugin-list-item-name {
+  font-size: var(--vscode-agents-fontSize-body1);
+  font-weight: var(--vscode-agents-fontWeight-semiBold);
+  line-height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6219 */
+.plugin-list-widget .plugin-list-item-location,
+.plugin-list-widget .plugin-list-item-metadata {
+  font-size: var(--vscode-agents-fontSize-body2);
+  line-height: 14px;
+  color: var(--vscode-descriptionForeground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6224 */
+.plugin-list-widget .plugin-list-item-action {
+  display: flex;
+  align-items: center;
+  flex-flow: row;
+  gap: var(--vscode-spacing-size40);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* @capture sessions.desktop.main.css@6225 */
+.plugin-list-widget .plugin-list-item-action .plugin-card-icon-button.monaco-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--vscode-spacing-size240);
+  min-width: var(--vscode-spacing-size240);
+  height: var(--vscode-spacing-size240);
+  padding: 0px;
+  border-radius: var(--vscode-cornerRadius-small);
+  border-color: transparent;
+  background: transparent;
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6226 */
+.plugin-list-widget .plugin-list-item-action .plugin-card-icon-button.monaco-button:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+  border-color: transparent;
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6227 */
+.plugin-list-widget .mcp-server-actions .plugin-card-icon-button.monaco-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--vscode-spacing-size240);
+  min-width: var(--vscode-spacing-size240);
+  height: var(--vscode-spacing-size240);
+  padding: 0px;
+  border-radius: var(--vscode-cornerRadius-small);
+  border-color: transparent;
+  background: transparent;
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6228 */
+.plugin-list-widget .mcp-server-actions .plugin-card-icon-button.monaco-button:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+  border-color: transparent;
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6232 */
+.plugin-list-widget .plugin-card-container {
+  flex: 1 1 0%;
+  min-height: 0px;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@6233 */
+.plugin-list-widget .plugin-card-scrollable {
+  position: relative;
+  flex: 1 1 0%;
+  min-height: 0px;
+  width: 100%;
+  max-width: 840px;
+  margin: 0px auto;
+}
+
+/* @capture sessions.desktop.main.css@6234 */
+.plugin-list-widget .plugin-card-scrollable > .plugin-card-container {
+  position: absolute;
+  inset: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6240 */
+.plugin-list-widget .plugin-marketplace-back-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: var(--vscode-spacing-size120) 0 0;
+}
+
+/* @capture sessions.desktop.main.css@6243 */
+.plugin-list-widget .plugin-card-section-actions {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: var(--vscode-spacing-size40);
+}
+
+/* @capture sessions.desktop.main.css@6244 */
+.plugin-list-widget .plugin-card-section-actions .monaco-button {
+  width: auto;
+}
+
+/* @capture sessions.desktop.main.css@6245 */
+.plugin-list-widget .plugin-card-section-actions .plugin-update-button.monaco-button {
+  width: var(--vscode-spacing-size240);
+  min-width: var(--vscode-spacing-size240);
+  height: var(--vscode-spacing-size240);
+  padding: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6246 */
+.plugin-list-widget .plugin-card-section-actions .plugin-installed-action.monaco-button:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@6280 */
+.plugin-list-widget .plugin-card-icon-button.monaco-button:not(.disabled),
+.ai-customization-group-header .plugin-card-icon-button.monaco-button:not(.disabled) {
+  cursor: pointer;
+}
+
+/* @capture sessions.desktop.main.css@6281 */
+.ai-customization-group-header .plugin-card-icon-button.monaco-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--vscode-spacing-size240);
+  min-width: var(--vscode-spacing-size240);
+  height: var(--vscode-spacing-size240);
+  padding: 0px;
+  border-radius: var(--vscode-cornerRadius-small);
+  background: transparent;
+  color: var(--vscode-foreground);
+  border-color: transparent;
+}
+
+/* @capture sessions.desktop.main.css@6282 */
+.ai-customization-group-header .plugin-card-icon-button.monaco-button:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+  color: var(--vscode-foreground);
+  border-color: transparent;
+}
+
+/* @capture sessions.desktop.main.css@6283 */
+.ai-customization-group-header .plugin-card-ghost-button.monaco-button {
+  background: transparent;
+  color: var(--vscode-foreground);
+  border-color: transparent;
+  width: auto;
+  flex: 0 0 auto;
+}
+
+/* @capture sessions.desktop.main.css@6284 */
+.ai-customization-group-header .plugin-card-ghost-button.monaco-button:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6292 */
+.ai-customization-management-editor .editor-content-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  background: var(--vscode-agentsPanel-background);
+  border: 1px solid var(--vscode-agentsPanel-border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@6293 */
+.ai-customization-management-editor .editor-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 16px 6px;
+  flex-shrink: 0;
+}
+
+/* @capture sessions.desktop.main.css@6294 */
+.ai-customization-management-editor .editor-back-button {
+  flex-shrink: 0;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0px;
+  border-radius: var(--vscode-cornerRadius-small);
+  cursor: pointer;
+  background: transparent;
+  border-width: medium;
+  border-style: none;
+  border-color: currentcolor;
+  border-image: none;
+  color: var(--vscode-foreground);
+  opacity: 0.8;
+  transition: background-color 0.1s, opacity 0.1s;
+}
+
+/* @capture sessions.desktop.main.css@6295 */
+.ai-customization-management-editor .editor-back-button .codicon {
+  font-size: var(--vscode-codiconFontSize);
+  line-height: 1;
+}
+
+/* @capture sessions.desktop.main.css@6296 */
+.ai-customization-management-editor .editor-back-button:focus-visible {
+  outline: var(--vscode-strokeThickness) solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+/* @capture sessions.desktop.main.css@6297 */
+.ai-customization-management-editor.pointer-focus .editor-header :is(.monaco-button, .editor-back-button):focus,
+.ai-customization-management-editor.pointer-focus .embedded-detail-header :is(.monaco-button, .editor-back-button):focus {
+  outline: none;
+}
+
+/* @capture sessions.desktop.main.css@6298 */
+.ai-customization-management-editor .editor-back-button:hover:not(:disabled) {
+  background-color: var(--vscode-toolbar-hoverBackground);
+  opacity: 1;
+}
+
+/* @capture sessions.desktop.main.css@6299 */
+.ai-customization-management-editor .editor-back-button:active:not(:disabled) {
+  background-color: var(--vscode-toolbar-activeBackground);
+}
+
+/* @capture sessions.desktop.main.css@6300 */
+.ai-customization-management-editor .editor-back-button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+/* @capture sessions.desktop.main.css@6301 */
+.ai-customization-management-editor .editor-action-button-icon {
+  font-size: 14px;
+  line-height: 14px;
+}
+
+/* @capture sessions.desktop.main.css@6302 */
+.ai-customization-management-editor .editor-item-icon {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 var(--vscode-spacing-size240);
+  width: var(--vscode-spacing-size240);
+  height: var(--vscode-spacing-size240);
+}
+
+/* @capture sessions.desktop.main.css@6305 */
+.ai-customization-management-editor .editor-item-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1 1 0%;
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6306 */
+.ai-customization-management-editor .editor-item-name {
+  font-size: 14px;
+  font-weight: var(--vscode-fontWeight-semiBold);
+  color: var(--vscode-foreground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6307 */
+.ai-customization-management-editor .ai-customization-embedded-detail .plugin-detail-readme-content {
+  color: var(--vscode-foreground);
+  font-size: var(--vscode-agents-fontSize-body1);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* @capture sessions.desktop.main.css@6335 */
+.ai-customization-management-editor .editor-item-path {
+  font-size: var(--vscode-fontSize-body2);
+  color: var(--vscode-descriptionForeground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--monaco-monospace-font);
+}
+
+/* @capture sessions.desktop.main.css@6340 */
+.ai-customization-management-editor .editor-save-indicator {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: center;
+  color: var(--vscode-descriptionForeground);
+  opacity: 0;
+  transition: opacity 0.2s;
+  margin-right: 4px;
+}
+
+/* @capture sessions.desktop.main.css@6343 */
+.ai-customization-management-editor .editor-mode-button {
+  flex-shrink: 0;
+  height: 26px;
+  padding: 0px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--vscode-widget-border);
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 24px;
+  transition: background-color 0.1s, border-color 0.1s;
+}
+
+/* @capture sessions.desktop.main.css@6344 */
+.ai-customization-management-editor .migration-detail-action.monaco-button {
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* @capture sessions.desktop.main.css@6345 */
+.ai-customization-management-editor .migration-detail-warning {
+  flex: 0 0 auto;
+  min-height: 0px;
+  margin: var(--vscode-spacing-size80) var(--vscode-spacing-size160) 0;
+}
+
+/* @capture sessions.desktop.main.css@6346 */
+.ai-customization-management-editor .editor-mode-button:hover {
+  background: var(--vscode-button-secondaryHoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@6347 */
+.ai-customization-management-editor .editor-mode-button:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: 1px;
+}
+
+/* @capture sessions.desktop.main.css@6348 */
+.ai-customization-management-editor .editor-preview-container,
+.ai-customization-management-editor .embedded-editor-container {
+  flex: 1 1 0%;
+  margin-top: 8px;
+  min-height: 0px;
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@6349 */
+.ai-customization-management-editor .editor-preview-container {
+  background: var(--vscode-editor-background);
+  overflow: hidden;
+}
+
+/* @capture sessions.desktop.main.css@6350 */
+.ai-customization-management-editor .editor-preview-scroll-container {
+  height: 100%;
+  overflow: auto;
+  padding: 16px;
+  box-sizing: border-box;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* @capture sessions.desktop.main.css@6351 */
+.ai-customization-management-editor .editor-preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* @capture sessions.desktop.main.css@6352 */
+.ai-customization-management-editor .editor-preview-section-title {
+  display: none;
+  margin: 0px;
+  font-size: var(--vscode-fontSize-heading3);
+  line-height: 18px;
+  font-weight: var(--vscode-fontWeight-semiBold);
+  color: var(--vscode-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6353 */
+.ai-customization-management-editor .editor-preview-frontmatter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* @capture sessions.desktop.main.css@6363 */
+.ai-customization-management-editor .editor-preview-body-content {
+  padding: 12px 14px;
+  background: var(--vscode-editorWidget-background);
+  border: 1px solid var(--vscode-widget-border);
+  border-radius: 6px;
+}
+
+/* @capture sessions.desktop.main.css@6401 */
+.ai-customization-management-editor .prompt-migration-content-container {
+  padding: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6402 */
+.ai-customization-management-editor .customization-migration-dashboard-scrollable {
+  position: relative;
+  flex: 1 1 0%;
+  min-height: 0px;
+  width: 100%;
+}
+
+/* @capture sessions.desktop.main.css@6403 */
+.ai-customization-management-editor .customization-migration-dashboard-container {
+  position: absolute;
+  inset: 0px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* @capture sessions.desktop.main.css@6473 */
+.customization-discovery {
+  height: 100%;
+  min-width: 0px;
+  min-height: 0px;
+  color: var(--vscode-foreground);
+  background: transparent;
+}
+
+/* @capture sessions.desktop.main.css@6474 */
+.customization-discovery-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0px;
+  min-height: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6475 */
+.customization-discovery-header,
+.customization-discovery-browse,
+.customization-discovery-results {
+  box-sizing: border-box;
+  width: min(calc(100% - var(--vscode-spacing-size400) - var(--vscode-spacing-size400)),840px);
+  margin: 0px auto;
+}
+
+/* @capture sessions.desktop.main.css@6476 */
+.customization-discovery-header {
+  padding-bottom: var(--vscode-spacing-size160);
+}
+
+/* @capture sessions.desktop.main.css@6477 */
+.customization-discovery-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size120);
+}
+
+/* @capture sessions.desktop.main.css@6478 */
+.customization-discovery-title {
+  flex: 1 1 0%;
+  min-width: 0px;
+  margin: 0px;
+  font-size: var(--vscode-fontSize-heading2);
+  font-weight: var(--vscode-fontWeight-semiBold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6479 */
+.customization-discovery-title-row > .monaco-button {
+  width: auto;
+}
+
+/* @capture sessions.desktop.main.css@6480 */
+.customization-discovery-title-row > .monaco-button,
+.customization-discovery-source > .monaco-button {
+  font-size: var(--vscode-fontSize-label1);
+}
+
+/* @capture sessions.desktop.main.css@6481 */
+.customization-discovery-title-row > .monaco-button .codicon:last-child,
+.customization-discovery-source > .monaco-button .codicon:last-child {
+  margin-right: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6482 */
+.customization-discovery-description {
+  margin: var(--vscode-spacing-size60) 0 var(--vscode-spacing-size120);
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-body1);
+  line-height: 1.4;
+}
+
+/* @capture sessions.desktop.main.css@6483 */
+.customization-discovery-description a {
+  color: var(--vscode-textLink-foreground);
+  text-decoration: none;
+}
+
+/* @capture sessions.desktop.main.css@6484 */
+.customization-discovery-description a:hover {
+  color: var(--vscode-textLink-activeForeground);
+  text-decoration: underline;
+}
+
+/* @capture sessions.desktop.main.css@6485 */
+.customization-discovery-description a:focus-visible {
+  outline: var(--vscode-strokeThickness) solid var(--vscode-focusBorder);
+  outline-offset: var(--vscode-spacing-size20);
+}
+
+/* @capture sessions.desktop.main.css@6486 */
+.customization-discovery-search-row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--vscode-spacing-size80);
+}
+
+/* @capture sessions.desktop.main.css@6487 */
+.customization-discovery-progress {
+  position: relative;
+  height: 2px;
+  margin-bottom: var(--vscode-spacing-size40);
+}
+
+/* @capture sessions.desktop.main.css@6491 */
+.customization-discovery-search {
+  position: relative;
+  flex: 1 1 0%;
+  min-width: 0px;
+  height: var(--vscode-spacing-size240);
+}
+
+/* @capture sessions.desktop.main.css@6492 */
+.customization-discovery-search .suggest-input-container {
+  box-sizing: border-box;
+  height: var(--vscode-spacing-size240);
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+/* @capture sessions.desktop.main.css@6493 */
+.customization-discovery-search-actions {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* @capture sessions.desktop.main.css@6494 */
+.customization-discovery-source {
+  flex: 0 0 auto;
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6495 */
+.customization-discovery-source > .monaco-button {
+  width: auto;
+  max-width: 220px;
+  height: var(--vscode-spacing-size240);
+  min-height: var(--vscode-spacing-size240);
+  padding: var(--vscode-spacing-size20) var(--vscode-spacing-size80);
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6497 */
+.customization-discovery-browse-scrollable {
+  position: relative;
+  flex: 1 1 0%;
+  min-height: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6498 */
+.customization-discovery-browse {
+  position: absolute;
+  inset: 0px;
+  padding-bottom: var(--vscode-spacing-size320);
+}
+
+/* @capture sessions.desktop.main.css@6499 */
+.customization-discovery-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vscode-spacing-size200);
+}
+
+/* @capture sessions.desktop.main.css@6500 */
+.customization-discovery-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vscode-spacing-size100);
+}
+
+/* @capture sessions.desktop.main.css@6501 */
+.customization-discovery-section.featured {
+  padding: var(--vscode-spacing-size120);
+  border-radius: var(--vscode-cornerRadius-medium);
+  background: color-mix(in srgb,var(--vscode-foreground) 4%,var(--vscode-editorWidget-background));
+}
+
+/* @capture sessions.desktop.main.css@6502 */
+.customization-discovery-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vscode-spacing-size120);
+}
+
+/* @capture sessions.desktop.main.css@6503 */
+.customization-discovery-section-title {
+  min-width: 0px;
+  margin: 0px;
+  font-size: var(--vscode-fontSize-heading3);
+  font-weight: var(--vscode-fontWeight-semiBold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6504 */
+.customization-discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0px, 1fr));
+  gap: var(--vscode-spacing-size40) var(--vscode-spacing-size120);
+}
+
+/* @capture sessions.desktop.main.css@6506 */
+.customization-discovery-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size80);
+  min-width: 0px;
+  min-height: 48px;
+  padding: var(--vscode-spacing-size40);
+  border-radius: var(--vscode-cornerRadius-small);
+  background: transparent;
+}
+
+/* @capture sessions.desktop.main.css@6513 */
+.customization-discovery-card-primary {
+  position: absolute;
+  inset: 0px;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  border: 0px;
+  border-radius: var(--vscode-cornerRadius-small);
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* @capture sessions.desktop.main.css@6514 */
+.customization-discovery-section.featured .customization-discovery-card {
+  padding-inline: var(--vscode-spacing-size80);
+}
+
+/* @capture sessions.desktop.main.css@6515 */
+.customization-discovery-card:hover,
+.customization-discovery-card:focus-within {
+  background: var(--vscode-list-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@6516 */
+.customization-discovery-card-icon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--vscode-spacing-size400);
+  height: var(--vscode-spacing-size400);
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--vscode-cornerRadius-small);
+  color: var(--vscode-descriptionForeground);
+  background: var(--vscode-editorWidget-background);
+  pointer-events: none;
+}
+
+/* @capture sessions.desktop.main.css@6518 */
+.customization-discovery-card-icon:not(.is-fallback) > .codicon {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@6519 */
+.customization-discovery-card-icon img {
+  position: absolute;
+  inset: 0px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* @capture sessions.desktop.main.css@6520 */
+.customization-discovery-card-body {
+  position: relative;
+  z-index: 1;
+  min-width: 0px;
+  pointer-events: none;
+}
+
+/* @capture sessions.desktop.main.css@6521 */
+.customization-discovery-card-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size80);
+  min-width: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6523 */
+.customization-discovery-card-name {
+  flex: 0 1 auto;
+  min-width: 0px;
+  color: inherit;
+  font-size: var(--vscode-fontSize-body1);
+  font-weight: var(--vscode-fontWeight-semiBold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6526 */
+.customization-discovery-card-description {
+  display: -webkit-box;
+  margin-top: var(--vscode-spacing-size40);
+  overflow: hidden;
+  font-size: var(--vscode-fontSize-body2);
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+/* @capture sessions.desktop.main.css@6527 */
+.customization-discovery-card-metadata {
+  flex: 1 1 0%;
+}
+
+/* @capture sessions.desktop.main.css@6529 */
+.customization-discovery-card-metadata {
+  min-width: 0px;
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-label2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* @capture sessions.desktop.main.css@6530 */
+.customization-discovery-card-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size80);
+  margin-left: auto;
+  pointer-events: none;
+}
+
+/* @capture sessions.desktop.main.css@6531 */
+.customization-discovery-card-actions > .monaco-button {
+  width: auto;
+  pointer-events: auto;
+}
+
+/* @capture sessions.desktop.main.css@6532 */
+.customization-discovery-show-all {
+  color: var(--vscode-textLink-foreground);
+}
+
+/* @capture sessions.desktop.main.css@6533 */
+.customization-discovery-show-all:hover {
+  color: var(--vscode-textLink-activeForeground);
+}
+
+/* @capture sessions.desktop.main.css@6534 */
+.customization-discovery-show-all {
+  flex-shrink: 0;
+  padding: var(--vscode-spacing-size20) 0;
+  border: 0px;
+  background: transparent;
+  font-style: inherit;
+  font-variant: inherit;
+  font-weight: inherit;
+  font-stretch: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  font-optical-sizing: inherit;
+  font-size-adjust: inherit;
+  font-kerning: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-language-override: inherit;
+  font-size: var(--vscode-fontSize-body1);
+  cursor: pointer;
+}
+
+/* @capture sessions.desktop.main.css@6535 */
+.customization-discovery-show-all:focus-visible,
+.customization-discovery-card-primary:focus-visible {
+  outline: var(--vscode-strokeThickness) solid var(--vscode-focusBorder);
+  outline-offset: calc(-1 * var(--vscode-strokeThickness));
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+/* @capture sessions.desktop.main.css@6536 */
+.customization-discovery-results {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  min-width: 0px;
+  min-height: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6537 */
+.customization-discovery-results[hidden] {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@6538 */
+.customization-discovery-list {
+  flex: 1 1 0%;
+  min-width: 0px;
+  min-height: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6564 */
+.customization-discovery-state {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--vscode-spacing-size240);
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-body1);
+}
+
+/* @capture sessions.desktop.main.css@6565 */
+.customization-discovery-state:empty {
+  min-height: 0px;
+}
+
+/* @capture sessions.desktop.main.css@6572 */
+.customization-marketplace-source-warnings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vscode-spacing-size80);
+  margin-top: var(--vscode-spacing-size120);
+  font-size: var(--vscode-fontSize-body1);
+}
+
+/* @capture sessions.desktop.main.css@6573 */
+.customization-marketplace-source-warnings[hidden] {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@6618 */
+.customization-migration-dashboard {
+  container-type: inline-size;
+  height: 100%;
+  color: var(--vscode-foreground);
+  font-size: var(--vscode-fontSize-body1);
+  line-height: 1.4;
+}
+
+/* @capture sessions.desktop.main.css@6619 */
+.customization-migration-dashboard .migration-page {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 0px;
+  height: 100%;
+  width: min(calc(100% - var(--vscode-spacing-size400) - var(--vscode-spacing-size400)),840px);
+  margin: 0px auto;
+  padding-block: var(--vscode-spacing-size400) var(--vscode-spacing-sizeNone);
+}
+
+/* @capture sessions.desktop.main.css@6620 */
+.customization-migration-dashboard .migration-page-header {
+  flex: 0 0 auto;
+}
+
+/* @capture sessions.desktop.main.css@6621 */
+.customization-migration-dashboard .migration-page-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vscode-spacing-size160);
+}
+
+/* @capture sessions.desktop.main.css@6622 */
+.customization-migration-dashboard .migration-page-title-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--vscode-spacing-size120);
+}
+
+/* @capture sessions.desktop.main.css@6623 */
+.customization-migration-dashboard h1 {
+  margin: 0px;
+  font-weight: var(--vscode-fontWeight-semiBold);
+}
+
+/* @capture sessions.desktop.main.css@6624 */
+.customization-migration-dashboard h1 {
+  font-size: var(--vscode-fontSize-heading2);
+  line-height: normal;
+}
+
+/* @capture sessions.desktop.main.css@6626 */
+.customization-migration-dashboard .migration-intro {
+  margin: var(--vscode-spacing-size60) 0 var(--vscode-spacing-size80);
+  color: var(--vscode-descriptionForeground);
+}
+
+/* @capture sessions.desktop.main.css@6676 */
+.customization-migration-dashboard :focus-visible {
+  outline: var(--vscode-strokeThickness) solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+/* @capture sessions.desktop.main.css@8418 */
+.monaco-workbench img {
+  border: 0px;
+}
+
+/* @capture sessions.desktop.main.css@8420 */
+.monaco-workbench a {
+  text-decoration: none;
+}
+
+/* @capture sessions.desktop.main.css@8421 */
+.monaco-workbench p > a {
+  text-decoration: var(--text-link-decoration);
+}
+
+/* @capture sessions.desktop.main.css@8424 */
+.monaco-workbench a:active {
+  color: inherit;
+  background-color: inherit;
+}
+
+/* @capture sessions.desktop.main.css@8426 */
+.monaco-workbench input {
+  color: inherit;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+/* @capture sessions.desktop.main.css@8428 */
+.monaco-workbench input::placeholder {
+  color: var(--vscode-input-placeholderForeground);
+}
+
+/* @capture sessions.desktop.main.css@8429 */
+.monaco-workbench input::-webkit-input-placeholder {
+  color: var(--vscode-input-placeholderForeground);
+}
+
+/* @capture sessions.desktop.main.css@8430 */
+.monaco-workbench textarea::placeholder {
+  color: var(--vscode-input-placeholderForeground);
+}
+
+/* @capture sessions.desktop.main.css@8431 */
+.monaco-workbench textarea::-webkit-input-placeholder {
+  color: var(--vscode-input-placeholderForeground);
+}
+
+/* @capture sessions.desktop.main.css@8437 */
+.monaco-workbench .codicon {
+  color: var(--vscode-icon-foreground);
+}
+
+/* @capture sessions.desktop.main.css@8438 */
+.monaco-workbench .codicon[class*="codicon-"] {
+  font-size: 16px;
+}
+
+/* @capture sessions.desktop.main.css@8446 */
+.monaco-workbench a:focus-visible,
+.monaco-workbench [tabindex="0"]:focus,
+.monaco-workbench [tabindex="-1"]:focus,
+.monaco-workbench input[type="text"]:focus,
+.monaco-workbench button:focus,
+.monaco-workbench textarea:focus {
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: -1px;
+  outline-color: var(--vscode-focusBorder);
+  opacity: 1;
+}
+
+/* @capture sessions.desktop.main.css@8449 */
+.monaco-workbench [tabindex="0"]:active,
+.monaco-workbench [tabindex="-1"]:active {
+  outline: 0px !important;
+}
+
+/* @capture sessions.desktop.main.css@8456 */
+.monaco-workbench .monaco-list:focus {
+  outline: 0px !important;
+}
+
+/* @capture sessions.desktop.main.css@8457 */
+.monaco-workbench a.monaco-link:hover {
+  text-decoration: underline;
+}
+
+/* @capture sessions.desktop.main.css@8458 */
+.monaco-workbench .monaco-action-bar:not(.vertical) .action-label:not(.disabled):hover {
+  background-color: var(--vscode-toolbar-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@8459 */
+.monaco-workbench .monaco-action-bar:not(.vertical) .action-item.active .action-label:not(.disabled),
+.monaco-workbench .monaco-action-bar:not(.vertical) .monaco-dropdown.active .action-label:not(.disabled) {
+  background-color: var(--vscode-toolbar-activeBackground);
+}
+
+/* @capture sessions.desktop.main.css@8460 */
+.monaco-workbench .monaco-action-bar:not(.vertical) .action-item .action-label:hover:not(.disabled) {
+  outline: 1px dashed var(--vscode-toolbar-hoverOutline);
+  outline-offset: -1px;
+}
+
+/* @capture sessions.desktop.main.css@8461 */
+.agent-sessions-workbench .monaco-action-bar .action-label {
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+/* @capture sessions.desktop.main.css@8464 */
+.agent-sessions-workbench .monaco-scrollable-element > .scrollbar > .slider {
+  background: transparent !important;
+}
+
+/* @capture sessions.desktop.main.css@8465 */
+.agent-sessions-workbench .monaco-scrollable-element > .scrollbar.vertical > .slider::before,
+.agent-sessions-workbench .monaco-scrollable-element > .scrollbar.horizontal > .slider::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: var(--vscode-cornerRadius-circle);
+  background: var(--vscode-scrollbarSlider-background);
+}
+
+/* @capture sessions.desktop.main.css@8466 */
+.agent-sessions-workbench .monaco-scrollable-element > .scrollbar > .slider:hover::before {
+  background: var(--vscode-scrollbarSlider-hoverBackground);
+}
+
+/* @capture sessions.desktop.main.css@8467 */
+.agent-sessions-workbench .monaco-scrollable-element > .scrollbar > .slider.active::before {
+  background: var(--vscode-scrollbarSlider-activeBackground);
+}
+
+/* @capture contributedColorTheme@36 */
+.monaco-editor .vertical {
+  box-shadow: 1px 0 0 0 var(--guide-color) inset;
+}
+
+/* @capture contributedColorTheme@75 */
+.monaco-editor .cursors-layer .cursor {
+  background-color: rgb(32, 32, 32);
+  border-color: rgb(32, 32, 32);
+  color: rgb(223, 223, 223);
+}
+
+/* @capture contributedColorTheme@177 */
+.monaco-workbench .monaco-list-row.selected {
+  --vscode-debug-ansi-terminal-ansiBlack: #000000;
+  --vscode-debug-ansi-terminal-ansiRed: #b82c2c;
+  --vscode-debug-ansi-terminal-ansiGreen: #0e6f0e;
+  --vscode-debug-ansi-terminal-ansiYellow: #606200;
+  --vscode-debug-ansi-terminal-ansiBlue: #0451a5;
+  --vscode-debug-ansi-terminal-ansiMagenta: #a904a9;
+  --vscode-debug-ansi-terminal-ansiCyan: #026d88;
+  --vscode-debug-ansi-terminal-ansiWhite: #555555;
+  --vscode-debug-ansi-terminal-ansiBrightBlack: #666666;
+  --vscode-debug-ansi-terminal-ansiBrightRed: #ae3636;
+  --vscode-debug-ansi-terminal-ansiBrightGreen: #0a780a;
+  --vscode-debug-ansi-terminal-ansiBrightYellow: #696c00;
+  --vscode-debug-ansi-terminal-ansiBrightBlue: #2a66aa;
+  --vscode-debug-ansi-terminal-ansiBrightMagenta: #8a488a;
+  --vscode-debug-ansi-terminal-ansiBrightCyan: #166b80;
+  --vscode-debug-ansi-terminal-ansiBrightWhite: #606060;
+}
+
+/* @capture contributedColorTheme@178 */
+.monaco-workbench .monaco-list-row.focused {
+  --vscode-debug-ansi-terminal-ansiBlack: #000000;
+  --vscode-debug-ansi-terminal-ansiRed: #cd3131;
+  --vscode-debug-ansi-terminal-ansiGreen: #107c10;
+  --vscode-debug-ansi-terminal-ansiYellow: #949800;
+  --vscode-debug-ansi-terminal-ansiBlue: #0451a5;
+  --vscode-debug-ansi-terminal-ansiMagenta: #bc05bc;
+  --vscode-debug-ansi-terminal-ansiCyan: #0598bc;
+  --vscode-debug-ansi-terminal-ansiWhite: #555555;
+  --vscode-debug-ansi-terminal-ansiBrightBlack: #666666;
+  --vscode-debug-ansi-terminal-ansiBrightRed: #f14c4c;
+  --vscode-debug-ansi-terminal-ansiBrightGreen: #14ce14;
+  --vscode-debug-ansi-terminal-ansiBrightYellow: #b5ba00;
+  --vscode-debug-ansi-terminal-ansiBrightBlue: #3b8eea;
+  --vscode-debug-ansi-terminal-ansiBrightMagenta: #d670d6;
+  --vscode-debug-ansi-terminal-ansiBrightCyan: #29b8db;
+  --vscode-debug-ansi-terminal-ansiBrightWhite: #a5a5a5;
+}
+
+/* @capture contributedColorTheme@179 */
+.monaco-workbench .monaco-list:focus .monaco-list-row.focused {
+  --vscode-debug-ansi-terminal-ansiBlack: #797979;
+  --vscode-debug-ansi-terminal-ansiRed: #cd3131;
+  --vscode-debug-ansi-terminal-ansiGreen: #288a28;
+  --vscode-debug-ansi-terminal-ansiYellow: #949800;
+  --vscode-debug-ansi-terminal-ansiBlue: #3573b7;
+  --vscode-debug-ansi-terminal-ansiMagenta: #c31ec3;
+  --vscode-debug-ansi-terminal-ansiCyan: #0598bc;
+  --vscode-debug-ansi-terminal-ansiWhite: #767676;
+  --vscode-debug-ansi-terminal-ansiBrightBlack: #767676;
+  --vscode-debug-ansi-terminal-ansiBrightRed: #f14c4c;
+  --vscode-debug-ansi-terminal-ansiBrightGreen: #14ce14;
+  --vscode-debug-ansi-terminal-ansiBrightYellow: #b5ba00;
+  --vscode-debug-ansi-terminal-ansiBrightBlue: #3b8eea;
+  --vscode-debug-ansi-terminal-ansiBrightMagenta: #d670d6;
+  --vscode-debug-ansi-terminal-ansiBrightCyan: #29b8db;
+  --vscode-debug-ansi-terminal-ansiBrightWhite: #a5a5a5;
+}
+
+/* @capture contributedColorTheme@180 */
+.monaco-workbench .monaco-list:focus .monaco-list-row.selected {
+  --vscode-debug-ansi-terminal-ansiBlack: #797979;
+  --vscode-debug-ansi-terminal-ansiRed: #cd3131;
+  --vscode-debug-ansi-terminal-ansiGreen: #288a28;
+  --vscode-debug-ansi-terminal-ansiYellow: #949800;
+  --vscode-debug-ansi-terminal-ansiBlue: #3573b7;
+  --vscode-debug-ansi-terminal-ansiMagenta: #c31ec3;
+  --vscode-debug-ansi-terminal-ansiCyan: #0598bc;
+  --vscode-debug-ansi-terminal-ansiWhite: #767676;
+  --vscode-debug-ansi-terminal-ansiBrightBlack: #767676;
+  --vscode-debug-ansi-terminal-ansiBrightRed: #f14c4c;
+  --vscode-debug-ansi-terminal-ansiBrightGreen: #14ce14;
+  --vscode-debug-ansi-terminal-ansiBrightYellow: #b5ba00;
+  --vscode-debug-ansi-terminal-ansiBrightBlue: #3b8eea;
+  --vscode-debug-ansi-terminal-ansiBrightMagenta: #d670d6;
+  --vscode-debug-ansi-terminal-ansiBrightCyan: #29b8db;
+  --vscode-debug-ansi-terminal-ansiBrightWhite: #a5a5a5;
+}
+
+/* @capture codiconStyles@0 */
+.codicon-add::before {
+  content: "\ea60";
+}
+
+/* @capture codiconStyles@4 */
+.codicon-lightbulb::before {
+  content: "\ea61";
+}
+
+/* @capture codiconStyles@32 */
+.codicon-warning::before {
+  content: "\ea6c";
+}
+
+/* @capture codiconStyles@52 */
+.codicon-info::before {
+  content: "\ea74";
+}
+
+/* @capture codiconStyles@71 */
+.codicon-ellipsis::before {
+  content: "\ea7c";
+}
+
+/* @capture codiconStyles@86 */
+.codicon-folder::before {
+  content: "\ea83";
+}
+
+/* @capture codiconStyles@97 */
+.codicon-error::before {
+  content: "\ea87";
+}
+
+/* @capture codiconStyles@130 */
+.codicon-arrow-left::before {
+  content: "\ea9b";
+}
+
+/* @capture codiconStyles@158 */
+.codicon-chevron-down::before {
+  content: "\eab4";
+}
+
+/* @capture codiconStyles@209 */
+.codicon-extensions::before {
+  content: "\eae6";
+}
+
+/* @capture codiconStyles@220 */
+.codicon-filter::before {
+  content: "\eaf1";
+}
+
+/* @capture codiconStyles@283 */
+.codicon-plug::before {
+  content: "\eb2d";
+}
+
+/* @capture codiconStyles@293 */
+.codicon-refresh::before {
+  content: "\eb37";
+}
+
+/* @capture codiconStyles@317 */
+.codicon-server::before {
+  content: "\eb50";
+}
+
+/* @capture codiconStyles@398 */
+.codicon-account::before {
+  content: "\eb99";
+}
+
+/* @capture codiconStyles@678 */
+.codicon-chevron-down-compact::before {
+  content: "\eca4";
+}
+
+/* @capture codiconStyles@768 */
+.codicon-tree-item-expanded::before {
+  content: "\eab4";
+}
+
+/* @capture codiconStyles@782 */
+.codicon-drop-down-button::before {
+  content: "\eab4";
+}
+
+/* @capture codiconStyles@1012 */
+.codicon-ai-customization-skill::before {
+  content: "\ea61";
+}
+
+/* @capture codiconStyles@1019 */
+.codicon-ai-customization-user::before {
+  content: "\eb99";
+}
+
+/* @capture codiconStyles@1024 */
+.codicon-ai-customization-mcp-server::before {
+  content: "\eb50";
+}
+
+/* @capture inline-7xo89e@0 */
+.monaco-list.list_id_c8:focus .monaco-list-row.focused {
+  background-color: var(--vscode-list-focusBackground);
+}
+
+/* @capture inline-7xo89e@2 */
+.monaco-list.list_id_c8:focus .monaco-list-row.focused {
+  color: var(--vscode-list-focusForeground);
+}
+
+/* @capture inline-7xo89e@3 */
+.monaco-list.list_id_c8:focus .monaco-list-row.selected {
+  background-color: var(--vscode-list-activeSelectionBackground);
+}
+
+/* @capture inline-7xo89e@5 */
+.monaco-list.list_id_c8:focus .monaco-list-row.selected {
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* @capture inline-7xo89e@6 */
+.monaco-list.list_id_c8:focus .monaco-list-row.selected .codicon {
+  color: var(--vscode-list-activeSelectionIconForeground);
+}
+
+/* @capture inline-7xo89e@7 */
+.monaco-list.list_id_c8:focus .monaco-list-row.selected.focused {
+  background-color: var(--vscode-list-activeSelectionBackground);
+}
+
+/* @capture inline-7xo89e@8 */
+.monaco-list.list_id_c8:focus .monaco-list-row.selected.focused {
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* @capture inline-7xo89e@9 */
+.monaco-list.list_id_c8 .monaco-list-row.focused .codicon {
+  color: var(--vscode-list-inactiveSelectionIconForeground);
+}
+
+/* @capture inline-7xo89e@10 */
+.monaco-list.list_id_c8 .monaco-list-row.focused {
+  background-color: var(--vscode-list-inactiveFocusBackground);
+}
+
+/* @capture inline-7xo89e@12 */
+.monaco-list.list_id_c8 .monaco-list-row.selected {
+  background-color: var(--vscode-list-inactiveSelectionBackground);
+}
+
+/* @capture inline-7xo89e@14 */
+.monaco-list.list_id_c8 .monaco-list-row.selected {
+  color: var(--vscode-list-inactiveSelectionForeground);
+}
+
+/* @capture inline-7xo89e@17 */
+.monaco-list.list_id_c8:focus .monaco-list-row.focused.selected {
+  outline: 1px solid var(--vscode-list-focusAndSelectionOutline, var(--vscode-contrastActiveBorder, var(--vscode-list-focusOutline)));
+  outline-offset: -1px;
+}
+
+/* @capture inline-7xo89e@18 */
+.monaco-list.list_id_c8:focus .monaco-list-row.focused {
+  outline: 1px solid var(--vscode-list-focusOutline);
+  outline-offset: -1px;
+}
+
+/* @capture inline-7xo89e@19 */
+.monaco-list.list_id_c8 .monaco-list-row.focused.selected {
+  outline: 1px dotted var(--vscode-contrastActiveBorder, var(--vscode-list-inactiveFocusOutline));
+  outline-offset: -1px;
+}
+
+/* @capture inline-7xo89e@20 */
+.monaco-list.list_id_c8 .monaco-list-row.selected {
+  outline: 1px dotted var(--vscode-contrastActiveBorder);
+  outline-offset: -1px;
+}
+
+/* @capture inline-7xo89e@21 */
+.monaco-list.list_id_c8 .monaco-list-row.focused {
+  outline: 1px dotted var(--vscode-list-inactiveFocusOutline);
+  outline-offset: -1px;
+}
+
+/* @capture inline-drnunf@2 */
+.monaco-list.list_id_c8 .monaco-scrollable-element .monaco-tree-sticky-container {
+  background-color: var(--vscode-agentsPanel-background);
+}
+
+/* @capture inline-drnunf@4 */
+.monaco-list.list_id_c8 .monaco-scrollable-element .monaco-tree-sticky-container .monaco-tree-sticky-container-shadow {
+  box-shadow: var(--vscode-scrollbar-shadow) 0 6px 6px -6px inset;
+  height: 3px;
+}
+
+/* @capture inline-15fgr0i@0 */
+.monaco-list.list_id_c9:focus .monaco-list-row.focused {
+  background-color: var(--vscode-list-focusBackground);
+}
+
+/* @capture inline-15fgr0i@2 */
+.monaco-list.list_id_c9:focus .monaco-list-row.focused {
+  color: var(--vscode-list-focusForeground);
+}
+
+/* @capture inline-15fgr0i@3 */
+.monaco-list.list_id_c9:focus .monaco-list-row.selected {
+  background-color: var(--vscode-list-activeSelectionBackground);
+}
+
+/* @capture inline-15fgr0i@5 */
+.monaco-list.list_id_c9:focus .monaco-list-row.selected {
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* @capture inline-15fgr0i@6 */
+.monaco-list.list_id_c9:focus .monaco-list-row.selected .codicon {
+  color: var(--vscode-list-activeSelectionIconForeground);
+}
+
+/* @capture inline-15fgr0i@7 */
+.monaco-list.list_id_c9:focus .monaco-list-row.selected.focused {
+  background-color: var(--vscode-list-activeSelectionBackground);
+}
+
+/* @capture inline-15fgr0i@8 */
+.monaco-list.list_id_c9:focus .monaco-list-row.selected.focused {
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* @capture inline-15fgr0i@9 */
+.monaco-list.list_id_c9 .monaco-list-row.focused .codicon {
+  color: var(--vscode-list-inactiveSelectionIconForeground);
+}
+
+/* @capture inline-15fgr0i@10 */
+.monaco-list.list_id_c9 .monaco-list-row.focused {
+  background-color: var(--vscode-list-inactiveFocusBackground);
+}
+
+/* @capture inline-15fgr0i@12 */
+.monaco-list.list_id_c9 .monaco-list-row.selected {
+  background-color: var(--vscode-list-inactiveSelectionBackground);
+}
+
+/* @capture inline-15fgr0i@14 */
+.monaco-list.list_id_c9 .monaco-list-row.selected {
+  color: var(--vscode-list-inactiveSelectionForeground);
+}
+
+/* @capture inline-15fgr0i@17 */
+.monaco-list.list_id_c9:focus .monaco-list-row.focused.selected {
+  outline: 1px solid var(--vscode-list-focusAndSelectionOutline, var(--vscode-contrastActiveBorder, var(--vscode-list-focusOutline)));
+  outline-offset: -1px;
+}
+
+/* @capture inline-15fgr0i@18 */
+.monaco-list.list_id_c9:focus .monaco-list-row.focused {
+  outline: 1px solid var(--vscode-list-focusOutline);
+  outline-offset: -1px;
+}
+
+/* @capture inline-15fgr0i@19 */
+.monaco-list.list_id_c9 .monaco-list-row.focused.selected {
+  outline: 1px dotted var(--vscode-contrastActiveBorder, var(--vscode-list-inactiveFocusOutline));
+  outline-offset: -1px;
+}
+
+/* @capture inline-15fgr0i@20 */
+.monaco-list.list_id_c9 .monaco-list-row.selected {
+  outline: 1px dotted var(--vscode-contrastActiveBorder);
+  outline-offset: -1px;
+}
+
+/* @capture inline-15fgr0i@21 */
+.monaco-list.list_id_c9 .monaco-list-row.focused {
+  outline: 1px dotted var(--vscode-list-inactiveFocusOutline);
+  outline-offset: -1px;
+}
+
+/* @capture inline-h1pcfw@2 */
+.monaco-list.list_id_c9 .monaco-scrollable-element .monaco-tree-sticky-container {
+  background-color: var(--vscode-agentsPanel-background);
+}
+
+/* @capture inline-h1pcfw@4 */
+.monaco-list.list_id_c9 .monaco-scrollable-element .monaco-tree-sticky-container .monaco-tree-sticky-container-shadow {
+  box-shadow: var(--vscode-scrollbar-shadow) 0 6px 6px -6px inset;
+  height: 3px;
+}
+
+/* @capture inline-dyjniq@0 */
+.monaco-list.list_id_c10:focus .monaco-list-row.focused {
+  background-color: var(--vscode-list-focusBackground);
+}
+
+/* @capture inline-dyjniq@2 */
+.monaco-list.list_id_c10:focus .monaco-list-row.focused {
+  color: var(--vscode-list-focusForeground);
+}
+
+/* @capture inline-dyjniq@3 */
+.monaco-list.list_id_c10:focus .monaco-list-row.selected {
+  background-color: var(--vscode-list-activeSelectionBackground);
+}
+
+/* @capture inline-dyjniq@5 */
+.monaco-list.list_id_c10:focus .monaco-list-row.selected {
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* @capture inline-dyjniq@6 */
+.monaco-list.list_id_c10:focus .monaco-list-row.selected .codicon {
+  color: var(--vscode-list-activeSelectionIconForeground);
+}
+
+/* @capture inline-dyjniq@7 */
+.monaco-list.list_id_c10:focus .monaco-list-row.selected.focused {
+  background-color: var(--vscode-list-activeSelectionBackground);
+}
+
+/* @capture inline-dyjniq@8 */
+.monaco-list.list_id_c10:focus .monaco-list-row.selected.focused {
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* @capture inline-dyjniq@9 */
+.monaco-list.list_id_c10 .monaco-list-row.focused .codicon {
+  color: var(--vscode-list-inactiveSelectionIconForeground);
+}
+
+/* @capture inline-dyjniq@10 */
+.monaco-list.list_id_c10 .monaco-list-row.focused {
+  background-color: var(--vscode-list-inactiveFocusBackground);
+}
+
+/* @capture inline-dyjniq@12 */
+.monaco-list.list_id_c10 .monaco-list-row.selected {
+  background-color: var(--vscode-list-inactiveSelectionBackground);
+}
+
+/* @capture inline-dyjniq@14 */
+.monaco-list.list_id_c10 .monaco-list-row.selected {
+  color: var(--vscode-list-inactiveSelectionForeground);
+}
+
+/* @capture inline-dyjniq@17 */
+.monaco-list.list_id_c10:focus .monaco-list-row.focused.selected {
+  outline: 1px solid var(--vscode-list-focusAndSelectionOutline, var(--vscode-contrastActiveBorder, var(--vscode-list-focusOutline)));
+  outline-offset: -1px;
+}
+
+/* @capture inline-dyjniq@18 */
+.monaco-list.list_id_c10:focus .monaco-list-row.focused {
+  outline: 1px solid var(--vscode-list-focusOutline);
+  outline-offset: -1px;
+}
+
+/* @capture inline-dyjniq@19 */
+.monaco-list.list_id_c10 .monaco-list-row.focused.selected {
+  outline: 1px dotted var(--vscode-contrastActiveBorder, var(--vscode-list-inactiveFocusOutline));
+  outline-offset: -1px;
+}
+
+/* @capture inline-dyjniq@20 */
+.monaco-list.list_id_c10 .monaco-list-row.selected {
+  outline: 1px dotted var(--vscode-contrastActiveBorder);
+  outline-offset: -1px;
+}
+
+/* @capture inline-dyjniq@21 */
+.monaco-list.list_id_c10 .monaco-list-row.focused {
+  outline: 1px dotted var(--vscode-list-inactiveFocusOutline);
+  outline-offset: -1px;
+}
+
+/* @capture inline-mdb1e0@2 */
+.monaco-list.list_id_c10 .monaco-scrollable-element .monaco-tree-sticky-container {
+  background-color: var(--vscode-agentsPanel-background);
+}
+
+/* @capture inline-mdb1e0@4 */
+.monaco-list.list_id_c10 .monaco-scrollable-element .monaco-tree-sticky-container .monaco-tree-sticky-container-shadow {
+  box-shadow: var(--vscode-scrollbar-shadow) 0 6px 6px -6px inset;
+  height: 3px;
+}
+
+/* @capture inline-ho14m9@2 */
+.monaco-list.list_id_11 .monaco-scrollable-element .monaco-tree-sticky-container {
+  background-color: var(--vscode-agentsPanel-background);
+}
+
+/* @capture inline-ho14m9@4 */
+.monaco-list.list_id_11 .monaco-scrollable-element .monaco-tree-sticky-container .monaco-tree-sticky-container-shadow {
+  box-shadow: var(--vscode-scrollbar-shadow) 0 6px 6px -6px inset;
+  height: 3px;
+}

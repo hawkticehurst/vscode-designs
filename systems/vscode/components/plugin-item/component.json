@@ -1,0 +1,66 @@
+{
+  "tag": "vsc-plugin-item",
+  "kind": "component",
+  "title": "Plugin item",
+  "category": "chat",
+  "description": "An installed plugin row (`.plugin-list-item.plugin-installed-item`): name with a source badge (Local), install location, optional contents summary, the profile switch and ⋯ More actions.",
+  "usage": "Rows of a kind=\"plugins\" <vsc-customization-list>.",
+  "attributes": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "badge",
+      "type": "string",
+      "default": "Local"
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "description": "Install location (middle-ellipsized)."
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "description": "e.g. \"1 skill\"."
+    },
+    {
+      "name": "enabled",
+      "type": "boolean"
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "enabled",
+      "trigger": "Click the switch; fires `toggle`."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "hostTag": "div",
+  "cssCaptures": [],
+  "requires": [
+    "vsc-workbench",
+    "vsc-customization-list"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/pluginListWidget.ts"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Installed plugins",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 470px; height: 300px;\"><div class=\"ai-customization-management-editor\" style=\"height: 300px;\"><div class=\"management-content\"><div class=\"content-inner\"><vsc-customization-list kind=\"plugins\" heading=\"Plugins\"><vsc-customization-group label=\"User\" count=\"2\" actions=\"refresh,add\" add-label=\"Install Plugin from Source\" first></vsc-customization-group><vsc-plugin-item name=\"accessibility-kanban\" location=\"~/.copilot/installed-plugins/awesome-copilot\" enabled></vsc-plugin-item><vsc-plugin-item name=\"security-best-practices\" location=\"~/.copilot/installed-plugins/awesome-copilot\" metadata=\"1 skill\" enabled></vsc-plugin-item></vsc-customization-list></div></div></div></vsc-workbench>",
+      "width": 470
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-10-30T19:11:21.977Z",
+  "updatedAt": "2026-10-30T19:13:56.149Z"
+}

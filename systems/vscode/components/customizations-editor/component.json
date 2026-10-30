@@ -1,0 +1,138 @@
+{
+  "tag": "vsc-customizations-editor",
+  "kind": "context",
+  "title": "Customizations editor",
+  "category": "chat",
+  "description": "The Customizations editor (`AICustomizationManagementEditor`, `.ai-customization-management-editor`): a horizontal split with the section sidebar (Browse home button, then Plugins, MCP Servers, Skills, Instructions, Agents, Hooks, Tools with counts, a separator and Extensions) and the content pane for the selected section. It's the same editor whether it's hosted in the modal (`<vsc-modal-editor>`) or as a tab in the Agents window's docked editor part (`<vsc-agents-editor-part>`).",
+  "usage": "Host inside <vsc-modal-editor> (the default Agents window experience) or <vsc-agents-editor-part> (useModal: off, docked right panel, where the sidebar sits at its 150px minimum). Give the host a height. Put one page per section in the default slot with a `section` attribute.",
+  "attributes": [
+    {
+      "name": "section",
+      "type": "enum",
+      "values": [
+        "browse",
+        "plugins",
+        "mcp",
+        "skills",
+        "instructions",
+        "agents",
+        "hooks",
+        "tools",
+        "extensions"
+      ],
+      "default": "browse"
+    },
+    {
+      "name": "sidebar-width",
+      "type": "number",
+      "default": "200",
+      "description": "Width of the section sidebar in px (200 default, 150 minimum, 350 maximum)."
+    },
+    {
+      "name": "counts",
+      "type": "string",
+      "default": "2,7,32,2,3,1,36",
+      "description": "Counts for Plugins, MCP Servers, Skills, Instructions, Agents, Hooks, Tools."
+    }
+  ],
+  "slots": [
+    {
+      "name": "",
+      "description": "Section pages (<vsc-customization-browse section=\"browse\">, <vsc-customization-list section=\"skills\">, …); only the page matching `section` is shown."
+    }
+  ],
+  "states": [
+    {
+      "name": "section-selected",
+      "trigger": "Click a section row or the Browse home button; fires `section-change`."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "cssCaptures": [
+    "customizations-sidebar-dark",
+    "customizations-sidebar-light",
+    "customizations-sidebar-skills-dark",
+    "customizations-sidebar-skills-light",
+    "customizations-modal-browse-dark",
+    "customizations-modal-browse-light",
+    "customizations-modal-browse-narrow-dark",
+    "customizations-modal-browse-narrow-light"
+  ],
+  "requires": [
+    "vsc-workbench"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/aiCustomizationManagementEditor.ts",
+      "line": 634
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/aiCustomizationManagement.ts",
+      "line": 189,
+      "note": "SIDEBAR_DEFAULT_WIDTH 200, MIN 150, MAX 350, CONTENT_MIN_WIDTH 400"
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/media/aiCustomizationManagement.css"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Section sidebar (Skills selected)",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 200px; height: 643px;\"><vsc-customizations-editor section=\"skills\" style=\"height: 643px;\"></vsc-customizations-editor></vsc-workbench>",
+      "width": 200
+    },
+    {
+      "title": "Section sidebar (Browse selected)",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 200px; height: 643px;\"><vsc-customizations-editor section=\"browse\" style=\"height: 643px;\"></vsc-customizations-editor></vsc-workbench>",
+      "width": 200
+    }
+  ],
+  "references": [
+    {
+      "capture": "customizations-sidebar-skills-dark",
+      "example": 0,
+      "theme": "dark-2026",
+      "width": 200,
+      "root": ".management-sidebar",
+      "ignore": []
+    },
+    {
+      "capture": "customizations-sidebar-skills-light",
+      "example": 0,
+      "theme": "light-2026",
+      "width": 200,
+      "root": ".management-sidebar",
+      "ignore": []
+    },
+    {
+      "capture": "customizations-sidebar-dark",
+      "example": 1,
+      "theme": "dark-2026",
+      "width": 200,
+      "root": ".management-sidebar",
+      "ignore": []
+    },
+    {
+      "capture": "customizations-sidebar-light",
+      "example": 1,
+      "theme": "light-2026",
+      "width": 200,
+      "root": ".management-sidebar",
+      "ignore": []
+    }
+  ],
+  "status": "draft",
+  "verification": {
+    "status": "verified",
+    "checkedAt": "2026-10-30T19:16:37.937Z",
+    "compared": 36,
+    "diffs": 0,
+    "theme": "light-2026",
+    "summary": []
+  },
+  "createdAt": "2026-10-30T19:06:50.695Z",
+  "updatedAt": "2026-10-30T19:16:37.937Z"
+}

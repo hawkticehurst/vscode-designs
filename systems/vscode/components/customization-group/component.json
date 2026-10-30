@@ -1,0 +1,89 @@
+{
+  "tag": "vsc-customization-group",
+  "kind": "component",
+  "title": "Customization group header",
+  "category": "chat",
+  "description": "A group header row in a customization list (`.ai-customization-group-header`): twistie, label, count pill and hover actions (+ New/Add, ↻ Check for and Apply Updates on Plugins).",
+  "usage": "Direct child of <vsc-customization-list>, before its rows. Product groups: User, Workspace, Plugins, Remote, Extensions, Built-in (prompts); User, Workspace, Plugins, Built-In (MCP); User, Workspace (Plugins).",
+  "attributes": [
+    {
+      "name": "label",
+      "type": "string"
+    },
+    {
+      "name": "count",
+      "type": "number"
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "description": "Group codicon (prompts: ai-customization-user; mcp/plugins: account, folder, plug)."
+    },
+    {
+      "name": "first",
+      "type": "boolean",
+      "description": "First group (36px); later groups are 40px with `.has-previous-group`."
+    },
+    {
+      "name": "collapsed",
+      "type": "boolean"
+    },
+    {
+      "name": "actions",
+      "type": "string",
+      "description": "Header actions: \"add\", \"refresh,add\" or empty."
+    },
+    {
+      "name": "add-label",
+      "type": "string",
+      "description": "Aria label of the + action, e.g. New Skill, Add Server, Install Plugin from Source."
+    },
+    {
+      "name": "kind",
+      "type": "enum",
+      "values": [
+        "prompts",
+        "mcp",
+        "plugins"
+      ],
+      "description": "Defaults to the enclosing list's kind."
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "collapsed",
+      "trigger": "Click the header (handled by <vsc-customization-list>)."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "hostTag": "div",
+  "cssCaptures": [],
+  "requires": [
+    "vsc-workbench",
+    "vsc-customization-list"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/customizationGroupHeaderRenderer.ts"
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/aiCustomizationListWidget.ts",
+      "line": 1563
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plugin groups",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 470px; height: 300px;\"><div class=\"ai-customization-management-editor\" style=\"height: 300px;\"><div class=\"management-content\"><div class=\"content-inner\"><vsc-customization-list kind=\"plugins\" heading=\"Plugins\"><vsc-customization-group label=\"User\" count=\"2\" icon=\"account\" actions=\"refresh,add\" add-label=\"Install Plugin from Source\" first></vsc-customization-group><vsc-customization-group label=\"Workspace\" count=\"0\" icon=\"folder\" actions=\"refresh,add\" add-label=\"Install Plugin from Source\"></vsc-customization-group></vsc-customization-list></div></div></div></vsc-workbench>",
+      "width": 470
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-10-30T19:11:21.977Z",
+  "updatedAt": "2026-10-30T19:13:56.149Z"
+}

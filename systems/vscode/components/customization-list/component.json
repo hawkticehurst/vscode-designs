@@ -1,0 +1,128 @@
+{
+  "tag": "vsc-customization-list",
+  "kind": "pattern",
+  "title": "Customization list page",
+  "category": "chat",
+  "description": "A section page of the Customizations editor: the rounded content panel with the section title (Browse button; Plugins adds a ⋯ More Marketplace Actions button), the description with its Learn more link, a \"Type to search...\" input and the grouped tree of installed customizations (User, Workspace, Plugins, Remote, Built-in). `kind=\"prompts\"` is the prompt-file list (Skills, Instructions, Agents, Hooks); `mcp` and `plugins` are the plugin list widget. Applies `narrow-layout` below 500px and `wide-layout` from 600px, like the product. The product virtualizes the tree (absolutely positioned rows in a fixed-height list); here rows flow and the list scrolls natively.",
+  "usage": "Inside <vsc-customizations-editor> with `section` set. Product copy — Skills: \"Folders of instructions, scripts, and resources that Copilot loads when relevant to perform specialized tasks.\" (Learn more about agent skills); Instructions: \"Define common guidelines and rules that automatically influence how AI generates code and handles development tasks.\" (Learn more about custom instructions); Agents: \"Configure the AI to adopt different personas tailored to specific development tasks. Each agent has its own instructions, tools, and behavior.\" (Learn more about custom agents); Hooks: \"Prompts executed at specific points during an agentic lifecycle.\" (Learn more about hooks); MCP Servers: \"An open standard that lets AI use external tools and services. MCP servers provide tools for file operations, databases, APIs, and more.\" (Learn more about MCP servers); Plugins: \"Extend your AI agent with plugins that add commands, skills, agents, hooks, and MCP servers from reusable packages.\" (Learn more about agent plugins).",
+  "attributes": [
+    {
+      "name": "section",
+      "type": "string",
+      "description": "Section id used by <vsc-customizations-editor> (skills, instructions, agents, hooks, mcp, plugins)."
+    },
+    {
+      "name": "kind",
+      "type": "enum",
+      "values": [
+        "prompts",
+        "mcp",
+        "plugins"
+      ],
+      "default": "prompts",
+      "description": "prompts = ai-customization-list-widget (Skills/Instructions/Agents/Hooks); mcp / plugins = plugin-list-widget."
+    },
+    {
+      "name": "heading",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "name": "link",
+      "type": "string",
+      "description": "Learn more link text."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "Type to search..."
+    }
+  ],
+  "slots": [
+    {
+      "name": "",
+      "description": "Rows in order: <vsc-customization-group> headers followed by their <vsc-customization-item> / <vsc-mcp-server-item> / <vsc-plugin-item> rows."
+    }
+  ],
+  "states": [
+    {
+      "name": "narrow-layout",
+      "trigger": "Widget narrower than 500px."
+    },
+    {
+      "name": "wide-layout",
+      "trigger": "Widget 600px or wider."
+    },
+    {
+      "name": "filtered",
+      "trigger": "Typing in the search box hides rows whose name doesn't match."
+    },
+    {
+      "name": "group-collapsed",
+      "trigger": "Click a group header."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "cssCaptures": [
+    "customizations-skills-wide-dark",
+    "customizations-skills-wide-light",
+    "customizations-skills-narrow-dark",
+    "customizations-skills-narrow-light",
+    "customizations-mcp-wide-dark",
+    "customizations-mcp-wide-light",
+    "customizations-mcp-narrow-dark",
+    "customizations-mcp-narrow-light",
+    "customizations-plugins-wide-dark",
+    "customizations-plugins-wide-light",
+    "customizations-plugins-narrow-dark",
+    "customizations-plugins-narrow-light"
+  ],
+  "requires": [
+    "vsc-workbench",
+    "vsc-customizations-editor"
+  ],
+  "tokens": [],
+  "uses": [
+    "vsc-customization-group",
+    "vsc-customization-item",
+    "vsc-mcp-server-item",
+    "vsc-plugin-item"
+  ],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/aiCustomizationListWidget.ts",
+      "line": 1100
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/mcpListWidget.ts",
+      "line": 3615
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/pluginListWidget.ts",
+      "line": 910
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/media/aiCustomizationManagement.css"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Skills (narrow)",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 470px; height: 643px;\"><div class=\"ai-customization-management-editor\" style=\"height: 643px;\"><div class=\"management-content\"><div class=\"content-inner\"><vsc-customization-list section=\"skills\" kind=\"prompts\" heading=\"Skills\" description=\"Folders of instructions, scripts, and resources that Copilot loads when relevant to perform specialized tasks.\" link=\"Learn more about agent skills\"><vsc-customization-group label=\"User\" count=\"16\" first></vsc-customization-group><vsc-customization-item name=\"comparison-screenshot\" path=\"~/.copilot/skills/comparison-screenshot/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"cpr\" path=\"~/.copilot/skills/cpr/SKILL.md\"></vsc-customization-item><vsc-customization-item name=\"end-of-day-pr-report\" path=\"~/.copilot/skills/end-of-day-pr-report/SKILL.md\"></vsc-customization-item></vsc-customization-list></div></div></div></vsc-workbench>",
+      "width": 470
+    },
+    {
+      "title": "MCP Servers (narrow)",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 470px; height: 643px;\"><div class=\"ai-customization-management-editor\" style=\"height: 643px;\"><div class=\"management-content\"><div class=\"content-inner\"><vsc-customization-list section=\"mcp\" kind=\"mcp\" heading=\"MCP Servers\" description=\"An open standard that lets AI use external tools and services. MCP servers provide tools for file operations, databases, APIs, and more.\" link=\"Learn more about MCP servers\"><vsc-customization-group label=\"User\" count=\"4\" icon=\"account\" actions=\"add\" add-label=\"Add Server\" first></vsc-customization-group><vsc-mcp-server-item name=\"com.microsoft/microsoft-fabric\" source=\"~/.copilot/mcp-config.json\" builtin enabled></vsc-mcp-server-item><vsc-mcp-server-item name=\"playwright\" source=\"~/.copilot/mcp-config.json\" builtin enabled action=\"start\" error></vsc-mcp-server-item><vsc-customization-group label=\"Plugins\" count=\"2\" icon=\"plug\"></vsc-customization-group><vsc-mcp-server-item name=\"kusto\" description=\"Connector: Azure Data Explorer\" action=\"sign-in\" no-toggle></vsc-mcp-server-item></vsc-customization-list></div></div></div></vsc-workbench>",
+      "width": 470
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-10-30T19:10:10.384Z",
+  "updatedAt": "2026-10-30T19:13:56.142Z"
+}

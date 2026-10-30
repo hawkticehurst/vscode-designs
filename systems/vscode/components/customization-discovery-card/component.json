@@ -1,0 +1,101 @@
+{
+  "tag": "vsc-customization-discovery-card",
+  "kind": "component",
+  "title": "Discovery card",
+  "category": "chat",
+  "description": "A marketplace result on the Browse page (`.customization-discovery-card`): 40px icon, name with muted type · source metadata, a one-line description and a small secondary Install button. The whole card is a View details button.",
+  "usage": "Inside <vsc-customization-discovery-section>.",
+  "attributes": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "meta",
+      "type": "string",
+      "description": "Type · Source, e.g. \"MCP server · GitHub Feed\"."
+    },
+    {
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "name": "icon-src",
+      "type": "string",
+      "description": "Icon image URL (40px); without it the codicon fallback shows."
+    },
+    {
+      "name": "fallback-icon",
+      "type": "string",
+      "default": "extensions",
+      "description": "Codicon when there's no image: extensions (plugin), server (MCP), lightbulb (skill)."
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "default": "Install"
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "install",
+      "trigger": "Install button fires `install` with the name."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "cssCaptures": [
+    "customization-discovery-card-dark",
+    "customization-discovery-card-light"
+  ],
+  "requires": [
+    "vsc-workbench"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/aiCustomizationDiscoveryPage.ts"
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/customizationCardList.ts"
+    }
+  ],
+  "examples": [
+    {
+      "title": "MCP server result",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 840px;\"><div class=\"ai-customization-management-editor\"><div class=\"customization-discovery\"><div class=\"customization-discovery-sections\"><div class=\"customization-discovery-section\"><div class=\"customization-discovery-grid\"><vsc-customization-discovery-card name=\"Figma MCP Server\" meta=\"MCP server · GitHub Feed\" description=\"The Figma MCP Server integrates Figma design context directly into AI workflows, enabling code generation and design implementation.\" fallback-icon=\"server\" icon-src=\"https://raw.githubusercontent.com/github/agentfinder-catalog/86f63e3d82c25067b6a3f943f9853d53a2ab7a30/icons/figma/figma.png\"></vsc-customization-discovery-card></div></div></div></div></div></vsc-workbench>",
+      "width": 840
+    }
+  ],
+  "references": [
+    {
+      "capture": "customization-discovery-card-dark",
+      "example": 0,
+      "theme": "dark-2026",
+      "width": 840,
+      "root": ".customization-discovery-card",
+      "ignore": []
+    },
+    {
+      "capture": "customization-discovery-card-light",
+      "example": 0,
+      "theme": "light-2026",
+      "width": 840,
+      "root": ".customization-discovery-card",
+      "ignore": []
+    }
+  ],
+  "status": "draft",
+  "verification": {
+    "status": "verified",
+    "checkedAt": "2026-10-30T19:14:07.736Z",
+    "compared": 22,
+    "diffs": 0,
+    "theme": "dark-2026",
+    "summary": []
+  },
+  "createdAt": "2026-10-30T19:08:35.896Z",
+  "updatedAt": "2026-10-30T19:14:07.736Z"
+}
