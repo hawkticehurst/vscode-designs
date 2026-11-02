@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customizations - Provenance</title>
+  <link rel="stylesheet" href="../../systems/vscode/system.css">
+  <script type="module" src="../../systems/vscode/system.js"></script>
+  <style>
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+    vsc-workbench { width: 100vw; height: 100vh; display: block; }
+    .prototype-shell { height: 100%; padding: 28px; box-sizing: border-box; }
+    .editor-frame { height: 100%; min-height: 560px; overflow: hidden; border: 1px solid var(--vscode-widget-border, rgba(128,128,128,.35)); border-radius: 8px; background: var(--vscode-editor-background); box-shadow: 0 8px 28px rgba(0,0,0,.18); }
+    vsc-customizations-editor { height: 100%; }
+    .provenance-badge { display: inline-flex; align-items: center; gap: 5px; height: 18px; max-width: 180px; margin-left: 8px; padding: 0 7px 0 6px; border-radius: 9px; box-sizing: border-box; color: var(--vscode-badge-foreground); background: var(--vscode-badge-background); font-size: 11px; font-weight: 400; line-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; }
+    .provenance-badge .codicon { font-size: 12px; }
+    .provenance-badge[data-kind="organization"] { color: var(--vscode-activityBarBadge-foreground); background: var(--vscode-activityBarBadge-background); }
+    .provenance-badge[data-kind="team"] { color: var(--vscode-statusBarItem-prominentForeground, var(--vscode-badge-foreground)); background: var(--vscode-statusBarItem-prominentBackground, var(--vscode-badge-background)); }
+    .provenance-badge[data-kind="local"] { color: var(--vscode-descriptionForeground); background: transparent; border: 1px solid var(--vscode-contrastBorder, var(--vscode-widget-border)); }
+    .provenance-badge .provenance-prefix { opacity: .78; }
+    .item-name-row { min-width: 0; }
+    .item-name { flex: 0 1 auto; min-width: 0; }
+    .item-name .monaco-highlighted-label { overflow: hidden; text-overflow: ellipsis; }
+    @media (max-width: 720px) {
+      .prototype-shell { padding: 12px; }
+      .provenance-prefix { display: none; }
+      .provenance-badge { max-width: 110px; }
+    }
+  </style>
+</head>
+<body>
+  <vsc-workbench window="agents" theme="dark-2026">
+    <main class="prototype-shell" aria-label="Customization provenance exploration">
+      <section class="editor-frame" aria-label="Customizations editor">
+        <vsc-customizations-editor section="skills" sidebar-width="200" counts="2,7,5,2,3,1,36">
+          <vsc-customization-list section="skills" kind="prompts" heading="Skills" description="Folders of instructions, scripts, and resources that Copilot loads when relevant to perform specialized tasks." link="Learn more about agent skills">
+            <vsc-customization-group label="User" count="2" actions="add" add-label="New Skill" first></vsc-customization-group>
+            <vsc-customization-item name="comparison-screenshot" path="~/.copilot/skills/comparison-screenshot/SKILL.md" data-source="You" data-source-kind="local" data-source-icon="person"></vsc-customization-item>
+            <vsc-customization-item name="accessibility-review" path="~/.copilot/skills/accessibility-review/SKILL.md" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github"></vsc-customization-item>
+            <vsc-customization-group label="Workspace" count="3" actions="add" add-label="New Skill"></vsc-customization-group>
+            <vsc-customization-item name="release-notes" path=".github/skills/release-notes/SKILL.md" data-source="VS Code" data-source-kind="organization" data-source-icon="organization"></vsc-customization-item>
+            <vsc-customization-item name="issue-triage" path=".github/skills/issue-triage/SKILL.md" data-source="Editor Foundations" data-source-kind="team" data-source-icon="organization"></vsc-customization-item>
+            <vsc-customization-item name="component-audit" path=".github/skills/component-audit/SKILL.md" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github"></vsc-customization-item>
+          </vsc-customization-list>
+        </vsc-customizations-editor>
+      </section>
+    </main>
+  </vsc-workbench>
+  <script>
+    customElements.whenDefined('vsc-customization-item').then(() => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll('vsc-customization-item[data-source]').forEach(item => {
+          const row = item.querySelector('.item-name-row');
+          if (!row || row.querySelector('.provenance-badge')) return;
+          const badge = document.createElement('span');
+          badge.className = 'provenance-badge';
+          badge.dataset.kind = item.dataset.sourceKind || 'feed';
+          badge.title = `Managed by ${item.dataset.source}`;
+          badge.setAttribute('aria-label', badge.title);
+          badge.innerHTML = `<span class="codicon codicon-${item.dataset.sourceIcon || 'organization'}" aria-hidden="true"></span><span class="provenance-prefix">Source</span><span>${item.dataset.source}</span>`;
+          row.appendChild(badge);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

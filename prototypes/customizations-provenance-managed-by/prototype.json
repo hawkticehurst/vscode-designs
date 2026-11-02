@@ -1,0 +1,21 @@
+{
+  "title": "Customizations - Provenance",
+  "description": "Alternative: an aligned “Managed by” column separates provenance from customization type without adding several competing pill styles.",
+  "status": "review",
+  "tags": [
+    "customizations",
+    "design-system",
+    "provenance"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-provenance",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [],
+  "createdAt": "2026-11-02T22:31:59.961Z",
+  "updatedAt": "2026-11-02T22:32:41.585Z"
+}

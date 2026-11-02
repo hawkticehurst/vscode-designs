@@ -1,0 +1,19 @@
+{
+  "title": "Customizations - Provenance",
+  "description": "Primary direction: compact, visually distinct source chips keep customization type represented by the existing icon while making provenance scannable at a glance.",
+  "status": "review",
+  "tags": [
+    "customizations",
+    "design-system",
+    "provenance"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "human"
+  },
+  "sourceRefs": [],
+  "createdAt": "2026-11-02T22:29:46.993Z",
+  "updatedAt": "2026-11-02T22:32:41.593Z"
+}
