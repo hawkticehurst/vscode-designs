@@ -1,0 +1,88 @@
+{
+  "tag": "vsc-tool-set-item",
+  "kind": "component",
+  "title": "Tool set item",
+  "category": "chat",
+  "description": "A row on the Tools page (`.tools-list-setrow`): a tool set with its enablement switch, name, one-line description, enabled/total count, optional \\u22ef More actions and a chevron to expand its tools; or a connected source (`.tools-list-connected-row`) with Start and its switch.",
+  "usage": "Rows of a kind=\"tools\" <vsc-customization-list>. Live groups: Built-in Tools (Copilot \\u2014 locked, VS Code, Integrated Browser, Automations, Compare implementation attempts, Sessions List), Connected Sources, Extension Tools.",
+  "attributes": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "name": "count",
+      "type": "string",
+      "description": "Enabled/total, e.g. \"17/17\". Omit for connected sources."
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "description": "Switch on."
+    },
+    {
+      "name": "locked",
+      "type": "boolean",
+      "description": "No switch (the Copilot set, which can't be turned off): the toggle keeps its space but is hidden."
+    },
+    {
+      "name": "more",
+      "type": "boolean",
+      "description": "Show the ⋯ More actions button (extension tool sets)."
+    },
+    {
+      "name": "connected",
+      "type": "boolean",
+      "description": "Connected source row (MCP server running on the client): no chevron, optional Start button, read-only."
+    },
+    {
+      "name": "action",
+      "type": "enum",
+      "values": [
+        "",
+        "start"
+      ],
+      "description": "Connected source action."
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "enabled",
+      "trigger": "Click the switch; fires `toggle`."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "hostTag": "div",
+  "cssCaptures": [
+    "agents-docked-customizations-tools-dark",
+    "agents-docked-customizations-tools-light"
+  ],
+  "requires": [
+    "vsc-workbench",
+    "vsc-customization-list"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/toolsListWidget.ts"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Tool sets",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 545px; height: 420px;\"><div class=\"ai-customization-management-editor\" style=\"height: 420px;\"><div class=\"management-content\"><div class=\"content-inner\"><vsc-customization-list kind=\"tools\" heading=\"Tools\"><vsc-customization-group label=\"Built-in Tools\" count=\"6\"></vsc-customization-group><vsc-tool-set-item name=\"Copilot\" description=\"Built-in tools the Copilot agent runs inside its own runtime.\" count=\"17/17\" locked></vsc-tool-set-item><vsc-tool-set-item name=\"VS Code\" description=\"Navigate code, manage extensions, and run built-in VS Code commands.\" count=\"1/1\" enabled></vsc-tool-set-item><vsc-customization-group label=\"Connected Sources\" count=\"1\"></vsc-customization-group><vsc-tool-set-item name=\"github-mcp-server\" connected action=\"start\" enabled></vsc-tool-set-item><vsc-customization-group label=\"Extension Tools\" count=\"1\"></vsc-customization-group><vsc-tool-set-item name=\"GitHub Pull Requests\" description=\"Pull Request and Issue Provider for GitHub\" count=\"5/5\" more enabled></vsc-tool-set-item></vsc-customization-list></div></div></div></vsc-workbench>",
+      "width": 545
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-11-03T15:36:58.900Z",
+  "updatedAt": "2026-11-03T15:36:58.900Z"
+}

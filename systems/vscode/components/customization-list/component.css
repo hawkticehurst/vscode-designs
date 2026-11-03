@@ -1,0 +1,4 @@
+/* Rows collapsed under a group header or filtered out by the search box (set by <vsc-customization-list>). */
+vsc-customization-list [data-tree-hidden] {
+  display: none !important;
+}

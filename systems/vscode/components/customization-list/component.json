@@ -4,7 +4,7 @@
   "title": "Customization list page",
   "category": "chat",
   "description": "A section page of the Customizations editor: the rounded content panel with the section title (Browse button; Plugins adds a ⋯ More Marketplace Actions button), the description with its Learn more link, a \"Type to search...\" input and the grouped tree of installed customizations (User, Workspace, Plugins, Remote, Built-in). `kind=\"prompts\"` is the prompt-file list (Skills, Instructions, Agents, Hooks); `mcp` and `plugins` are the plugin list widget. Applies `narrow-layout` below 500px and `wide-layout` from 600px, like the product. The product virtualizes the tree (absolutely positioned rows in a fixed-height list); here rows flow and the list scrolls natively.",
-  "usage": "Inside <vsc-customizations-editor> with `section` set. Product copy — Skills: \"Folders of instructions, scripts, and resources that Copilot loads when relevant to perform specialized tasks.\" (Learn more about agent skills); Instructions: \"Define common guidelines and rules that automatically influence how AI generates code and handles development tasks.\" (Learn more about custom instructions); Agents: \"Configure the AI to adopt different personas tailored to specific development tasks. Each agent has its own instructions, tools, and behavior.\" (Learn more about custom agents); Hooks: \"Prompts executed at specific points during an agentic lifecycle.\" (Learn more about hooks); MCP Servers: \"An open standard that lets AI use external tools and services. MCP servers provide tools for file operations, databases, APIs, and more.\" (Learn more about MCP servers); Plugins: \"Extend your AI agent with plugins that add commands, skills, agents, hooks, and MCP servers from reusable packages.\" (Learn more about agent plugins).",
+  "usage": "Inside <vsc-customizations-editor> with `section` set. Product copy — Skills: \"Folders of instructions, scripts, and resources that Copilot loads when relevant to perform specialized tasks.\" (Learn more about agent skills); Instructions: \"Define common guidelines and rules that automatically influence how AI generates code and handles development tasks.\" (Learn more about custom instructions); Agents: \"Configure the AI to adopt different personas tailored to specific development tasks. Each agent has its own instructions, tools, and behavior.\" (Learn more about custom agents); Hooks: \"Prompts executed at specific points during an agentic lifecycle.\" (Learn more about hooks); MCP Servers: \"An open standard that lets AI use external tools and services. MCP servers provide tools for file operations, databases, APIs, and more.\" (Learn more about MCP servers); Plugins: \"Extend your AI agent with plugins that add commands, skills, agents, hooks, and MCP servers from reusable packages.\" (Learn more about agent plugins). Tools: \"Enable or disable the tools available to chat. Disabled tools are not advertised to the agent. Tools other than Copilot's built-in tools run on the client and require it to be connected.\" (Learn more about tools); rows are <vsc-tool-set-item>. Extensions (Agents window): \"Choose which installed extensions run in the Agents window. Extensions that haven't declared support for the Agents window are disabled by default and might not work as expected. Changes only apply to the Agents window.\"; rows are <vsc-agents-extension-item>.",
   "attributes": [
     {
       "name": "section",
@@ -17,10 +17,12 @@
       "values": [
         "prompts",
         "mcp",
-        "plugins"
+        "plugins",
+        "tools",
+        "extensions"
       ],
       "default": "prompts",
-      "description": "prompts = ai-customization-list-widget (Skills/Instructions/Agents/Hooks); mcp / plugins = plugin-list-widget."
+      "description": "prompts = ai-customization-list-widget (Skills/Instructions/Agents/Hooks); mcp / plugins = plugin-list-widget; tools = tools-list-widget; extensions = the Agents window's extensions widget."
     },
     {
       "name": "heading",
@@ -68,18 +70,22 @@
   "variants": [],
   "hostDisplay": "block",
   "cssCaptures": [
-    "customizations-skills-wide-dark",
-    "customizations-skills-wide-light",
-    "customizations-skills-narrow-dark",
-    "customizations-skills-narrow-light",
-    "customizations-mcp-wide-dark",
-    "customizations-mcp-wide-light",
+    "agents-docked-customizations-extensions-dark",
+    "agents-docked-customizations-extensions-light",
+    "agents-docked-customizations-tools-dark",
+    "agents-docked-customizations-tools-light",
     "customizations-mcp-narrow-dark",
     "customizations-mcp-narrow-light",
+    "customizations-mcp-wide-dark",
+    "customizations-mcp-wide-light",
+    "customizations-plugins-narrow-dark",
+    "customizations-plugins-narrow-light",
     "customizations-plugins-wide-dark",
     "customizations-plugins-wide-light",
-    "customizations-plugins-narrow-dark",
-    "customizations-plugins-narrow-light"
+    "customizations-skills-narrow-dark",
+    "customizations-skills-narrow-light",
+    "customizations-skills-wide-dark",
+    "customizations-skills-wide-light"
   ],
   "requires": [
     "vsc-workbench",
@@ -87,10 +93,12 @@
   ],
   "tokens": [],
   "uses": [
+    "vsc-agents-extension-item",
     "vsc-customization-group",
     "vsc-customization-item",
     "vsc-mcp-server-item",
-    "vsc-plugin-item"
+    "vsc-plugin-item",
+    "vsc-tool-set-item"
   ],
   "sources": [
     {
@@ -123,6 +131,55 @@
   ],
   "references": [],
   "status": "draft",
+  "verification": {
+    "status": "drift",
+    "checkedAt": "2026-11-03T16:01:25.130Z",
+    "compared": 4,
+    "diffs": 1220,
+    "theme": "dark-2026",
+    "summary": [
+      "[agents-docked-customizations-tools-dark] missing: content",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > sash-container",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > connected-tabs-labels.tab-actions-reserve-space.tabs.title",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > connected-tabs-labels.tab-actions-reserve-space.tabs.title > has-add-tab.tabs-and-actions-container.tabs-border-bottom",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > connected-tabs-labels.tab-actions-reserve-space.tabs.title > has-add-tab.tabs-and-actions-container.tabs-border-bottom > mac.monaco-scrollable-element",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > connected-tabs-labels.tab-actions-reserve-space.tabs.title > has-add-tab.tabs-and-actions-container.tabs-border-bottom > mac.monaco-scrollable-element > has-add-tab.tabs-container",
+      "[agents-docked-customizations-tools-dark] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > connected-tabs-labels.tab-actions-reserve-space.tabs.title > has-add-tab.tabs-and-actions-container.tabs-border-bottom > mac.monaco-scrollable-element > has-add-tab.tabs-container > connected-tab-top-row.sizing-fit.tab.tab-actions-right.tab-border-bottom[0]",
+      "[agents-docked-customizations-tools-dark] ROOT w: expected 697, got 535",
+      "[agents-docked-customizations-tools-dark] ROOT h: expected 852, got 768",
+      "[agents-docked-customizations-tools-dark] ROOT bg: expected \"rgb(18, 19, 20)\", got \"rgba(0, 0, 0, 0)\"",
+      "[agents-docked-customizations-tools-dark] ROOT border: expected \"1px solid rgba(0, 0, 0, 0)\", got \"0px none rgb(191, 191, 191)\"",
+      "[agents-docked-customizations-tools-dark] ROOT radius: expected \"8px\", got \"0px\"",
+      "[agents-docked-customizations-tools-dark] extra (not in reference): section-title-header, section-title-header > section-title-row, section-title-header > section-title-row > section-title, section-title-header > section-title-description, section-title-header > section-title-description > section-title-description-text, section-title-header > section-title-description > section-title-link, tools-list-search-and-button-container, tools-list-search-and-button-container > tools-list-search-container, tools-list-search-and-button-container > tools-list-search-container > idle.monaco-inputbox, tools-list-search-and-button-container > tools-list-search-container > idle.monaco-inputbox > ibwrapper, …",
+      "[agents-docked-customizations-tools-light] missing: content",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > sash-container",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > connected-tabs-labels.tab-actions-reserve-space.tabs.title",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > connected-tabs-labels.tab-actions-reserve-space.tabs.title > has-add-tab.tabs-and-actions-container.tabs-border-bottom",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > connected-tabs-labels.tab-actions-reserve-space.tabs.title > has-add-tab.tabs-and-actions-container.tabs-border-bottom > mac.monaco-scrollable-element",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > connected-tabs-labels.tab-actions-reserve-space.tabs.title > has-add-tab.tabs-and-actions-container.tabs-border-bottom > mac.monaco-scrollable-element > has-add-tab.tabs-container",
+      "[agents-docked-customizations-tools-light] missing: content > grid-view-container > monaco-grid-view > monaco-grid-branch-node > monaco-split-view2.separator-border.vertical > mac.monaco-scrollable-element > split-view-container > split-view-view.visible > active.editor-group-container > connected-tabs-labels.tab-actions-reserve-space.tabs.title > has-add-tab.tabs-and-actions-container.tabs-border-bottom > mac.monaco-scrollable-element > has-add-tab.tabs-container > connected-tab-top-row.sizing-fit.tab.tab-actions-right.tab-border-bottom[0]",
+      "[agents-docked-customizations-tools-light] ROOT w: expected 697, got 535",
+      "[agents-docked-customizations-tools-light] ROOT h: expected 852, got 768",
+      "[agents-docked-customizations-tools-light] ROOT bg: expected \"rgb(255, 255, 255)\", got \"rgba(0, 0, 0, 0)\"",
+      "[agents-docked-customizations-tools-light] ROOT border: expected \"1px solid rgba(0, 0, 0, 0)\", got \"0px none rgb(32, 32, 32)\""
+    ]
+  },
   "createdAt": "2026-10-30T19:10:10.384Z",
-  "updatedAt": "2026-10-30T19:13:56.142Z"
+  "updatedAt": "2026-11-03T16:01:25.130Z"
 }

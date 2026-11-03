@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Customizations — V2 Installed / Browse</title>
+<link rel="stylesheet" href="../../systems/vscode/system.css" />
+<link rel="stylesheet" href="panel-kit.css" />
+<script type="module" src="../../systems/vscode/system.js"></script>
+<script src="customizations.js"></script>
+<script src="panel-config.js"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: #121314; overflow: hidden; }
+  #wb {
+    /* Toast insets, as the Agents window sets them (src/vs/sessions/browser/media/workbench.css), widened to 16px so toasts clear the floating panel edge. */
+    --modern-ui-notifications-inline-inset: var(--vscode-spacing-size160);
+    --modern-ui-notifications-block-end-inset: var(--vscode-spacing-size160); position: relative; width: 100vw; height: 100vh; display: flex; flex-direction: column;
+        background: var(--vscode-agents-background); color: var(--vscode-foreground); font-size: var(--vscode-agents-fontSize-body1); }
+  .tb button { font: inherit; color: inherit; }
+  /* border-box only on prototype-owned elements: VS Code widgets rely on content-box */
+  :is(.tb) :is(.cc, .avatar) { box-sizing: border-box; }
+  .grow { flex: 1; }
+
+  .tb { height: 38px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 10px; }
+  .tb-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; }
+  /* Session pill, after src/vs/sessions/contrib/sessions/browser/media/sessionsTitleBarWidget.css. */
+  .cc { width: 31vw; max-width: 600px; height: 22px; display: flex; align-items: center; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer;
+        border: 1px solid var(--vscode-commandCenter-border); background: transparent; color: var(--vscode-commandCenter-foreground); }
+  .cc:hover { background: var(--vscode-commandCenter-activeBackground); }
+  .cc-pill { display: flex; align-items: center; gap: 6px; padding: 0 8px; min-width: 0; opacity: 0.6; }
+  .cc-pill .codicon { font-size: var(--vscode-codiconFontSize-compact, 14px) !important; }
+  .cc-label { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .avatar { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; font-weight: 600; flex: none;
+            background: var(--vscode-chat-avatarBackground); color: var(--vscode-chat-avatarForeground); border: 1px solid var(--vscode-agentsCard-border); }
+  .avatar-photo { padding: 0; overflow: hidden; cursor: pointer; }
+  .avatar-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Agents window parts row: the sessions part and the docked editor part (src/vs/sessions layout), 2px apart. */
+  .parts { flex: 1; min-height: 0; display: flex; margin: 0 4px 4px; }
+  .side-panel { position: relative; flex: none; height: 100%; margin-left: 2px; }
+  .side-panel[hidden] { display: none; }
+  /* The workbench grid's sash between the sessions part and the docked editor part, centered on the 2px gap. */
+  #panel-sash { left: calc(-1px - var(--vscode-sash-size) / 2); }
+  .page { flex: 1; min-width: 0; min-height: 0; margin: 0; border-radius: var(--vscode-cornerRadius-large); overflow-y: auto;
+          background: var(--vscode-agentsPanel-background); color: var(--vscode-agentsPanel-foreground); border: 1px solid var(--vscode-agentsPanel-border); }
+  /* Home: the Agents window's new-session view. Welcome message centered above the new-session composer, both centered
+     in the sessions part (src/vs/sessions/contrib/chat/browser/media/chatWidget.css; these container and welcome rules
+     aren't in the design system's captures). */
+  .page > vsc-session-view { height: 100%; }
+  .page .session-view, .page .session-view-content, .page .chat-view-new, .page .sessions-chat-widget { height: 100%; }
+  .page .sessions-chat-widget { display: flex; flex-direction: column; width: 100%; position: relative; }
+  .page .new-chat-widget-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%;
+    box-sizing: border-box; overflow: hidden; padding: var(--vscode-spacing-size160) var(--vscode-spacing-size160) var(--vscode-spacing-size200); position: relative; }
+  .page .new-chat-widget-container > vsc-chat-input { width: 100%; max-width: 800px; }
+  .new-session-welcome-message { align-self: center; align-items: center; display: flex; gap: var(--vscode-spacing-size40); justify-content: center;
+    margin-bottom: var(--vscode-spacing-size160); position: relative; text-align: center; }
+  .new-session-welcome-message-title { color: var(--vscode-foreground); font-size: var(--vscode-fontSize-heading1); font-weight: 400; line-height: 1.4; margin: 0; }
+
+  /* ---- Phone (≤ 640px) ---- */
+  @media (max-width: 640px) {
+    /* Title bar: sidebar toggle, session pill (fills the space) and avatar. Navigation, run and layout actions are desktop-only. */
+    .tb { gap: 6px; padding: 0 8px; }
+    .tb-center { position: static; transform: none; flex: 1; min-width: 0; }
+    .tb-center + .grow { display: none; }
+    .tb-nav, .tb-run, .tb-layout { display: none; }
+    .cc { width: auto; flex: 1; min-width: 0; }
+    .side-panel { display: none; }
+  }
+
+  /* ===== This variant ===== */
+  /* Title: the view switch takes the title's place, like the panel part's view tabs. */
+  .v2-head { padding-left: var(--vscode-spacing-size80); }
+  .v2-head vsc-view-tabs { flex: 1; min-width: 0; }
+  .cp-view { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+
+  /* Type filters: one row of chips that scrolls sideways, fading at the overflowing edge. */
+  .cp-chips { flex: none; display: flex; gap: var(--vscode-spacing-size40); overflow-x: auto; scrollbar-width: none;
+    padding: 0 var(--vscode-spacing-size120) var(--vscode-spacing-size80); scroll-padding-inline: var(--vscode-spacing-size120); }
+  .cp-chips::-webkit-scrollbar { display: none; }
+  .cp-chips.fade-r { mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent); }
+  .cp-chips.fade-l { mask-image: linear-gradient(to right, transparent, #000 32px); }
+  .cp-chips.fade-l.fade-r { mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent); }
+  .cp-chip { flex: none; display: inline-flex; align-items: center; gap: var(--vscode-spacing-size60); height: 24px; padding: 0 var(--vscode-spacing-size100);
+    box-sizing: border-box; border-radius: var(--vscode-cornerRadius-circle); border: 1px solid var(--vscode-agentsCard-border); background: transparent;
+    color: var(--vscode-foreground); font-size: var(--vscode-fontSize-label1); cursor: pointer; white-space: nowrap; }
+  .cp-chip:hover { background: var(--vscode-list-hoverBackground); }
+  .cp-chip:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+  .cp-chip .n { color: var(--vscode-descriptionForeground); font-variant-numeric: tabular-nums; }
+  .cp-chip[aria-checked="true"] { background: var(--vscode-inputOption-activeBackground); border-color: var(--vscode-inputOption-activeBorder); }
+  .cp-chip[aria-checked="true"] .n { color: inherit; }
+
+  /* One type selected: no section header; its description leads the list. */
+  #flow[data-single] .cp-sec-head { display: none; }
+  #flow:not([data-single]) .cp-sec-desc { display: none; }
+  #flow { padding-bottom: var(--vscode-spacing-size120); }
+
+  /* Browse: the marketplace page, without its own title (the switch says Browse). */
+  #browse .cust-page { flex: 1; min-height: 0; }
+
+</style>
+</head>
+<body>
+<vsc-workbench id="wb" theme="dark-2026" window="agents" class="nostatusbar">
+  <header class="tb">
+    <vsc-toolbar label="Window"><vsc-action icon="layout-sidebar-left-off" label="Show Sessions Sidebar"></vsc-action></vsc-toolbar>
+    <div class="tb-center">
+      <vsc-toolbar class="tb-nav" label="Session Navigation"><vsc-action icon="arrow-left" label="Go Back" id="nav-back"></vsc-action><vsc-action icon="arrow-right" label="Go Forward" id="nav-fwd" disabled></vsc-action></vsc-toolbar>
+      <div class="cc" role="button" tabindex="0" aria-label="Show Sessions: No workspace"><div class="cc-pill"><span class="codicon codicon-comment-discussion" aria-hidden="true"></span><span class="cc-label">No workspace</span></div></div>
+      <vsc-toolbar class="tb-run" label="Session Actions"><vsc-action icon="play" label="Run" disabled></vsc-action><vsc-action icon="vscode-insiders" label="Open in VS Code - Insiders"></vsc-action></vsc-toolbar>
+    </div>
+    <div class="grow"></div>
+    <vsc-toolbar class="tb-layout" label="Layout">
+      <vsc-action icon="layout-panel-off" label="Show Panel (⌘J)"></vsc-action>
+      <vsc-action icon="layout-sidebar-right" label="Toggle Side Panel (⌥⌘B)" id="toggle-panel" checked></vsc-action>
+      <vsc-action icon="radio-tower" label="Remote Access"></vsc-action>
+    </vsc-toolbar>
+    <button class="avatar avatar-photo" title="hawkticehurst" aria-label="Accounts: hawkticehurst"><img src="assets/profile.jpg" alt="" /></button>
+  </header>
+  <div class="parts">
+  <main class="page" id="page">
+    <vsc-session-view variant="new">
+      <div class="new-session-welcome-message"><h2 class="new-session-welcome-message-title" id="greet">Good morning, Hawk</h2></div>
+      <vsc-chat-input id="composer" variant="new-session" placeholder="What should agents work on?" workspace="vscode" isolation="worktree"></vsc-chat-input>
+    </vsc-session-view>
+  </main>
+  <aside class="side-panel" id="side-panel" aria-label="Side Panel">
+    <div class="monaco-sash mac vertical" id="panel-sash" role="separator" aria-orientation="vertical" aria-label="Resize Side Panel"></div>
+    <vsc-agents-editor-part id="editor-part" tabs="Changes,Files,Customizations" active="Customizations">
+    <section class="cpanel" id="cpanel" aria-label="Customizations">
+      <header class="cp-header v2-head">
+        <vsc-view-tabs id="views" label="Customizations" active="installed"><vsc-view-tab value="installed">Installed</vsc-view-tab><vsc-view-tab value="browse">Browse</vsc-view-tab></vsc-view-tabs>
+        <vsc-toolbar label="Customizations Actions">
+          <vsc-action icon="add" label="New Customization..."></vsc-action>
+          <vsc-action icon="collapse-all" label="Collapse All" id="collapse-all"></vsc-action>
+          <vsc-action icon="ellipsis" label="More Actions..."></vsc-action>
+        </vsc-toolbar>
+      </header>
+      <div class="cp-view" id="installed">
+        <div class="cp-search"><vsc-input id="q" placeholder="Search installed customizations"></vsc-input></div>
+        <div class="cp-chips" id="chips" role="radiogroup" aria-label="Filter by type"></div>
+        <div class="cp-scroll" id="scroll">
+          <div class="ai-customization-management-editor cust-flow" id="flow"></div>
+          <div class="cp-empty" id="empty" hidden></div>
+        </div>
+      </div>
+      <div class="cp-view" id="browse" hidden></div>
+    </section>
+    </vsc-agents-editor-part>
+  </aside>
+  <script src="stage.js"></script>
+  <script>
+    // Runs while the page parses, before system.js upgrades the elements (they read their slotted children once).
+    (function () {
+      const { first: pages, CATEGORIES, esc, hostPage } = window.CUST;
+      const C = window.PANEL_CONFIG, params = new URLSearchParams(location.search);
+      document.getElementById("side-panel").style.width = C.width + "px";
+      // Type filter chips.
+      document.getElementById("chips").innerHTML = [{ id: "all", label: "All" }, ...CATEGORIES].map((c) =>
+        `<button class="cp-chip" role="radio" data-filter="${c.id}" aria-checked="false">${esc(c.short || c.label)}${c.count != null ? `<span class="n">${c.count}</span>` : ""}</button>`).join("");
+      // One collapsible section per category, each holding that category's tree (its groups and rows).
+      const flow = document.getElementById("flow");
+      for (const c of CATEGORIES) {
+        const list = pages[c.id];
+        const sec = document.createElement("section");
+        sec.className = "cp-sec";
+        sec.dataset.cat = c.id;
+        const link = list.getAttribute("link");
+        sec.innerHTML = `<div class="cp-sec-head" role="button" tabindex="0" aria-expanded="true">`
+          + `<span class="codicon codicon-chevron-down cp-twist" aria-hidden="true"></span>`
+          + `<span class="codicon codicon-${c.icon} cp-sec-icon" aria-hidden="true"></span>`
+          + `<span class="cp-sec-label">${esc(c.sentence || c.label)}</span><span class="cp-count">${c.count}</span><span class="grow"></span>`
+          + `<vsc-toolbar label="${esc(c.label)} Actions">${c.browse ? `<vsc-action icon="compass" label="Browse ${esc(c.label)}" data-browse></vsc-action>` : ""}${c.add ? `<vsc-action icon="add" label="${esc(c.add)}"></vsc-action>` : ""}</vsc-toolbar></div>`
+          + `<p class="cp-sec-desc">${esc(list.getAttribute("description") || "")}${link ? ` <a href="#">${esc(link)}</a>` : ""}</p>`
+          + `<div class="cust-list-wrap"></div>`;
+        sec.querySelector(".cust-list-wrap").append(list);
+        flow.append(sec);
+      }
+      const browse = hostPage(pages.browse);
+      browse.classList.add("no-title");
+      document.getElementById("browse").append(browse);
+      const view = params.get("view") || C.view;
+      document.getElementById("views").setAttribute("active", view);
+      document.getElementById("installed").hidden = view !== "installed";
+      document.getElementById("browse").hidden = view !== "browse";
+    })();
+  </script>
+  <script>
+    // The welcome phrase follows the time of day.
+    (function () {
+      const h = new Date().getHours();
+      document.getElementById("greet").textContent = `Good ${h < 12 ? "morning" : h < 18 ? "afternoon" : "evening"}, Hawk`;
+    })();
+  </script>
+  </div>
+</vsc-workbench>
+
+<script type="module">
+import { filterList } from "./panel-shell.js";
+// V2: Installed · Browse switch, global search and type filters over one stacked list.
+const C = window.PANEL_CONFIG, params = new URLSearchParams(location.search);
+const $ = (s) => document.querySelector(s);
+const flow = $("#flow"), chips = $("#chips"), scroll = $("#scroll"), empty = $("#empty");
+const sections = [...flow.querySelectorAll(".cp-sec")];
+const state = { filter: params.get("filter") || C.filter, q: "" };
+
+function apply() {
+  let shown = 0;
+  flow.toggleAttribute("data-single", state.filter !== "all");
+  for (const sec of sections) {
+    const cat = window.CUST.category(sec.dataset.cat);
+    const matches = filterList(sec.querySelector("vsc-customization-list"), state.q);
+    const visible = (state.filter === "all" || state.filter === cat.id) && (!state.q || matches > 0);
+    sec.hidden = !visible;
+    sec.querySelector(".cp-count").textContent = state.q ? matches : cat.count;
+    if (visible) shown++;
+  }
+  for (const chip of chips.children) chip.setAttribute("aria-checked", String(chip.dataset.filter === state.filter));
+  empty.hidden = shown > 0;
+  empty.textContent = state.q ? `No customizations match "${state.q}".` : "Nothing installed yet.";
+}
+apply();
+
+chips.addEventListener("click", (e) => {
+  const chip = e.target.closest(".cp-chip");
+  if (!chip) return;
+  state.filter = chip.dataset.filter;
+  chip.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+  scroll.scrollTop = 0;
+  apply();
+});
+chips.addEventListener("keydown", (e) => {
+  const all = [...chips.children], i = all.indexOf(document.activeElement);
+  if (i < 0 || !["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+  const next = all[(i + (e.key === "ArrowRight" ? 1 : all.length - 1)) % all.length];
+  next.focus(); next.click();
+});
+const fades = () => {
+  chips.classList.toggle("fade-l", chips.scrollLeft > 1);
+  chips.classList.toggle("fade-r", chips.scrollLeft + chips.clientWidth < chips.scrollWidth - 1);
+};
+chips.addEventListener("scroll", fades);
+new ResizeObserver(fades).observe(chips);
+
+$("#q").addEventListener("input", (e) => { state.q = e.target.value; apply(); });
+
+// Section headers collapse their tree; their actions don't.
+const toggleSection = (sec, collapse = !sec.hasAttribute("data-collapsed")) => {
+  sec.toggleAttribute("data-collapsed", collapse);
+  sec.querySelector(".cp-sec-head").setAttribute("aria-expanded", String(!collapse));
+};
+flow.addEventListener("click", (e) => {
+  const head = e.target.closest(".cp-sec-head");
+  if (!head) return;
+  if (e.target.closest("[data-browse]")) return setView("browse");
+  if (!e.target.closest("vsc-toolbar")) toggleSection(head.parentElement);
+});
+flow.addEventListener("keydown", (e) => {
+  const head = e.target.closest(".cp-sec-head");
+  if (head && e.target === head && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggleSection(head.parentElement); }
+});
+$("#collapse-all").addEventListener("click", () => {
+  const collapse = sections.some((s) => !s.hasAttribute("data-collapsed"));
+  sections.forEach((s) => toggleSection(s, collapse));
+});
+
+function setView(view) {
+  $("#views").setAttribute("active", view);
+  $("#installed").hidden = view !== "installed";
+  $("#browse").hidden = view !== "browse";
+  $("#collapse-all").hidden = view !== "installed";
+}
+setView(params.get("view") || C.view);
+$("#views").addEventListener("change", (e) => setView(e.detail.value));
+
+</script>
+</body>
+</html>

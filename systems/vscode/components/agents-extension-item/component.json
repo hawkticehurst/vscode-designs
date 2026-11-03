@@ -1,0 +1,82 @@
+{
+  "tag": "vsc-agents-extension-item",
+  "kind": "component",
+  "title": "Agents extension item",
+  "category": "chat",
+  "description": "A row on the Agents window's Extensions page (`.agents-window-extension-row`): extension icon, name and publisher (with a warning icon for contributions the Agents window doesn't support and badges such as Tools), description, and the switch that runs it in the Agents window. Disabled rows are dimmed.",
+  "usage": "Rows of a kind=\"extensions\" <vsc-customization-list>. Groups: AI Features, Supported (enabled by default), Other Extensions (disabled by default).",
+  "attributes": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "publisher",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "name": "icon-src",
+      "type": "string",
+      "description": "Extension icon URL; otherwise the default extension codicon."
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "description": "Runs in the Agents window (switch on). Disabled rows are dimmed."
+    },
+    {
+      "name": "warning",
+      "type": "string",
+      "description": "Unsupported contributions, e.g. \"views, debuggers\": shows the warning icon."
+    },
+    {
+      "name": "contributions",
+      "type": "string",
+      "description": "Comma-separated contribution badges, e.g. \"Tools\"."
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "enabled",
+      "trigger": "Click the switch; fires `toggle`. Disabled rows are dimmed."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "hostTag": "div",
+  "cssCaptures": [
+    "agents-docked-customizations-extensions-dark",
+    "agents-docked-customizations-extensions-light"
+  ],
+  "requires": [
+    "vsc-workbench",
+    "vsc-customization-list"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/sessions/contrib/extensions/browser/agentsWindowExtensionsWidget.ts",
+      "line": 167
+    },
+    {
+      "path": "src/vs/sessions/contrib/extensions/browser/media/agentsWindowExtensions.css"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Extensions",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 545px; height: 360px;\"><div class=\"ai-customization-management-editor\" style=\"height: 360px;\"><div class=\"management-content\"><div class=\"content-inner\"><vsc-customization-list kind=\"extensions\" heading=\"Extensions\"><vsc-customization-group label=\"Supported\" count=\"1\"></vsc-customization-group><vsc-agents-extension-item name=\"ESLint\" publisher=\"Microsoft\" description=\"Integrates ESLint JavaScript into VS Code.\" enabled></vsc-agents-extension-item><vsc-customization-group label=\"Other Extensions\" count=\"1\"></vsc-customization-group><vsc-agents-extension-item name=\"Astro\" publisher=\"Astro\" description=\"Language support for Astro\" warning=\"debuggers\"></vsc-agents-extension-item></vsc-customization-list></div></div></div></vsc-workbench>",
+      "width": 545
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-11-03T15:36:58.900Z",
+  "updatedAt": "2026-11-03T15:36:58.900Z"
+}

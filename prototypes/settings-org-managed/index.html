@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Settings</title>
+<link rel="stylesheet" href="../../systems/vscode/system.css" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+	html, body { margin: 0; height: 100%; overflow: hidden; background: #121314; }
+	/* Agents window frame, after the project's Customizations prototype (src/vs/sessions layout). */
+	#wb { position: relative; width: 100vw; height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+		background: var(--vscode-agents-background); color: var(--vscode-foreground); font-size: var(--vscode-agents-fontSize-body1); }
+	.tb { height: 38px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 10px; box-sizing: border-box; }
+	.tb-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; }
+	.cc { width: 31vw; max-width: 600px; height: 22px; display: flex; align-items: center; border-radius: var(--vscode-cornerRadius-medium); box-sizing: border-box;
+		border: 1px solid var(--vscode-commandCenter-border); color: var(--vscode-commandCenter-foreground); }
+	.cc-pill { display: flex; align-items: center; gap: 6px; padding: 0 8px; opacity: 0.6; font-size: 12px; }
+	.grow { flex: 1; }
+	.avatar { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; font-weight: 600; flex: none;
+		background: var(--vscode-chat-avatarBackground); color: var(--vscode-chat-avatarForeground); border: 1px solid var(--vscode-agentsCard-border); }
+	.parts { flex: 1; min-height: 0; display: flex; margin: 0 4px 4px; }
+	.page { flex: 1; min-width: 0; border-radius: var(--vscode-cornerRadius-large); overflow: hidden; display: flex; flex-direction: column; align-items: center;
+		background: var(--vscode-agentsPanel-background); color: var(--vscode-agentsPanel-foreground); border: 1px solid var(--vscode-agentsPanel-border); }
+	.greet { margin: 0; padding-top: 18vh; font-size: var(--vscode-agents-fontSize-heading1); font-weight: 400; letter-spacing: -0.015em; }
+	.dock { width: min(800px, 90%); margin-top: 24px; }
+	#settings-root { height: 100%; }
+</style>
+<script>
+	// Variant: Settings opened from the Agents window (agents defaults, locked settings, agents-first IA).
+	window.PROTO_CONFIG = { context: 'agents', nav: 'flat', chips: false, groups: 'cards', managed: true };
+	// Simulated organization policies (Contoso). Keys and values follow each setting's real policy schema.
+	// source: 'github' = GitHub Copilot Business/Enterprise policies for the signed-in account;
+	//         'device' = device management (macOS configuration profile, Windows Group Policy, Linux policy.json).
+	window.PROTO_POLICIES = {
+		// GitHub Copilot policies
+		'chat.agent.enabled': { value: true, source: 'github' },
+		'chat.mcp.access': { value: 'registry', source: 'github' },
+		'chat.tools.global.autoApprove': { value: false, source: 'github' },
+		'chat.sessionSync.enabled': { value: false, source: 'github' },
+		'chat.useHooks': { value: true, source: 'github' },
+		'chat.plugins.enabledPlugins': { value: { 'secure-code-review@contoso-plugins': true, 'web-scraper@public-feed': false }, source: 'github' },
+		'chat.customizations.marketplace.enabled': { value: false, source: 'github' },
+		'chat.agentHost.githubEnvironments.enabled': { value: true, source: 'github' },
+		// Device management: agent sandboxing and network
+		'chat.agent.sandbox.enabled': { value: 'on', source: 'device' },
+		'chat.agent.sandbox.allowUnsandboxedCommands': { value: false, source: 'device' },
+		'chat.agent.sandbox.network.allowNetwork': { value: true, source: 'device' },
+		'chat.agent.networkFilter': { value: true, source: 'device' },
+		'chat.agent.sandbox.network.allowedDomains': { value: ['github.com', '*.githubusercontent.com', 'registry.npmjs.org', '*.contoso.com'], source: 'device' },
+		'chat.agent.sandbox.network.deniedDomains': { value: ['pastebin.com', '*.ngrok.io'], source: 'device' },
+		// Device management: approvals and tools
+		'chat.tools.terminal.enableAutoApprove': { value: false, source: 'device' },
+		'chat.tools.eligibleForAutoApproval': { value: { fetch: false, runInTerminal: false }, source: 'device' },
+		'workbench.browser.enableChatTools': { value: false, source: 'device' },
+		// Device management: third-party agent harnesses and observability
+		'chat.agentHost.claudeAgent.enabled': { value: false, source: 'device' },
+		'chat.agentHost.codexAgent.enabled': { value: false, source: 'device' },
+		'chat.agentHost.otel.enabled': { value: true, source: 'device' },
+		'chat.agentHost.otel.exporterType': { value: 'otlp-http', source: 'device' },
+		'chat.agentHost.otel.otlpEndpoint': { value: 'https://otel.contoso.com:4318', source: 'device' },
+		'chat.agentHost.otel.captureContent': { value: false, source: 'device' },
+		// Device management: extensions, updates and telemetry
+		'extensions.allowed': { value: { microsoft: true, github: true, contoso: true, 'esbenp.prettier-vscode': true, 'dbaeumer.vscode-eslint': true, '*': false }, source: 'device' },
+		'update.mode': { value: 'start', source: 'device' },
+		'telemetry.telemetryLevel': { value: 'error', source: 'device' },
+		'telemetry.feedback.enabled': { value: false, source: 'device' },
+	};
+</script>
+<script src="settings-data.js"></script>
+<script src="ia.js"></script>
+<script src="model.js"></script>
+<script src="format.js"></script>
+<script src="controls.js"></script>
+<script src="rows.js"></script>
+<script src="app.js"></script>
+</head>
+<body>
+<vsc-workbench id="wb" theme="dark-2026" window="agents" class="nostatusbar">
+	<header class="tb">
+		<vsc-toolbar label="Window"><vsc-action icon="layout-sidebar-left-off" label="Show Sessions Sidebar"></vsc-action></vsc-toolbar>
+		<div class="tb-center">
+			<vsc-toolbar label="Session Navigation"><vsc-action icon="arrow-left" label="Go Back"></vsc-action><vsc-action icon="arrow-right" label="Go Forward" disabled></vsc-action></vsc-toolbar>
+			<div class="cc" role="button" tabindex="0" aria-label="Show Sessions: vscode"><div class="cc-pill"><span class="codicon codicon-comment-discussion" aria-hidden="true"></span><span>vscode</span></div></div>
+			<vsc-toolbar label="Session Actions"><vsc-action icon="play" label="Run" disabled></vsc-action><vsc-action icon="vscode-insiders" label="Open in VS Code - Insiders"></vsc-action></vsc-toolbar>
+		</div>
+		<div class="grow"></div>
+		<vsc-toolbar label="Layout">
+			<vsc-action icon="layout-panel-off" label="Show Panel (⌘J)"></vsc-action>
+			<vsc-action icon="layout-sidebar-right-off" label="Toggle Side Panel (⌥⌘B)"></vsc-action>
+		</vsc-toolbar>
+		<div class="avatar" title="hawkticehurst">HT</div>
+	</header>
+	<div class="parts">
+		<main class="page">
+			<h1 class="greet">Good morning, Hawk</h1>
+			<section class="dock" aria-label="New session">
+				<vsc-session-view variant="new"><vsc-chat-input variant="new-session" placeholder="What should agents work on?" workspace="vscode" isolation="worktree"></vsc-chat-input></vsc-session-view>
+			</section>
+		</main>
+	</div>
+	<vsc-modal-editor id="modal" contained heading="Settings" icon="settings-gear">
+		<div id="settings-root"></div>
+	</vsc-modal-editor>
+</vsc-workbench>
+<script type="module" src="../../systems/vscode/system.js"></script>
+<script type="module">
+	await customElements.whenDefined('vsc-modal-editor');
+	requestAnimationFrame(() => window.SE.mount(document.getElementById('settings-root')));
+	document.addEventListener('modal-maximize', () => document.querySelector('.modal-editor-resizable').classList.toggle('se-maximized'));
+	document.addEventListener('modal-close', () => window.SE.toast && window.SE.toast('Close is disabled in this prototype'));
+</script>
+<style>
+	.modal-editor-resizable.se-maximized { left: 8px !important; top: 8px !important; width: calc(100% - 16px) !important; height: calc(100% - 16px) !important; }
+</style>
+</body>
+</html>

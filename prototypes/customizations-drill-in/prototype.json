@@ -1,0 +1,26 @@
+{
+  "title": "Customizations",
+  "description": "V3 — Drill-in: the panel opens on an overview (a Discover entry plus every category with a one-line summary); choosing one pushes a full-width page with a back button.",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "navigation",
+    "exploration"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-03T16:40:35.453Z",
+  "updatedAt": "2026-11-03T16:52:56.429Z"
+}

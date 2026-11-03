@@ -1,0 +1,27 @@
+{
+  "title": "Customizations",
+  "description": "B — One panel, This session · Library · Browse: the same session view, plus your whole library and the marketplace as views of the side panel's Customizations tab. The sessions sidebar's Customizations section opens the panel on the Library.",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "scope",
+    "library",
+    "exploration"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-03T17:42:25.026Z",
+  "updatedAt": "2026-11-03T17:57:43.665Z"
+}

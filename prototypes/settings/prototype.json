@@ -1,0 +1,21 @@
+{
+  "title": "Settings",
+  "description": "This design explores a modernization of the VS Code settings page used across the editor and agents window. The focus should be on improving information architecture, updating toggles to use the switch UI component instead of checkboxes, take a pass at updating sidebar UI, create better sub categories/associated UI treatment, split out experimental settings into their own dedicated section, and other modernization related items. It's critical that this design pulls directly from real world settings data since there are so many settings and potentially odd edge cases we need to deal with.",
+  "status": "draft",
+  "tags": [
+    "settings",
+    "vscode",
+    "information-architecture"
+  ],
+  "system": "vscode",
+  "group": "settings-modernization",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "human"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-02T15:31:34.946Z",
+  "updatedAt": "2026-11-02T15:57:52.403Z"
+}

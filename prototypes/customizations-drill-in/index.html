@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Customizations — V3 Drill-in</title>
+<link rel="stylesheet" href="../../systems/vscode/system.css" />
+<link rel="stylesheet" href="panel-kit.css" />
+<script type="module" src="../../systems/vscode/system.js"></script>
+<script src="customizations.js"></script>
+<script src="panel-config.js"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: #121314; overflow: hidden; }
+  #wb {
+    /* Toast insets, as the Agents window sets them (src/vs/sessions/browser/media/workbench.css), widened to 16px so toasts clear the floating panel edge. */
+    --modern-ui-notifications-inline-inset: var(--vscode-spacing-size160);
+    --modern-ui-notifications-block-end-inset: var(--vscode-spacing-size160); position: relative; width: 100vw; height: 100vh; display: flex; flex-direction: column;
+        background: var(--vscode-agents-background); color: var(--vscode-foreground); font-size: var(--vscode-agents-fontSize-body1); }
+  .tb button { font: inherit; color: inherit; }
+  /* border-box only on prototype-owned elements: VS Code widgets rely on content-box */
+  :is(.tb) :is(.cc, .avatar) { box-sizing: border-box; }
+  .grow { flex: 1; }
+
+  .tb { height: 38px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 10px; }
+  .tb-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; }
+  /* Session pill, after src/vs/sessions/contrib/sessions/browser/media/sessionsTitleBarWidget.css. */
+  .cc { width: 31vw; max-width: 600px; height: 22px; display: flex; align-items: center; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer;
+        border: 1px solid var(--vscode-commandCenter-border); background: transparent; color: var(--vscode-commandCenter-foreground); }
+  .cc:hover { background: var(--vscode-commandCenter-activeBackground); }
+  .cc-pill { display: flex; align-items: center; gap: 6px; padding: 0 8px; min-width: 0; opacity: 0.6; }
+  .cc-pill .codicon { font-size: var(--vscode-codiconFontSize-compact, 14px) !important; }
+  .cc-label { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .avatar { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; font-weight: 600; flex: none;
+            background: var(--vscode-chat-avatarBackground); color: var(--vscode-chat-avatarForeground); border: 1px solid var(--vscode-agentsCard-border); }
+  .avatar-photo { padding: 0; overflow: hidden; cursor: pointer; }
+  .avatar-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Agents window parts row: the sessions part and the docked editor part (src/vs/sessions layout), 2px apart. */
+  .parts { flex: 1; min-height: 0; display: flex; margin: 0 4px 4px; }
+  .side-panel { position: relative; flex: none; height: 100%; margin-left: 2px; }
+  .side-panel[hidden] { display: none; }
+  /* The workbench grid's sash between the sessions part and the docked editor part, centered on the 2px gap. */
+  #panel-sash { left: calc(-1px - var(--vscode-sash-size) / 2); }
+  .page { flex: 1; min-width: 0; min-height: 0; margin: 0; border-radius: var(--vscode-cornerRadius-large); overflow-y: auto;
+          background: var(--vscode-agentsPanel-background); color: var(--vscode-agentsPanel-foreground); border: 1px solid var(--vscode-agentsPanel-border); }
+  /* Home: the Agents window's new-session view. Welcome message centered above the new-session composer, both centered
+     in the sessions part (src/vs/sessions/contrib/chat/browser/media/chatWidget.css; these container and welcome rules
+     aren't in the design system's captures). */
+  .page > vsc-session-view { height: 100%; }
+  .page .session-view, .page .session-view-content, .page .chat-view-new, .page .sessions-chat-widget { height: 100%; }
+  .page .sessions-chat-widget { display: flex; flex-direction: column; width: 100%; position: relative; }
+  .page .new-chat-widget-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%;
+    box-sizing: border-box; overflow: hidden; padding: var(--vscode-spacing-size160) var(--vscode-spacing-size160) var(--vscode-spacing-size200); position: relative; }
+  .page .new-chat-widget-container > vsc-chat-input { width: 100%; max-width: 800px; }
+  .new-session-welcome-message { align-self: center; align-items: center; display: flex; gap: var(--vscode-spacing-size40); justify-content: center;
+    margin-bottom: var(--vscode-spacing-size160); position: relative; text-align: center; }
+  .new-session-welcome-message-title { color: var(--vscode-foreground); font-size: var(--vscode-fontSize-heading1); font-weight: 400; line-height: 1.4; margin: 0; }
+
+  /* ---- Phone (≤ 640px) ---- */
+  @media (max-width: 640px) {
+    /* Title bar: sidebar toggle, session pill (fills the space) and avatar. Navigation, run and layout actions are desktop-only. */
+    .tb { gap: 6px; padding: 0 8px; }
+    .tb-center { position: static; transform: none; flex: 1; min-width: 0; }
+    .tb-center + .grow { display: none; }
+    .tb-nav, .tb-run, .tb-layout { display: none; }
+    .cc { width: auto; flex: 1; min-width: 0; }
+    .side-panel { display: none; }
+  }
+
+  /* ===== This variant ===== */
+  .cp-stack { position: relative; flex: 1; min-height: 0; overflow: hidden; }
+  /* The tab names the view, so the overview starts with search and its actions. */
+  .home-search { display: flex; align-items: center; gap: var(--vscode-spacing-size40); padding-top: var(--vscode-spacing-size120); padding-right: var(--vscode-spacing-size80); }
+  .home-search vsc-input { flex: 1; min-width: 0; }
+  .cp-view { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--cp-bg);
+    transition: transform 220ms cubic-bezier(0.2, 0, 0, 1), opacity 220ms cubic-bezier(0.2, 0, 0, 1), visibility 0s linear 0s; }
+  .cp-stack[data-depth="1"] #home { transform: translateX(-25%); opacity: 0; visibility: hidden; transition-property: transform, opacity, visibility; transition-delay: 0s, 0s, 220ms; }
+  #detail { transform: translateX(100%); visibility: hidden; transition-delay: 0s, 0s, 220ms; box-shadow: -1px 0 0 var(--vscode-agentsPanel-border); }
+  .cp-stack[data-depth="1"] #detail { transform: none; visibility: visible; transition-delay: 0s; }
+  #detail .cp-header { padding-left: var(--vscode-spacing-size40); }
+  #d-body { flex: 1; min-height: 0; }
+  #d-body > .cust-page { height: 100%; }
+
+  /* Overview */
+  #overview { padding: 0 var(--vscode-spacing-size120) var(--vscode-spacing-size160); display: flex; flex-direction: column; gap: var(--vscode-spacing-size160); }
+  .ov-discover { display: flex; align-items: center; gap: var(--vscode-spacing-size120); width: 100%; padding: var(--vscode-spacing-size120); box-sizing: border-box;
+    text-align: left; cursor: pointer; border-radius: var(--vscode-cornerRadius-large); border: 1px solid var(--vscode-agentsCard-border);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--vscode-button-background) 14%, transparent), transparent 70%), var(--cp-bg); }
+  .ov-discover:hover { background: linear-gradient(135deg, color-mix(in srgb, var(--vscode-button-background) 22%, transparent), transparent 70%), var(--vscode-list-hoverBackground); }
+  .ov-icons { flex: none; display: flex; }
+  .ov-icons img { width: 28px; height: 28px; border-radius: var(--vscode-cornerRadius-medium); box-shadow: 0 0 0 2px var(--cp-bg); object-fit: cover; background: #fff; }
+  .ov-icons img + img { margin-left: -10px; }
+  .ov-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .ov-title { font-weight: var(--vscode-agents-fontWeight-semiBold); color: var(--vscode-foreground); }
+  .ov-sub { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ov-chev { flex: none; color: var(--vscode-icon-foreground); font-size: 16px; }
+  .ov-group-label { margin: 0 0 var(--vscode-spacing-size60) var(--vscode-spacing-size40); color: var(--vscode-descriptionForeground);
+    font-size: var(--vscode-fontSize-label1); font-weight: var(--vscode-agents-fontWeight-semiBold); letter-spacing: 0.01em; }
+  .ov-list { border: 1px solid var(--vscode-agentsCard-border); border-radius: var(--vscode-cornerRadius-large); overflow: hidden; }
+  .ov-row { display: flex; align-items: center; gap: var(--vscode-spacing-size100); width: 100%; height: 48px; padding: 0 var(--vscode-spacing-size80) 0 var(--vscode-spacing-size100);
+    box-sizing: border-box; text-align: left; cursor: pointer; border: 0; background: transparent; }
+  .ov-row + .ov-row { box-shadow: inset 0 1px 0 var(--vscode-agentsCard-border); }
+  .ov-row:hover { background: var(--vscode-list-hoverBackground); }
+  .ov-row:focus-visible, .ov-discover:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+  /* The end rows follow the list's rounded corners (its radius less its 1px border), so their hover background and focus
+     outline aren't cut off square at the corners. */
+  .ov-row:first-child { border-top-left-radius: calc(var(--vscode-cornerRadius-large) - 1px); border-top-right-radius: calc(var(--vscode-cornerRadius-large) - 1px); }
+  .ov-row:last-child { border-bottom-left-radius: calc(var(--vscode-cornerRadius-large) - 1px); border-bottom-right-radius: calc(var(--vscode-cornerRadius-large) - 1px); }
+  .ov-row .cp-tile { width: 26px; height: 26px; }
+  .ov-row .cp-count { margin-right: var(--vscode-spacing-size20); }
+
+  /* Search results across types: a header per type that opens it. */
+  #results .cp-sec-head .cp-twist { display: none; }
+  #results .cp-sec-head .open { font-size: 16px; color: var(--vscode-icon-foreground); }
+  #results { padding-bottom: var(--vscode-spacing-size120); }
+
+</style>
+</head>
+<body>
+<vsc-workbench id="wb" theme="dark-2026" window="agents" class="nostatusbar">
+  <header class="tb">
+    <vsc-toolbar label="Window"><vsc-action icon="layout-sidebar-left-off" label="Show Sessions Sidebar"></vsc-action></vsc-toolbar>
+    <div class="tb-center">
+      <vsc-toolbar class="tb-nav" label="Session Navigation"><vsc-action icon="arrow-left" label="Go Back" id="nav-back"></vsc-action><vsc-action icon="arrow-right" label="Go Forward" id="nav-fwd" disabled></vsc-action></vsc-toolbar>
+      <div class="cc" role="button" tabindex="0" aria-label="Show Sessions: No workspace"><div class="cc-pill"><span class="codicon codicon-comment-discussion" aria-hidden="true"></span><span class="cc-label">No workspace</span></div></div>
+      <vsc-toolbar class="tb-run" label="Session Actions"><vsc-action icon="play" label="Run" disabled></vsc-action><vsc-action icon="vscode-insiders" label="Open in VS Code - Insiders"></vsc-action></vsc-toolbar>
+    </div>
+    <div class="grow"></div>
+    <vsc-toolbar class="tb-layout" label="Layout">
+      <vsc-action icon="layout-panel-off" label="Show Panel (⌘J)"></vsc-action>
+      <vsc-action icon="layout-sidebar-right" label="Toggle Side Panel (⌥⌘B)" id="toggle-panel" checked></vsc-action>
+      <vsc-action icon="radio-tower" label="Remote Access"></vsc-action>
+    </vsc-toolbar>
+    <button class="avatar avatar-photo" title="hawkticehurst" aria-label="Accounts: hawkticehurst"><img src="assets/profile.jpg" alt="" /></button>
+  </header>
+  <div class="parts">
+  <main class="page" id="page">
+    <vsc-session-view variant="new">
+      <div class="new-session-welcome-message"><h2 class="new-session-welcome-message-title" id="greet">Good morning, Hawk</h2></div>
+      <vsc-chat-input id="composer" variant="new-session" placeholder="What should agents work on?" workspace="vscode" isolation="worktree"></vsc-chat-input>
+    </vsc-session-view>
+  </main>
+  <aside class="side-panel" id="side-panel" aria-label="Side Panel">
+    <div class="monaco-sash mac vertical" id="panel-sash" role="separator" aria-orientation="vertical" aria-label="Resize Side Panel"></div>
+    <vsc-agents-editor-part id="editor-part" tabs="Changes,Files,Customizations" active="Customizations">
+    <section class="cpanel" id="cpanel" aria-label="Customizations">
+      <div class="cp-stack" id="stack" data-depth="0">
+        <div class="cp-view" id="home">
+          <div class="cp-search home-search">
+            <vsc-input id="q" placeholder="Search customizations"></vsc-input>
+            <vsc-toolbar label="Customizations Actions">
+              <vsc-action icon="add" label="New Customization..."></vsc-action>
+              <vsc-action icon="ellipsis" label="More Actions..."></vsc-action>
+            </vsc-toolbar>
+          </div>
+          <div class="cp-scroll" id="home-scroll">
+            <div id="overview">
+              <button class="ov-discover" data-go="browse">
+                <span class="ov-icons" aria-hidden="true"><img src="assets/icons/figma-figma.png" alt="" /><img src="assets/icons/microsoft-playwright.png" alt="" /><img src="assets/icons/context7.png" alt="" /></span>
+                <span class="ov-text"><span class="ov-title">Discover</span><span class="ov-sub">Plugins, MCP servers and skills from GitHub and the community</span></span>
+                <span class="codicon codicon-chevron-right ov-chev" aria-hidden="true"></span>
+              </button>
+              <div><h3 class="ov-group-label">Installed</h3><div class="ov-list" id="ov-installed" role="list"></div></div>
+              <div><h3 class="ov-group-label">Agents window</h3><div class="ov-list" id="ov-window" role="list"></div></div>
+            </div>
+            <div class="ai-customization-management-editor cust-flow" id="results" hidden></div>
+            <div class="cp-empty" id="empty" hidden></div>
+          </div>
+        </div>
+        <div class="cp-view" id="detail" aria-hidden="true">
+          <header class="cp-header">
+            <vsc-toolbar label="Navigation"><vsc-action icon="arrow-left" label="Back (Esc)" id="back"></vsc-action></vsc-toolbar>
+            <h2 class="cp-title"><span id="d-title"></span><span class="cp-count" id="d-count"></span></h2>
+            <vsc-toolbar label="Section Actions">
+              <vsc-action icon="compass" label="Browse Marketplace" id="d-browse"></vsc-action>
+              <vsc-action icon="add" label="New" id="d-add"></vsc-action>
+              <vsc-action icon="ellipsis" label="More Actions..."></vsc-action>
+            </vsc-toolbar>
+          </header>
+          <div id="d-body"></div>
+        </div>
+      </div>
+    </section>
+    </vsc-agents-editor-part>
+  </aside>
+  <script src="stage.js"></script>
+  <script>
+    // Runs while the page parses, before system.js upgrades the elements (they read their slotted children once).
+    (function () {
+      const { first: pages, build, CATEGORIES, esc, hostPage } = window.CUST;
+      const C = window.PANEL_CONFIG;
+      document.getElementById("side-panel").style.width = C.width + "px";
+      // Overview rows.
+      const row = (c) => `<button class="ov-row" role="listitem" data-go="${c.id}"><span class="cp-tile" aria-hidden="true"><span class="codicon codicon-${c.icon}"></span></span>`
+        + `<span class="ov-text"><span class="ov-title">${esc(c.label)}</span><span class="ov-sub">${esc(c.summary)}</span></span>`
+        + `<span class="cp-count">${c.count}</span><span class="codicon codicon-chevron-right ov-chev" aria-hidden="true"></span></button>`;
+      document.getElementById("ov-installed").innerHTML = CATEGORIES.filter((c) => !c.group).map(row).join("");
+      document.getElementById("ov-window").innerHTML = CATEGORIES.filter((c) => c.group).map(row).join("");
+      // Detail pages: each type's full page (and Browse), without its own title row.
+      const body = document.getElementById("d-body");
+      for (const id of ["browse", ...CATEGORIES.map((c) => c.id)]) {
+        const host = hostPage(pages[id]);
+        host.classList.add("no-title");
+        host.dataset.page = id;
+        host.hidden = true;
+        body.append(host);
+      }
+      // Search results: a second copy of the lists, stacked under per-type headers.
+      const copy = build(), results = document.getElementById("results");
+      for (const c of CATEGORIES) {
+        const sec = document.createElement("section");
+        sec.className = "cp-sec";
+        sec.dataset.cat = c.id;
+        sec.innerHTML = `<div class="cp-sec-head" role="button" tabindex="0" data-go="${c.id}" title="Open ${esc(c.label)}">`
+          + `<span class="codicon codicon-chevron-down cp-twist" aria-hidden="true"></span><span class="codicon codicon-${c.icon} cp-sec-icon" aria-hidden="true"></span>`
+          + `<span class="cp-sec-label">${esc(c.sentence || c.label)}</span><span class="cp-count"></span><span class="grow"></span>`
+          + `<span class="codicon codicon-chevron-right open" aria-hidden="true"></span></div><div class="cust-list-wrap"></div>`;
+        sec.querySelector(".cust-list-wrap").append(copy[c.id]);
+        results.append(sec);
+      }
+    })();
+  </script>
+  <script>
+    // The welcome phrase follows the time of day.
+    (function () {
+      const h = new Date().getHours();
+      document.getElementById("greet").textContent = `Good ${h < 12 ? "morning" : h < 18 ? "afternoon" : "evening"}, Hawk`;
+    })();
+  </script>
+  </div>
+</vsc-workbench>
+
+<script type="module">
+import { filterList } from "./panel-shell.js";
+// V3: overview → section page (slide), with cross-type search on the overview.
+const C = window.PANEL_CONFIG, { category } = window.CUST;
+const $ = (s) => document.querySelector(s);
+const stack = $("#stack"), home = $("#home"), detail = $("#detail");
+
+function go(id, animate = true) {
+  if (!animate) stack.querySelectorAll(".cp-view").forEach((v) => (v.style.transition = "none"));
+  const c = category(id);
+  for (const host of $("#d-body").children) host.hidden = host.dataset.page !== id;
+  $("#d-title").textContent = c ? c.label : "Discover";
+  $("#d-count").textContent = c ? c.count : "";
+  $("#d-count").hidden = !c;
+  $("#d-browse").hidden = !(c && c.browse);
+  $("#d-add").hidden = !(c && c.add);
+  if (c && c.add) $("#d-add").setAttribute("label", c.add);
+  stack.dataset.depth = "1";
+  detail.removeAttribute("aria-hidden");
+  home.setAttribute("aria-hidden", "true");
+  if (animate) requestAnimationFrame(() => $("#back").shadowRoot?.querySelector("a")?.focus?.());
+  else requestAnimationFrame(() => stack.querySelectorAll(".cp-view").forEach((v) => (v.style.transition = "")));
+  last = id;
+}
+let last = null;
+function back() {
+  if (stack.dataset.depth !== "1") return;
+  stack.dataset.depth = "0";
+  home.removeAttribute("aria-hidden");
+  detail.setAttribute("aria-hidden", "true");
+  stack.querySelector(`#home [data-go="${last}"]`)?.focus({ preventScroll: true });
+}
+
+stack.addEventListener("click", (e) => {
+  const target = e.target.closest("[data-go]");
+  if (target) return go(target.dataset.go);
+});
+$("#back").addEventListener("click", back);
+$("#d-browse").addEventListener("click", () => go("browse"));
+// The product's "Browse" buttons on list pages also open Discover.
+$("#d-body").addEventListener("browse", () => go("browse"));
+document.addEventListener("keydown", (e) => {
+  const isBack = (e.key === "Escape" && !e.target.closest?.("input")) || (e.altKey && e.key === "ArrowLeft");
+  if (isBack && stack.dataset.depth === "1") { e.preventDefault(); back(); }
+});
+$("#results").addEventListener("keydown", (e) => {
+  const head = e.target.closest(".cp-sec-head");
+  if (head && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); go(head.dataset.go); }
+});
+
+// Searching swaps the overview for matching items, grouped by type.
+$("#q").addEventListener("input", (e) => {
+  const q = e.target.value.trim();
+  $("#overview").hidden = !!q;
+  $("#results").hidden = !q;
+  let shown = 0;
+  for (const sec of $("#results").children) {
+    const n = filterList(sec.querySelector("vsc-customization-list"), q);
+    sec.hidden = !q || n === 0;
+    sec.querySelector(".cp-count").textContent = n;
+    if (!sec.hidden) shown++;
+  }
+  $("#empty").hidden = !q || shown > 0;
+  $("#empty").textContent = `No customizations match "${q}".`;
+});
+
+const start = new URLSearchParams(location.search).get("section") || C.section;
+if (start) go(start, false);
+
+</script>
+</body>
+</html>

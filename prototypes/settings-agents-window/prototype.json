@@ -1,0 +1,15 @@
+{
+  "title": "Settings",
+  "description": "The same Settings editor opened from the Agents window: Chat & Agents leads the IA (Agents Window first), and the 74 settings with Agents-window defaults show that default — the 30 marked readOnly are locked as “Fixed in the Agents window”. A banner explains settings are shared with VS Code windows.",
+  "status": "draft",
+  "tags": [],
+  "variantOf": "settings",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [],
+  "createdAt": "2026-11-02T15:57:52.441Z",
+  "updatedAt": "2026-11-02T15:58:36.327Z"
+}

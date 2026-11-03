@@ -132,8 +132,47 @@
     return `<vsc-customization-browse section="browse">${sections}</vsc-customization-browse>`;
   }
 
+  // Tools page, from the live window: tool sets with enabled/total counts (Copilot's set can't be turned off).
+  function toolsPage() {
+    const set = (name, description, count, extra = {}) => `<vsc-tool-set-item ${attrs({ name, description, count, enabled: true, ...extra })}></vsc-tool-set-item>`;
+    return `<vsc-customization-list ${attrs({ section: "tools", kind: "tools", heading: "Tools", description: "Enable or disable the tools available to chat. Disabled tools are not advertised to the agent. Tools other than Copilot's built-in tools run on the client and require it to be connected.", link: "Learn more about tools" })}>`
+      + `<vsc-customization-group label="Built-in Tools" count="6"></vsc-customization-group>`
+      + set("Copilot", "Built-in tools the Copilot agent runs inside its own runtime.", "17/17", { enabled: false, locked: true })
+      + set("VS Code", "Navigate code, manage extensions, and run built-in VS Code commands.", "1/1")
+      + set("Integrated Browser", "Open, navigate, and inspect pages in the built-in browser.", "10/10")
+      + set("Automations", "List, configure, run, and delete scheduled agent automations.", "4/4")
+      + set("Compare implementation attempts", "", "2/2")
+      + set("Sessions List", "Group, order, filter, and sort the sessions in the Sessions list.", "2/2")
+      + `<vsc-customization-group label="Connected Sources" count="1"></vsc-customization-group>`
+      + `<vsc-tool-set-item ${attrs({ name: "github-mcp-server", connected: true, action: "start", enabled: true })}></vsc-tool-set-item>`
+      + `<vsc-customization-group label="Extension Tools" count="1"></vsc-customization-group>`
+      + set("GitHub Pull Requests", "Pull Request and Issue Provider for GitHub", "5/5", { more: true })
+      + `</vsc-customization-list>`;
+  }
+
+  // Extensions page (Agents window), from the live window: which installed extensions run in the Agents window.
+  function extensionsPage() {
+    const ext = (name, publisher, description, icon, extra = {}) => `<vsc-agents-extension-item ${attrs({ name, publisher, description, "icon-src": ICONS + "ext-" + icon + ".png", ...extra })}></vsc-agents-extension-item>`;
+    return `<vsc-customization-list ${attrs({ section: "extensions", kind: "extensions", heading: "Extensions", description: "Choose which installed extensions run in the Agents window. Extensions that haven't declared support for the Agents window are disabled by default and might not work as expected. Changes only apply to the Agents window." })}>`
+      + `<vsc-customization-group label="AI Features" count="1"></vsc-customization-group>`
+      + ext("Container Tools", "Microsoft", "Makes it easy to create, manage, and debug containerized applications.", "containers", { warning: "views, debuggers, walkthroughs", contributions: "Tools" })
+      + `<vsc-customization-group label="Supported" count="2"></vsc-customization-group>`
+      + ext("ESLint", "Microsoft", "Integrates ESLint JavaScript into VS Code.", "eslint", { enabled: true })
+      + ext("GitHub Pull Requests", "GitHub", "Pull Request and Issue Provider for GitHub", "github-pr", { enabled: true })
+      + `<vsc-customization-group label="Other Extensions" count="8"></vsc-customization-group>`
+      + ext("Astro", "Astro", "Language support for Astro", "astro", { warning: "debuggers" })
+      + ext("CSV", "ReprEng", "View and edit CSV, TSV, TAB, and PSV files as tables.", "csv")
+      + ext("Even Better TOML", "tamasfe", "Fully-featured TOML support", "toml")
+      + ext("Live Server", "Ritwick Dey", "Launch a development local Server with live reload feature for static & dynamic pages", "liveserver")
+      + ext("Oxc", "oxc", "Oxlint and Oxfmt editor integration", "oxc")
+      + ext("Remote - SSH", "Microsoft", "Open any folder on a remote machine using SSH and take advantage of VS Code's full feature set.", "remote-ssh")
+      + ext("Remote - SSH: Editing Configuration Files", "Microsoft", "Edit SSH configuration files", "remote-ssh-edit")
+      + ext("Remote Explorer", "Microsoft", "View remote machines for SSH and Tunnels.", "remote-explorer", { warning: "views" })
+      + `</vsc-customization-list>`;
+  }
+
   window.renderCustomizationsEditor = function (editor) {
-    editor.innerHTML = browsePage() + pluginsPage() + mcpPage() + promptPage("skills") + promptPage("instructions") + promptPage("agents") + promptPage("hooks");
+    editor.innerHTML = browsePage() + pluginsPage() + mcpPage() + promptPage("skills") + promptPage("instructions") + promptPage("agents") + promptPage("hooks") + toolsPage() + extensionsPage();
     // Browse buttons on list pages go back to the marketplace, like the product.
     editor.addEventListener("browse", () => editor.setAttribute("section", "browse"));
   };

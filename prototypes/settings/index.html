@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Settings</title>
+<link rel="stylesheet" href="../../systems/vscode/system.css" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+	html, body { margin: 0; height: 100%; overflow: hidden; background: #121314; }
+	#wb { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+	#wb > .part-abs { position: absolute; }
+	#settings-root { height: 100%; }
+</style>
+<script>
+	// Prototype configuration: which window hosts Settings, sidebar style and group style.
+	window.PROTO_CONFIG = { context: 'editor', nav: 'tree', groups: 'cards' };
+</script>
+<script src="settings-data.js"></script>
+<script src="ia.js"></script>
+<script src="model.js"></script>
+<script src="format.js"></script>
+<script src="controls.js"></script>
+<script src="rows.js"></script>
+<script src="app.js"></script>
+</head>
+<body>
+<vsc-workbench id="wb" theme="dark-2026">
+	<vsc-titlebar label="vscode" class="part-abs" style="left: 0; top: 0; width: 100%;"></vsc-titlebar>
+	<div class="part-abs" style="left: 0; top: 35px; width: 48px; height: calc(100% - 63px);"><vsc-activitybar style="height: calc(100% - 4px);"></vsc-activitybar></div>
+	<div class="part-abs" style="left: 48px; top: 35px; width: 300px; height: calc(100% - 63px);">
+		<vsc-sidebar heading="Explorer" style="height: calc(100% - 4px);">
+			<vsc-action slot="actions" icon="toolbar-more" label="Views and More Actions..." dropdown></vsc-action>
+			<vsc-pane heading="vscode" expanded>
+				<vsc-tree>
+					<vsc-tree-item kind="folder" label=".vscode"></vsc-tree-item>
+					<vsc-tree-item kind="folder" label="build"></vsc-tree-item>
+					<vsc-tree-item kind="folder" label="extensions"></vsc-tree-item>
+					<vsc-tree-item kind="folder" label="src"></vsc-tree-item>
+					<vsc-tree-item label="package.json" selected focused></vsc-tree-item>
+					<vsc-tree-item label="product.json"></vsc-tree-item>
+					<vsc-tree-item label="README.md"></vsc-tree-item>
+				</vsc-tree>
+			</vsc-pane>
+			<vsc-pane heading="Outline"></vsc-pane>
+			<vsc-pane heading="Timeline"></vsc-pane>
+		</vsc-sidebar>
+	</div>
+	<div class="part-abs" style="left: 348px; top: 35px; width: calc(100% - 776px); height: calc(100% - 63px);">
+		<vsc-editor style="height: calc(100% - 4px);">
+			<vsc-watermark style="height: calc(100% - 2px);">
+				<vsc-watermark-entry icon="watermark-chat" label="Open Chat" keys="Ctrl+Alt+I"></vsc-watermark-entry>
+				<vsc-watermark-entry icon="watermark-commands" label="Show All Commands" keys="Ctrl+Shift+P"></vsc-watermark-entry>
+				<vsc-watermark-entry icon="watermark-settings" label="Open Settings" keys="Ctrl+,"></vsc-watermark-entry>
+			</vsc-watermark>
+		</vsc-editor>
+	</div>
+	<div class="part-abs" style="right: 0; top: 35px; width: 428px; height: calc(100% - 63px);">
+		<vsc-sidebar position="right" style="height: calc(100% - 4px);">
+			<vsc-chat-view style="height: calc(100% - 39px);"><vsc-chat-welcome></vsc-chat-welcome><vsc-chat-input></vsc-chat-input></vsc-chat-view>
+		</vsc-sidebar>
+	</div>
+	<vsc-statusbar class="part-abs" style="left: 0; bottom: 0; width: 100%;">
+		<vsc-status-item text="$(remote)" label="remote"></vsc-status-item>
+		<vsc-status-item text="$(git-branch) main" label="Git branch"></vsc-status-item>
+		<vsc-status-item text="$(error) 0 $(warning) 0" label="No Problems"></vsc-status-item>
+		<vsc-status-item align="right" text="$(copilot)" label="Copilot status"></vsc-status-item>
+		<vsc-status-item align="right" text="$(bell)" label="Notifications"></vsc-status-item>
+	</vsc-statusbar>
+	<vsc-modal-editor id="modal" contained heading="Settings" icon="settings-gear">
+		<div id="settings-root"></div>
+	</vsc-modal-editor>
+</vsc-workbench>
+<script type="module" src="../../systems/vscode/system.js"></script>
+<script type="module">
+	await customElements.whenDefined('vsc-modal-editor');
+	requestAnimationFrame(() => window.SE.mount(document.getElementById('settings-root')));
+	// Maximize toggles the modal between its size and the full window, like the product.
+	document.addEventListener('modal-maximize', () => {
+		const r = document.querySelector('.modal-editor-resizable');
+		r.classList.toggle('se-maximized');
+	});
+	document.addEventListener('modal-close', () => window.SE.toast && window.SE.toast('Close is disabled in this prototype'));
+</script>
+<style>
+	.modal-editor-resizable.se-maximized { left: 8px !important; top: 8px !important; width: calc(100% - 16px) !important; height: calc(100% - 16px) !important; }
+</style>
+</body>
+</html>

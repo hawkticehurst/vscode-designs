@@ -4,7 +4,7 @@
   "title": "Customizations editor",
   "category": "chat",
   "description": "The Customizations editor (`AICustomizationManagementEditor`, `.ai-customization-management-editor`): a horizontal split with the section sidebar (Browse home button, then Plugins, MCP Servers, Skills, Instructions, Agents, Hooks, Tools with counts, a separator and Extensions) and the content pane for the selected section. It's the same editor whether it's hosted in the modal (`<vsc-modal-editor>`) or as a tab in the Agents window's docked editor part (`<vsc-agents-editor-part>`).",
-  "usage": "Host inside <vsc-modal-editor> (the default Agents window experience) or <vsc-agents-editor-part> (useModal: off, docked right panel, where the sidebar sits at its 150px minimum). Give the host a height. Put one page per section in the default slot with a `section` attribute.",
+  "usage": "Host inside <vsc-modal-editor> (the default Agents window experience) or <vsc-agents-editor-part> (useModal: off, docked right panel, where the sidebar sits at its 150px minimum). Give the host a height. Put one page per section in the default slot with a `section` attribute, before system.js upgrades the element. The section sash is draggable like the product's SplitView. `ds.sash(el, { start, move(dx), end, reset })` (defined here) makes any `.monaco-sash.vertical` draggable the same way, e.g. for a prototype's own part sashes.",
   "attributes": [
     {
       "name": "section",
@@ -26,13 +26,18 @@
       "name": "sidebar-width",
       "type": "number",
       "default": "200",
-      "description": "Width of the section sidebar in px (200 default, 150 minimum, 350 maximum)."
+      "description": "Requested section sidebar width in px (200 default, 150 minimum, 350 maximum). Dragging the sash updates it."
     },
     {
       "name": "counts",
       "type": "string",
       "default": "2,7,32,2,3,1,36",
       "description": "Counts for Plugins, MCP Servers, Skills, Instructions, Agents, Hooks, Tools."
+    },
+    {
+      "name": "list-focused",
+      "type": "boolean",
+      "description": "Start with the section list marked `last-focused` (as after returning to Browse from a section)."
     }
   ],
   "slots": [
@@ -44,7 +49,11 @@
   "states": [
     {
       "name": "section-selected",
-      "trigger": "Click a section row or the Browse home button; fires `section-change`."
+      "trigger": "Click a section row or the Browse home button; fires `section-change`. Updates in place, so pages keep their state."
+    },
+    {
+      "name": "resizing",
+      "trigger": "Drag the sash between sidebar and content (sidebar 150–350px, content ≥ 400px); fires `sidebar-resize`. Double-click the sash to reset to 200px. When the editor narrows, the sidebar shrinks first."
     }
   ],
   "variants": [],
@@ -81,13 +90,18 @@
   "examples": [
     {
       "title": "Section sidebar (Skills selected)",
-      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 200px; height: 643px;\"><vsc-customizations-editor section=\"skills\" style=\"height: 643px;\"></vsc-customizations-editor></vsc-workbench>",
-      "width": 200
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 1150px; height: 643px;\"><vsc-customizations-editor section=\"skills\" style=\"height: 643px;\"></vsc-customizations-editor></vsc-workbench>",
+      "width": 1150
     },
     {
-      "title": "Section sidebar (Browse selected)",
-      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 200px; height: 643px;\"><vsc-customizations-editor section=\"browse\" style=\"height: 643px;\"></vsc-customizations-editor></vsc-workbench>",
-      "width": 200
+      "title": "Section sidebar (Browse, just opened)",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 1150px; height: 643px;\"><vsc-customizations-editor section=\"browse\" style=\"height: 643px;\"></vsc-customizations-editor></vsc-workbench>",
+      "width": 1150
+    },
+    {
+      "title": "Section sidebar (back on Browse)",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 1150px; height: 643px;\"><vsc-customizations-editor section=\"browse\" list-focused style=\"height: 643px;\"></vsc-customizations-editor></vsc-workbench>",
+      "width": 1150
     }
   ],
   "references": [
@@ -95,7 +109,7 @@
       "capture": "customizations-sidebar-skills-dark",
       "example": 0,
       "theme": "dark-2026",
-      "width": 200,
+      "width": 1150,
       "root": ".management-sidebar",
       "ignore": []
     },
@@ -103,7 +117,7 @@
       "capture": "customizations-sidebar-skills-light",
       "example": 0,
       "theme": "light-2026",
-      "width": 200,
+      "width": 1150,
       "root": ".management-sidebar",
       "ignore": []
     },
@@ -111,15 +125,15 @@
       "capture": "customizations-sidebar-dark",
       "example": 1,
       "theme": "dark-2026",
-      "width": 200,
+      "width": 1150,
       "root": ".management-sidebar",
       "ignore": []
     },
     {
       "capture": "customizations-sidebar-light",
-      "example": 1,
+      "example": 2,
       "theme": "light-2026",
-      "width": 200,
+      "width": 1150,
       "root": ".management-sidebar",
       "ignore": []
     }
@@ -127,12 +141,12 @@
   "status": "draft",
   "verification": {
     "status": "verified",
-    "checkedAt": "2026-10-30T19:16:37.937Z",
-    "compared": 36,
+    "checkedAt": "2026-11-03T14:42:22.294Z",
+    "compared": 144,
     "diffs": 0,
-    "theme": "light-2026",
+    "theme": "dark-2026",
     "summary": []
   },
   "createdAt": "2026-10-30T19:06:50.695Z",
-  "updatedAt": "2026-10-30T19:16:37.937Z"
+  "updatedAt": "2026-11-03T14:42:22.294Z"
 }

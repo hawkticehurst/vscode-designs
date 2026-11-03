@@ -1,0 +1,102 @@
+/* ===== Customizations side panel — shared by the V2+ explorations =====
+   A standalone panel (no editor tabs) framed like the sessions part. Content comes from the design system's
+   Customizations components (lists, rows, Browse); these rules only re-host them. */
+.side-panel { width: 440px; }
+/* The panel keeps the docked editor part's tabs (Changes, Files, Customizations); Customizations fills the editor
+   area below them. The part is framed like the sessions part (.page). */
+.side-panel vsc-agents-editor-part { height: 100%; }
+#side-panel .part.editor { border: 1px solid var(--vscode-agentsPanel-border); border-radius: var(--vscode-cornerRadius-large); overflow: hidden; box-sizing: border-box; }
+.cpanel { --cp-bg: var(--vscode-editor-background); position: relative; height: 100%; display: flex; flex-direction: column; box-sizing: border-box; overflow: hidden;
+  background: var(--cp-bg); color: var(--vscode-foreground); font-size: var(--vscode-fontSize-body1); }
+.cpanel button { font: inherit; color: inherit; }
+.cpanel [hidden] { display: none !important; }
+
+/* View title: title + actions, 40px like the Agents window's part headers. */
+.cp-header { flex: none; display: flex; align-items: center; gap: var(--vscode-spacing-size40); height: 40px; box-sizing: border-box;
+  padding: 0 var(--vscode-spacing-size80) 0 var(--vscode-spacing-size120); }
+.cp-title { flex: 1; min-width: 0; margin: 0; display: flex; align-items: center; gap: var(--vscode-spacing-size60);
+  font-size: var(--vscode-fontSize-body1); font-weight: var(--vscode-agents-fontWeight-semiBold); color: var(--vscode-foreground);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cp-header vsc-toolbar { flex: none; }
+
+/* Count pill (same look as the lists' group counts). */
+.cp-count { display: inline-flex; align-items: center; justify-content: center; min-width: 16px; height: 16px; padding: 0 4px; box-sizing: border-box;
+  border-radius: var(--vscode-cornerRadius-circle); background: var(--vscode-toolbar-hoverBackground);
+  color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label2); font-weight: var(--vscode-agents-fontWeight-semiBold); line-height: 1; }
+
+/* Category icon tile. */
+/* The glyph is a child span: on the tile itself, the codicon rules (display: inline-block) would undo the centering. */
+.cp-tile { flex: none; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; box-sizing: border-box;
+  border-radius: var(--vscode-cornerRadius-medium); border: 1px solid var(--vscode-agentsCard-border);
+  background: var(--vscode-toolbar-hoverBackground); color: var(--vscode-foreground); }
+.cp-tile > .codicon { display: block; font-size: 16px; line-height: 16px; }
+
+.cp-search { flex: none; padding: 0 var(--vscode-spacing-size120) var(--vscode-spacing-size80); }
+.cp-search vsc-input { display: block; }
+.cp-scroll { flex: 1; min-height: 0; overflow: hidden auto; }
+.cp-empty { padding: 40px 24px; text-align: center; color: var(--vscode-descriptionForeground); }
+
+/* ---- Page mode: one product page fills the area (its own header, search and scrolling list), without the card. ---- */
+.cust-page { height: 100%; min-height: 0; }
+.cust-page .management-content { height: 100%; background: transparent; }
+.cust-page .content-inner { padding: 0; }
+.cust-page { --cust-inset: var(--vscode-spacing-size120); }
+.cust-page .content-inner .welcome-page-host,
+.cust-page :is(.prompts-content-container, .mcp-content-container, .plugin-content-container, .tools-content-container) {
+  padding-top: var(--vscode-spacing-size80); padding-inline: 0; background: transparent; border: 0; border-radius: 0;
+}
+.cust-page :is(.customization-discovery-header, .customization-discovery-browse, .customization-discovery-results),
+.cust-page :is(.ai-customization-list-widget, .plugin-list-widget) > :is(.section-title-header, .plugin-marketplace-back-container, .list-search-and-button-container, .list-container, .mcp-list-container),
+.cust-page .tools-list-widget > :is(.section-title-header, .tools-list-search-and-button-container, .tools-list-tree),
+.cust-page .agents-window-extensions > :is(.agents-window-extensions-header, .agents-window-extensions-search, .agents-window-extensions-tree, .agents-window-extensions-empty) {
+  width: min(calc(100% - 2 * var(--cust-inset)), 840px);
+}
+
+/* ---- Flow mode: lists without their own headers, stacked in one scroller. ---- */
+.cust-flow { display: block; height: auto; overflow: visible; }
+.cust-flow :is(.prompts-content-container, .mcp-content-container, .plugin-content-container, .tools-content-container) {
+  display: block; height: auto; padding: 0; background: transparent; border: 0; border-radius: 0; overflow: visible;
+}
+.cust-flow :is(.ai-customization-list-widget, .plugin-list-widget, .tools-list-widget, .agents-window-extensions) { display: block; height: auto !important; overflow: visible; }
+.cust-flow :is(.section-title-header, .list-search-and-button-container, .tools-list-search-and-button-container, .agents-window-extensions-header,
+  .agents-window-extensions-search, .plugin-marketplace-back-container, .mcp-empty-state, .agents-window-extensions-empty) { display: none !important; }
+.cust-flow :is(.list-container, .mcp-list-container, .tools-list-tree, .agents-window-extensions-tree) {
+  width: auto !important; height: auto !important; margin: 0 !important; flex: none; overflow: visible; }
+.cust-flow .monaco-list,
+.cust-flow .monaco-list > .monaco-scrollable-element { height: auto !important; overflow: visible !important; }
+
+/* Page mode without the page's own title row (the panel header shows the title). */
+.cust-page.no-title :is(.section-title-row, .agents-window-extensions-title-row, .customization-discovery-title-row) { display: none; }
+.cust-page.no-title :is(.section-title-description, .agents-window-extensions-description, .customization-discovery-description) { margin-top: 0; }
+
+/* Category section in a flow list: a sticky header row above the category's tree. */
+.cp-sec + .cp-sec { margin-top: var(--vscode-spacing-size40); }
+.cp-sec-head { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: var(--vscode-spacing-size60); height: 32px; box-sizing: border-box;
+  margin: 0 var(--vscode-spacing-size80); padding: 0 var(--vscode-spacing-size80) 0 var(--vscode-spacing-size40); border-radius: var(--vscode-cornerRadius-medium);
+  background: var(--cp-bg); color: var(--vscode-foreground); cursor: pointer; user-select: none; }
+.cp-sec-head::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; }
+.cp-sec-head:hover::after { background: var(--vscode-list-hoverBackground); }
+.cp-sec-head:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.cp-sec-head .cp-twist { font-size: 16px; color: var(--vscode-icon-foreground); transition: transform 120ms ease; }
+.cp-sec[data-collapsed] .cp-twist { transform: rotate(-90deg); }
+.cp-sec-head .cp-sec-icon { font-size: 16px; color: var(--vscode-icon-foreground); }
+.cp-sec-label { font-weight: var(--vscode-agents-fontWeight-semiBold); white-space: nowrap; }
+/* Category header: sentence case, with its actions ending on the same right edge as the group and item rows' (16px in). */
+.cp-sec-head .cp-sec-icon { font-size: 16px; }
+.cp-sec-head .grow { flex: 1; }
+.cp-sec-head vsc-toolbar { opacity: 0; position: relative; z-index: 1; }
+/* Same action geometry as the tree rows' buttons (24px, 4px apart), so header icons sit in the same columns. */
+.cp-sec-head vsc-toolbar .actions-container { gap: var(--vscode-spacing-size40); }
+.cp-sec-head vsc-toolbar .action-item { margin: 0 !important; }
+.cp-sec-head vsc-toolbar .action-label { width: 24px !important; height: 24px !important; padding: 4px !important; box-sizing: border-box; }
+.cp-sec-head:is(:hover, :focus-within) vsc-toolbar { opacity: 1; }
+.cp-sec[data-collapsed] > :not(.cp-sec-head) { display: none; }
+.cp-sec-desc { margin: var(--vscode-spacing-size20) var(--vscode-spacing-size120) var(--vscode-spacing-size80); color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-label1); line-height: 1.5; }
+.cp-sec-desc a { color: var(--vscode-textLink-foreground); text-decoration: none; }
+.cp-sec-desc a:hover { text-decoration: underline; }
+.cp-sec .cust-list-wrap { padding: 0 var(--vscode-spacing-size80); }
+/* Stacked lists skip empty groups; each category header keeps its add action. */
+.cust-flow vsc-customization-group[count="0"] { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) { .cpanel * { transition: none !important; animation: none !important; } }

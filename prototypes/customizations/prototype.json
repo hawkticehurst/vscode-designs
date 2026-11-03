@@ -1,6 +1,6 @@
 {
   "title": "Customizations",
-  "description": "Customizations moved from the Agents window's modal into the docked right-hand side panel, using the product's real UI: the Customizations editor (Browse marketplace, Plugins, MCP Servers, Skills, Instructions, Agents, Hooks) opens as a tab next to Changes and Files in the docked editor part, at the product's default sizes (578px part, 150px section sidebar) — what VS Code Insiders renders with `workbench.editor.useModal: off`. Content is the live window's data with marketplace discovery on. Toggle the panel from the title bar (⌥⌘B), drag the sash to resize, switch sections, search, collapse groups and flip switches. Deep link a section with ?section=skills|mcp|plugins|instructions|agents|hooks.",
+  "description": "Customizations moved from the Agents window's modal into the docked right-hand side panel, using the product's real UI. The left part is the Agents window's new-session view (welcome message and composer, centered); the Customizations editor (Browse marketplace, Plugins, MCP Servers, Skills, Instructions, Agents, Hooks, Tools, Extensions) opens as a tab next to Changes and Files, at the product's default sizes (578px panel, 150px section sidebar). Both splits are resizable: drag the panel's left edge or the sash between the section sidebar and the content; double-click either to reset. Exploration: pages sit directly on the editor background without the product's card, with tighter 16px insets so page titles line up with the Browse tab. Content is the live window's data with marketplace discovery on. Toggle the panel with ⌥⌘B; deep link a section with ?section=skills|mcp|plugins|instructions|agents|hooks|tools|extensions.",
   "status": "review",
   "tags": [
     "vscode",
@@ -18,5 +18,5 @@
     "vscode"
   ],
   "createdAt": "2026-10-30T18:35:30.868Z",
-  "updatedAt": "2026-10-30T19:33:43.914Z"
+  "updatedAt": "2026-11-03T16:06:32.107Z"
 }

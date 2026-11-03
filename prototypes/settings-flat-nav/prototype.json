@@ -1,0 +1,15 @@
+{
+  "title": "Settings",
+  "description": "Alternative sidebar and subcategory treatment: the sidebar lists only top-level categories, subcategories become a sticky chip bar above the content (scroll-spy highlighted), and groups are flat sections with sticky rule headers instead of cards. Same real settings data, IA, switches and Experimental section as V1.",
+  "status": "draft",
+  "tags": [],
+  "variantOf": "settings",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [],
+  "createdAt": "2026-11-02T15:57:52.440Z",
+  "updatedAt": "2026-11-02T15:58:36.325Z"
+}

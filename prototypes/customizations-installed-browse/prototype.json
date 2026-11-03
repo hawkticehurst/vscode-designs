@@ -1,0 +1,26 @@
+{
+  "title": "Customizations",
+  "description": "V2 — Installed / Browse: a single side panel with a view title, an Installed · Browse switch, one search box and type filter chips. \"All\" stacks every category in one scroll.",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "filters",
+    "exploration"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-03T16:40:35.454Z",
+  "updatedAt": "2026-11-03T16:52:56.429Z"
+}

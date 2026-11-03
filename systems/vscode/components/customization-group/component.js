@@ -9,16 +9,18 @@ class CustomizationGroup extends ds.Element {
     const count = this.attr("count", "0");
     const first = this.flag("first");
     const collapsed = this.hasAttribute("collapsed");
-    const height = first ? 36 : 40;
+    // Tools and Extensions trees: every header is 36px and carries `.has-previous-group` (their own renderers).
+    const flat = kind === "tools" || kind === "extensions";
+    const height = flat || first ? 36 : 40;
     Object.assign(this, {});
     this.setAttribute("role", "treeitem");
     this.setAttribute("aria-selected", "false");
-    this.setAttribute("aria-label", `${label}, ${count} items`);
+    this.setAttribute("aria-label", flat ? label : `${label}, ${count} items`);
     this.setAttribute("aria-level", "1");
     this.setAttribute("aria-expanded", String(!collapsed));
     this.setAttribute("draggable", "false");
-    this.style.cssText = `position: relative; top: 0px; height: ${height}px;` + (kind === "prompts" ? ` line-height: ${height}px;` : "");
-    const defaultIcon = kind === "prompts" ? "ai-customization-user" : ({ Workspace: "folder", Plugins: "plug" }[label] || "account");
+    this.style.cssText = `position: relative; top: 0px; height: ${height}px;` + (kind === "prompts" || flat ? ` line-height: ${height}px;` : "");
+    const defaultIcon = kind === "prompts" ? "ai-customization-user" : kind === "tools" ? "tools" : kind === "extensions" ? "extensions" : ({ Workspace: "folder", Plugins: "plug" }[label] || "account");
     const actions = this.attr("actions", kind === "prompts" ? "add" : "").split(",").map((a) => a.trim()).filter(Boolean);
     const addClass = kind === "prompts" ? "customization-create-action" : "plugin-installed-action";
     const actionEls = actions.map((a) => a === "refresh"
@@ -30,7 +32,7 @@ class CustomizationGroup extends ds.Element {
     return h("div.monaco-tl-row", null,
       h("div.monaco-tl-indent", { style: "width: 0px;" }),
       h("div.monaco-tl-twistie.codicon.codicon-tree-item-expanded.collapsible" + (collapsed ? ".collapsed" : ""), { style: "padding-left: 8px;" }),
-      h("div.monaco-tl-contents.ai-customization-group-header" + (first ? "" : ".has-previous-group"), null,
+      h("div.monaco-tl-contents.ai-customization-group-header" + (first && !flat ? "" : ".has-previous-group"), null,
         h("div.group-chevron.codicon.codicon-chevron-down-compact"),
         h("div.group-icon.codicon.codicon-" + this.attr("icon", defaultIcon)),
         labelGroup,

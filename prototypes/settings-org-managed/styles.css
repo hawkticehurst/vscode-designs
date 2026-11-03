@@ -1,0 +1,376 @@
+/* The modal editor part fills its panel; the DS sizes .content with a fixed calc that leaves a gap. */
+.modal-editor-part:has(.se) { display: flex; flex-direction: column; }
+.modal-editor-part:has(.se) > .content { flex: 1 1 auto; min-height: 0; height: auto !important; }
+.modal-editor-part:has(.se) > .modal-editor-header { flex: none; box-sizing: border-box; border-bottom: 1px solid var(--vscode-widget-border); }
+
+/* Size the modal from its container (not once at load), so it follows window/viewer resizes. */
+.monaco-modal-editor-block .modal-editor-resizable:has(.se) { container: se-modal / inline-size; }
+.monaco-modal-editor-block .modal-editor-resizable:has(.se):not(.se-maximized) {
+	--se-modal-w: min(1240px, calc(100% - 48px));
+	--se-modal-h: min(880px, calc(100% - 48px));
+	width: var(--se-modal-w) !important; height: var(--se-modal-h) !important;
+	left: calc((100% - var(--se-modal-w)) / 2) !important; top: calc((100% - var(--se-modal-h)) / 2) !important;
+}
+
+/* Settings editor (proposal). Built on VS Code theme tokens; prototype-owned elements use border-box. */
+.se, .se * { box-sizing: border-box; }
+.se {
+	--se-mono: var(--monaco-monospace-font, "SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", monospace);
+	--se-card: color-mix(in srgb, var(--vscode-editorWidget-background) 55%, var(--vscode-editor-background));
+	--se-line: var(--vscode-widget-border);
+	--se-nav-w: 244px;
+	position: relative; display: grid; grid-template-columns: var(--se-nav-w) minmax(0, 1fr); height: 100%; min-height: 0;
+	color: var(--vscode-foreground); background: var(--vscode-editor-background);
+	font-size: var(--vscode-bodyFontSize, 13px); line-height: 1.4;
+}
+.se button { font: inherit; color: inherit; }
+.se .codicon { flex: none; }
+.se-flex { flex: 1; }
+.se mark { background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 32%, transparent); color: inherit; border-radius: 2px; }
+
+/* ---------- sidebar ---------- */
+.se-nav { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--vscode-settings-sashBorder); background: color-mix(in srgb, var(--vscode-sideBar-background) 60%, var(--vscode-editor-background)); }
+.se-nav-list { flex: 1; overflow-y: auto; padding: 12px 8px; display: flex; flex-direction: column; gap: 1px; }
+.se-nav-item { display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer; user-select: none; color: var(--vscode-foreground); outline: none; }
+.se-nav-item:hover { background: var(--vscode-list-hoverBackground); }
+.se-nav-item:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.se-nav-item.active { background: var(--vscode-list-activeSelectionBackground); color: var(--vscode-list-activeSelectionForeground); font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.se-nav-item.empty { opacity: 0.45; }
+.se-nav-icon { color: var(--vscode-descriptionForeground); }
+.se-nav-item.active .se-nav-icon { color: var(--vscode-list-activeSelectionIconForeground, currentColor); }
+.se-nav-label { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.se-nav-count { font-size: var(--vscode-fontSize-label2, 11px); font-weight: 400; color: var(--vscode-descriptionForeground); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.se-nav-list > *, .se-nav-subs > * { flex: none; }
+.se-nav-sep { height: 1px; margin: 8px 10px; background: var(--se-line); flex: none; }
+.se-nav-subs { position: relative; margin: 2px 0 6px 18px; padding-left: 10px; display: flex; flex-direction: column; gap: 1px; }
+.se-nav-subs::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 1px; background: var(--se-line); }
+.se-nav-sub { position: relative; display: flex; align-items: center; gap: 8px; height: 24px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-nav-sub:hover { color: var(--vscode-foreground); background: var(--vscode-list-hoverBackground); }
+.se-nav-sub.active { color: var(--vscode-foreground); }
+.se-nav-sub.active::before { content: ""; position: absolute; left: -11px; top: 4px; bottom: 4px; width: 2px; border-radius: 2px; background: var(--vscode-button-background); }
+.se-nav-sub .se-nav-count { opacity: 0.8; }
+.se-nav-footer { flex: none; padding: 8px; border-top: 1px solid var(--se-line); }
+.se-nav-footer-btn { display: flex; align-items: center; gap: 8px; width: 100%; height: 28px; padding: 0 10px; border: 0; background: none; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer; color: var(--vscode-descriptionForeground) !important; }
+.se-nav-footer-btn:hover { background: var(--vscode-list-hoverBackground); color: var(--vscode-foreground) !important; }
+
+/* ---------- header ---------- */
+.se-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.se-header { flex: none; padding: 14px 14px 0; }
+.se-search { display: flex; align-items: center; gap: 4px; height: 32px; padding: 0 4px 0 10px; border-radius: var(--vscode-cornerRadius-medium);
+	background: var(--vscode-settings-textInputBackground); border: 1px solid var(--vscode-settings-textInputBorder); }
+.se-search:focus-within { border-color: var(--vscode-focusBorder); }
+.se-search-icon { color: var(--vscode-descriptionForeground); }
+.se-search-input { flex: 1; min-width: 0; height: 100%; border: 0; outline: none; background: transparent; color: var(--vscode-settings-textInputForeground); font: inherit; padding: 0 4px; }
+/* Mouse focus shouldn't draw a ring (the DS outlines every :focus); keyboard focus keeps it. */
+.se button:focus:not(:focus-visible) { outline: none !important; }
+/* The container shows focus; the DS's input focus outline would double it. */
+.se .se-search-input:focus, .se .se-input:focus, .se .se-json-input:focus { outline: none !important; }
+.se-search-input::placeholder { color: var(--vscode-input-placeholderForeground); }
+.se-search-count { flex: none; padding: 1px 8px; border-radius: var(--vscode-cornerRadius-circle); font-size: var(--vscode-fontSize-label2, 11px);
+	background: var(--vscode-badge-background); color: var(--vscode-badge-foreground); }
+.se-header-row { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--vscode-settings-headerBorder); }
+.se-tabs { display: flex; gap: 2px; }
+.se-tab { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border: 0; border-radius: var(--vscode-cornerRadius-medium); background: transparent; cursor: pointer; color: var(--vscode-descriptionForeground) !important; }
+.se-tab:hover { background: var(--vscode-modernTab-hoverBackground, var(--vscode-list-hoverBackground)); color: var(--vscode-foreground) !important; }
+.se-tab.active { background: var(--vscode-modernTab-activeBackground, var(--vscode-list-activeSelectionBackground)); color: var(--vscode-modernTab-activeForeground, var(--vscode-foreground)) !important; }
+.se-tab-detail { margin-left: 6px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-tab-count { min-width: 16px; padding: 0 5px; border-radius: var(--vscode-cornerRadius-circle); font-size: 10px; line-height: 16px; text-align: center;
+	background: color-mix(in srgb, var(--vscode-foreground) 12%, transparent); }
+
+/* ---------- buttons ---------- */
+.se-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 26px; padding: 0 10px; cursor: pointer; white-space: nowrap;
+	border-radius: var(--vscode-cornerRadius-small); border: 1px solid var(--vscode-button-secondaryBorder, transparent);
+	background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground) !important; }
+.se-btn:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.se-btn.primary { background: var(--vscode-button-background); border-color: var(--vscode-button-border, transparent); color: var(--vscode-button-foreground) !important; }
+.se-btn.primary:hover { background: var(--vscode-button-hoverBackground); }
+.se-btn.small { height: 24px; font-size: var(--vscode-fontSize-label1, 12px); }
+.se-btn:focus-visible, .se-icon-btn:focus-visible, .se-link-btn:focus-visible, .se-dropdown:focus-visible, .se-chip:focus-visible, .se-tab:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+.se-icon-btn { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: transparent; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; color: var(--vscode-foreground) !important; flex: none; }
+.se-icon-btn:hover { background: var(--vscode-toolbar-hoverBackground); }
+.se-link-btn { display: inline-flex; align-items: center; gap: 4px; padding: 0; border: 0; background: none; cursor: pointer; color: var(--vscode-textLink-foreground) !important; font-size: inherit; }
+.se-link-btn:hover { text-decoration: underline; color: var(--vscode-textLink-activeForeground) !important; }
+.se-link-btn .codicon { font-size: 14px; }
+
+/* ---------- content ---------- */
+.se-scroll { flex: 1; min-height: 0; overflow-y: auto; scroll-padding-top: 12px; }
+.se-content { padding: 20px 14px 80px; }
+.se-page-header { display: flex; gap: 14px; align-items: flex-start; margin: 4px 0 18px; }
+.se-page-title { margin: 0; font-size: var(--vscode-fontSize-heading2, 18px); font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-settings-headerForeground); line-height: 1.3; }
+.se-page-desc { margin: 2px 0 0; color: var(--vscode-descriptionForeground); }
+
+.se-callout { display: flex; align-items: flex-start; gap: 10px; margin: 0 0 16px; padding: 10px 12px; border-radius: var(--vscode-cornerRadius-medium);
+	background: color-mix(in srgb, var(--vscode-charts-orange) 10%, transparent); border: 1px solid color-mix(in srgb, var(--vscode-charts-orange) 30%, transparent); }
+.se-callout > .codicon { color: var(--vscode-charts-orange); margin-top: 1px; }
+
+/* ---------- groups ---------- */
+.se-group { margin-top: 24px; }
+.se-group-header { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 4px 4px 6px;
+	background: var(--vscode-editor-background); }
+.se-group-title { margin: 0; font-size: var(--vscode-fontSize-heading3, 13px); font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-settings-headerForeground); }
+.se-group-icon { color: var(--vscode-descriptionForeground); }
+.se-group-count { font-size: var(--vscode-fontSize-label2, 11px); color: var(--vscode-descriptionForeground); font-variant-numeric: tabular-nums; }
+.se-group-card { border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-large); background: var(--se-card); overflow: clip; }
+.se-group-hidden { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-top: 1px solid var(--se-line); color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-group-card > .se-group-hidden:first-child { border-top: 0; }
+.se-group-body:empty { display: none; }
+.se-group-body:empty + .se-group-hidden { border-top: 0; }
+.se-group-more { display: block; width: 100%; padding: 8px 16px; border: 0; border-top: 1px solid var(--se-line); background: none; text-align: left; cursor: pointer; color: var(--vscode-textLink-foreground) !important; font-size: var(--vscode-fontSize-label1, 12px); }
+.se-group-more:hover { background: var(--vscode-list-hoverBackground); }
+.se-subgroups { display: flex; flex-direction: column; gap: 14px; }
+.se-subheading { display: flex; align-items: center; gap: 8px; padding: 2px 4px 6px; font-size: var(--vscode-fontSize-label2, 11px); font-weight: 600;
+	text-transform: uppercase; letter-spacing: 0.04em; color: var(--vscode-descriptionForeground); }
+.se-subheading-count { font-weight: 400; }
+
+/* Flat groups were replaced by cards in every version (section titles sit above the cards). */
+
+/* Subcategory chips (flat nav variant). */
+.se-chipbar { position: sticky; top: 0; z-index: 3; display: flex; gap: 6px; padding: 8px 0 10px; margin: -4px 0 4px; overflow-x: auto; scrollbar-width: none;
+	background: var(--vscode-editor-background); }
+.se-chipbar-chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; flex: none; cursor: pointer; white-space: nowrap;
+	border-radius: var(--vscode-cornerRadius-circle); border: 1px solid var(--se-line); background: transparent; color: var(--vscode-descriptionForeground) !important; font-size: var(--vscode-fontSize-label1, 12px); }
+.se-chipbar-chip:hover { color: var(--vscode-foreground) !important; background: var(--vscode-list-hoverBackground); }
+.se-chipbar-chip.active { background: var(--vscode-list-activeSelectionBackground); color: var(--vscode-list-activeSelectionForeground) !important; border-color: transparent; }
+.se-chipbar-count { opacity: 0.7; font-variant-numeric: tabular-nums; }
+.nav-flat .se-content:has(> .se-chipbar) .se-group-header { top: 44px; }
+
+/* ---------- rows ---------- */
+.se-row { position: relative; padding: 12px 16px; border-top: 1px solid var(--se-line); outline: none; transition: background-color 0.15s; }
+.se-group-body > .se-row:first-child { border-top: 0; }
+.se-row:hover { background: var(--vscode-settings-rowHoverBackground); }
+.se-row:focus:not(:focus-visible) { outline: none !important; }
+/* Row backgrounds and outlines follow the card's rounded corners. */
+.se-group-card > .se-group-body > .se-row:first-child { border-radius: calc(var(--vscode-cornerRadius-large) - 1px) calc(var(--vscode-cornerRadius-large) - 1px) 0 0; }
+.se-group-card > .se-group-body:last-child > .se-row:last-child { border-radius: 0 0 calc(var(--vscode-cornerRadius-large) - 1px) calc(var(--vscode-cornerRadius-large) - 1px); }
+.se-group-card > .se-group-body:last-child > .se-row:only-child { border-radius: calc(var(--vscode-cornerRadius-large) - 1px); }
+.se-group-card > .se-group-more:last-child, .se-group-card > .se-group-hidden:last-child { border-radius: 0 0 calc(var(--vscode-cornerRadius-large) - 1px) calc(var(--vscode-cornerRadius-large) - 1px); }
+.se-group-lock { display: inline-flex; align-items: center; gap: 4px; font-size: var(--vscode-fontSize-label2, 11px); color: var(--vscode-descriptionForeground); }
+.se-group-lock .codicon { font-size: 12px !important; }
+.se-row:focus-within { background: var(--vscode-settings-focusedRowBackground); }
+.se-row.modified::before { content: ""; position: absolute; left: 4px; top: 14px; bottom: 14px; width: 2px; border-radius: 2px; background: var(--vscode-settings-modifiedItemIndicator); }
+/* Settings controlled by the setting above them: a nested card under it, shown only while it's on. */
+.se-row.parent:has(+ .se-children) { padding-bottom: 10px; }
+.se-children { margin: 0 16px 14px; border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-medium);
+	background: color-mix(in srgb, var(--vscode-foreground) 2.5%, transparent); overflow: clip; }
+.se-children > .se-row { padding-left: 14px; padding-right: 12px; }
+.se-children > .se-row:first-child { border-top: 0; }
+.se-children > .se-row.modified::before { left: 3px; }
+.se-row.flash { animation: se-flash 1.6s ease-out; }
+@keyframes se-flash { 0%, 40% { background: var(--vscode-settings-focusedRowBackground); box-shadow: inset 0 0 0 1px var(--vscode-settings-focusedRowBorder); } 100% { box-shadow: inset 0 0 0 1px transparent; } }
+.se-row-main { display: flex; align-items: center; gap: 16px; }
+.se-row-text { flex: 1; min-width: 0; }
+.se-row-title { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; color: var(--vscode-settings-headerForeground); }
+.se-row-crumb { flex-basis: 100%; font-size: var(--vscode-fontSize-label2, 11px); color: var(--vscode-descriptionForeground); }
+.se-row-prefix { color: var(--vscode-descriptionForeground); }
+.se-row-label { font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.se-row-key { margin-top: 1px; font-family: var(--se-mono); font-size: 11px; color: var(--vscode-descriptionForeground); opacity: 0.75; word-break: break-all; user-select: all; }
+.se-row-desc { margin-top: 4px; color: var(--vscode-descriptionForeground); line-height: 1.5; overflow-wrap: anywhere; }
+.se-row-desc p, .se-row-deprecation p, .se-dropdown-detail p { margin: 0 0 4px; }
+.se-row-desc p:last-child:last-child, .se-row-deprecation p:last-child { margin-bottom: 0; }
+.se-row-desc ul { margin: 4px 0; padding-left: 18px; }
+.se-row-desc li { margin: 2px 0; }
+.se .rendered-markdown code, .se-dropdown-detail code { font-family: var(--se-mono); font-size: 12px; padding: 1px 4px; border-radius: var(--vscode-cornerRadius-small);
+	background: var(--vscode-textPreformat-background); color: var(--vscode-textPreformat-foreground); }
+.se .rendered-markdown a, .se-setting-link { color: var(--vscode-textLink-foreground); text-decoration: none; cursor: pointer; }
+.se .rendered-markdown a:hover, .se-setting-link:hover { text-decoration: underline; }
+.se-setting-link { font-family: inherit; }
+/* Same width as block controls (lists, JSON) — see .se-row-block. */
+.se-md-code { max-width: 640px; margin: 6px 0; padding: 6px 10px; border-radius: var(--vscode-cornerRadius-medium); background: var(--vscode-textCodeBlock-background); font-family: var(--se-mono); font-size: 12px; line-height: 1.45; tab-size: 2; overflow-x: auto; white-space: pre; }
+.se-md-code code { background: none !important; padding: 0 !important; }
+.se-row-deprecation { display: flex; gap: 6px; margin-top: 8px; padding: 6px 8px; border-radius: var(--vscode-cornerRadius-small); font-size: var(--vscode-fontSize-label1, 12px);
+	background: var(--vscode-inputValidation-warningBackground); border: 1px solid color-mix(in srgb, var(--vscode-inputValidation-warningBorder) 50%, transparent); color: var(--vscode-inputValidation-warningForeground); }
+.se-row-deprecation > .codicon { color: var(--vscode-editorWarning-foreground); }
+.se-row-control { flex: none; display: flex; align-items: center; min-height: 22px; }
+.se-row-actions { flex: none; display: flex; justify-content: flex-end; gap: 2px; width: 50px; margin-right: -8px; opacity: 0; transition: opacity 0.1s; }
+.se-row.block .se-row-actions { margin-right: 0; }
+.se-row:hover .se-row-actions, .se-row:focus-within .se-row-actions, .se-row-actions:has(.se-reset) { opacity: 1; }
+.se-row-actions .se-more { opacity: 0; }
+.se-row:hover .se-more, .se-row:focus-within .se-more { opacity: 1; }
+.se-reset { color: var(--vscode-descriptionForeground) !important; }
+.se-row.block .se-row-main { align-items: flex-start; }
+.se-row-block { margin-top: 10px; max-width: 640px; }
+.se-row.readonly .se-row-control, .se-row.readonly .se-row-block { opacity: 0.6; }
+
+.se-badge { display: inline-flex; align-items: center; height: 16px; padding: 0 6px; border-radius: var(--vscode-cornerRadius-circle); font-size: 10px; font-weight: 600; letter-spacing: 0.02em;
+	background: color-mix(in srgb, var(--vscode-foreground) 10%, transparent); color: var(--vscode-descriptionForeground); }
+.se-badge.preview { background: color-mix(in srgb, var(--vscode-charts-blue) 18%, transparent); color: var(--vscode-charts-blue); }
+.se-badge.experimental { background: color-mix(in srgb, var(--vscode-charts-orange) 18%, transparent); color: var(--vscode-charts-orange); }
+.se-badge.deprecated { background: color-mix(in srgb, var(--vscode-errorForeground) 16%, transparent); color: var(--vscode-errorForeground); }
+
+.se-indicators { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 8px; }
+.se-ind { display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 7px; border-radius: var(--vscode-cornerRadius-small); font-size: var(--vscode-fontSize-label2, 11px);
+	background: color-mix(in srgb, var(--vscode-foreground) 6%, transparent); color: var(--vscode-descriptionForeground); max-width: 100%; }
+/* `.se button` resets color to inherit; restore the badge's muted color. */
+.se button.se-ind { border: 0; font: inherit; font-size: var(--vscode-fontSize-label2, 11px); cursor: pointer; color: var(--vscode-descriptionForeground); }
+.se button.se-ind.scope { color: var(--vscode-foreground); }
+button.se-ind:hover { background: color-mix(in srgb, var(--vscode-foreground) 12%, transparent); color: var(--vscode-foreground) !important; }
+button.se-ind:hover > span { text-decoration: underline; text-underline-offset: 2px; }
+.se-ind > span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.se button.se-ind.policy { color: var(--vscode-editorWarning-foreground); }
+.se-ind.policy { color: var(--vscode-editorWarning-foreground); background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 12%, transparent); }
+.se-ind.agents { color: var(--vscode-charts-purple); background: color-mix(in srgb, var(--vscode-charts-purple) 12%, transparent); }
+.se-ind.scope { color: var(--vscode-foreground); }
+
+/* ---------- switch (src/vs/base/browser/ui/toggle/switch.css) ---------- */
+.se .monaco-switch { position: relative; container-type: size; flex: 0 0 auto; width: var(--vscode-spacing-size280, 28px); height: var(--vscode-spacing-size160, 16px); padding: 0;
+	border: var(--vscode-strokeThickness, 1px) solid transparent; border-radius: var(--vscode-cornerRadius-circle); cursor: pointer;
+	background: color-mix(in srgb, var(--vscode-descriptionForeground) 36%, transparent); transition: background-color 120ms ease, border-color 120ms ease; box-sizing: content-box; }
+.se .monaco-switch.checked { background: var(--vscode-button-background); border-color: var(--vscode-button-background); }
+.se .monaco-switch:disabled { cursor: default; opacity: 0.5; }
+.se .monaco-switch:focus-visible { outline: var(--vscode-strokeThickness, 1px) solid var(--vscode-focusBorder); outline-offset: var(--vscode-spacing-size20, 2px); }
+.se .monaco-switch-thumb { position: absolute; top: 0; bottom: 0; left: 0; box-sizing: border-box; width: 100cqh; border: var(--vscode-strokeThickness, 1px) solid transparent;
+	border-radius: var(--vscode-cornerRadius-circle); background-color: var(--vscode-button-foreground); background-clip: padding-box; transition: left 120ms ease; }
+.se .monaco-switch.checked .monaco-switch-thumb { left: calc(100% - 100cqh); }
+.monaco-reduce-motion .se .monaco-switch, .monaco-reduce-motion .se .monaco-switch-thumb { transition: none; }
+
+/* ---------- dropdown ---------- */
+.se-dropdown { display: inline-flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 168px; max-width: 280px; height: 26px; padding: 0 6px 0 8px; cursor: pointer;
+	border-radius: var(--vscode-cornerRadius-small); border: 1px solid var(--vscode-settings-dropdownBorder); background: var(--vscode-settings-dropdownBackground); color: var(--vscode-settings-dropdownForeground) !important; }
+.se-dropdown:disabled { cursor: default; }
+/* The open menu is focused for keyboard use; neither it nor its button draws a focus ring. */
+.se .se-dropdown-popup:focus, .se .se-dropdown-popup:focus-visible { outline: none !important; }
+.se-dropdown-label { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.se-dropdown-popup { position: absolute; z-index: 60; max-width: 420px; padding: 4px; outline: none; border-radius: var(--vscode-cornerRadius-medium);
+	background: var(--vscode-dropdown-listBackground, var(--vscode-dropdown-background)); border: 1px solid var(--vscode-settings-dropdownListBorder); box-shadow: 0 4px 16px var(--vscode-widget-shadow); }
+.se-dropdown-options { max-height: 260px; overflow-y: auto; }
+.se-dropdown-option { display: flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px 0 4px; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; white-space: nowrap; }
+.se-dropdown-option.active { background: var(--vscode-list-activeSelectionBackground); color: var(--vscode-list-activeSelectionForeground); }
+.se-dropdown-check { width: 16px; display: grid; place-items: center; }
+.se-dropdown-option-label { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.se-dropdown-default { font-size: 10px; color: var(--vscode-descriptionForeground); }
+/* Paragraph margins would leave extra space under the last line. */
+.se-dropdown-detail p:last-child { margin-bottom: 0; }
+.se-dropdown-detail { margin: 4px -4px -4px; padding: 8px 12px; border-top: 1px solid var(--se-line); font-size: var(--vscode-fontSize-label1, 12px); color: var(--vscode-descriptionForeground); white-space: normal; }
+
+/* ---------- inputs ---------- */
+.se-input-wrap { position: relative; display: flex; flex-direction: column; }
+.se-input { height: 26px; width: 220px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-small); outline: none; font: inherit;
+	background: var(--vscode-settings-textInputBackground); border: 1px solid var(--vscode-settings-textInputBorder); color: var(--vscode-settings-textInputForeground); }
+.se-input:focus { border-color: var(--vscode-focusBorder); }
+.se-input:disabled { opacity: 0.6; }
+.se-input-number { width: 96px; text-align: right; font-variant-numeric: tabular-nums; background: var(--vscode-settings-numberInputBackground); border-color: var(--vscode-settings-numberInputBorder); }
+.se-input-wrap.wide .se-input { width: 100%; font-family: var(--se-mono); font-size: 12px; }
+.se-input-wrap.invalid .se-input { border-color: var(--vscode-inputValidation-errorBorder); }
+.se-validation { margin-top: 2px; padding: 4px 8px; border-radius: var(--vscode-cornerRadius-small); font-size: var(--vscode-fontSize-label1, 12px); max-width: 320px;
+	background: var(--vscode-inputValidation-errorBackground); border: 1px solid var(--vscode-inputValidation-errorBorder); color: var(--vscode-inputValidation-errorForeground); }
+.se-row-control .se-validation { position: absolute; right: 0; top: 100%; z-index: 4; width: max-content; }
+
+/* ---------- lists ---------- */
+.se-list { border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-medium); background: var(--vscode-editor-background); overflow: hidden; }
+.se-list-row { display: flex; align-items: center; gap: 8px; min-height: 30px; padding: 3px 8px 3px 10px; border-top: 1px solid var(--se-line); }
+/* Whatever comes first in a list (a row, or the Add/Show more button of an empty list) sits flush against its border. */
+.se-list > :first-child, .se-list > [hidden]:first-child + * { border-top: 0; }
+.se-list-row[hidden] { display: none; }
+.se-list-row:hover { background: var(--vscode-list-hoverBackground); }
+.se-list-row.editing { background: var(--vscode-settings-focusedRowBackground); }
+.se-list-value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.se-list-value.mono, .se-list-row .mono { font-family: var(--se-mono); font-size: 12px; }
+.se-list-value.muted { color: var(--vscode-descriptionForeground); }
+.se-list-arrow { color: var(--vscode-descriptionForeground); }
+.se-list-tag { font-size: 10px; padding: 0 5px; border-radius: var(--vscode-cornerRadius-circle); background: color-mix(in srgb, var(--vscode-settings-modifiedItemIndicator) 60%, transparent); }
+.se-list-actions { display: flex; gap: 2px; opacity: 0; }
+.se-list-row:hover .se-list-actions, .se-list-row:focus-within .se-list-actions { opacity: 1; }
+.se-list-edit-fields { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.se-list-edit-inputs { display: flex; gap: 6px; }
+.se-list-edit-fields .se-validation { max-width: none; }
+.se-list-edit-fields .se-dropdown { max-width: 360px; }
+.se-list-value.se-enum-value { flex: 0 0 160px; }
+.se-list-edit-inputs .se-input { flex: 1; width: auto; font-family: var(--se-mono); font-size: 12px; }
+.se-list-empty { padding: 8px 10px; color: var(--vscode-descriptionForeground); font-style: italic; }
+.se-list-add, .se-list-more { display: flex; align-items: center; gap: 6px; width: 100%; height: 30px; padding: 0 10px; border: 0; border-top: 1px solid var(--se-line); background: none; cursor: pointer; color: var(--vscode-textLink-foreground) !important; }
+.se-list-more { color: var(--vscode-descriptionForeground) !important; }
+.se-list-add:hover, .se-list-more:hover { background: var(--vscode-list-hoverBackground); }
+.se-chip-set { display: flex; flex-wrap: wrap; gap: 6px; }
+.se-chip { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 10px; border-radius: var(--vscode-cornerRadius-circle); cursor: pointer; border: 1px solid var(--se-line); background: transparent; font-size: 12px; }
+.se-chip.on { background: color-mix(in srgb, var(--vscode-button-background) 25%, transparent); border-color: var(--vscode-button-background); }
+
+/* ---------- JSON ---------- */
+/* Inline JSON editor. The textarea (transparent text, visible caret) sits over a highlighted mirror;
+   both share one grid cell so they wrap identically and the box grows with the content. */
+.se-json-box { position: relative; border: 1px solid var(--vscode-settings-textInputBorder); border-radius: var(--vscode-cornerRadius-medium);
+	background: var(--vscode-settings-textInputBackground); overflow: hidden; }
+.se-json-box:hover:not(.readonly) { border-color: color-mix(in srgb, var(--vscode-focusBorder) 50%, var(--vscode-settings-textInputBorder)); }
+.se-json-box:focus-within { border-color: var(--vscode-focusBorder); }
+.se-json-box.invalid, .se-json-box.invalid:hover:not(.readonly) { border-color: var(--vscode-inputValidation-errorBorder); }
+.se-json-scroll { max-height: 280px; overflow: auto; }
+.se-json-stack { display: grid; }
+.se-json-mirror, .se-json-input { grid-area: 1 / 1; margin: 0; padding: 8px 40px 8px 10px; border: 0; font-family: var(--se-mono); font-size: 12px; line-height: 1.5;
+	white-space: pre-wrap; overflow-wrap: anywhere; tab-size: 2; letter-spacing: normal; }
+.se-json-mirror { pointer-events: none; color: var(--vscode-settings-textInputForeground); }
+.se-json-input { resize: none; overflow: hidden; outline: none !important; background: transparent; color: transparent; caret-color: var(--vscode-editorCursor-foreground, var(--vscode-foreground)); }
+.se-json-input::selection { background: var(--vscode-editor-selectionBackground, rgba(38, 79, 120, 0.6)); color: transparent; }
+.se-json-box.readonly .se-json-input { cursor: default; }
+.se-json-open { position: absolute; top: 4px; right: 4px; opacity: 0; transition: opacity 0.1s; color: var(--vscode-descriptionForeground) !important; }
+.se-json-box:hover .se-json-open, .se-json-box:focus-within .se-json-open, .se-json-open:focus-visible { opacity: 1; }
+.se-json-open:hover { color: var(--vscode-foreground) !important; }
+.se-json-footer { display: flex; align-items: center; gap: 6px; padding: 4px 4px 4px 10px; border-top: 1px solid var(--se-line);
+	background: color-mix(in srgb, var(--vscode-foreground) 3%, transparent); }
+.se-json-footer[hidden] { display: none; }
+.se-json-status { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--vscode-fontSize-label2, 11px); color: var(--vscode-descriptionForeground); }
+.se-json-box.invalid .se-json-status { color: var(--vscode-errorForeground); }
+.se-btn:disabled { opacity: 0.5; cursor: default; }
+.j-key { color: var(--vscode-debugTokenExpression-name, #9cdcfe); }
+.j-str { color: var(--vscode-debugTokenExpression-string, #ce9178); }
+.j-num { color: var(--vscode-debugTokenExpression-number, #b5cea8); }
+.j-kw { color: var(--vscode-debugTokenExpression-boolean, #569cd6); }
+
+/* ---------- menu, drawer, toast, empty ---------- */
+.se-menu { position: absolute; z-index: 70; min-width: 220px; padding: 4px; border-radius: var(--vscode-cornerRadius-large);
+	background: var(--vscode-menu-background, var(--vscode-editorWidget-background)); border: 1px solid var(--vscode-menu-border, var(--se-line)); color: var(--vscode-menu-foreground, var(--vscode-foreground)); box-shadow: 0 4px 16px var(--vscode-widget-shadow); }
+.se-menu-item { display: flex; align-items: center; gap: 16px; width: 100%; height: 26px; padding: 0 12px; border: 0; background: none; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; text-align: left; }
+.se-menu-item:hover:not(:disabled) { background: var(--vscode-menu-selectionBackground, var(--vscode-list-activeSelectionBackground)); color: var(--vscode-menu-selectionForeground, inherit) !important; }
+.se-menu-item:disabled { opacity: 0.45; cursor: default; }
+.se-menu-label { flex: 1; }
+.se-menu-kb { font-family: var(--se-mono); font-size: 11px; color: var(--vscode-descriptionForeground); }
+.se-menu-sep { height: 1px; margin: 4px 8px; background: var(--vscode-menu-separatorBackground, var(--se-line)); }
+.se-json-drawer { position: absolute; z-index: 40; top: 0; right: 0; bottom: 0; width: min(520px, 55%); display: flex; flex-direction: column;
+	background: var(--vscode-editor-background); border-left: 1px solid var(--se-line); box-shadow: -8px 0 24px var(--vscode-widget-shadow); }
+.se-json-sash { position: absolute; z-index: 1; top: 0; bottom: 0; left: -3px; width: 6px; cursor: ew-resize; touch-action: none; }
+.se-json-sash::after { content: ""; position: absolute; top: 0; bottom: 0; left: 2px; width: 2px; background: transparent; transition: background-color 0.1s ease-out 0.3s; }
+.se-json-sash:hover::after, .se-json-sash.active::after { background: var(--vscode-sash-hoverBorder, var(--vscode-focusBorder)); }
+.se.resizing-json { cursor: ew-resize; user-select: none; }
+.se-json-drawer header { flex: none; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 8px 0 12px; border-bottom: 1px solid var(--se-line); }
+.se-json-title { font-weight: 600; }
+.se-json-path { color: var(--vscode-descriptionForeground); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.se-json-file { flex: 1; margin: 0; padding: 10px 0; overflow: auto; font-family: var(--se-mono); font-size: 12px; line-height: 18px; tab-size: 4; counter-reset: ln; }
+.se-json-line { display: block; padding: 0 12px 0 52px; position: relative; white-space: pre; }
+.se-json-line::before { counter-increment: ln; content: counter(ln); position: absolute; left: 0; width: 36px; text-align: right; color: var(--vscode-editorLineNumber-foreground, var(--vscode-descriptionForeground)); }
+.se-json-line.hl { background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 14%, transparent); }
+.se-toast { position: absolute; z-index: 80; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+	border-radius: var(--vscode-cornerRadius-large); background: var(--vscode-notifications-background, var(--vscode-editorWidget-background)); color: var(--vscode-notifications-foreground, var(--vscode-foreground));
+	border: 1px solid var(--se-line); box-shadow: 0 4px 16px var(--vscode-widget-shadow); animation: se-toast-in 0.15s ease-out; }
+.se-toast .codicon { color: var(--vscode-notificationsInfoIcon-foreground, var(--vscode-textLink-foreground)); }
+@keyframes se-toast-in { from { opacity: 0; transform: translate(-50%, 6px); } }
+.se-empty { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 80px 0; color: var(--vscode-descriptionForeground); text-align: center; }
+.se-empty .codicon { font-size: 32px !important; opacity: 0.6; }
+.se-empty h2 { margin: 6px 0 0; font-size: 14px; color: var(--vscode-foreground); }
+.se-empty p { margin: 0 0 8px; }
+
+/* Agents window: tighter type to match the Agents window's panels. */
+.ctx-agents { --se-nav-w: 232px; }
+
+@container se-modal (max-width: 860px) {
+	.se { --se-nav-w: 196px; }
+	.se-content { padding-top: 16px; }
+}
+
+/* ---------- rich hover (src/vs/platform/hover/browser/hover.css; the DS has the box, not the pointer) ---------- */
+.se-hover { position: absolute; z-index: 90; pointer-events: none; max-width: min(360px, calc(100% - 8px)); animation: se-hover-in 0.1s linear; }
+.se-hover.above { padding-bottom: 3px; }
+.se-hover.below { padding-top: 3px; }
+.se-hover .workbench-hover-pointer { position: absolute; z-index: 41; pointer-events: none; }
+.se-hover .workbench-hover-pointer:after { content: ''; position: absolute; box-sizing: border-box; width: 6px; height: 6px;
+	background-color: var(--vscode-editorHoverWidget-background); border-right: 1px solid var(--vscode-editorHoverWidget-border); border-bottom: 1px solid var(--vscode-editorHoverWidget-border); }
+.se-hover .workbench-hover-pointer.top { top: -3px; }
+.se-hover .workbench-hover-pointer.bottom { bottom: 3px; }
+.se-hover .workbench-hover-pointer.top:after { transform: rotate(225deg); }
+.se-hover .workbench-hover-pointer.bottom:after { transform: rotate(45deg); }
+.se-hover .se-hover-box { white-space: normal; }
+.se-hover .hover-contents { padding: 6px 10px !important; }
+.se-hover-title { font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-editorHoverWidget-foreground); }
+.se-hover-body { margin-top: 2px; color: var(--vscode-descriptionForeground); line-height: 1.45; }
+.se-hover-body p { margin: 0; }
+.se-hover-body strong { color: var(--vscode-editorHoverWidget-foreground); font-weight: 600; }
+.se-hover-action { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--vscode-editorHoverWidget-border); color: var(--vscode-textLink-foreground); }
+@keyframes se-hover-in { from { opacity: 0; } }
+.monaco-reduce-motion .se-hover { animation: none; }
