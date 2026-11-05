@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customizations - Provenance</title>
+  <link rel="stylesheet" href="../../systems/vscode/system.css">
+  <script type="module" src="../../systems/vscode/system.js"></script>
+  <style>
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+    vsc-workbench { width: 100vw; height: 100vh; display: block; }
+    .prototype-shell { height: 100%; padding: 28px; box-sizing: border-box; }
+    .editor-frame { height: 100%; min-height: 560px; overflow: hidden; border: 1px solid var(--vscode-widget-border, rgba(128,128,128,.35)); border-radius: 8px; background: var(--vscode-editor-background); box-shadow: 0 8px 28px rgba(0,0,0,.18); }
+    vsc-customizations-editor { height: 100%; }
+    .provenance-badge { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; padding: 0; border-radius: 50%; box-sizing: border-box; color: var(--vscode-badge-foreground); background: var(--vscode-badge-background); line-height: 18px; vertical-align: middle; cursor: help; }
+    .item-name-row .provenance-badge { margin-left: 8px; }
+    .provenance-badge .codicon { color: #fff; font-size: 12px; }
+    .provenance-badge[data-kind="organization"] { color: var(--vscode-activityBarBadge-foreground); background: var(--vscode-activityBarBadge-background); }
+    .provenance-badge[data-kind="team"] { color: var(--vscode-statusBarItem-prominentForeground, var(--vscode-badge-foreground)); background: var(--vscode-statusBarItem-prominentBackground, var(--vscode-badge-background)); }
+    .provenance-badge[data-kind="local"] { color: var(--vscode-descriptionForeground); background: transparent; border: 1px solid var(--vscode-contrastBorder, var(--vscode-widget-border)); }
+    .provenance-badge:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 2px; }
+    vsc-hover.provenance-tooltip { position: fixed !important; z-index: 1000; width: max-content; min-width: 154px; max-width: 240px; pointer-events: none; text-align: left; }
+    .provenance-tooltip-title { display: block; font-weight: 600; }
+    .provenance-tooltip-detail { display: block; color: var(--vscode-descriptionForeground); }
+    .item-name-row { min-width: 0; }
+    .item-name { flex: 0 1 auto; min-width: 0; }
+    .item-name .monaco-highlighted-label { overflow: hidden; text-overflow: ellipsis; }
+    .customization-discovery-result-detail { display: flex; align-items: center; min-width: 0; }
+    .customization-discovery-result-detail .provenance-badge { flex: 0 1 auto; margin-left: 7px; }
+    .provenance-filter { display: flex; align-items: center; gap: 8px; margin-left: 10px; white-space: nowrap; color: var(--vscode-descriptionForeground); }
+    .provenance-filter vsc-select { min-width: 132px; }
+    vsc-customization-list.managed-only vsc-customization-item:not([data-source-kind="organization"]):not([data-source-kind="team"]) { display: none; }
+    @media (max-width: 720px) {
+      .prototype-shell { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <vsc-workbench window="agents" theme="dark-2026">
+    <main class="prototype-shell" aria-label="Customization provenance exploration">
+      <section class="editor-frame" aria-label="Customizations editor">
+        <vsc-customizations-editor section="skills" sidebar-width="200" counts="2,7,5,2,3,1,36">
+          <vsc-customization-browse section="browse">
+            <vsc-customization-discovery-section heading="Editor's picks" featured data-browse-state="default">
+              <vsc-customization-discovery-card name="Accessibility Review" meta="Skill" description="Audit semantic HTML, labels, focus states, keyboard navigation, and color contrast." fallback-icon="lightbulb" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github"></vsc-customization-discovery-card>
+              <vsc-customization-discovery-card name="Issue Triage" meta="Skill" description="Classify incoming issues and suggest the right labels, owners, and next actions." fallback-icon="lightbulb" data-source="VS Code" data-source-kind="organization" data-source-icon="organization"></vsc-customization-discovery-card>
+              <vsc-customization-discovery-card name="Component Audit" meta="Skill" description="Review UI components for design-system consistency and implementation drift." fallback-icon="lightbulb" data-source="Editor Foundations" data-source-kind="team" data-source-icon="organization"></vsc-customization-discovery-card>
+            </vsc-customization-discovery-section>
+            <vsc-customization-discovery-section heading="Skills from GitHub Feed" show-all data-browse-state="default">
+              <vsc-customization-discovery-card name="Release Notes" meta="Skill" description="Generate concise release notes from merged pull requests and linked issues." fallback-icon="lightbulb" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github"></vsc-customization-discovery-card>
+              <vsc-customization-discovery-card name="Design QA" meta="Skill" description="Compare implementation screenshots against a visual specification." fallback-icon="lightbulb" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github"></vsc-customization-discovery-card>
+            </vsc-customization-discovery-section>
+            <vsc-customization-discovery-result name="Accessibility Review" meta="Skill" description="Audit semantic HTML, labels, focus states, keyboard navigation, and color contrast." fallback-icon="lightbulb" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github" data-search-text="accessibility review audit semantic html labels focus keyboard contrast"></vsc-customization-discovery-result>
+            <vsc-customization-discovery-result name="Issue Triage" meta="Skill" description="Classify incoming issues and suggest the right labels, owners, and next actions." fallback-icon="lightbulb" data-source="VS Code" data-source-kind="organization" data-source-icon="organization" data-search-text="issue triage labels owners vscode"></vsc-customization-discovery-result>
+            <vsc-customization-discovery-result name="Component Audit" meta="Skill" description="Review UI components for design-system consistency and implementation drift." fallback-icon="lightbulb" data-source="Editor Foundations" data-source-kind="team" data-source-icon="organization" data-search-text="component audit design system editor foundations"></vsc-customization-discovery-result>
+            <vsc-customization-discovery-result name="Release Notes" meta="Skill" description="Generate concise release notes from merged pull requests and linked issues." fallback-icon="lightbulb" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github" data-search-text="release notes pull requests github feed"></vsc-customization-discovery-result>
+          </vsc-customization-browse>
+          <vsc-customization-list section="skills" kind="prompts" heading="Skills" description="Folders of instructions, scripts, and resources that Copilot loads when relevant to perform specialized tasks." link="Learn more about agent skills">
+            <vsc-customization-group label="User" count="2" actions="add" add-label="New Skill" first></vsc-customization-group>
+            <vsc-customization-item name="comparison-screenshot" path="~/.copilot/skills/comparison-screenshot/SKILL.md" data-source="You" data-source-kind="local" data-source-icon="person"></vsc-customization-item>
+            <vsc-customization-item name="accessibility-review" path="~/.copilot/skills/accessibility-review/SKILL.md" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github"></vsc-customization-item>
+            <vsc-customization-group label="Workspace" count="3" actions="add" add-label="New Skill"></vsc-customization-group>
+            <vsc-customization-item name="release-notes" path=".github/skills/release-notes/SKILL.md" data-source="VS Code" data-source-kind="organization" data-source-icon="organization"></vsc-customization-item>
+            <vsc-customization-item name="issue-triage" path=".github/skills/issue-triage/SKILL.md" data-source="Editor Foundations" data-source-kind="team" data-source-icon="organization"></vsc-customization-item>
+            <vsc-customization-item name="component-audit" path=".github/skills/component-audit/SKILL.md" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github"></vsc-customization-item>
+          </vsc-customization-list>
+        </vsc-customizations-editor>
+      </section>
+    </main>
+  </vsc-workbench>
+  <script>
+    const provenanceDescription = {
+      feed: 'From the GitHub Feed',
+      organization: 'Managed by your organization',
+      team: 'Installed by your team',
+      local: 'Installed by you'
+    };
+    let activeTooltip;
+    let tooltipId = 0;
+    const badgeMarkup = item => `<span class="codicon codicon-${item.dataset.sourceIcon || 'organization'}" aria-hidden="true"></span>`;
+    const hideTooltip = () => {
+      activeTooltip?.remove();
+      activeTooltip = undefined;
+    };
+    const showTooltip = (badge, item) => {
+      hideTooltip();
+      const tooltip = document.createElement('vsc-hover');
+      tooltip.className = 'provenance-tooltip';
+      tooltip.id = `provenance-tooltip-${++tooltipId}`;
+      tooltip.innerHTML = `<span class="provenance-tooltip-title">${item.dataset.source}</span><span class="provenance-tooltip-detail">${provenanceDescription[item.dataset.sourceKind || 'feed']}</span>`;
+      document.querySelector('vsc-workbench').appendChild(tooltip);
+      tooltip.tabIndex = -1;
+      badge.setAttribute('aria-describedby', tooltip.id);
+      const rect = badge.getBoundingClientRect();
+      tooltip.style.left = `${Math.max(8, Math.min(rect.left, window.innerWidth - tooltip.offsetWidth - 8))}px`;
+      tooltip.style.top = `${rect.bottom + 6}px`;
+      activeTooltip = tooltip;
+    };
+    const attachTooltip = (badge, item) => {
+      badge.addEventListener('mouseenter', () => showTooltip(badge, item));
+      badge.addEventListener('mouseleave', hideTooltip);
+      badge.addEventListener('focus', () => showTooltip(badge, item));
+      badge.addEventListener('blur', hideTooltip);
+    };
+
+    const decorateProvenance = () => {
+      document.querySelectorAll('vsc-customization-item[data-source]').forEach(item => {
+        const row = item.querySelector('.item-name-row');
+        if (!row || row.querySelector('.provenance-badge')) return;
+        const badge = document.createElement('span');
+        badge.className = 'provenance-badge';
+        badge.dataset.kind = item.dataset.sourceKind || 'feed';
+        badge.tabIndex = 0;
+        badge.setAttribute('aria-label', `Provenance: ${item.dataset.source}`);
+        badge.innerHTML = badgeMarkup(item);
+        attachTooltip(badge, item);
+        row.appendChild(badge);
+      });
+
+      document.querySelectorAll('vsc-customization-discovery-result[data-source]').forEach(item => {
+        const metadata = item.querySelector('.customization-discovery-result-detail');
+        if (!metadata || metadata.querySelector('.provenance-badge')) return;
+        const badge = document.createElement('span');
+        badge.className = 'provenance-badge';
+        badge.dataset.kind = item.dataset.sourceKind || 'feed';
+        badge.tabIndex = 0;
+        badge.setAttribute('aria-label', `Provenance: ${item.dataset.source}`);
+        badge.innerHTML = badgeMarkup(item);
+        attachTooltip(badge, item);
+        metadata.appendChild(badge);
+      });
+    };
+
+    Promise.all([
+      customElements.whenDefined('vsc-customization-item'),
+      customElements.whenDefined('vsc-customization-discovery-result'),
+      customElements.whenDefined('vsc-customization-browse')
+    ]).then(() => requestAnimationFrame(() => {
+      decorateProvenance();
+      new MutationObserver(decorateProvenance).observe(
+        document.querySelector('vsc-customizations-editor'),
+        { childList: true, subtree: true }
+      );
+
+      const browse = document.querySelector('vsc-customization-browse');
+      const input = browse?.querySelector('input');
+      const applySearch = value => {
+        const query = value.trim().toLowerCase();
+        browse.querySelectorAll('vsc-customization-discovery-result').forEach(card => {
+          card.style.display = !query || (card.dataset.searchText || '').includes(query) ? '' : 'none';
+        });
+      };
+      input?.addEventListener('input', event => applySearch(event.target.value));
+      browse?.addEventListener('search', event => applySearch(event.detail?.query || event.detail?.value || ''));
+
+      const skills = document.querySelector('vsc-customization-list[section="skills"]');
+      const groups = [...skills.querySelectorAll('vsc-customization-group')];
+      const filterManaged = mode => {
+        const managedOnly = mode === 'Managed only';
+        skills.classList.toggle('managed-only', managedOnly);
+        groups[0].style.display = managedOnly ? 'none' : '';
+        groups[1].setAttribute('count', managedOnly ? '2' : '3');
+      };
+      const toolbar = document.createElement('div');
+      toolbar.className = 'provenance-filter';
+      toolbar.innerHTML = '<span>Show</span><vsc-select options="All skills,Managed only" value="Managed only" label="Filter skills by provenance"></vsc-select>';
+      skills.querySelector('.list-search-and-button-container').appendChild(toolbar);
+      customElements.whenDefined('vsc-select').then(() => {
+        const select = toolbar.querySelector('select');
+        select.addEventListener('change', event => filterManaged(event.target.value));
+        filterManaged(select.value);
+      });
+    }));
+  </script>
+</body>
+</html>

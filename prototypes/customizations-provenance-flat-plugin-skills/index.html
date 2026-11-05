@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customizations - Provenance</title>
+  <link rel="stylesheet" href="../../systems/vscode/system.css">
+  <script type="module" src="../../systems/vscode/system.js"></script>
+  <style>
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+    vsc-workbench { width: 100vw; height: 100vh; display: block; }
+    .prototype-shell { height: 100%; padding: 28px; box-sizing: border-box; }
+    .editor-frame { height: 100%; min-height: 560px; overflow: hidden; border: 1px solid var(--vscode-widget-border, rgba(128,128,128,.35)); border-radius: 8px; background: var(--vscode-editor-background); box-shadow: 0 8px 28px rgba(0,0,0,.18); }
+    vsc-customizations-editor { height: 100%; }
+    .provenance-badge { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; padding: 0; border-radius: 50%; box-sizing: border-box; color: var(--vscode-badge-foreground); background: var(--vscode-badge-background); line-height: 18px; vertical-align: middle; cursor: help; }
+    .item-name-row .provenance-badge { margin-left: 8px; }
+    .provenance-badge .codicon { color: #fff; font-size: 12px; }
+    .provenance-badge[data-kind="organization"] { color: var(--vscode-activityBarBadge-foreground); background: var(--vscode-activityBarBadge-background); }
+    .provenance-badge[data-kind="team"] { color: var(--vscode-statusBarItem-prominentForeground, var(--vscode-badge-foreground)); background: var(--vscode-statusBarItem-prominentBackground, var(--vscode-badge-background)); }
+    .provenance-badge[data-kind="local"] { color: var(--vscode-descriptionForeground); background: transparent; border: 1px solid var(--vscode-contrastBorder, var(--vscode-widget-border)); }
+    .provenance-badge:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 2px; }
+    vsc-hover.provenance-tooltip { position: fixed !important; z-index: 1000; width: max-content; min-width: 154px; max-width: 240px; pointer-events: none; text-align: left; }
+    .provenance-tooltip-title { display: block; font-weight: 600; }
+    .provenance-tooltip-detail { display: block; color: var(--vscode-descriptionForeground); }
+    .item-name-row { min-width: 0; }
+    .item-name { flex: 0 1 auto; min-width: 0; }
+    .item-name .monaco-highlighted-label { overflow: hidden; text-overflow: ellipsis; }
+    .customization-discovery-result-detail { display: flex; align-items: center; min-width: 0; }
+    .customization-discovery-result-detail .provenance-badge { flex: 0 1 auto; margin-left: 7px; }
+    vsc-customization-list .monaco-list-rows > [hidden] { display: none !important; }
+    .plugin-node { display: block; min-height: 50px; margin-left: 22px; color: var(--vscode-foreground); }
+    .plugin-node-header { display: flex; align-items: center; min-height: 50px; gap: 8px; padding: 4px 8px 4px 10px; box-sizing: border-box; }
+    .plugin-node-toggle { flex: 0 0 auto; border: 0; padding: 2px; color: var(--vscode-icon-foreground); background: transparent; cursor: pointer; }
+    .plugin-node-toggle.collapsed { transform: rotate(-90deg); }
+    .plugin-node-identity { flex: 1 1 auto; min-width: 0; }
+    .plugin-node-name { display: block; overflow: hidden; color: var(--vscode-foreground); font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+    .plugin-node-link { display: inline-block; margin-top: 2px; border: 0; padding: 0; color: var(--vscode-textLink-foreground); background: transparent; font: inherit; cursor: pointer; }
+    .plugin-node-actions { display: flex; align-items: center; gap: 6px; }
+    .plugin-update-action { height: 24px; padding: 2px 9px; border: 1px solid var(--vscode-button-secondaryBorder, transparent); border-radius: 2px; color: var(--vscode-button-secondaryForeground); background: var(--vscode-button-secondaryBackground); cursor: pointer; }
+    .plugin-update-action:hover { background: var(--vscode-button-secondaryHoverBackground); }
+    .plugin-more-action { width: 28px; height: 28px; border: 0; color: var(--vscode-icon-foreground); background: transparent; cursor: pointer; }
+    .plugin-skills { margin-left: 32px; }
+    .plugin-skill-row { display: grid; grid-template-columns: minmax(0, 1fr) 28px; min-height: 52px; padding: 7px 8px 7px 10px; box-sizing: border-box; cursor: pointer; }
+    .plugin-skill-row:hover { background: var(--vscode-list-hoverBackground); }
+    .plugin-skill-name { align-self: end; overflow: hidden; color: var(--vscode-foreground); font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+    .plugin-skill-description { grid-column: 1; align-self: start; overflow: hidden; color: var(--vscode-descriptionForeground); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .plugin-skill-more { grid-column: 2; grid-row: 1 / span 2; align-self: center; border: 0; color: var(--vscode-icon-foreground); background: transparent; cursor: pointer; }
+    .flat-plugin-skill-row { grid-template-rows: auto auto; min-height: 54px; margin-left: 32px; padding-left: 10px; }
+    .flat-plugin-skill-row .plugin-skill-name { align-self: end; }
+    .flat-plugin-skill-row .plugin-node-link { grid-column: 1; justify-self: start; margin-top: 1px; }
+    .flat-plugin-skill-row .plugin-skill-more { grid-row: 1 / span 2; }
+    .detail-view { position: absolute; z-index: 4; inset: 0; overflow: auto; padding: 20px 24px; box-sizing: border-box; color: var(--vscode-foreground); background: var(--vscode-editor-background); }
+    .detail-toolbar { display: flex; align-items: center; gap: 10px; min-height: 34px; }
+    .detail-back { width: 28px; height: 28px; border: 1px solid var(--vscode-button-secondaryBorder, var(--vscode-widget-border)); border-radius: 4px; color: var(--vscode-icon-foreground); background: transparent; cursor: pointer; }
+    .detail-title { flex: 1 1 auto; margin: 0; font-size: 20px; font-weight: 600; }
+    .detail-actions { display: flex; gap: 8px; }
+    .detail-copy { max-width: 850px; margin: 10px 0 14px 38px; color: var(--vscode-descriptionForeground); line-height: 1.45; }
+    .detail-file-link { margin-left: 38px; color: var(--vscode-textLink-foreground); text-decoration: none; }
+    .skill-editor { max-width: 940px; margin: 14px 0 0 38px; border: 1px solid var(--vscode-editorWidget-border, var(--vscode-widget-border)); background: var(--vscode-editor-background); box-shadow: inset 42px 0 var(--vscode-editorGutter-background, var(--vscode-editor-background)); font-family: var(--vscode-editor-font-family, monospace); font-size: 13px; line-height: 1.55; }
+    .skill-editor-line { display: grid; grid-template-columns: 34px 1fr; min-height: 20px; }
+    .skill-editor-number { padding-right: 8px; color: var(--vscode-editorLineNumber-foreground); text-align: right; user-select: none; }
+    .skill-editor-code { padding-left: 10px; white-space: pre-wrap; }
+    .yaml-key { color: var(--vscode-debugTokenExpression-name, #9cdcfe); }
+    .yaml-value { color: var(--vscode-debugTokenExpression-string, #ce9178); }
+    .markdown-heading { color: var(--vscode-textLink-foreground); font-weight: 600; }
+    .detail-section { max-width: 900px; margin-top: 22px; }
+    .detail-section h3 { margin: 0 0 8px; font-size: 13px; }
+    .detail-card { border: 1px solid var(--vscode-widget-border); border-radius: 5px; overflow: hidden; }
+    .detail-row { display: grid; grid-template-columns: 100px 1fr; min-height: 32px; padding: 6px 10px; box-sizing: border-box; border-bottom: 1px solid var(--vscode-widget-border); }
+    .detail-row:last-child { border-bottom: 0; }
+    .detail-label { color: var(--vscode-descriptionForeground); }
+    .detail-skill-link { display: block; padding: 7px 12px; color: var(--vscode-textLink-foreground); text-decoration: none; cursor: pointer; }
+    .detail-empty { padding: 12px; color: var(--vscode-descriptionForeground); }
+    @media (max-width: 720px) {
+      .prototype-shell { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <vsc-workbench window="agents" theme="dark-2026">
+    <main class="prototype-shell" aria-label="Customization provenance exploration">
+      <section class="editor-frame" aria-label="Customizations editor">
+        <vsc-customizations-editor section="skills" sidebar-width="200" counts="2,7,5,2,3,1,36">
+          <vsc-customization-browse section="browse">
+            <vsc-customization-discovery-section heading="Editor's picks" featured data-browse-state="default">
+              <vsc-customization-discovery-card name="Accessibility Review" meta="Skill" description="Audit semantic HTML, labels, focus states, keyboard navigation, and color contrast." fallback-icon="lightbulb" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github"></vsc-customization-discovery-card>
+              <vsc-customization-discovery-card name="Issue Triage" meta="Skill" description="Classify incoming issues and suggest the right labels, owners, and next actions." fallback-icon="lightbulb" data-source="VS Code" data-source-kind="organization" data-source-icon="organization"></vsc-customization-discovery-card>
+              <vsc-customization-discovery-card name="Component Audit" meta="Skill" description="Review UI components for design-system consistency and implementation drift." fallback-icon="lightbulb" data-source="Editor Foundations" data-source-kind="team" data-source-icon="organization"></vsc-customization-discovery-card>
+            </vsc-customization-discovery-section>
+            <vsc-customization-discovery-section heading="Skills from GitHub Feed" show-all data-browse-state="default">
+              <vsc-customization-discovery-card name="Release Notes" meta="Skill" description="Generate concise release notes from merged pull requests and linked issues." fallback-icon="lightbulb" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github"></vsc-customization-discovery-card>
+              <vsc-customization-discovery-card name="Design QA" meta="Skill" description="Compare implementation screenshots against a visual specification." fallback-icon="lightbulb" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github"></vsc-customization-discovery-card>
+            </vsc-customization-discovery-section>
+            <vsc-customization-discovery-result name="Accessibility Review" meta="Skill" description="Audit semantic HTML, labels, focus states, keyboard navigation, and color contrast." fallback-icon="lightbulb" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github" data-search-text="accessibility review audit semantic html labels focus keyboard contrast"></vsc-customization-discovery-result>
+            <vsc-customization-discovery-result name="Issue Triage" meta="Skill" description="Classify incoming issues and suggest the right labels, owners, and next actions." fallback-icon="lightbulb" data-source="VS Code" data-source-kind="organization" data-source-icon="organization" data-search-text="issue triage labels owners vscode"></vsc-customization-discovery-result>
+            <vsc-customization-discovery-result name="Component Audit" meta="Skill" description="Review UI components for design-system consistency and implementation drift." fallback-icon="lightbulb" data-source="Editor Foundations" data-source-kind="team" data-source-icon="organization" data-search-text="component audit design system editor foundations"></vsc-customization-discovery-result>
+            <vsc-customization-discovery-result name="Release Notes" meta="Skill" description="Generate concise release notes from merged pull requests and linked issues." fallback-icon="lightbulb" data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github" data-search-text="release notes pull requests github feed"></vsc-customization-discovery-result>
+          </vsc-customization-browse>
+          <vsc-customization-list section="skills" kind="prompts" heading="Skills" description="Folders of instructions, scripts, and resources that Copilot loads when relevant to perform specialized tasks." link="Learn more about agent skills">
+            <vsc-customization-group label="User" count="6" actions="add" add-label="New Skill" first collapsed></vsc-customization-group>
+            <vsc-customization-item name="comparison-screenshot" path="~/.copilot/skills/comparison-screenshot/SKILL.md" data-description="Create polished before-and-after screenshots for visual reviews." data-source="You" data-source-kind="local" data-source-icon="person"></vsc-customization-item>
+            <vsc-customization-item name="accessibility-review" path="~/.copilot/skills/accessibility-review/SKILL.md" data-description="Audit semantic HTML, labels, focus states, and keyboard navigation." data-source="GitHub Feed" data-source-kind="feed" data-source-icon="github"></vsc-customization-item>
+            <vsc-customization-item name="issue-dispatcher" path="~/.copilot/skills/issue-dispatcher/SKILL.md" data-description="Classify and dispatch configured-assignee issues into isolated sessions." data-source="You" data-source-kind="local" data-source-icon="person"></vsc-customization-item>
+            <vsc-customization-group label="Workspace" count="51" actions="add" add-label="New Skill" collapsed></vsc-customization-group>
+            <vsc-customization-item name="release-notes" path=".github/skills/release-notes/SKILL.md" data-description="Generate concise release notes from merged pull requests." data-source="VS Code" data-source-kind="organization" data-source-icon="organization"></vsc-customization-item>
+            <vsc-customization-item name="component-audit" path=".github/skills/component-audit/SKILL.md" data-description="Review UI components for design-system drift." data-source="Editor Foundations" data-source-kind="team" data-source-icon="organization"></vsc-customization-item>
+            <vsc-customization-group label="Extensions" count="4" collapsed></vsc-customization-group>
+            <vsc-customization-item name="code-review" path="~/.vscode/extensions/github.copilot-chat/skills/code-review/SKILL.md" data-description="Review code changes for correctness and maintainability." data-source="GitHub Copilot" data-source-kind="feed" data-source-icon="extensions"></vsc-customization-item>
+            <vsc-customization-item name="fix-ci" path="~/.vscode/extensions/github.copilot-chat/skills/fix-ci/SKILL.md" data-description="Diagnose and fix failing continuous integration checks." data-source="GitHub Copilot" data-source-kind="feed" data-source-icon="extensions"></vsc-customization-item>
+            <vsc-customization-group label="Plugins" count="7"></vsc-customization-group>
+            <div class="plugin-skill-row flat-plugin-skill-row" data-plugin="microsoft-foundry.microsoft-foundry" data-skill="Microsoft Foundry (Preview)" data-description="An interactive panel alongside Chat for Microsoft Foundry hosted agents and Prompt agents with harness."><span class="plugin-skill-name">Microsoft Foundry (Preview)</span><button class="plugin-node-link">Plugin: microsoft-foundry:microsoft-foundry</button><button class="plugin-skill-more codicon codicon-ellipsis" aria-label="More actions for Microsoft Foundry"></button></div>
+            <div class="plugin-skill-row flat-plugin-skill-row" data-plugin="microsoft-foundry.microsoft-foundry" data-skill="Microsoft Foundry Hosted agent validation (Preview)" data-description="Review Microsoft Foundry hosted-agent validation findings and send fixes to Copilot."><span class="plugin-skill-name">Microsoft Foundry Hosted agent validation (Preview)</span><button class="plugin-node-link">Plugin: microsoft-foundry:microsoft-foundry</button><button class="plugin-skill-more codicon codicon-ellipsis" aria-label="More actions for hosted agent validation"></button></div>
+            <div class="plugin-skill-row flat-plugin-skill-row" data-plugin="github-copilot-evals" data-skill="compare" data-description="Compare explicitly selected saved runs or guide one exploratory skill comparison."><span class="plugin-skill-name">compare</span><button class="plugin-node-link">Plugin: github:copilot-evals</button><button class="plugin-skill-more codicon codicon-ellipsis" aria-label="More actions for compare"></button></div>
+            <div class="plugin-skill-row flat-plugin-skill-row" data-plugin="github-copilot-evals" data-skill="create" data-description="Create source-grounded evals for skills, agents, and supported tools."><span class="plugin-skill-name">create</span><button class="plugin-node-link">Plugin: github:copilot-evals</button><button class="plugin-skill-more codicon codicon-ellipsis" aria-label="More actions for create"></button></div>
+            <div class="plugin-skill-row flat-plugin-skill-row" data-plugin="github-copilot-evals" data-skill="improve" data-description="Create a baseline-preserving candidate for an existing eval."><span class="plugin-skill-name">improve</span><button class="plugin-node-link">Plugin: github:copilot-evals</button><button class="plugin-skill-more codicon codicon-ellipsis" aria-label="More actions for improve"></button></div>
+            <div class="plugin-skill-row flat-plugin-skill-row" data-plugin="github-copilot-evals" data-skill="review" data-description="Review an eval definition or explain a selected saved run."><span class="plugin-skill-name">review</span><button class="plugin-node-link">Plugin: github:copilot-evals</button><button class="plugin-skill-more codicon codicon-ellipsis" aria-label="More actions for review"></button></div>
+            <div class="plugin-skill-row flat-plugin-skill-row" data-plugin="github-copilot-evals" data-skill="run" data-description="Run an explicitly selected complete saved eval."><span class="plugin-skill-name">run</span><button class="plugin-node-link">Plugin: github:copilot-evals</button><button class="plugin-skill-more codicon codicon-ellipsis" aria-label="More actions for run"></button></div>
+            <vsc-customization-group label="Built-in" count="16" collapsed></vsc-customization-group>
+            <vsc-customization-item name="create-pr" path="builtin://skills/create-pr/SKILL.md" data-description="Create a pull request for the current session." data-source="VS Code" data-source-kind="organization" data-source-icon="verified-filled"></vsc-customization-item>
+            <vsc-customization-item name="commit" path="builtin://skills/commit/SKILL.md" data-description="Commit staged or unstaged changes with an AI-generated message." data-source="VS Code" data-source-kind="organization" data-source-icon="verified-filled"></vsc-customization-item>
+            <vsc-customization-item name="sync" path="builtin://skills/sync/SKILL.md" data-description="Sync or publish the current session branch." data-source="VS Code" data-source-kind="organization" data-source-icon="verified-filled"></vsc-customization-item>
+          </vsc-customization-list>
+        </vsc-customizations-editor>
+      </section>
+    </main>
+  </vsc-workbench>
+  <script>
+    const provenanceDescription = {
+      feed: 'From the GitHub Feed',
+      organization: 'Managed by your organization',
+      team: 'Installed by your team',
+      local: 'Installed by you'
+    };
+    let activeTooltip;
+    let tooltipId = 0;
+    const badgeMarkup = item => `<span class="codicon codicon-${item.dataset.sourceIcon || 'organization'}" aria-hidden="true"></span>`;
+    const hideTooltip = () => {
+      activeTooltip?.remove();
+      activeTooltip = undefined;
+    };
+    const showTooltip = (badge, item) => {
+      hideTooltip();
+      const tooltip = document.createElement('vsc-hover');
+      tooltip.className = 'provenance-tooltip';
+      tooltip.id = `provenance-tooltip-${++tooltipId}`;
+      tooltip.innerHTML = `<span class="provenance-tooltip-title">${item.dataset.source}</span><span class="provenance-tooltip-detail">${provenanceDescription[item.dataset.sourceKind || 'feed']}</span>`;
+      document.querySelector('vsc-workbench').appendChild(tooltip);
+      tooltip.tabIndex = -1;
+      badge.setAttribute('aria-describedby', tooltip.id);
+      const rect = badge.getBoundingClientRect();
+      tooltip.style.left = `${Math.max(8, Math.min(rect.left, window.innerWidth - tooltip.offsetWidth - 8))}px`;
+      tooltip.style.top = `${rect.bottom + 6}px`;
+      activeTooltip = tooltip;
+    };
+    const attachTooltip = (badge, item) => {
+      badge.addEventListener('mouseenter', () => showTooltip(badge, item));
+      badge.addEventListener('mouseleave', hideTooltip);
+      badge.addEventListener('focus', () => showTooltip(badge, item));
+      badge.addEventListener('blur', hideTooltip);
+    };
+
+    const decorateProvenance = () => {
+      document.querySelectorAll('vsc-customization-item[data-source]').forEach(item => {
+        const row = item.querySelector('.item-name-row');
+        if (!row || row.querySelector('.provenance-badge')) return;
+        const badge = document.createElement('span');
+        badge.className = 'provenance-badge';
+        badge.dataset.kind = item.dataset.sourceKind || 'feed';
+        badge.tabIndex = 0;
+        badge.setAttribute('aria-label', `Provenance: ${item.dataset.source}`);
+        badge.innerHTML = badgeMarkup(item);
+        attachTooltip(badge, item);
+        row.appendChild(badge);
+      });
+
+      document.querySelectorAll('vsc-customization-discovery-result[data-source]').forEach(item => {
+        const metadata = item.querySelector('.customization-discovery-result-detail');
+        if (!metadata || metadata.querySelector('.provenance-badge')) return;
+        const badge = document.createElement('span');
+        badge.className = 'provenance-badge';
+        badge.dataset.kind = item.dataset.sourceKind || 'feed';
+        badge.tabIndex = 0;
+        badge.setAttribute('aria-label', `Provenance: ${item.dataset.source}`);
+        badge.innerHTML = badgeMarkup(item);
+        attachTooltip(badge, item);
+        metadata.appendChild(badge);
+      });
+    };
+
+    Promise.all([
+      customElements.whenDefined('vsc-customization-item'),
+      customElements.whenDefined('vsc-customization-discovery-result'),
+      customElements.whenDefined('vsc-customization-browse')
+    ]).then(() => requestAnimationFrame(() => {
+      decorateProvenance();
+      new MutationObserver(decorateProvenance).observe(
+        document.querySelector('vsc-customizations-editor'),
+        { childList: true, subtree: true }
+      );
+
+      const browse = document.querySelector('vsc-customization-browse');
+      const input = browse?.querySelector('input');
+      const applySearch = value => {
+        const query = value.trim().toLowerCase();
+        browse.querySelectorAll('vsc-customization-discovery-result').forEach(card => {
+          card.style.display = !query || (card.dataset.searchText || '').includes(query) ? '' : 'none';
+        });
+      };
+      input?.addEventListener('input', event => applySearch(event.target.value));
+      browse?.addEventListener('search', event => applySearch(event.detail?.query || event.detail?.value || ''));
+
+      const skills = document.querySelector('vsc-customization-list[section="skills"]');
+      skills.applyVisibility();
+      const detailHost = skills.parentElement;
+      detailHost.style.position = 'relative';
+      let detailView;
+      let contextMenu;
+
+      const closeMenu = () => {
+        contextMenu?.remove();
+        contextMenu = undefined;
+      };
+
+      const closeDetail = () => {
+        detailView?.remove();
+        detailView = undefined;
+        skills.hidden = false;
+      };
+
+      const detailButton = (label, secondary = true) => {
+        const button = document.createElement('vsc-button');
+        if (secondary) button.setAttribute('secondary', '');
+        button.textContent = label;
+        return button;
+      };
+
+      const openSkill = ({ name, description, path, plugin }) => {
+        closeMenu();
+        closeDetail();
+        skills.hidden = true;
+        const safePath = path || `~/.copilot/installed-plugins/${plugin || 'skills'}/${name}/SKILL.md`;
+        detailView = document.createElement('section');
+        detailView.className = 'detail-view skill-detail-view';
+        const lines = [
+          '---',
+          `name: ${name}`,
+          `description: ${description}`,
+          'argument-hint: Describe the task and desired outcome',
+          'user-invocable: true',
+          'disable-model-invocation: false',
+          '---',
+          '',
+          `# ${name}`,
+          '',
+          description,
+          '',
+          '## Workflow',
+          '',
+          '1. Understand the request and relevant project context.',
+          '2. Use the supported tools and preserve existing behavior.',
+          '3. Validate the result before reporting completion.'
+        ];
+        const editorLines = lines.map((line, index) => {
+          let rendered = line;
+          if (/^[a-z-]+:/.test(line)) {
+            const separator = line.indexOf(':');
+            rendered = `<span class="yaml-key">${line.slice(0, separator)}</span>: <span class="yaml-value">${line.slice(separator + 1).trim()}</span>`;
+          } else if (line.startsWith('#')) {
+            rendered = `<span class="markdown-heading">${line}</span>`;
+          }
+          return `<div class="skill-editor-line"><span class="skill-editor-number">${index + 1}</span><span class="skill-editor-code">${rendered || ' '}</span></div>`;
+        }).join('');
+        detailView.innerHTML = `
+          <div class="detail-toolbar">
+            <button class="detail-back codicon codicon-arrow-left" aria-label="Back to Skills"></button>
+            <h2 class="detail-title">${name}</h2>
+          </div>
+          <p class="detail-copy">${description}</p>
+          <a class="detail-file-link" href="#">SKILL.md</a>
+          <div class="skill-editor" role="region" aria-label="${name} skill source">${editorLines}</div>`;
+        detailView.querySelector('.detail-back').addEventListener('click', closeDetail);
+        detailView.querySelector('.detail-file-link').addEventListener('click', event => event.preventDefault());
+        detailHost.appendChild(detailView);
+      };
+
+      const pluginSkills = {
+        'microsoft-foundry.microsoft-foundry': [
+          ['Microsoft Foundry (Preview)', 'An interactive panel alongside Chat for Microsoft Foundry hosted agents and Prompt agents with harness.'],
+          ['Microsoft Foundry Hosted agent validation (Preview)', 'Review Microsoft Foundry hosted-agent validation findings and send fixes to Copilot.']
+        ],
+        'github-copilot-evals': [
+          ['compare', 'Compare explicitly selected saved runs or guide one exploratory skill comparison.'],
+          ['create', 'Create source-grounded evals for skills, agents, and supported tools.'],
+          ['improve', 'Create a baseline-preserving candidate for an existing eval.'],
+          ['review', 'Review an eval definition or explain a selected saved run.'],
+          ['run', 'Run an explicitly selected complete saved eval.']
+        ]
+      };
+
+      const openPlugin = pluginName => {
+        closeMenu();
+        closeDetail();
+        skills.hidden = true;
+        const entries = pluginSkills[pluginName];
+        detailView = document.createElement('section');
+        detailView.className = 'detail-view plugin-detail-view';
+        const back = document.createElement('button');
+        back.className = 'detail-back codicon codicon-arrow-left';
+        back.setAttribute('aria-label', 'Back to Skills');
+        const title = document.createElement('h2');
+        title.className = 'detail-title';
+        title.textContent = pluginName;
+        const actions = document.createElement('div');
+        actions.className = 'detail-actions';
+        const update = detailButton('Update');
+        const disable = detailButton('Disable');
+        const uninstall = detailButton('Uninstall');
+        actions.append(update, disable, uninstall);
+        const toolbar = document.createElement('div');
+        toolbar.className = 'detail-toolbar';
+        toolbar.append(back, title, actions);
+        const details = document.createElement('section');
+        details.className = 'detail-section';
+        details.innerHTML = `
+          <h3>Details</h3>
+          <div class="detail-card">
+            <div class="detail-row"><span class="detail-label">Version</span><span>0.16.0</span></div>
+            <div class="detail-row"><span class="detail-label">Location</span><span>C:\\Users\\jehoughton\\.copilot\\installed-plugins\\${pluginName}</span></div>
+          </div>`;
+        const contains = document.createElement('section');
+        contains.className = 'detail-section';
+        contains.innerHTML = `<h3>Contains</h3><div class="detail-card"><div class="detail-row"><span class="detail-label">Skills</span><span>${entries.length}</span></div>${entries.map(([name]) => `<a class="detail-skill-link" data-skill="${name}" href="#">${name}</a>`).join('')}</div>`;
+        const readme = document.createElement('section');
+        readme.className = 'detail-section';
+        readme.innerHTML = '<h3>Plugin README</h3><div class="detail-empty">No README was provided for this plugin.</div>';
+        detailView.append(toolbar, details, contains, readme);
+        back.addEventListener('click', closeDetail);
+        update.addEventListener('click', () => {
+          update.textContent = 'Updated';
+          update.setAttribute('disabled', '');
+        });
+        contains.querySelectorAll('.detail-skill-link').forEach(link => {
+          link.addEventListener('click', event => {
+            event.preventDefault();
+            const entry = entries.find(([name]) => name === link.dataset.skill);
+            openSkill({ name: entry[0], description: entry[1], plugin: pluginName });
+          });
+        });
+        detailHost.appendChild(detailView);
+      };
+
+      const showPluginMenu = (button, pluginName) => {
+        closeMenu();
+        const workbench = document.querySelector('vsc-workbench');
+        const workbenchRect = workbench.getBoundingClientRect();
+        const rect = button.getBoundingClientRect();
+        contextMenu = document.createElement('vsc-menu');
+        contextMenu.setAttribute('x', Math.round(rect.right - workbenchRect.left - 150));
+        contextMenu.setAttribute('y', Math.round(rect.bottom - workbenchRect.top + 2));
+        contextMenu.setAttribute('label', `Actions for ${pluginName}`);
+        const showPlugin = document.createElement('vsc-menu-item');
+        showPlugin.setAttribute('label', 'Show Plugin');
+        contextMenu.appendChild(showPlugin);
+        showPlugin.addEventListener('click', () => openPlugin(pluginName));
+        workbench.appendChild(contextMenu);
+        requestAnimationFrame(() => contextMenu.querySelector('.context-view-block')?.addEventListener('click', closeMenu));
+      };
+
+      skills.querySelectorAll('.plugin-node').forEach(plugin => {
+        const pluginName = plugin.dataset.plugin;
+        const toggle = plugin.querySelector('.plugin-node-toggle');
+        const children = plugin.querySelector('.plugin-skills');
+        toggle.addEventListener('click', () => {
+          const collapsed = children.hidden = !children.hidden;
+          toggle.classList.toggle('collapsed', collapsed);
+          toggle.setAttribute('aria-label', `${collapsed ? 'Expand' : 'Collapse'} ${pluginName}`);
+        });
+        plugin.querySelector('.plugin-node-link').addEventListener('click', () => openPlugin(pluginName));
+        plugin.querySelector('.plugin-more-action').addEventListener('click', () => showPluginMenu(plugin.querySelector('.plugin-more-action'), pluginName));
+        plugin.querySelector('.plugin-update-action').addEventListener('click', event => {
+          event.target.textContent = 'Updated';
+          event.target.disabled = true;
+        });
+        plugin.querySelectorAll('.plugin-skill-row').forEach(row => {
+          row.addEventListener('click', event => {
+            if (event.target.closest('button')) return;
+            openSkill({ name: row.dataset.skill, description: row.dataset.description, plugin: pluginName });
+          });
+        });
+      });
+
+      skills.querySelectorAll('.flat-plugin-skill-row').forEach(row => {
+        const pluginName = row.dataset.plugin;
+        row.querySelector('.plugin-node-link').addEventListener('click', event => {
+          event.stopPropagation();
+          openPlugin(pluginName);
+        });
+        row.querySelector('.plugin-skill-more').addEventListener('click', event => {
+          event.stopPropagation();
+          showPluginMenu(event.currentTarget, pluginName);
+        });
+        row.addEventListener('click', event => {
+          if (event.target.closest('button')) return;
+          openSkill({ name: row.dataset.skill, description: row.dataset.description, plugin: pluginName });
+        });
+      });
+
+      skills.querySelectorAll('vsc-customization-item').forEach(item => {
+        item.addEventListener('click', event => {
+          if (event.target.closest('a, button, .provenance-badge')) return;
+          openSkill({
+            name: item.getAttribute('name'),
+            description: item.dataset.description || 'A reusable Copilot skill.',
+            path: item.getAttribute('path')
+          });
+        });
+      });
+    }));
+  </script>
+</body>
+</html>

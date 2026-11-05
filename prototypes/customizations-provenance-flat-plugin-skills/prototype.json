@@ -1,0 +1,21 @@
+{
+  "title": "Customizations - Provenance",
+  "status": "draft",
+  "tags": [
+    "customizations",
+    "design-system",
+    "provenance"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-provenance-plugin-hierarchy",
+  "entry": "index.html",
+  "sourceRefs": [],
+  "createdAt": "2026-11-04T17:58:46.724Z",
+  "updatedAt": "2026-11-04T17:58:46.724Z",
+  "description": "A flattened plugin provenance exploration: plugin-provided skills are peer rows with a Plugin link directly beneath each skill name, avoiding nested plugin hierarchy.",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  }
+}

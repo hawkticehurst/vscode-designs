@@ -1,0 +1,21 @@
+{
+  "title": "Customizations - Provenance",
+  "status": "draft",
+  "tags": [
+    "customizations",
+    "design-system",
+    "provenance"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-provenance-icon-only",
+  "entry": "index.html",
+  "sourceRefs": [],
+  "createdAt": "2026-11-03T16:15:54.420Z",
+  "updatedAt": "2026-11-03T16:15:54.420Z",
+  "description": "A provenance-first grouping exploration: installed Skills can be rearranged from location groups into source/provenance groups.",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  }
+}

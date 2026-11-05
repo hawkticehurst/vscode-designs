@@ -41,17 +41,17 @@
   "slots": [
     {
       "name": "",
-      "description": "<vsc-customization-discovery-section> elements."
+      "description": "Browse sections (<vsc-customization-discovery-section>) followed by flat search rows (<vsc-customization-discovery-result>). Typing switches from curated sections to the result list."
     }
   ],
   "states": [
     {
       "name": "narrow",
-      "trigger": "Container narrower than 800px: single-column grid."
+      "trigger": "Container narrower than 800px: single-column browse grid."
     },
     {
       "name": "searching",
-      "trigger": "Typing fires `search` with the query; the placeholder hides."
+      "trigger": "Typing switches from curated browse sections to the flat customization result list and fires `search` with the query."
     }
   ],
   "variants": [],
@@ -71,7 +71,8 @@
   "tokens": [],
   "uses": [
     "vsc-customization-discovery-section",
-    "vsc-customization-discovery-card"
+    "vsc-customization-discovery-card",
+    "vsc-customization-discovery-result"
   ],
   "sources": [
     {
@@ -91,10 +92,15 @@
       "title": "Browse (narrow)",
       "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 470px; height: 643px;\"><vsc-customizations-editor section=\"browse\" sidebar-width=\"0\" style=\"height: 643px;\"><vsc-customization-browse section=\"browse\"><vsc-customization-discovery-section heading=\"Editor's picks\" featured><vsc-customization-discovery-card name=\"Azure DevOps Copilot Plugin\" meta=\"Plugin · GitHub Feed\" description=\"The Azure DevOps Copilot Plugin integrates Azure DevOps work into the GitHub Copilot App.\" fallback-icon=\"extensions\"></vsc-customization-discovery-card></vsc-customization-discovery-section></vsc-customization-browse></vsc-customizations-editor></vsc-workbench>",
       "width": 470
+    },
+    {
+      "title": "Flat search results",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 840px; height: 300px;\"><vsc-customizations-editor section=\"browse\" sidebar-width=\"0\" style=\"height: 300px;\"><vsc-customization-browse section=\"browse\"><vsc-customization-discovery-result name=\"Accessibility Review\" meta=\"Skill · GitHub Feed\" description=\"Audit semantic HTML, labels, focus states, keyboard navigation, and color contrast.\" fallback-icon=\"lightbulb\"></vsc-customization-discovery-result><vsc-customization-discovery-result name=\"Issue Triage\" meta=\"Skill · VS Code\" description=\"Classify incoming issues and suggest the right labels, owners, and next actions.\" fallback-icon=\"lightbulb\"></vsc-customization-discovery-result></vsc-customization-browse></vsc-customizations-editor></vsc-workbench>",
+      "width": 840
     }
   ],
   "references": [],
   "status": "draft",
   "createdAt": "2026-10-30T19:08:02.809Z",
-  "updatedAt": "2026-10-30T19:13:56.134Z"
+  "updatedAt": "2026-11-02T23:26:14.725Z"
 }

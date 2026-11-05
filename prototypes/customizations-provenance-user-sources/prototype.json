@@ -1,0 +1,17 @@
+{
+  "title": "Customizations - Provenance",
+  "status": "draft",
+  "tags": [
+    "customizations",
+    "design-system",
+    "provenance"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-provenance-flat-plugin-skills",
+  "entry": "index.html",
+  "sourceRefs": [],
+  "createdAt": "2026-11-04T18:10:21.289Z",
+  "updatedAt": "2026-11-04T18:10:21.289Z",
+  "description": "Groups extension-, plugin-, and MCP-provided skills beneath User using collapsible source headings with source-type labels."
+}

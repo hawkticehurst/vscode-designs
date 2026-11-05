@@ -1,0 +1,82 @@
+{
+  "tag": "vsc-customization-discovery-result",
+  "kind": "component",
+  "title": "Customization discovery result",
+  "category": "chat",
+  "description": "A flat search-result row from the Customizations Browse page: 40px icon, name with type/source detail, one-line description, optional status, and a compact action button.",
+  "usage": "Flat rows inside <vsc-customization-browse>; the Browse component hides them until a search query is entered.",
+  "attributes": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "meta",
+      "type": "string",
+      "description": "Result detail such as type and source."
+    },
+    {
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "name": "icon-src",
+      "type": "string",
+      "description": "Optional 40px marketplace icon URL."
+    },
+    {
+      "name": "fallback-icon",
+      "type": "string",
+      "default": "lightbulb"
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "default": "Install"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Optional trailing status or count."
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "install",
+      "trigger": "Action button fires `install` with the result name."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "hostTag": "div",
+  "cssCaptures": [],
+  "requires": [
+    "vsc-workbench"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/aiCustomizationDiscoveryPage.ts",
+      "line": 666,
+      "note": "DiscoveryResultRenderer template and result row rendering."
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/media/aiCustomizationDiscovery.css",
+      "line": 446,
+      "note": "Flat search-results list and row styles."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Skill search result",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 840px; height: 120px;\"><div class=\"ai-customization-management-editor\"><div class=\"customization-discovery-results\"><div class=\"customization-discovery-list\"><vsc-customization-discovery-result name=\"Accessibility Review\" meta=\"Skill · GitHub Feed\" description=\"Audit semantic HTML, labels, focus states, keyboard navigation, and color contrast.\" fallback-icon=\"lightbulb\"></vsc-customization-discovery-result></div></div></div></vsc-workbench>",
+      "width": 840
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-11-02T23:25:56.672Z",
+  "updatedAt": "2026-11-02T23:27:06.635Z"
+}

@@ -1,0 +1,21 @@
+{
+  "title": "Customizations - Provenance",
+  "status": "draft",
+  "tags": [
+    "customizations",
+    "design-system",
+    "provenance"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "entry": "index.html",
+  "sourceRefs": [],
+  "createdAt": "2026-11-02T23:43:50.928Z",
+  "updatedAt": "2026-11-02T23:43:50.928Z",
+  "variantOf": "customizations-provenance",
+  "description": "An icon-only provenance treatment based on v1, using source-specific icons with accessible hover tooltips instead of visible labels.",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  }
+}

@@ -14,13 +14,22 @@ class CustomizationBrowse extends ds.Element {
     const source = this.attr("source", "All Sources");
     const secondary = "color: var(--vscode-button-secondaryForeground); background-color: var(--vscode-button-secondaryBackground); border: 1px solid var(--vscode-button-secondaryBorder);";
     const dark = (ds.system.themes.find((t) => t.id === this.closest("[data-theme]")?.getAttribute("data-theme")) || {}).kind !== "light";
+    const slotted = this.slotted("");
+    const searchResults = slotted.filter((node) => node.matches?.("vsc-customization-discovery-result"));
+    const browseSections = slotted.filter((node) => !node.matches?.("vsc-customization-discovery-result"));
+    let browseScrollable;
+    let resultList;
     this.style.height = "100%";
     this.style.overflow = "hidden";
     const ph = h("div.suggest-input-placeholder", { style: "color: var(--vscode-input-placeholderForeground); width: calc(100% - 28px);" }, placeholder);
     const input = h("input", { type: "text", "aria-label": placeholder, style: "all: unset; width: 100%; height: 20px; font: inherit; color: var(--vscode-input-foreground);",
       oninput: (e) => {
-        ph.style.display = e.target.value ? "none" : "";
-        this.dispatchEvent(new CustomEvent("search", { bubbles: true, detail: { query: e.target.value } }));
+        const query = e.target.value;
+        const searchMode = query.trim().length > 0;
+        ph.style.display = query ? "none" : "";
+        browseScrollable.hidden = searchMode;
+        resultList.hidden = !searchMode;
+        this.dispatchEvent(new CustomEvent("search", { bubbles: true, detail: { query } }));
       } });
     const addButton = h("a.monaco-button.secondary.small.monaco-text-button", { tabindex: "0", role: "button", "aria-disabled": "false", "aria-haspopup": "menu", "aria-label": "Add a customization", "aria-expanded": "false", style: secondary },
       h("span", null, "Add Customization"), h("span.codicon.codicon-chevron-down"));
@@ -48,11 +57,14 @@ class CustomizationBrowse extends ds.Element {
           h("div.progress-bit", { style: "background-color: var(--vscode-progressBar-background); width: inherit; opacity: 1; display: none;" }))),
       h("div.customization-discovery-search-row", null, search, sourcePicker),
       h("div.customization-marketplace-source-warnings", { role: "group", "aria-label": "Marketplace sources", hidden: "", "aria-busy": "false" }));
-    const results = h("div.monaco-scrollable-element.mac.customization-discovery-browse-scrollable", { role: "presentation", style: "position: relative; overflow: hidden;" },
+    browseScrollable = h("div.monaco-scrollable-element.mac.customization-discovery-browse-scrollable", { role: "presentation", style: "position: relative; overflow: hidden;" },
       h("div.customization-discovery-browse", { "aria-busy": "false", style: "overflow: hidden auto;" },
         h("div.customization-discovery-state"),
-        h("div.customization-discovery-sections", null, this.slotted(""))));
-    this.__root = h("div.customization-discovery", null, h("div.customization-discovery-content", null, header, results));
+        h("div.customization-discovery-sections", null, browseSections)));
+    resultList = h("div.customization-discovery-results", { hidden: "" },
+      h("div.customization-discovery-state"),
+      h("div.customization-discovery-list.monaco-list", { role: "listbox", "aria-label": "Customization search results", style: "overflow: hidden auto;" }, searchResults));
+    this.__root = h("div.customization-discovery", null, h("div.customization-discovery-content", null, header, browseScrollable, resultList));
     return this.__root;
   }
 
