@@ -12,3 +12,7 @@
   font-display: block;
   src: url("assets/seti.woff") format("woff");
 }
+
+/* List rows highlight on hover, as VS Code's List widget does (its styles are generated at runtime from list.hoverBackground,
+   so captures miss them): .monaco-list.mouse-support .monaco-list-row:hover:not(.selected):not(.focused). */
+.monaco-list.mouse-support .monaco-list-row:hover:not(.selected):not(.focused):not(.drop-target) { background-color: var(--vscode-list-hoverBackground); }

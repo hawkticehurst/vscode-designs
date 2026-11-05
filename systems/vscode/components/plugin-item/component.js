@@ -7,7 +7,7 @@ class PluginItem extends ds.Element {
     const name = this.attr("name", "");
     const location = this.attr("location", "");
     const metadata = this.attr("metadata", "");
-    const badge = this.attr("badge", "Local");
+    const badge = this.attr("badge", ""); // microsoft/vscode#344320 removed the "Local" label (it meant "not from a marketplace")
     const enabled = this.hasAttribute("enabled");
     this.setAttribute("role", "treeitem");
     this.setAttribute("aria-selected", "false");

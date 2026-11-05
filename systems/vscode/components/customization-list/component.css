@@ -2,3 +2,20 @@
 vsc-customization-list [data-tree-hidden] {
   display: none !important;
 }
+
+/* Sticky scroll container (src/vs/base/browser/ui/tree/media/tree.css). The background is the list's (the customizations
+   editor's content background); the shadow is the tree's sticky-scroll shadow. */
+.monaco-list .monaco-tree-sticky-container {
+  position: absolute; top: 0; left: 0; width: 100%; height: 0; z-index: 13;
+  background-color: var(--vscode-editor-background);
+}
+.monaco-list .monaco-tree-sticky-container .monaco-tree-sticky-row.monaco-list-row {
+  position: absolute; width: 100%; opacity: 1 !important; overflow: hidden; box-sizing: border-box;
+  background-color: var(--vscode-editor-background);
+}
+.monaco-list .monaco-tree-sticky-container .monaco-tree-sticky-row:hover { background-color: var(--vscode-list-hoverBackground) !important; cursor: pointer; }
+.monaco-list .monaco-tree-sticky-container.empty, .monaco-list .monaco-tree-sticky-container.empty .monaco-tree-sticky-container-shadow { display: none; }
+.monaco-list .monaco-tree-sticky-container .monaco-tree-sticky-container-shadow {
+  position: absolute; bottom: -3px; left: 0; width: 100%; height: 3px;
+  box-shadow: var(--vscode-scrollbar-shadow) 0 6px 6px -6px inset;
+}

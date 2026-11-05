@@ -1,0 +1,28 @@
+{
+  "title": "Customizations",
+  "description": "V8 — Everyday: customizations for people using agents, not building them. Connections (what a session can reach) and skills (workflows it knows), with session toggles in a composer Connections pill, a two-list side panel, and in-chat moments (connect a linked tool, sign in again, what was used, save a workflow as a skill). V7's \"How it runs\" is one step away for authors.",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "connections",
+    "skills",
+    "everyday",
+    "exploration"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-04T18:39:53.390Z",
+  "updatedAt": "2026-11-04T18:40:00.061Z"
+}

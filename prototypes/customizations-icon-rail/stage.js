@@ -12,8 +12,8 @@
   const rows = "vsc-customization-item, vsc-mcp-server-item, vsc-plugin-item, vsc-tool-set-item, vsc-agents-extension-item";
   const ref = build();
   const n = (id) => ref[id].querySelectorAll(rows).length;
-  // Summaries say where items come from, from the lists' groups: "4 yours · 2 plugins · 1 built-in".
-  const SOURCES = { "User": ["yours"], "Workspace": ["in workspace"], "Plugins": ["plugin", "plugins"], "Remote": ["remote"], "Built-in": ["built-in"],
+  // Summaries say where items come from, from the lists' groups: "4 user · 2 plugins · 1 built-in".
+  const SOURCES = { "User": ["user"], "Workspace": ["in workspace"], "Plugins": ["plugin", "plugins"], "Remote": ["remote"], "Built-in": ["built-in"],
     "Built-In": ["built-in"], "Built-in Tools": ["built-in"], "Connected Sources": ["connected"], "Extension Tools": ["extension", "extensions"] };
   const summary = (id) => {
     if (id === "extensions") {

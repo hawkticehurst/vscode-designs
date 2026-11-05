@@ -133,9 +133,12 @@
 	}
 
 	function renderGroup(cat, sub, list, opts = {}) {
+		// A subsection can be partly drawn by a custom block (e.g. the theme picker); those settings leave the list.
+		const block = !cat.special && SE.groupBlocks && SE.groupBlocks.find((b) => b.cat === cat.id && b.sub === sub.id && b.enabled());
+		if (block) { list = list.filter((s) => !block.keys.includes(s.k)); }
 		const all = list;
 		const shown = cat.id === 'popular' ? list.filter(SE.visible) : SE.sortInSub(list.filter(SE.visible));
-		if (!list.length || (!shown.length && !opts.keepEmpty && !list.some((s) => tuckKind(s)))) { return null; }
+		if (!block && (!list.length || (!shown.length && !opts.keepEmpty && !list.some((s) => tuckKind(s))))) { return null; }
 		const parents = !cat.special ? SE.parentGroups(shown) : [];
 		// A parent that controls everything else in the section becomes the section's own switch.
 		const master = parents.find((p) => p.kids.length === shown.length - 1) || null;
@@ -143,15 +146,10 @@
 		const context = [cat.label, sub.label];
 		let body;
 		if (cat.id === 'experimental') {
-			// Second level: the home subcategory each experimental setting graduates to.
-			const bySub = new Map();
-			for (const s of shown) { if (!bySub.has(s.homeSub)) { bySub.set(s.homeSub, []); } bySub.get(s.homeSub).push(s); }
+			// One list per section, ordered by the subcategory each setting graduates to; its crumb names that subcategory.
 			const order = sub.home.subs;
-			body = [...bySub.entries()].sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0])).map(([hs, items]) => h('div.se-subgroup', null,
-				h('div.se-subheading', null, h('span', null, hs.label), h('span.se-subheading-count', null, String(items.length))),
-				h('div.se-group-card', null, h('div.se-group-body', { role: 'list' }, items.map((s) => SE.renderRow(s, [sub.label, hs.label], {}))))));
-			const tucked = tuckedParts(cat, sub, all, (s) => SE.renderRow(s, [sub.label, s.homeSub.label], { crumb: s.homeSub.label }));
-			if (tucked.footer) { body.push(h('div.se-group-card', null, h('div.se-group-body', { role: 'list' }, tucked.rows), tucked.footer)); }
+			body = shown.slice().sort((a, b) => order.indexOf(a.homeSub) - order.indexOf(b.homeSub) || a.index - b.index)
+				.map((s) => SE.renderRow(s, [sub.label, s.homeSub.label], { crumb: s.homeSub.label }));
 		} else {
 			const rowFor = (s, extra = {}) => SE.renderRow(s, cat.special ? [s.cat.label, (s.homeSub || s.sub).label] : (extra.context || context), Object.assign({
 				crumb: cat.id === 'modified' || cat.id === 'managed' ? (s.homeSub && s.cat.id === 'experimental' ? `${s.home.label} › ${s.homeSub.label}` : s.sub.label)
@@ -192,28 +190,95 @@
 				h('span.se-flex'),
 				masterReset,
 				masterSwitch),
-			cat.id === 'experimental'
-				? h('div.se-subgroups', null, body)
-				: master && !masterOn ? null
+			block ? block.render() : null,
+			!shown.length && !list.some((s) => tuckKind(s)) ? null
+			: master && !masterOn ? null
 					: (() => {
-						const tucked = tuckedParts(cat, sub, all, (s) => SE.renderRow(s, cat.special ? [s.cat.label, s.sub.label] : context, {}));
+						const tucked = tuckedParts(cat, sub, all, (s) => cat.id === 'experimental'
+							? SE.renderRow(s, [sub.label, s.homeSub.label], { crumb: s.homeSub.label })
+							: SE.renderRow(s, cat.special ? [s.cat.label, s.sub.label] : context, {}));
 						return h('div.se-group-card', null, h('div.se-group-body', { role: 'list' }, body, tucked.rows), tucked.footer);
 					})());
 	}
 
 	function pageHeader(cat) {
+		if (NESTED) { return null; }
 		return h('div.se-page-header', null,
 			h('div.se-page-heading', null,
 				h('h1.se-page-title', null, cat.label),
 				h('p.se-page-desc', null, cat.description)));
 	}
 
+	/* ---------- nested pages (pages: 'nested') ---------- */
+	const NESTED = CFG.pages === 'nested';
+	/** Subsections of a category that have settings, when the category is shown as an overview of sub-pages. */
+	function nestedSubs(cat) {
+		if (!NESTED || (cat.special && cat.id !== 'experimental')) { return null; }
+		const list = SE.settingsIn(cat.id);
+		const subs = cat.subs.map((sub) => ({ sub, items: list.filter((s) => s.sub === sub) })).filter((x) => x.items.length);
+		return subs.length > 1 ? subs : null;
+	}
+	function subEntry(cat, sub, items) {
+		const shown = SE.sortInSub(items.filter(SE.visible));
+		const master = SE.parentGroups(shown).find((p) => p.kids.length === shown.length - 1) || null;
+		const lock = master && SE.readOnlyReason(master.setting);
+		const ctx = (s) => cat.id === 'experimental' ? [sub.label, s.homeSub.label] : [cat.label, sub.label];
+		const rest = shown.filter((s) => !master || s !== master.setting);
+		const names = rest.slice(0, 3).map((s) => SE.labelOf(s, ctx(s)).label);
+		const more = rest.length - names.length;
+		const modified = items.filter((s) => SE.isModified(s, 'user') || SE.isModified(s, 'workspace')).length;
+		const managed = items.filter(SE.isPolicyManaged).length;
+		const open = () => openSub(sub.id);
+		const link = h('div.se-subpage-link', {
+			role: 'link', tabindex: '0', 'data-sub': sub.id, 'aria-label': `${sub.label}, ${shown.length} settings`,
+			onClick: open,
+			onKeydown: (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target === e.currentTarget) { e.preventDefault(); open(); } },
+		},
+			h('div.se-subpage-text', null,
+				h('div.se-subpage-title', null, h('span', null, sub.label), h('span.se-subpage-count', null, String(shown.length))),
+				names.length ? h('div.se-subpage-preview', null, names.join(', ') + (more > 0 ? `, and ${more} more` : '')) : null,
+				modified || managed ? h('div.se-subpage-meta', null,
+					modified ? h('span.se-ind', null, h('span', null, `${modified} modified`)) : null,
+					managed ? h('span.se-ind.policy', null, h('span', null, `${managed} managed by your organization`)) : null) : null),
+			master ? h('div.se-subpage-switch', { 'data-key': master.setting.k }, lock
+				? h('span.se-group-lock', SE.hoverAttrs(lock.text, lock.title), icon('lock'), lock.text)
+				: SE.controls.switchCtl(!!SE.valueOf(master.setting), { label: `${sub.label}: ${SE.labelOf(master.setting, []).label}`, onChange: (v) => SE.setValue(master.setting, v) })) : null,
+			icon('chevron-right', 'se-subpage-chevron'));
+		return link;
+	}
+	function renderSubPage(cat, sub, items) {
+		// No title (the breadcrumb names the page). A section-wide switch becomes an ordinary row in its own card on top;
+		// the rest of the section shows below it while it's on.
+		const g = renderGroup(cat, sub, items, { keepEmpty: true });
+		const gh = g && g.querySelector(':scope > .se-group-header');
+		let lead = null;
+		if (gh) {
+			const master = gh.dataset.key && SE.byKey.get(gh.dataset.key);
+			if (master) {
+				lead = h('section.se-group.se-subpage-lead', null, h('div.se-group-card', null, h('div.se-group-body', { role: 'list' }, SE.renderRow(master, [cat.label, sub.label], {}))));
+			}
+			gh.remove();
+		}
+		return [lead, g];
+	}
+
 	function renderPage() {
 		const cat = SE.catById(state.cat);
 		const parts = [];
-		if (cat.id === 'popular') {
+		const nested = nestedSubs(cat);
+		if (nested && state.sub && !nested.some((x) => x.sub.id === state.sub)) { state.sub = null; }
+		if (nested && state.sub) {
+			const { sub, items } = nested.find((x) => x.sub.id === state.sub);
+			parts.push(...renderSubPage(cat, sub, items));
+		} else if (nested) {
 			parts.push(pageHeader(cat));
-			parts.push(renderGroup(cat, cat.subs[0], SE.settingsIn('popular')));
+			parts.push(h('div.se-subpage-list', { role: 'list', 'aria-label': `${cat.label} sections` }, nested.map(({ sub, items }) => subEntry(cat, sub, items))));
+		} else if (cat.id === 'popular') {
+			parts.push(pageHeader(cat));
+			const g = renderGroup(cat, cat.subs[0], SE.settingsIn('popular'));
+			// Its single section is named like the page, which the breadcrumb already shows.
+			if (NESTED && g) { g.querySelector(':scope > .se-group-header')?.remove(); }
+			parts.push(g);
 		} else if (cat.id === 'modified' || cat.id === 'managed') {
 			const list = SE.settingsIn(cat.id);
 			parts.push(pageHeader(cat));
@@ -224,11 +289,6 @@
 		} else {
 			const list = SE.settingsIn(cat.id);
 			parts.push(pageHeader(cat));
-			if (cat.id === 'experimental') {
-				parts.push(h('div.se-callout', null, icon('beaker'),
-					h('div', null, h('strong', null, 'Experimental features can change or be removed at any time. '),
-						'Each setting moves to its regular section when it ships. ', h('em', null, 'Preview'), ' settings are close to shipping. Settings whose default is rolled out by an experiment stay in their regular section.')));
-			}
 			if (CFG.nav === 'flat' && CFG.chips !== false) { parts.push(chipBar(cat)); }
 			for (const sub of cat.subs) {
 				const g = renderGroup(cat, sub, list.filter((s) => s.sub === sub));
@@ -276,6 +336,9 @@
 	}
 
 	/* ---------- header ---------- */
+	/** Backup and Sync: a ghost icon button with a rich hover. */
+	const syncBtn = () => h('button.se-icon-btn.se-sync-btn', Object.assign({ type: 'button', 'aria-label': 'Backup and Sync Settings', onClick: () => SE.toast('Settings Sync is on · Last synced 4 minutes ago') },
+		SE.hoverAttrs('Backup and Sync Settings', 'Settings Sync is on. Last synced 4 minutes ago.', 'Manage Settings Sync')), icon('sync'));
 	function renderHeader(host) {
 		searchInput = h('input.se-search-input', { type: 'text', placeholder: 'Search settings', 'aria-label': 'Search settings', spellcheck: 'false', value: state.query });
 		searchInput.addEventListener('input', () => { state.query = searchInput.value; state.expandedSearch = null; render(); });
@@ -291,9 +354,9 @@
 		tabsEl = h('div.se-tabs', { role: 'tablist', 'aria-label': 'Settings scope' });
 		host.append(
 			h('div.se-search', null, icon('search', 'se-search-icon'), searchInput, countBadge, filterBtn, clearBtn),
-			h('div.se-header-row', null, tabsEl, h('span.se-flex'),
-				h('button.se-btn.secondary.small', { type: 'button', title: 'Settings Sync is on. Last synced 4 minutes ago.', onClick: () => SE.toast('Settings Sync is on · Last synced 4 minutes ago') }, icon('sync'), 'Backup and Sync'),
-				h('button.se-icon-btn', { type: 'button', title: 'Open Settings (JSON)', 'aria-label': 'Open Settings (JSON)', onClick: () => openJson() }, icon('json'))));
+			NESTED
+				? h('div.se-header-row', null, (crumbsEl = h('div.se-crumbs')), h('span.se-flex'), tabsEl, syncBtn())
+				: h('div.se-header-row', null, tabsEl, h('span.se-flex'), syncBtn()));
 	}
 	function renderTabs() {
 		const tabs = [['user', 'User', null], ['workspace', 'Workspace', 'vscode']];
@@ -305,11 +368,59 @@
 	}
 
 	/* ---------- navigation ---------- */
-	function go(catId) {
+	function go(catId, subId = null) {
+		const changed = state.cat !== catId || state.sub !== subId;
+		const dir = state.cat !== catId ? 0 : subId && !state.sub ? 1 : !subId && state.sub ? -1 : 0;
 		state.cat = catId;
+		state.sub = subId;
 		if (state.query) { state.query = ''; searchInput.value = ''; }
 		render();
 		scroller.scrollTop = 0;
+		if (changed) { animate(dir); }
+	}
+	function openSub(subId) {
+		state.overviewScroll[state.cat] = scroller.scrollTop;
+		state.sub = subId;
+		render();
+		scroller.scrollTop = 0;
+		animate(1);
+	}
+	let lastNavByKeyboard = false;
+	document.addEventListener('keydown', () => { lastNavByKeyboard = true; }, true);
+	document.addEventListener('mousedown', () => { lastNavByKeyboard = false; }, true);
+	function back() {
+		if (!state.sub || state.query) { return; }
+		const from = state.sub;
+		state.sub = null;
+		render();
+		scroller.scrollTop = state.overviewScroll[state.cat] || 0;
+		animate(-1);
+		// Keep focus on the entry we came from; only show its ring when navigating by keyboard.
+		content.querySelector(`.se-subpage-link[data-sub="${CSS.escape(from)}"]`)?.focus({ preventScroll: true, focusVisible: lastNavByKeyboard });
+	}
+	/** Slide in from the side we're navigating toward (forward = right), or fade between categories. */
+	function animate(dir) {
+		if (!NESTED || matchMedia('(prefers-reduced-motion: reduce)').matches || root.closest('.monaco-reduce-motion')) { return; }
+		const x = dir * 28;
+		content.animate([{ opacity: 0, transform: `translate(${x}px, ${dir ? 0 : 6}px)` }, { opacity: 1, transform: 'none' }],
+			{ duration: dir ? 220 : 160, easing: 'cubic-bezier(0.2, 0, 0, 1)' });
+		crumbsEl && crumbsEl.lastElementChild && crumbsEl.lastElementChild.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180 });
+	}
+	/* Breadcrumb in the header: back button, category, subsection. */
+	let crumbsEl;
+	function renderCrumbs() {
+		if (!crumbsEl) { return; }
+		const cat = SE.catById(state.cat);
+		const nested = nestedSubs(cat);
+		const sub = nested && state.sub ? nested.find((x) => x.sub.id === state.sub).sub : null;
+		const searching = !!state.query.trim();
+		const crumb = (label, onClick) => onClick
+			? h('button.se-crumb', { type: 'button', onClick }, label)
+			: h('span.se-crumb.current', { 'aria-current': 'page' }, label);
+		const sep = () => icon('chevron-right', 'se-crumb-sep');
+		const items = searching ? [crumb('Search results')]
+			: sub ? [crumb(cat.label, back), sep(), crumb(sub.label)] : [crumb(cat.label)];
+		crumbsEl.replaceChildren(h('nav.se-crumb-list', { 'aria-label': 'Breadcrumb' }, items));
 	}
 	function setQuery(q) {
 		state.query = q;
@@ -329,9 +440,9 @@
 		if (opts.scope) { state.scope = opts.scope; }
 		const page = opts.cat || s.cat.id;
 		if (!SE.visible(s)) { state.revealed.add(`${s.cat.id}/${s.sub.id}:${s.isDeprecated ? 'deprecated' : 'advanced'}`); }
-		go(page);
+		go(page, !opts.cat && NESTED ? s.sub.id : null);
 		requestAnimationFrame(() => {
-			const find = (k) => content.querySelector(`.se-row[data-key="${CSS.escape(k)}"], .se-group-header[data-key="${CSS.escape(k)}"]`);
+			const find = (k) => content.querySelector(`.se-row[data-key="${CSS.escape(k)}"], .se-group-header[data-key="${CSS.escape(k)}"], .se-page-header[data-key="${CSS.escape(k)}"], .se-block [data-key~="${CSS.escape(k)}"]`);
 			let row = find(key);
 			if (!row) {
 				// Hidden because the switch it depends on is off: reveal that switch instead.
@@ -434,6 +545,7 @@
 		const focusedKind = focusedKey && ['monaco-switch', 'se-dropdown', 'se-input', 'se-json-input', 'se-reset', 'se-more', 'se-list-add'].find((c) => active.classList.contains(c));
 		const focusVisible = !!(active && active.matches && active.matches(':focus-visible'));
 		renderTabs();
+		renderCrumbs();
 		if (state.query.trim()) { renderSearch(); } else { countBadge.hidden = true; state.searchCounts = null; renderPage(); }
 		renderNav();
 		root.classList.toggle('searching', !!state.query.trim());
@@ -465,10 +577,16 @@
 			if ((e.metaKey || e.ctrlKey) && e.key === 'f') { e.preventDefault(); searchInput.focus(); searchInput.select(); }
 		});
 		state.listeners.add(() => render());
+		state.overviewScroll = {};
+		if (NESTED) {
+			root.addEventListener('keydown', (e) => { if (e.altKey && e.key === 'ArrowLeft') { e.preventDefault(); back(); } });
+			root.addEventListener('mouseup', (e) => { if (e.button === 3) { e.preventDefault(); back(); } });
+		}
 		Object.assign(SE, { openJson, toast, revealSetting, setQuery, go });
 		const initial = new URLSearchParams(location.search);
 		if (initial.get('q')) { state.query = initial.get('q'); searchInput.value = state.query; }
 		if (initial.get('cat')) { state.cat = initial.get('cat'); }
+		if (initial.get('sub')) { state.sub = initial.get('sub'); }
 		if (initial.get('scope')) { state.scope = initial.get('scope'); }
 		render();
 		if (initial.get('reveal')) { revealSetting(initial.get('reveal')); }

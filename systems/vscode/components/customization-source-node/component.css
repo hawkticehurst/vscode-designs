@@ -1,0 +1,52 @@
+/* @capture src/vs/workbench/contrib/chat/browser/aiCustomization/media/aiCustomizationManagement.css@823 (microsoft/vscode#344320) */
+.customization-source-node {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size60);
+  height: 100%;
+  padding-right: var(--vscode-spacing-size120);
+  min-width: 0;
+}
+.customization-source-node .customization-source-node-icon {
+  flex-shrink: 0;
+  color: var(--vscode-icon-foreground);
+}
+.customization-source-node .customization-source-node-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: var(--vscode-fontWeight-semiBold);
+}
+.customization-source-node .customization-source-node-kind {
+  flex-shrink: 0;
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-body2);
+}
+.customization-source-node .customization-source-node-open {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--vscode-icon-foreground);
+  cursor: pointer;
+  visibility: hidden;
+}
+.monaco-list-row:is(:hover, .focused) .customization-source-node .customization-source-node-open,
+.customization-source-node .customization-source-node-open:focus-visible {
+  visibility: visible;
+}
+.customization-source-node .customization-source-node-open:focus-visible {
+  outline: var(--vscode-strokeThickness, 1px) solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+.monaco-list-row:has(> .monaco-tl-row .customization-source-node) { cursor: pointer; }
+/* Its content starts where the rows' content does (item rows pad 16px), with the chevron in the twistie before it. */
+.monaco-tl-contents:has(> .customization-source-node) { padding-left: 16px; }
+
+/* Items nested under a source node: one tree level deeper; prompt files and MCP servers are 32px and show only their name
+   (aiCustomizationListWidget NESTED_ITEM_HEIGHT; mcpListWidget nestedMcpRowKeys). */
+/* Depth is the twistie's padding (the indent element is absolutely positioned and only draws guides). Nested content starts
+   under the source node's label: its 16px icon + 6px gap further in; prompt rows have no icon, so 12px more. */
+:is(vsc-mcp-server-item, vsc-tool-set-item, vsc-plugin-item)[nested] > .monaco-tl-row > .monaco-tl-twistie { padding-left: 38px !important; }
+vsc-customization-item[nested] > .monaco-tl-row > .monaco-tl-twistie { padding-left: 50px !important; }
+:is(vsc-customization-item, vsc-mcp-server-item)[nested] { height: 32px !important; line-height: 32px !important; }
+vsc-customization-item[nested] .item-description,
+vsc-mcp-server-item[nested] :is(.mcp-server-secondary-line, .mcp-server-description) { display: none !important; }

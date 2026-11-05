@@ -32,7 +32,7 @@
     {
       "name": "more",
       "type": "boolean",
-      "description": "Show the ⋯ More actions button (extension tool sets)."
+      "description": "Show the \u22ef More actions button (extension tool sets)."
     },
     {
       "name": "connected",
@@ -47,6 +47,11 @@
         "start"
       ],
       "description": "Connected source action."
+    },
+    {
+      "name": "expanded",
+      "type": "boolean",
+      "description": "Shows its tools (following <vsc-tool-item> rows); the chevron toggles it and dispatches expand"
     }
   ],
   "slots": [],

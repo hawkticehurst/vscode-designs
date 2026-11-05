@@ -1,0 +1,57 @@
+/* MCP server row states, from microsoft/vscode#337402 (aiCustomizationManagement.css on main). */
+/* @capture src/vs/workbench/contrib/chat/browser/aiCustomization/media/aiCustomizationManagement.css@2856 */
+.mcp-server-item .mcp-server-compatibility-message {
+  min-width: 0;
+  font-size: var(--vscode-fontSize-body2);
+  line-height: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--vscode-chat-mcpCompatibilityWarningForeground, #CCA700);
+}
+.vs .mcp-server-item .mcp-server-compatibility-message { color: var(--vscode-chat-mcpCompatibilityWarningForeground, #8A6200); }
+.mcp-server-item .mcp-server-compatibility-message.unsupported { color: var(--vscode-errorForeground); }
+.mcp-server-item .mcp-server-secondary-line > .mcp-server-compatibility-message:is(.migration-available, .partially-supported, .unsupported) { flex-shrink: 0; }
+.mcp-server-item .mcp-server-compatibility-message > .mcp-server-compatibility-icon.codicon {
+  margin-right: var(--vscode-spacing-size40);
+  font-size: var(--vscode-codiconFontSize-compact, 12px);
+  color: inherit;
+  position: relative;
+  top: -1px;
+  vertical-align: text-bottom;
+}
+.mcp-server-item .mcp-server-compatibility-link { color: var(--vscode-textLink-foreground); text-decoration: underline; }
+.mcp-server-item .mcp-server-compatibility-link:hover { color: var(--vscode-textLink-activeForeground); }
+/* @capture …/aiCustomizationManagement.css@2954 */
+.mcp-server-item .mcp-server-disabled-label {
+  flex-shrink: 0;
+  color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-body2);
+  line-height: 14px;
+  white-space: nowrap;
+}
+.mcp-server-item .mcp-server-error-actions { display: flex; align-items: center; gap: var(--vscode-spacing-size80); }
+.mcp-server-item .mcp-server-error-actions .mcp-server-status { width: var(--vscode-codiconFontSize, 16px); }
+.mcp-server-item :is(.mcp-server-sign-in, .mcp-server-start, .mcp-server-show-output).monaco-button {
+  width: auto;
+  flex: 0 0 auto;
+  min-width: 0;
+  min-height: var(--vscode-spacing-size240);
+  padding: 0 var(--vscode-spacing-size80);
+  font-size: var(--vscode-fontSize-label1);
+  line-height: var(--vscode-spacing-size240);
+  border-radius: var(--vscode-cornerRadius-small);
+}
+.mcp-server-item :is(.mcp-server-sign-in, .mcp-server-start, .mcp-server-show-output).monaco-button:hover { background: var(--vscode-toolbar-hoverBackground) !important; }
+.mcp-server-item .mcp-server-status {
+  flex-shrink: 0;
+  width: var(--vscode-spacing-size240);
+  height: var(--vscode-spacing-size240);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--vscode-codiconFontSize, 16px);
+}
+.mcp-server-item .mcp-server-state-icon { color: var(--vscode-disabledForeground); }
+.mcp-server-item .mcp-server-state-icon.error { color: var(--vscode-errorForeground); }
+.mcp-server-item .mcp-server-status.starting { color: var(--vscode-progressBar-background, var(--vscode-icon-foreground)); }

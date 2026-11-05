@@ -75,8 +75,9 @@
       description: "Configure the AI to adopt different personas tailored to specific development tasks. Each agent has its own instructions, tools, and behavior.",
       link: "Learn more about custom agents",
       groups: [
-        { label: "User", items: [["Ask", "ask.agent.md"], ["user-configured", "~/.copilot/agents/user-configured.agent.md"], ["user-planner", "~/.copilot/agents/user-planner.agent.md"]] },
+        { label: "User", items: [["user-configured", "~/.copilot/agents/user-configured.agent.md"], ["user-planner", "~/.copilot/agents/user-planner.agent.md"]] },
         { label: "Workspace", items: [] },
+        { label: "Built-in", items: [["Ask", "ask.agent.md"]] },
       ],
     },
     hooks: {
@@ -84,7 +85,7 @@
       description: "Prompts executed at specific points during an agentic lifecycle.",
       link: "Learn more about hooks",
       groups: [
-        { label: "User", items: [["orca.json", "~/.copilot/hooks/orca.json"]] },
+        { label: "User", items: [["guard-secrets.json", "~/.copilot/hooks/guard-secrets.json"]] },
         { label: "Workspace", items: [] },
       ],
     },

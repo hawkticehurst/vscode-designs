@@ -37,37 +37,37 @@
 .cp-empty { padding: 40px 24px; text-align: center; color: var(--vscode-descriptionForeground); }
 
 /* ---- Page mode: one product page fills the area (its own header, search and scrolling list), without the card. ---- */
-.cpanel .cust-page { height: 100%; min-height: 0; }
-.cpanel .cust-page .management-content { height: 100%; background: transparent; }
-.cpanel .cust-page .content-inner { padding: 0; }
-.cpanel .cust-page { --cust-inset: var(--vscode-spacing-size120); }
-.cpanel .cust-page .content-inner .welcome-page-host,
-.cpanel .cust-page :is(.prompts-content-container, .mcp-content-container, .plugin-content-container, .tools-content-container) {
+.cust-page { height: 100%; min-height: 0; }
+.cust-page .management-content { height: 100%; background: transparent; }
+.cust-page .content-inner { padding: 0; }
+.cust-page { --cust-inset: var(--vscode-spacing-size120); }
+.cust-page .content-inner .welcome-page-host,
+.cust-page :is(.prompts-content-container, .mcp-content-container, .plugin-content-container, .tools-content-container) {
   padding-top: var(--vscode-spacing-size80); padding-inline: 0; background: transparent; border: 0; border-radius: 0;
 }
-.cpanel .cust-page :is(.customization-discovery-header, .customization-discovery-browse, .customization-discovery-results),
-.cpanel .cust-page :is(.ai-customization-list-widget, .plugin-list-widget) > :is(.section-title-header, .plugin-marketplace-back-container, .list-search-and-button-container, .list-container, .mcp-list-container),
-.cpanel .cust-page .tools-list-widget > :is(.section-title-header, .tools-list-search-and-button-container, .tools-list-tree),
-.cpanel .cust-page .agents-window-extensions > :is(.agents-window-extensions-header, .agents-window-extensions-search, .agents-window-extensions-tree, .agents-window-extensions-empty) {
+.cust-page :is(.customization-discovery-header, .customization-discovery-browse, .customization-discovery-results),
+.cust-page :is(.ai-customization-list-widget, .plugin-list-widget) > :is(.section-title-header, .plugin-marketplace-back-container, .list-search-and-button-container, .list-container, .mcp-list-container),
+.cust-page .tools-list-widget > :is(.section-title-header, .tools-list-search-and-button-container, .tools-list-tree),
+.cust-page .agents-window-extensions > :is(.agents-window-extensions-header, .agents-window-extensions-search, .agents-window-extensions-tree, .agents-window-extensions-empty) {
   width: min(calc(100% - 2 * var(--cust-inset)), 840px);
 }
 
 /* ---- Flow mode: lists without their own headers, stacked in one scroller. ---- */
-.cpanel .cust-flow { display: block; height: auto; overflow: visible; }
-.cpanel .cust-flow :is(.prompts-content-container, .mcp-content-container, .plugin-content-container, .tools-content-container) {
+.cust-flow { display: block; height: auto; overflow: visible; }
+.cust-flow :is(.prompts-content-container, .mcp-content-container, .plugin-content-container, .tools-content-container) {
   display: block; height: auto; padding: 0; background: transparent; border: 0; border-radius: 0; overflow: visible;
 }
-.cpanel .cust-flow :is(.ai-customization-list-widget, .plugin-list-widget, .tools-list-widget, .agents-window-extensions) { display: block; height: auto !important; overflow: visible; }
-.cpanel .cust-flow :is(.section-title-header, .list-search-and-button-container, .tools-list-search-and-button-container, .agents-window-extensions-header,
+.cust-flow :is(.ai-customization-list-widget, .plugin-list-widget, .tools-list-widget, .agents-window-extensions) { display: block; height: auto !important; overflow: visible; }
+.cust-flow :is(.section-title-header, .list-search-and-button-container, .tools-list-search-and-button-container, .agents-window-extensions-header,
   .agents-window-extensions-search, .plugin-marketplace-back-container, .mcp-empty-state, .agents-window-extensions-empty) { display: none !important; }
-.cpanel .cust-flow :is(.list-container, .mcp-list-container, .tools-list-tree, .agents-window-extensions-tree) {
+.cust-flow :is(.list-container, .mcp-list-container, .tools-list-tree, .agents-window-extensions-tree) {
   width: auto !important; height: auto !important; margin: 0 !important; flex: none; overflow: visible; }
-.cpanel .cust-flow .monaco-list,
-.cpanel .cust-flow .monaco-list > .monaco-scrollable-element { height: auto !important; overflow: visible !important; }
+.cust-flow .monaco-list,
+.cust-flow .monaco-list > .monaco-scrollable-element { height: auto !important; overflow: visible !important; }
 
 /* Page mode without the page's own title row (the panel header shows the title). */
-.cpanel .cust-page.no-title :is(.section-title-row, .agents-window-extensions-title-row, .customization-discovery-title-row) { display: none; }
-.cpanel .cust-page.no-title :is(.section-title-description, .agents-window-extensions-description, .customization-discovery-description) { margin-top: 0; }
+.cust-page.no-title :is(.section-title-row, .agents-window-extensions-title-row, .customization-discovery-title-row) { display: none; }
+.cust-page.no-title :is(.section-title-description, .agents-window-extensions-description, .customization-discovery-description) { margin-top: 0; }
 
 /* Category section in a flow list: a sticky header row above the category's tree. */
 .cp-sec + .cp-sec { margin-top: var(--vscode-spacing-size40); }
@@ -97,6 +97,12 @@
 .cp-sec-desc a:hover { text-decoration: underline; }
 .cp-sec .cust-list-wrap { padding: 0 var(--vscode-spacing-size80); }
 /* Stacked lists skip empty groups; each category header keeps its add action. */
-.cpanel .cust-flow vsc-customization-group[count="0"] { display: none !important; }
+.cust-flow vsc-customization-group[count="0"] { display: none !important; }
 
 @media (prefers-reduced-motion: reduce) { .cpanel * { transition: none !important; animation: none !important; } }
+
+/* Row actions: switch, then the ⋯ menu on the far right, always visible (the product reveals ⋯ on hover). */
+.ai-customization-list-item .item-right { opacity: 1 !important; }
+
+/* Notifications: no frosted-glass blur behind toasts (the captured ::before backdrop-filter is wider than the toast and shows as a halo). */
+.notification-toast::before { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }

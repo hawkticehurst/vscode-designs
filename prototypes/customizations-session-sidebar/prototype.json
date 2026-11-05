@@ -1,0 +1,30 @@
+{
+  "title": "Customizations",
+  "description": "V11 — Session sidebar (pared back). From the Nov 5 Customization Squad Sync: no customization UI in the composer. The right sidebar holds only what you can turn on and off for a session: plugins, MCP servers and connectors, with Ask first as an advanced ⋯ option. Everything lower level (skills, instructions, agents, hooks, tools, canvases) and Discover open the Customizations modal, narrowed to the session. The modal is V10's.",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-progressive",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-05T20:10:48.199Z",
+  "updatedAt": "2026-11-05T20:13:43.899Z"
+}

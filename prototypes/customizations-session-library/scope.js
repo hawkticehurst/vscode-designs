@@ -15,7 +15,7 @@
   ];
   const SOURCES = {
     workspace: { label: "Workspace", icon: "folder" },
-    user: { label: "Yours", icon: "account", sub: "In all your sessions" },
+    user: { label: "User", icon: "account", sub: "In all your sessions" },
     plugin: { label: "From plugins", icon: "ai-customization-plugin", sub: "Added by plugins you installed" },
     builtin: { label: "Built-in", icon: "vscode-insiders", sub: "Included with the Agents window" },
   };
@@ -44,6 +44,14 @@
       ...WS.instructions.map((p) => row("instructions", p)), ...WS.skills.map((p) => row("skills", p)),
       ...WS.agents.map((p) => row("agents", p)), ...WS.hooks.map((p) => row("hooks", p)),
     ] },
+    // Other recent workspaces (illustrative), so the Library can show more than the current one.
+    adt: { label: "adt", path: "~/Code/adt", items: [
+      row("instructions", "AGENTS.md"), row("instructions", ".github/instructions/components.instructions.md"),
+      row("skills", ".github/skills/vscode-design-system/SKILL.md"), row("skills", ".github/skills/capture-runbook/SKILL.md"),
+    ] },
+    "research-journal": { label: "research-journal", path: "~/Code/research-journal", items: [
+      row("instructions", ".github/copilot-instructions.md"), row("agents", ".github/agents/interviewer.agent.md"),
+    ] },
   };
   for (const [id, w] of Object.entries(WORKSPACES)) for (const it of w.items) items.push({ ...it, source: "workspace", workspace: id });
 
@@ -52,7 +60,7 @@
     claude: { label: "Claude", icon: "claude", unsupported: { instructions: "Claude reads CLAUDE.md instead", hooks: "Claude uses its own hook settings", plugins: "Copilot plugins don't load in Claude" } },
     codex: { label: "Codex", icon: "openai", unsupported: { agents: "Codex doesn't use custom agents", hooks: "Codex doesn't run hooks", plugins: "Copilot plugins don't load in Codex" } },
   };
-  const ENVIRONMENTS = { local: { label: "This Computer", icon: "device-desktop" }, cloud: { label: "Cloud", icon: "cloud" } };
+  const ENVIRONMENTS = { local: { label: "This Computer", icon: "device-desktop" }, cloud: { label: "Cloud", icon: "cloud" }, "devbox-1": { label: "devbox-1", icon: "remote" } };
 
   /** Why an item doesn't apply in this scope (or null). Short form for badges, long form for descriptions. */
   function blocked(it, scope) {
@@ -64,6 +72,8 @@
     if (it.copilotOnly && scope.harness !== "copilot") return { badge: "Copilot only", why: "Built into Copilot" };
     return null;
   }
+  /** Whether an agent (harness) can use an item at all, regardless of workspace and environment. */
+  const worksWith = (it, harness) => !blocked({ ...it, path: it.path.replace(/\.disabled$/, "").replace(/cloud-sandbox/, "") }, { harness, environment: "cloud" });
   /** The session's effective set: what applies and what doesn't (and why), given a scope. */
   function resolve(scope) {
     const inScope = items.filter((it) => it.source !== "workspace" || it.workspace === scope.workspace);
@@ -71,6 +81,8 @@
     for (const it of inScope) { const b = blocked(it, scope); (b ? excluded : applies).push(b ? { ...it, blocked: b } : it); }
     return { applies, excluded };
   }
-  window.SCOPE = { TYPES, SOURCES, HARNESSES, ENVIRONMENTS, WORKSPACES, items, resolve, type: (id) => TYPES.find((t) => t.id === id),
-    workspaceLabel: (id) => (WORKSPACES[id] ? WORKSPACES[id].label : (id === "chat" ? "No workspace" : id)) };
+  window.SCOPE = { worksWith, TYPES, SOURCES, HARNESSES, ENVIRONMENTS, WORKSPACES, items, resolve, type: (id) => TYPES.find((t) => t.id === id),
+    workspaceLabel: (id) => (WORKSPACES[id] ? WORKSPACES[id].label : (id === "chat" ? "No workspace" : id)),
+    // How a named workspace is labeled as a source of customizations: "Workspace (vscode)".
+    workspaceTitle: (id) => `Workspace (${WORKSPACES[id] ? WORKSPACES[id].label : id})` };
 })();

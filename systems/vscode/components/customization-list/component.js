@@ -23,10 +23,7 @@ class CustomizationList extends ds.Element {
         style: "background-color: inherit; color: var(--vscode-input-foreground);", oninput: (e) => { e.target.classList.toggle("empty", !e.target.value); this.filter(e.target.value); } })));
     const makeList = (cls, ariaLabel) => {
       const rows = h("div.monaco-list-rows", { style: "overflow: visible; height: auto; left: 0px; top: 0px;" }, this.slotted(""));
-      rows.addEventListener("click", (e) => {
-        const group = e.target.closest("vsc-customization-group");
-        if (group && !e.target.closest(".group-actions")) this.toggleGroup(group);
-      });
+      rows.addEventListener("click", (e) => this.__onRowsClick(e));
       return h("div.monaco-list.mouse-support.selection-none", { class: cls, role: "tree", "aria-label": ariaLabel },
         h("div.monaco-scrollable-element.mac", { role: "presentation", style: "position: relative; overflow: hidden auto; height: 100%;" }, rows));
     };
@@ -76,10 +73,7 @@ class CustomizationList extends ds.Element {
     const rows = h("div.monaco-list-rows", { style: "overflow: visible; height: auto; left: 0px; top: 0px;" }, this.slotted(""));
     const list = h("div.monaco-list.mouse-support.selection-none", { class: CUSTOMIZATION_LIST_IDS[kind], role: "tree", "aria-label": kind === "prompts" ? "Agent Customizations" : heading },
       h("div.monaco-scrollable-element.mac", { role: "presentation", style: "position: relative; overflow: hidden auto; height: 100%;" }, rows));
-    rows.addEventListener("click", (e) => {
-      const group = e.target.closest("vsc-customization-group");
-      if (group && !e.target.closest(".group-actions")) this.toggleGroup(group);
-    });
+    rows.addEventListener("click", (e) => this.__onRowsClick(e));
     if (kind === "prompts") {
       this.__widget = h("div.ai-customization-list-widget", null, header, search, h("div.list-container", null, list));
     } else {
@@ -94,6 +88,8 @@ class CustomizationList extends ds.Element {
   }
 
   updated() {
+    // Rows that start collapsed (groups, source nodes) hide their children once they've rendered.
+    requestAnimationFrame(() => { this.applyVisibility(); this.__setupStickyScroll(); });
     if (this.__ro) this.__ro.disconnect();
     if (this.attr("kind", "prompts") === "extensions") return;
     // updateResponsiveLayout(): narrow below 500px, wide from 600px.
@@ -106,8 +102,88 @@ class CustomizationList extends ds.Element {
     this.__ro.observe(this.__widget);
   }
 
+  // Sticky scroll (abstractTree's StickyScrollController, on by default in workbench trees): the group header and the
+  // plugin/extension/organization row whose children are under the top edge stay pinned there, as copies in a
+  // .monaco-tree-sticky-container over the list; the next parent pushes them up. Clicking one reveals the original row.
+  __setupStickyScroll() {
+    const scroller = this.__widget?.querySelector(".monaco-scrollable-element");
+    if (!scroller || scroller.__sticky) return;
+    const list = scroller.parentElement;
+    list.style.position = "relative";
+    const box = document.createElement("div");
+    box.className = "monaco-tree-sticky-container empty";
+    box.setAttribute("role", "group");
+    box.innerHTML = '<div class="monaco-tree-sticky-container-shadow"></div>';
+    list.prepend(box);
+    scroller.__sticky = box;
+    const update = () => this.__updateSticky(scroller, box);
+    scroller.addEventListener("scroll", update, { passive: true });
+    new ResizeObserver(update).observe(scroller);
+    box.addEventListener("click", (e) => {
+      const row = e.target.closest("[data-sticky-index]");
+      const orig = row && this.__stickyRows?.[+row.dataset.stickyIndex];
+      if (!orig) return;
+      // Reveal: scroll so the row sits just below the parents still pinned above it.
+      scroller.scrollTop = orig.offsetTop - (+row.dataset.stickyTop || 0);
+    });
+    update();
+  }
+
+  __updateSticky(scroller, box) {
+    const top = scroller.scrollTop, rows = this.rows().filter((r) => !r.hidden);
+    const isGroup = (r) => r.localName === "vsc-customization-group", isSource = (r) => r.localName === "vsc-customization-source-node";
+    const pick = [];
+    // The group whose header has scrolled under the top edge; it slides up as the next group arrives.
+    const gi = rows.reduce((found, r, i) => (isGroup(r) && r.offsetTop < top ? i : found), -1);
+    if (gi >= 0) {
+      const g = rows[gi], next = rows.slice(gi + 1).find(isGroup), gh = g.offsetHeight;
+      const gy = Math.min(0, (next ? next.offsetTop : Infinity) - top - gh);
+      pick.push({ row: g, y: gy, h: gh });
+      // The plugin/extension/organization in that group whose items are under the pinned header.
+      const line = top + gy + gh;
+      const si = rows.reduce((found, r, i) => (i > gi && isSource(r) && r.offsetTop < line && (!next || r.offsetTop < next.offsetTop) ? i : found), -1);
+      if (si >= 0) {
+        const src = rows[si], after = rows.slice(si + 1).find((r) => !r.hasAttribute("nested")), sh = src.offsetHeight;
+        const endY = (after ? after.offsetTop : Infinity) - top;
+        if (endY > gy + gh) pick.push({ row: src, y: Math.min(gy + gh, endY - sh), h: sh });
+      }
+    }
+    this.__stickyRows = pick.map((p) => p.row);
+    const key = pick.map((p) => this.rows().indexOf(p.row) + ":" + Math.round(p.y) + ":" + p.row.hasAttribute("collapsed")).join("|");
+    if (key === box.__key) return;
+    box.__key = key;
+    box.classList.toggle("empty", !pick.length);
+    for (const el of box.querySelectorAll(".monaco-tree-sticky-row")) el.remove();
+    let bottom = 0;
+    pick.forEach(({ row, y, h }, i) => {
+      const copy = document.createElement("div");
+      copy.className = "monaco-list-row monaco-tree-sticky-row " + [...row.classList].filter((c) => c !== "monaco-list-row").join(" ");
+      copy.setAttribute("role", "treeitem");
+      copy.setAttribute("aria-label", row.getAttribute("aria-label") || "");
+      copy.dataset.stickyIndex = String(i);
+      copy.dataset.stickyTop = String(y);
+      // Outer parents stay above the ones sliding out beneath them.
+      copy.style.cssText = `top: ${y}px; height: ${h}px; line-height: ${h}px; z-index: ${10 - i};`;
+      copy.innerHTML = row.innerHTML;
+      // Keep the row's indentation (pages may set it on the original's twistie).
+      const tw = row.querySelector(".monaco-tl-twistie"), ctw = copy.querySelector(".monaco-tl-twistie");
+      if (tw && ctw) ctw.style.setProperty("padding-left", getComputedStyle(tw).paddingLeft, "important");
+      box.insertBefore(copy, box.lastElementChild);
+      bottom = Math.max(bottom, y + h);
+    });
+    box.style.height = bottom + "px";
+  }
+
   rows() {
     return this.slotted("").filter((n) => n.nodeType === 1);
+  }
+
+  // Group headers and source nodes (a plugin, extension or organization with its items nested beneath) collapse.
+  __onRowsClick(e) {
+    const group = e.target.closest("vsc-customization-group");
+    if (group && !e.target.closest(".group-actions")) return this.toggleGroup(group);
+    const source = e.target.closest("vsc-customization-source-node");
+    if (source && !e.target.closest(".customization-source-node-open")) this.toggleGroup(source);
   }
 
   toggleGroup(group) {
@@ -121,20 +197,37 @@ class CustomizationList extends ds.Element {
   }
 
   applyVisibility() {
-    let collapsed = false;
+    let collapsed = false, sourceCollapsed = false, source = null, sourceMatches = false;
+    const set = (row, hide) => {
+      // Rows are display: block hosts, so `hidden` alone wouldn't hide them; component.css keys off data-tree-hidden.
+      row.hidden = hide;
+      row.toggleAttribute("data-tree-hidden", hide);
+    };
+    // A source node shows when its group is open and (while searching) one of its nested items matches.
+    const closeSource = () => { if (source) set(source, collapsed || (!!this.__query && !sourceMatches)); source = null; };
     for (const row of this.rows()) {
       if (row.localName === "vsc-customization-group") {
+        closeSource();
         collapsed = row.hasAttribute("collapsed");
+        sourceCollapsed = false;
         row.hidden = false;
         row.removeAttribute("data-tree-hidden");
         continue;
       }
+      if (row.localName === "vsc-customization-source-node") {
+        closeSource();
+        source = row; sourceMatches = false;
+        sourceCollapsed = row.hasAttribute("collapsed");
+        continue;
+      }
+      const nested = row.hasAttribute("nested");
+      if (!nested) { closeSource(); sourceCollapsed = false; }
       const name = (row.getAttribute("name") || "").toLowerCase();
-      const hide = collapsed || (!!this.__query && !name.includes(this.__query));
-      // Rows are display: block hosts, so `hidden` alone wouldn't hide them; component.css keys off data-tree-hidden.
-      row.hidden = hide;
-      row.toggleAttribute("data-tree-hidden", hide);
+      const matches = !this.__query || name.includes(this.__query);
+      if (nested && matches) sourceMatches = true;
+      set(row, collapsed || (nested && sourceCollapsed && !this.__query) || !matches);
     }
+    closeSource();
   }
 }
 

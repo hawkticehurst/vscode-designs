@@ -1,0 +1,25 @@
+{
+  "title": "Settings",
+  "status": "draft",
+  "tags": [
+    "settings",
+    "vscode",
+    "information-architecture",
+    "enterprise",
+    "policy"
+  ],
+  "system": "vscode",
+  "group": "settings-modernization",
+  "variantOf": "settings-theme-picker",
+  "entry": "index.html",
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-04T20:06:57.382Z",
+  "updatedAt": "2026-11-04T20:06:57.382Z",
+  "description": "V7 with a different theme preview graphic: a type specimen. Each card shows a large “Aa” in the theme's editor text color on its editor background, next to its syntax palette as pill bars (keyword, function, string, type…), with its status bar, button and activity bar colors as dots and a side bar edge.",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  }
+}

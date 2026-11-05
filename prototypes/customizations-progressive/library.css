@@ -1,0 +1,189 @@
+/* Library modal: the Settings prototypes' modal layout (prototypes/settings-agents-window/styles.css, copied as is up
+   to the groups), then the Library's own rules. */
+/* The modal editor part fills its panel; the DS sizes .content with a fixed calc that leaves a gap. */
+.modal-editor-part:has(.se) { display: flex; flex-direction: column; }
+.modal-editor-part:has(.se) > .content { flex: 1 1 auto; min-height: 0; height: auto !important; }
+.modal-editor-part:has(.se) > .modal-editor-header { flex: none; box-sizing: border-box; border-bottom: 1px solid var(--vscode-widget-border); }
+
+/* Size the modal from its container (not once at load), so it follows window/viewer resizes. */
+.monaco-modal-editor-block .modal-editor-resizable:has(.se) { container: se-modal / inline-size; }
+.monaco-modal-editor-block .modal-editor-resizable:has(.se):not(.se-maximized) {
+	--se-modal-w: min(1240px, calc(100% - 48px));
+	--se-modal-h: min(880px, calc(100% - 48px));
+	width: var(--se-modal-w) !important; height: var(--se-modal-h) !important;
+	left: calc((100% - var(--se-modal-w)) / 2) !important; top: calc((100% - var(--se-modal-h)) / 2) !important;
+}
+
+/* Settings editor (proposal). Built on VS Code theme tokens; prototype-owned elements use border-box. */
+.se, .se * { box-sizing: border-box; }
+.se {
+	--se-mono: var(--monaco-monospace-font, "SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", monospace);
+	--se-card: color-mix(in srgb, var(--vscode-editorWidget-background) 55%, var(--vscode-editor-background));
+	--se-line: var(--vscode-widget-border);
+	--se-nav-w: 216px; /* Settings, Agents window (.ctx-agents) */
+	position: relative; display: grid; grid-template-columns: var(--se-nav-w) minmax(0, 1fr); height: 100%; min-height: 0;
+	color: var(--vscode-foreground); background: var(--vscode-editor-background);
+	font-size: var(--vscode-bodyFontSize, 13px); line-height: 1.4;
+}
+.se button { font: inherit; color: inherit; }
+.se .codicon { flex: none; }
+.se-flex { flex: 1; }
+.se mark { background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 32%, transparent); color: inherit; border-radius: 2px; }
+
+/* ---------- sidebar ---------- */
+.se-nav { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--vscode-settings-sashBorder); background: color-mix(in srgb, var(--vscode-sideBar-background) 60%, var(--vscode-editor-background)); }
+.se-nav-list { flex: 1; overflow-y: auto; padding: 6px; display: flex; flex-direction: column; gap: 1px; }
+.se-nav-item { display: flex; align-items: center; gap: 8px; height: 26px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer; user-select: none; color: var(--vscode-foreground); outline: none; }
+.se-nav-item:hover { background: var(--vscode-list-hoverBackground); }
+.se-nav-item:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.se-nav-item.active { background: var(--vscode-list-activeSelectionBackground); color: var(--vscode-list-activeSelectionForeground); font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.se-nav-item.empty { opacity: 0.45; }
+.se-nav-icon { color: var(--vscode-descriptionForeground); }
+.se-nav-item.active .se-nav-icon { color: var(--vscode-list-activeSelectionIconForeground, currentColor); }
+.se-nav-label { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.se-nav-count { font-size: var(--vscode-fontSize-label2, 11px); font-weight: 400; color: var(--vscode-descriptionForeground); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.se-nav-list > *, .se-nav-subs > * { flex: none; }
+.se-nav-sep { height: 1px; margin: 5px 8px; background: var(--se-line); flex: none; }
+.se-nav-subs { position: relative; margin: 1px 0 4px 15px; padding-left: 9px; display: flex; flex-direction: column; gap: 1px; }
+.se-nav-subs::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 1px; background: var(--se-line); }
+.se-nav-sub { position: relative; display: flex; align-items: center; gap: 8px; height: 22px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-nav-sub:hover { color: var(--vscode-foreground); background: var(--vscode-list-hoverBackground); }
+.se-nav-sub.active { color: var(--vscode-foreground); }
+.se-nav-sub.active::before { content: ""; position: absolute; left: -10px; top: 4px; bottom: 4px; width: 2px; border-radius: 2px; background: var(--vscode-button-background); }
+.se-nav-sub .se-nav-count { opacity: 0.8; }
+.se-nav-footer { flex: none; padding: 6px; border-top: 1px solid var(--se-line); }
+.se-nav-footer-btn { display: flex; align-items: center; gap: 8px; width: 100%; height: 26px; padding: 0 8px; border: 0; background: none; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer; color: var(--vscode-descriptionForeground) !important; }
+.se-nav-footer-btn:hover { background: var(--vscode-list-hoverBackground); color: var(--vscode-foreground) !important; }
+
+/* Narrow modal: the Settings prototypes' narrower nav. */
+@container se-modal (max-width: 860px) {
+	.se { --se-nav-w: 196px; }
+}
+
+/* ---------- header ---------- */
+.se-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.se-header { flex: none; padding: 14px 14px 0; }
+.se-search { display: flex; align-items: center; gap: 4px; height: 32px; padding: 0 4px 0 10px; border-radius: var(--vscode-cornerRadius-medium);
+	background: var(--vscode-settings-textInputBackground); border: 1px solid var(--vscode-settings-textInputBorder); }
+.se-search:focus-within { border-color: var(--vscode-focusBorder); }
+.se-search-icon { color: var(--vscode-descriptionForeground); }
+.se-search-input { flex: 1; min-width: 0; height: 100%; border: 0; outline: none; background: transparent; color: var(--vscode-settings-textInputForeground); font: inherit; padding: 0 4px; }
+/* Mouse focus shouldn't draw a ring (the DS outlines every :focus); keyboard focus keeps it. */
+.se button:focus:not(:focus-visible) { outline: none !important; }
+/* The container shows focus; the DS's input focus outline would double it. */
+.se .se-search-input:focus, .se .se-input:focus, .se .se-json-input:focus { outline: none !important; }
+.se-search-input::placeholder { color: var(--vscode-input-placeholderForeground); }
+.se-search-count { flex: none; padding: 1px 8px; border-radius: var(--vscode-cornerRadius-circle); font-size: var(--vscode-fontSize-label2, 11px);
+	background: var(--vscode-badge-background); color: var(--vscode-badge-foreground); }
+.se-header-row { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--vscode-settings-headerBorder); }
+.se-tabs { display: flex; gap: 2px; }
+.se-tab { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border: 0; border-radius: var(--vscode-cornerRadius-medium); background: transparent; cursor: pointer; color: var(--vscode-descriptionForeground) !important; }
+.se-tab:hover { background: var(--vscode-modernTab-hoverBackground, var(--vscode-list-hoverBackground)); color: var(--vscode-foreground) !important; }
+.se-tab.active { background: var(--vscode-modernTab-activeBackground, var(--vscode-list-activeSelectionBackground)); color: var(--vscode-modernTab-activeForeground, var(--vscode-foreground)) !important; }
+.se-tab-detail { margin-left: 6px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-tab-count { min-width: 16px; padding: 0 5px; border-radius: var(--vscode-cornerRadius-circle); font-size: 10px; line-height: 16px; text-align: center;
+	background: color-mix(in srgb, var(--vscode-foreground) 12%, transparent); }
+
+/* ---------- buttons ---------- */
+.se-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 26px; padding: 0 10px; cursor: pointer; white-space: nowrap;
+	border-radius: var(--vscode-cornerRadius-small); border: 1px solid var(--vscode-button-secondaryBorder, transparent);
+	background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground) !important; }
+.se-btn:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.se-btn.primary { background: var(--vscode-button-background); border-color: var(--vscode-button-border, transparent); color: var(--vscode-button-foreground) !important; }
+.se-btn.primary:hover { background: var(--vscode-button-hoverBackground); }
+.se-btn.small { height: 24px; font-size: var(--vscode-fontSize-label1, 12px); }
+.se-btn:focus-visible, .se-icon-btn:focus-visible, .se-link-btn:focus-visible, .se-dropdown:focus-visible, .se-chip:focus-visible, .se-tab:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+.se-icon-btn { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: transparent; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; color: var(--vscode-foreground) !important; flex: none; }
+.se-icon-btn:hover { background: var(--vscode-toolbar-hoverBackground); }
+.se-link-btn { display: inline-flex; align-items: center; gap: 4px; padding: 0; border: 0; background: none; cursor: pointer; color: var(--vscode-textLink-foreground) !important; font-size: inherit; }
+.se-link-btn:hover { text-decoration: underline; color: var(--vscode-textLink-activeForeground) !important; }
+.se-link-btn .codicon { font-size: 14px; }
+
+/* ---------- content ---------- */
+.se-scroll { flex: 1; min-height: 0; overflow-y: auto; scroll-padding-top: 12px; }
+.se-content { padding: 20px 14px 80px; }
+.se-page-header { display: flex; gap: 14px; align-items: flex-start; margin: 4px 0 18px; }
+.se-page-title { margin: 0; font-size: var(--vscode-fontSize-heading2, 18px); font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-settings-headerForeground); line-height: 1.3; }
+.se-page-desc { margin: 2px 0 0; color: var(--vscode-descriptionForeground); }
+
+.se-callout { display: flex; align-items: flex-start; gap: 10px; margin: 0 0 16px; padding: 10px 12px; border-radius: var(--vscode-cornerRadius-medium);
+	background: color-mix(in srgb, var(--vscode-charts-orange) 10%, transparent); border: 1px solid color-mix(in srgb, var(--vscode-charts-orange) 30%, transparent); }
+.se-callout > .codicon { color: var(--vscode-charts-orange); margin-top: 1px; }
+
+/* ---------- groups ---------- */
+.se-group { margin-top: 24px; }
+.se-group-header { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 4px 4px 6px;
+	background: var(--vscode-editor-background); }
+.se-group-title { margin: 0; font-size: var(--vscode-fontSize-heading3, 13px); font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-settings-headerForeground); }
+.se-group-icon { color: var(--vscode-descriptionForeground); }
+.se-group-count { font-size: var(--vscode-fontSize-label2, 11px); color: var(--vscode-descriptionForeground); font-variant-numeric: tabular-nums; }
+.se-group-card { border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-large); background: var(--se-card); overflow: clip; }
+.se-group-hidden { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-top: 1px solid var(--se-line); color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-group-card > .se-group-hidden:first-child { border-top: 0; }
+.se-group-body:empty { display: none; }
+.se-group-body:empty + .se-group-hidden { border-top: 0; }
+.se-group-more { display: block; width: 100%; padding: 8px 16px; border: 0; border-top: 1px solid var(--se-line); background: none; text-align: left; cursor: pointer; color: var(--vscode-textLink-foreground) !important; font-size: var(--vscode-fontSize-label1, 12px); }
+.se-group-more:hover { background: var(--vscode-list-hoverBackground); }
+.se-subgroups { display: flex; flex-direction: column; gap: 14px; }
+.se-subheading { display: flex; align-items: center; gap: 8px; padding: 2px 4px 6px; font-size: var(--vscode-fontSize-label2, 11px); font-weight: 600;
+	text-transform: uppercase; letter-spacing: 0.04em; color: var(--vscode-descriptionForeground); }
+.se-subheading-count { font-weight: 400; }
+
+
+/* ---------- library ---------- */
+.lib [hidden] { display: none !important; }
+/* Filters under a type page's title: workspace, agent compatibility, and a chip when it's narrowed. */
+.lib-filters { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 10px 14px 0; }
+.list-search-and-button-container + .lib-filters { margin: 8px 14px 2px; }
+.lib-filter { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 6px 0 8px; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer; font-size: var(--vscode-fontSize-label1, 12px);
+  border: 1px solid var(--se-line); background: transparent; color: var(--vscode-foreground) !important; }
+.lib-filter:hover { background: var(--vscode-list-hoverBackground); }
+.lib-filter.set { background: var(--vscode-inputOption-activeBackground); border-color: var(--vscode-inputOption-activeBorder); }
+.lib-filter .codicon { font-size: 14px; }
+.lib-filter .codicon-chevron-down { font-size: 12px; color: var(--vscode-descriptionForeground); }
+.lib-filter:focus-visible, .lib-chip-x:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+.lib-chip { display: inline-flex; align-items: center; gap: 2px; height: 22px; padding: 0 2px 0 8px; border-radius: var(--vscode-cornerRadius-circle); font-size: var(--vscode-fontSize-label1, 12px);
+  border: 1px solid var(--vscode-button-secondaryBorder, var(--se-line)); background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); box-sizing: border-box; }
+.lib-chip-x { display: inline-grid; place-items: center; width: 18px; height: 18px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: inherit !important; cursor: pointer; }
+.lib-chip-x:hover { background: var(--vscode-toolbar-hoverBackground); }
+.lib .lib-chip-x .codicon { font-size: var(--vscode-codiconFontSize-compact, 12px) !important; color: inherit !important; }
+.lib .lib-group-path { margin-left: 8px; color: var(--vscode-descriptionForeground); font-family: var(--se-mono); font-size: 11px; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* An item opened from the side panel: selected, with a brief highlight. */
+@keyframes lib-reveal { 0%, 40% { background-color: color-mix(in srgb, var(--vscode-focusBorder) 30%, transparent); } 100% { background-color: var(--vscode-list-inactiveSelectionBackground); } }
+.lib .monaco-list-row.lib-reveal { animation: lib-reveal 1.4s ease-out forwards; border-radius: var(--vscode-cornerRadius-small); }
+/* overflow: clip on these tall rounded cards stops Chromium painting partway down; rows sit 4px inside the corners instead. */
+.lib .se-group-card { overflow: visible; }
+.lib .se-btn .codicon { color: inherit !important; }
+.lib-page-icon { flex: none; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: var(--vscode-cornerRadius-large);
+	border: 1px solid var(--se-line); background: var(--se-card); }
+.lib-page-icon .codicon { font-size: 20px; }
+.se-page-header .se-flex + .se-btn { margin-top: 4px; }
+.se-page-desc a { color: var(--vscode-textLink-foreground); text-decoration: none; }
+.se-page-desc a:hover { text-decoration: underline; }
+.se-group-desc { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-group-header .se-flex { flex: 1; }
+.lib-sub-path { font-weight: 400; text-transform: none; letter-spacing: 0; font-family: var(--se-mono); }
+/* Rows inside cards: the design system's list rows, flowing, on the card. */
+.se-group-card .cust-flow { padding: 4px 0; }
+.se-group-card .cust-flow .monaco-list-row { background: transparent; }
+.lib-empty { padding: 14px 16px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+/* Discover, Tools and Extensions: the product page fills the main area (it has its own search and scrolling). */
+.lib-host { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.lib-hosted { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+.lib-hosted > .se-page-header { margin: 18px 14px 0; align-items: center; gap: 6px; }
+.lib-hosted > .se-page-header .se-btn { margin-top: 0; }
+.lib-host > .cust-page { flex: 1; min-height: 0; --cust-inset: 14px; }
+.lib-host .cust-page :is(.welcome-page-host, .prompts-content-container, .mcp-content-container, .plugin-content-container, .tools-content-container) { background: transparent; border: 0; border-radius: 0; padding-top: 8px; padding-inline: 0; }
+.lib-host .cust-page .content-inner { padding: 0; }
+.lib-host .cust-page .management-content { background: transparent; }
+.lib-host .cust-page :is(.customization-discovery-header, .customization-discovery-browse, .customization-discovery-results),
+.lib-host .cust-page :is(.ai-customization-list-widget, .plugin-list-widget) > :is(.section-title-header, .list-search-and-button-container, .list-container, .mcp-list-container),
+.lib-host .cust-page .tools-list-widget > :is(.section-title-header, .tools-list-search-and-button-container, .tools-list-tree),
+.lib-host .cust-page .agents-window-extensions > :is(.agents-window-extensions-header, .agents-window-extensions-search, .agents-window-extensions-tree) { width: calc(100% - 28px); margin-inline: 14px; }
+.lib-host .cust-page :is(.section-title-row, .agents-window-extensions-title-row, .customization-discovery-title-row) { display: none !important; }
+
+/* Row actions: switch, then the ⋯ menu on the far right, always visible (the product reveals ⋯ on hover). */
+.ai-customization-list-item .item-right { opacity: 1 !important; }
+
+/* Toolbar actions keep VS Code's content-box sizing (16px icon + 3px padding); .se's border-box would shrink their hover background under the icon. */
+.se .monaco-action-bar .action-label { box-sizing: content-box; }

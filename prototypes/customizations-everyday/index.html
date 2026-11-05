@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Customizations — Everyday</title>
+<link rel="stylesheet" href="../../systems/vscode/system.css" />
+<link rel="stylesheet" href="panel-kit.css?v=2" />
+<link rel="stylesheet" href="session.css" />
+<link rel="stylesheet" href="library.css?v=3" />
+<link rel="stylesheet" href="lifecycle.css" />
+<link rel="stylesheet" href="everyday.css?v=6" />
+<script type="module" src="../../systems/vscode/system.js"></script>
+<script src="customizations.js"></script>
+<script src="panel-config.js"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: #121314; overflow: hidden; }
+  #wb {
+    /* Toast insets, as the Agents window sets them (src/vs/sessions/browser/media/workbench.css), widened to 16px so toasts clear the floating panel edge. */
+    --modern-ui-notifications-inline-inset: var(--vscode-spacing-size160);
+    --modern-ui-notifications-block-end-inset: var(--vscode-spacing-size160); position: relative; width: 100vw; height: 100vh; display: flex; flex-direction: column;
+        background: var(--vscode-agents-background); color: var(--vscode-foreground); font-size: var(--vscode-agents-fontSize-body1); }
+  .tb button { font: inherit; color: inherit; }
+  /* border-box only on prototype-owned elements: VS Code widgets rely on content-box */
+  :is(.tb) :is(.cc, .avatar) { box-sizing: border-box; }
+  .grow { flex: 1; }
+
+  .tb { height: 38px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 10px; }
+  .tb-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; }
+  /* Session pill, after src/vs/sessions/contrib/sessions/browser/media/sessionsTitleBarWidget.css. */
+  .cc { width: 31vw; max-width: 600px; height: 22px; display: flex; align-items: center; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer;
+        border: 1px solid var(--vscode-commandCenter-border); background: transparent; color: var(--vscode-commandCenter-foreground); }
+  .cc:hover { background: var(--vscode-commandCenter-activeBackground); }
+  .cc-pill { display: flex; align-items: center; gap: 6px; padding: 0 8px; min-width: 0; opacity: 0.6; }
+  .cc-pill .codicon { font-size: var(--vscode-codiconFontSize-compact, 14px) !important; }
+  .cc-label { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .avatar { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; font-weight: 600; flex: none;
+            background: var(--vscode-chat-avatarBackground); color: var(--vscode-chat-avatarForeground); border: 1px solid var(--vscode-agentsCard-border); }
+  .avatar-photo { padding: 0; overflow: hidden; cursor: pointer; }
+  .avatar-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Agents window parts row: the sessions part and the docked editor part (src/vs/sessions layout), 2px apart. */
+  .parts { flex: 1; min-height: 0; display: flex; margin: 0 4px 4px; }
+  .side-panel { position: relative; flex: none; height: 100%; margin-left: 2px; }
+  .side-panel[hidden] { display: none; }
+  /* The workbench grid's sash between the sessions part and the docked editor part, centered on the 2px gap. */
+  #panel-sash { left: calc(-1px - var(--vscode-sash-size) / 2); }
+  .page { flex: 1; min-width: 0; min-height: 0; margin: 0; border-radius: var(--vscode-cornerRadius-large); overflow-y: auto;
+          background: var(--vscode-agentsPanel-background); color: var(--vscode-agentsPanel-foreground); border: 1px solid var(--vscode-agentsPanel-border); }
+  /* Home: the Agents window's new-session view. Welcome message centered above the new-session composer, both centered
+     in the sessions part (src/vs/sessions/contrib/chat/browser/media/chatWidget.css; these container and welcome rules
+     aren't in the design system's captures). */
+  .page > vsc-session-view { height: 100%; }
+  .page .session-view, .page .session-view-content, .page .chat-view-new, .page .sessions-chat-widget { height: 100%; }
+  .page .sessions-chat-widget { display: flex; flex-direction: column; width: 100%; position: relative; }
+  .page .new-chat-widget-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%;
+    box-sizing: border-box; overflow: hidden; padding: var(--vscode-spacing-size160) var(--vscode-spacing-size160) var(--vscode-spacing-size200); position: relative; }
+  .page .new-chat-widget-container > vsc-chat-input { width: 100%; max-width: 800px; }
+  .new-session-welcome-message { align-self: center; align-items: center; display: flex; gap: var(--vscode-spacing-size40); justify-content: center;
+    margin-bottom: var(--vscode-spacing-size160); position: relative; text-align: center; }
+  .new-session-welcome-message-title { color: var(--vscode-foreground); font-size: var(--vscode-fontSize-heading1); font-weight: 400; line-height: 1.4; margin: 0; }
+
+  /* ---- Phone (≤ 640px) ---- */
+  @media (max-width: 640px) {
+    /* Title bar: sidebar toggle, session pill (fills the space) and avatar. Navigation, run and layout actions are desktop-only. */
+    .tb { gap: 6px; padding: 0 8px; }
+    .tb-center { position: static; transform: none; flex: 1; min-width: 0; }
+    .tb-center + .grow { display: none; }
+    .tb-nav, .tb-run, .tb-layout { display: none; }
+    .cc { width: auto; flex: 1; min-width: 0; }
+    .side-panel { display: none; }
+  }
+
+  /* ===== This variant ===== */
+  .lib-modal[hidden] { display: none !important; }
+
+</style>
+</head>
+<body>
+<vsc-workbench id="wb" theme="dark-2026" window="agents" class="nostatusbar">
+  <header class="tb">
+    <vsc-toolbar label="Window"><vsc-action icon="layout-sidebar-left" label="Hide Sessions Sidebar" id="toggle-sidebar" checked></vsc-action></vsc-toolbar>
+    <div class="tb-center">
+      <vsc-toolbar class="tb-nav" label="Session Navigation"><vsc-action icon="arrow-left" label="Go Back" id="nav-back"></vsc-action><vsc-action icon="arrow-right" label="Go Forward" id="nav-fwd" disabled></vsc-action></vsc-toolbar>
+      <div class="cc" role="button" tabindex="0" aria-label="Show Sessions: No workspace"><div class="cc-pill"><span class="codicon codicon-comment-discussion" aria-hidden="true"></span><span class="cc-label">No workspace</span></div></div>
+      <vsc-toolbar class="tb-run" label="Session Actions"><vsc-action icon="play" label="Run" disabled></vsc-action><vsc-action icon="vscode-insiders" label="Open in VS Code - Insiders"></vsc-action></vsc-toolbar>
+    </div>
+    <div class="grow"></div>
+    <vsc-toolbar class="tb-layout" label="Layout">
+      <vsc-action icon="layout-panel-off" label="Show Panel (⌘J)"></vsc-action>
+      <vsc-action icon="layout-sidebar-right" label="Toggle Side Panel (⌥⌘B)" id="toggle-panel" checked></vsc-action>
+      <vsc-action icon="radio-tower" label="Remote Access"></vsc-action>
+    </vsc-toolbar>
+    <button class="avatar avatar-photo" title="hawkticehurst" aria-label="Accounts: hawkticehurst"><img src="assets/profile.jpg" alt="" /></button>
+  </header>
+  <div class="parts">
+  <aside class="ssb" id="sessions-sidebar" aria-label="Sessions">
+    <div class="ssb-nav" role="list" aria-label="Navigation">
+      <button class="ssb-short ssb-new" role="listitem" data-nav="new"><span class="codicon codicon-plus ssb-icon" aria-hidden="true"></span><span class="ssb-label">New Session</span><vsc-keybinding keys="⌘+N"></vsc-keybinding></button>
+      <button class="ssb-short" role="listitem" data-nav="automations"><span class="codicon codicon-calendar ssb-icon" aria-hidden="true"></span><span class="ssb-label">Automations</span></button>
+      <button class="ssb-short" role="listitem" data-nav="customizations" id="nav-customizations"><span class="codicon codicon-extensions ssb-icon" aria-hidden="true"></span><span class="ssb-label">Customizations</span></button>
+    </div>
+    <div class="ssb-header">
+      <span class="ssb-header-label">Sessions</span>
+      <vsc-toolbar label="Sessions Actions"><vsc-action icon="filter" label="Filter Sessions"></vsc-action><vsc-action icon="search" label="Search Sessions"></vsc-action><vsc-action icon="ellipsis" label="More Actions..."></vsc-action></vsc-toolbar>
+    </div>
+    <div class="ssb-list" role="tree" aria-label="Sessions">
+      <div class="ssb-section" role="treeitem"><span class="codicon codicon-pinned ssb-icon" aria-hidden="true"></span><span class="ssb-label">Pinned</span></div>
+      <div class="ssb-section" role="treeitem"><span class="codicon codicon-comment-discussion ssb-icon" aria-hidden="true"></span><span class="ssb-label">Chats</span></div>
+      <button class="ssb-chat" role="treeitem" data-session="cust-proto"><span class="ssb-status"><span class="ssb-dot" aria-label="Unread"></span></span><span class="ssb-title">Customizations sidebar prototype</span></button>
+      <button class="ssb-chat" role="treeitem" data-session="settings-proto"><span class="ssb-status"><span class="ssb-spinner" aria-label="In progress"></span></span><span class="ssb-title">Settings prototype</span></button>
+      <div class="ssb-section" role="treeitem"><span class="codicon codicon-folder ssb-icon" aria-hidden="true"></span><span class="ssb-label">vscode</span></div>
+      <button class="ssb-chat" role="treeitem" data-session="tree-collapse"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Fix tree group collapse in customization list</span></button>
+      <button class="ssb-chat" role="treeitem" data-session="settings-ia"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Settings IA: agents-first ordering</span></button>
+      <div class="ssb-section" role="treeitem"><span class="codicon codicon-folder ssb-icon" aria-hidden="true"></span><span class="ssb-label">vscode [devbox-1]</span></div>
+      <button class="ssb-chat" role="treeitem" data-session="triage"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Triage customization migration issues</span></button>
+      <div class="ssb-section" role="treeitem"><span class="codicon codicon-folder ssb-icon" aria-hidden="true"></span><span class="ssb-label">adt</span></div>
+      <button class="ssb-chat" role="treeitem" data-session="export-skill"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Export design system skill</span></button>
+    </div>
+  </aside>
+  <main class="page" id="page">
+    <vsc-session-view variant="new">
+      <div class="new-session-welcome-message"><h2 class="new-session-welcome-message-title" id="greet">Good morning, Hawk</h2></div>
+      <vsc-chat-input id="composer" variant="new-session" placeholder="What should agents work on?" workspace="vscode" isolation="worktree"></vsc-chat-input>
+    </vsc-session-view>
+  </main>
+  <aside class="side-panel" id="side-panel" aria-label="Side Panel">
+    <div class="monaco-sash mac vertical" id="panel-sash" role="separator" aria-orientation="vertical" aria-label="Resize Side Panel"></div>
+    <vsc-agents-editor-part id="editor-part" tabs="Changes,Files,Customizations" active="Customizations">
+    <section class="cpanel" id="cpanel" aria-label="Customizations"><div class="v7-view" id="v-everyday"></div></section>
+    </vsc-agents-editor-part>
+  </aside>
+  <script src="stage.js"></script>
+  <script src="scope.js"></script>
+  <script>
+    // Runs while the page parses, before system.js upgrades the elements (they read their slotted children once).
+    (function () {
+      const C = window.PANEL_CONFIG, { items } = window.SCOPE, params = new URLSearchParams(location.search);
+      document.getElementById("side-panel").style.width = C.width + "px";
+      const composer = document.getElementById("composer");
+      for (const k of ["workspace", "harness", "environment"]) { if (params.get(k)) C.scope[k] = params.get(k); composer.setAttribute(k, C.scope[k]); }
+      if (params.get("sidebar") === "off") { C.sidebar = false; }
+      document.getElementById("sessions-sidebar").hidden = !C.sidebar;
+    })();
+  </script>
+  <script>
+    // The welcome phrase follows the time of day.
+    (function () {
+      const h = new Date().getHours();
+      document.getElementById("greet").textContent = `Good ${h < 12 ? "morning" : h < 18 ? "afternoon" : "evening"}, Hawk`;
+    })();
+  </script>
+  </div>
+  <vsc-notification-toasts></vsc-notification-toasts>
+  <vsc-modal-editor id="library" class="lib-modal" contained heading="Customizations" hidden>
+    <div id="lib-root" style="height: 100%;"></div>
+  </vsc-modal-editor>
+</vsc-workbench>
+
+<script type="module">
+import { setPanel, setTab } from "./panel-shell.js";
+import { mountLibrary } from "./library.js?v=2";
+import { mountEveryday, setPanelApi } from "./everyday.js?v=5";
+// ---- Window: sessions sidebar, the open session and the new-session view (shared by V5–V7) ----
+import { store, setState } from "./scope-store.js";
+import { toast as notify } from "./panel-shell.js";
+// A remote environment to pick in the composer (and the panel): devbox-1, next to This Computer and Cloud.
+{
+  const envs = window.ds.vscode.chatPickers.data.environments;
+  if (!envs.some((e) => e.id === "devbox-1")) envs.splice(envs.findIndex((e) => e.id === "cloud") + 1, 0, { id: "devbox-1", label: "devbox-1", icon: "remote" });
+}
+const sidebar = document.getElementById("sessions-sidebar"), sbToggle = document.getElementById("toggle-sidebar");
+const setSidebar = (open) => {
+  sidebar.hidden = !open;
+  sbToggle.setAttribute("icon", open ? "layout-sidebar-left" : "layout-sidebar-left-off");
+  sbToggle.setAttribute("label", open ? "Hide Sessions Sidebar" : "Show Sessions Sidebar");
+  sbToggle.toggleAttribute("checked", open);
+};
+setSidebar(!sidebar.hidden);
+sbToggle.addEventListener("click", () => setSidebar(sidebar.hidden));
+const navCustomizations = document.getElementById("nav-customizations");
+
+const SESSIONS = {
+  "cust-proto": { title: "Customizations sidebar prototype", scope: { workspace: "chat", harness: "copilot", environment: "local" }, time: "12:58 PM",
+    prompt: "Explore moving the Customizations modal into the right side panel.", steps: ["Read skill <strong>comparison-screenshot</strong>"],
+    reply: "I built three side-panel variants and shared the viewer links. V2 keeps the overview and drills into each type." },
+  "settings-proto": { title: "Settings prototype", scope: { workspace: "chat", harness: "copilot", environment: "local" }, time: "12:40 PM", running: true,
+    prompt: "Modernize the Settings editor IA.", steps: ["Searched settings for <strong>agents</strong>", "Reading <strong>settings-data.js</strong>"], reply: "" },
+  "tree-collapse": { title: "Fix tree group collapse in customization list", scope: { workspace: "vscode", harness: "copilot", environment: "local" }, time: "11:52 AM",
+    prompt: "Collapsing a group in the customization list doesn't hide its rows.",
+    steps: ["Read <strong>tree-widgets.instructions.md</strong>", "Read skill <strong>component-fixtures</strong>", "Edited <strong>aiCustomizationListWidget.ts</strong>"],
+    reply: "Rows now hide with their group. The group header toggles a `collapsed` state and the list re-filters its rows." },
+  "settings-ia": { title: "Settings IA: agents-first ordering", scope: { workspace: "vscode", harness: "claude", environment: "local" }, time: "10:05 AM",
+    prompt: "Order Settings categories with Chat & Agents first in the Agents window.", steps: ["Read <strong>CLAUDE.md</strong>", "Edited <strong>settingsLayout.ts</strong>"],
+    reply: "Chat & Agents now leads the table of contents when Settings opens from the Agents window." },
+  "triage": { title: "Triage customization migration issues", scope: { workspace: "vscode", harness: "copilot", environment: "devbox-1" }, time: "Yesterday",
+    prompt: "Group the open customization migration issues by root cause.", steps: ["Ran <strong>issue-grouping</strong> skill", "Called <strong>github-mcp-server</strong> · search_issues"],
+    reply: "14 issues fall into 4 groups. The largest is shadowed MCP servers after migration (6 issues)." },
+  "export-skill": { title: "Export design system skill", scope: { workspace: "adt", harness: "codex", environment: "local" }, time: "Yesterday",
+    prompt: "Export the design system as a skill.", steps: ["Read <strong>system.json</strong>"], reply: "Exported to .github/skills/vscode-design-system." },
+};
+let seq = 0;
+const page = document.getElementById("page"), newView = page.querySelector("vsc-session-view"), composer = document.getElementById("composer");
+const sessionPage = document.createElement("div");
+sessionPage.id = "session-page";
+sessionPage.hidden = true;
+page.append(sessionPage);
+const ccLabel = document.querySelector(".cc-label");
+const ccDefault = ccLabel.textContent;
+const composerScope = () => ({ workspace: composer.getAttribute("workspace") || "vscode", harness: composer.getAttribute("harness") || "copilot", environment: composer.getAttribute("environment") || "local" });
+
+window.__openSession = (id) => openSession(id);
+function openSession(id) {
+  const s = SESSIONS[id];
+  setState({ mode: "session", scope: { ...s.scope }, session: { id, ...s } });
+  for (const r of sidebar.querySelectorAll("[data-session]")) r.classList.toggle("selected", r.dataset.session === id);
+  navCustomizations.classList.toggle("active", false);
+  const steps = s.steps.map((t, i) => `<vsc-chat-tool-call icon="${/^Read|^Reading/.test(t) ? "book-compact" : /^Edited/.test(t) ? "edit-compact" : "tools"}"${s.running && i === s.steps.length - 1 ? " running" : ""}>${t}</vsc-chat-tool-call>`).join("");
+  sessionPage.innerHTML = `<div class="s-head"><h2>${window.CUST.esc(s.title)}</h2><vsc-toolbar label="Session Actions"><vsc-action icon="ellipsis" label="More Actions..."></vsc-action></vsc-toolbar></div>
+    <div class="s-chat"><vsc-chat-view><vsc-chat-request timestamp="${s.time}">${window.CUST.esc(s.prompt)}</vsc-chat-request>
+      <vsc-chat-response><vsc-chat-tool-chain>${steps}</vsc-chat-tool-chain>${s.reply ? `<vsc-chat-markdown>${window.CUST.esc(s.reply)}</vsc-chat-markdown>` : ""}</vsc-chat-response></vsc-chat-view></div>
+    <div class="s-composer"><vsc-session-view><vsc-chat-input variant="session" harness="${s.scope.harness}" context-usage="${s.running ? 22 : 14}"></vsc-chat-input></vsc-session-view></div>`;
+  newView.hidden = true;
+  sessionPage.hidden = false;
+  page.scrollTop = 0;
+  ccLabel.textContent = s.title;
+  document.dispatchEvent(new CustomEvent("session-open", { detail: { id, session: s, el: sessionPage } }));
+}
+function newSession() {
+  setState({ mode: "new", scope: composerScope(), session: null });
+  for (const r of sidebar.querySelectorAll("[data-session]")) r.classList.remove("selected");
+  sessionPage.hidden = true;
+  newView.hidden = false;
+  ccLabel.textContent = ccDefault;
+  document.dispatchEvent(new CustomEvent("session-new"));
+}
+sidebar.addEventListener("click", (e) => {
+  const row = e.target.closest("[data-session]");
+  if (row) return openSession(row.dataset.session);
+  const b = e.target.closest("[data-nav]");
+  if (!b) return;
+  if (b.dataset.nav === "new") newSession();
+  else if (b.dataset.nav === "automations") notify("Automations aren't part of this prototype.");
+});
+document.addEventListener("keydown", (e) => { if (e.metaKey && !e.shiftKey && e.key.toLowerCase() === "n") { e.preventDefault(); newSession(); } });
+
+// Sending from the new-session composer starts a session: the scope you picked becomes fixed.
+function send() {
+  const text = (composer._value || "").trim();
+  if (!text || store.mode !== "new") return;
+  const scope = composerScope(), id = "new-" + ++seq;
+  SESSIONS[id] = { title: text.length > 48 ? text.slice(0, 47) + "…" : text, scope, time: "Now", running: true, prompt: text, steps: ["Working"], reply: "" };
+  const { workspaceLabel } = window.SCOPE;
+  const label = scope.workspace === "chat" ? "Chats" : workspaceLabel(scope.workspace) + (scope.environment === "local" ? "" : ` [${scope.environment}]`);
+  let section = [...sidebar.querySelectorAll(".ssb-section")].find((x) => x.textContent.trim() === label);
+  if (!section) {
+    section = document.createElement("div");
+    section.className = "ssb-section"; section.setAttribute("role", "treeitem");
+    section.innerHTML = `<span class="codicon codicon-folder ssb-icon" aria-hidden="true"></span><span class="ssb-label">${window.CUST.esc(label)}</span>`;
+    const firstWs = [...sidebar.querySelectorAll(".ssb-section")].find((x) => x.querySelector(".codicon-folder"));
+    sidebar.querySelector(".ssb-list").insertBefore(section, firstWs || null);
+  }
+  const row = document.createElement("button");
+  row.className = "ssb-chat"; row.setAttribute("role", "treeitem"); row.dataset.session = id;
+  row.innerHTML = `<span class="ssb-status"><span class="ssb-spinner" aria-label="In progress"></span></span><span class="ssb-title">${window.CUST.esc(SESSIONS[id].title)}</span>`;
+  section.after(row);
+  composer.setAttribute("value", "");
+  composer._value = "";
+  openSession(id);
+}
+composer.addEventListener("click", (e) => { if (e.target.closest("vsc-chat-submit")) send(); });
+composer.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); send(); } }, true);
+
+const C = window.PANEL_CONFIG, params = new URLSearchParams(location.search);
+const $ = (s) => document.querySelector(s);
+if (params.get("panel") === "open") setPanel(true);
+const modal = $("#library");
+const library = mountLibrary($("#lib-root"), { onSession: () => { closeLibrary(); setPanel(true); setTab("Customizations"); } });
+function openLibrary(section, scope) { modal.hidden = false; navCustomizations.classList.add("active"); library.show(section || library.lastType, scope); }
+function closeLibrary() { modal.hidden = true; navCustomizations.classList.remove("active"); }
+modal.addEventListener("modal-close", closeLibrary);
+modal.addEventListener("modal-maximize", () => modal.querySelector(".modal-editor-resizable").classList.toggle("se-maximized"));
+window.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden && !document.querySelector("vsc-menu")) { e.preventDefault(); e.stopPropagation(); closeLibrary(); } }, true);
+navCustomizations.addEventListener("click", () => openLibrary());
+window.__evBrowse = () => openLibrary("browse");
+window.__evOpenPanel = () => { setPanel(true); setTab("Customizations"); };
+
+setPanelApi(mountEveryday($("#v-everyday"), { onBrowse: () => openLibrary("browse") }));
+if (params.get("session")) window.__openSession(params.get("session"));
+const start = params.get("library") || C.library;
+if (start) openLibrary(start);
+
+</script>
+</body>
+</html>

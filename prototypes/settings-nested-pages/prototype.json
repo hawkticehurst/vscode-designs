@@ -1,0 +1,25 @@
+{
+  "title": "Settings",
+  "status": "draft",
+  "tags": [
+    "settings",
+    "vscode",
+    "information-architecture",
+    "enterprise",
+    "policy"
+  ],
+  "system": "vscode",
+  "group": "settings-modernization",
+  "variantOf": "settings-vscode-native",
+  "entry": "index.html",
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-04T18:44:57.742Z",
+  "updatedAt": "2026-11-04T18:44:57.742Z",
+  "description": "V5 (VS Code-native rows, Managed page) with nested sub-pages to make hundreds of settings less overwhelming. Category pages with several subsections become an overview of subsections (title, count, a preview of the settings inside, modified/managed counts, and the section's on/off switch where it has one); clicking one opens a nested page with just those settings. A breadcrumb in the header (with a back button, Alt+← and mouse back) shows where you are, the sidebar lists only top-level categories, and pages slide in/out with a short transition (fade for category switches; off with reduced motion).",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  }
+}

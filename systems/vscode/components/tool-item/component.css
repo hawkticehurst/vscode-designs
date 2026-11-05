@@ -1,0 +1,15 @@
+/* @capture src/vs/workbench/contrib/chat/browser/aiCustomization/media/aiCustomizationManagement.css@1565 (ToolsToolRowRenderer) */
+.ai-customization-management-editor .tools-list-toolrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: var(--vscode-spacing-size60) var(--vscode-spacing-size120) var(--vscode-spacing-size60) calc(var(--vscode-spacing-size400) + var(--vscode-spacing-size40));
+  border-radius: var(--vscode-cornerRadius-small);
+  cursor: pointer;
+  outline-offset: -1px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.ai-customization-management-editor .tools-list-toolrow .customization-toggle { order: 10; margin-left: auto; }
+.ai-customization-management-editor .tools-list-toolrow.readonly { cursor: default; }
+.ai-customization-management-editor .tools-list-toolrow .tools-list-row-text { line-height: normal; }

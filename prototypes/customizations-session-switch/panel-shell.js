@@ -113,10 +113,11 @@ export function openMenu(at, items, onPick) {
   });
   wb.append(menu);
   openMenuEl = menu;
-  // Keep it on screen.
+  // Keep it on screen, still aligned to an edge of what opened it: its left edge by default, its right edge when that
+  // would overflow, and above it when there's no room below.
   requestAnimationFrame(() => {
     const m = menu.getBoundingClientRect();
-    if (m.right > box.right - 8) menu.style.left = Math.max(8, box.right - 8 - m.width - box.left) + "px";
+    if (m.right > box.right - 8) menu.style.left = Math.max(8, r.right - box.left - m.width) + "px";
     if (m.bottom > box.bottom - 8) menu.style.top = Math.max(8, r.top - box.top - m.height - 2) + "px";
   });
 }

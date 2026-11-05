@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Customizations — This session · Library · Browse</title>
 <link rel="stylesheet" href="../../systems/vscode/system.css" />
-<link rel="stylesheet" href="panel-kit.css" />
+<link rel="stylesheet" href="panel-kit.css?v=2" />
 <link rel="stylesheet" href="session.css" />
-<link rel="stylesheet" href="library.css" />
+<link rel="stylesheet" href="library.css?v=3" />
 <script type="module" src="../../systems/vscode/system.js"></script>
 <script src="customizations.js"></script>
 <script src="panel-config.js"></script>
@@ -121,15 +121,15 @@
     <div class="ssb-list" role="tree" aria-label="Sessions">
       <div class="ssb-section" role="treeitem"><span class="codicon codicon-pinned ssb-icon" aria-hidden="true"></span><span class="ssb-label">Pinned</span></div>
       <div class="ssb-section" role="treeitem"><span class="codicon codicon-comment-discussion ssb-icon" aria-hidden="true"></span><span class="ssb-label">Chats</span></div>
-      <button class="ssb-chat unread" role="treeitem"><span class="ssb-status"><span class="ssb-dot" aria-label="Unread"></span></span><span class="ssb-title">Customizations sidebar prototype</span></button>
-      <button class="ssb-chat" role="treeitem"><span class="ssb-status"><span class="ssb-spinner" aria-label="In progress"></span></span><span class="ssb-title">Settings prototype</span></button>
+      <button class="ssb-chat" role="treeitem" data-session="cust-proto"><span class="ssb-status"><span class="ssb-dot" aria-label="Unread"></span></span><span class="ssb-title">Customizations sidebar prototype</span></button>
+      <button class="ssb-chat" role="treeitem" data-session="settings-proto"><span class="ssb-status"><span class="ssb-spinner" aria-label="In progress"></span></span><span class="ssb-title">Settings prototype</span></button>
       <div class="ssb-section" role="treeitem"><span class="codicon codicon-folder ssb-icon" aria-hidden="true"></span><span class="ssb-label">vscode</span></div>
-      <button class="ssb-chat" role="treeitem"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Fix tree group collapse in customization list</span></button>
-      <button class="ssb-chat" role="treeitem"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Settings IA: agents-first ordering</span></button>
+      <button class="ssb-chat" role="treeitem" data-session="tree-collapse"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Fix tree group collapse in customization list</span></button>
+      <button class="ssb-chat" role="treeitem" data-session="settings-ia"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Settings IA: agents-first ordering</span></button>
       <div class="ssb-section" role="treeitem"><span class="codicon codicon-folder ssb-icon" aria-hidden="true"></span><span class="ssb-label">vscode [devbox-1]</span></div>
-      <button class="ssb-chat" role="treeitem"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Triage customization migration issues</span></button>
+      <button class="ssb-chat" role="treeitem" data-session="triage"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Triage customization migration issues</span></button>
       <div class="ssb-section" role="treeitem"><span class="codicon codicon-folder ssb-icon" aria-hidden="true"></span><span class="ssb-label">adt</span></div>
-      <button class="ssb-chat" role="treeitem"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Export design system skill</span></button>
+      <button class="ssb-chat" role="treeitem" data-session="export-skill"><span class="ssb-status"><span class="ssb-dot idle" aria-hidden="true"></span></span><span class="ssb-title">Export design system skill</span></button>
     </div>
   </aside>
   <main class="page" id="page">
@@ -187,7 +187,14 @@
 <script type="module">
 import { setPanel, setTab, filterList } from "./panel-shell.js";
 import { mountSession } from "./session-view.js";
-// Sessions sidebar: toggled from the title bar (its Customizations section is the entry to everything you have).
+// ---- Window: sessions sidebar, the open session and the new-session view (shared by V5–V7) ----
+import { store, setState } from "./scope-store.js";
+import { toast as notify } from "./panel-shell.js";
+// A remote environment to pick in the composer (and the panel): devbox-1, next to This Computer and Cloud.
+{
+  const envs = window.ds.vscode.chatPickers.data.environments;
+  if (!envs.some((e) => e.id === "devbox-1")) envs.splice(envs.findIndex((e) => e.id === "cloud") + 1, 0, { id: "devbox-1", label: "devbox-1", icon: "remote" });
+}
 const sidebar = document.getElementById("sessions-sidebar"), sbToggle = document.getElementById("toggle-sidebar");
 const setSidebar = (open) => {
   sidebar.hidden = !open;
@@ -198,13 +205,100 @@ const setSidebar = (open) => {
 setSidebar(!sidebar.hidden);
 sbToggle.addEventListener("click", () => setSidebar(sidebar.hidden));
 const navCustomizations = document.getElementById("nav-customizations");
-sidebar.querySelector(".ssb-nav").addEventListener("click", (e) => {
+
+const SESSIONS = {
+  "cust-proto": { title: "Customizations sidebar prototype", scope: { workspace: "chat", harness: "copilot", environment: "local" }, time: "12:58 PM",
+    prompt: "Explore moving the Customizations modal into the right side panel.", steps: ["Read skill <strong>comparison-screenshot</strong>"],
+    reply: "I built three side-panel variants and shared the viewer links. V2 keeps the overview and drills into each type." },
+  "settings-proto": { title: "Settings prototype", scope: { workspace: "chat", harness: "copilot", environment: "local" }, time: "12:40 PM", running: true,
+    prompt: "Modernize the Settings editor IA.", steps: ["Searched settings for <strong>agents</strong>", "Reading <strong>settings-data.js</strong>"], reply: "" },
+  "tree-collapse": { title: "Fix tree group collapse in customization list", scope: { workspace: "vscode", harness: "copilot", environment: "local" }, time: "11:52 AM",
+    prompt: "Collapsing a group in the customization list doesn't hide its rows.",
+    steps: ["Read <strong>tree-widgets.instructions.md</strong>", "Read skill <strong>component-fixtures</strong>", "Edited <strong>aiCustomizationListWidget.ts</strong>"],
+    reply: "Rows now hide with their group. The group header toggles a `collapsed` state and the list re-filters its rows." },
+  "settings-ia": { title: "Settings IA: agents-first ordering", scope: { workspace: "vscode", harness: "claude", environment: "local" }, time: "10:05 AM",
+    prompt: "Order Settings categories with Chat & Agents first in the Agents window.", steps: ["Read <strong>CLAUDE.md</strong>", "Edited <strong>settingsLayout.ts</strong>"],
+    reply: "Chat & Agents now leads the table of contents when Settings opens from the Agents window." },
+  "triage": { title: "Triage customization migration issues", scope: { workspace: "vscode", harness: "copilot", environment: "devbox-1" }, time: "Yesterday",
+    prompt: "Group the open customization migration issues by root cause.", steps: ["Ran <strong>issue-grouping</strong> skill", "Called <strong>github-mcp-server</strong> · search_issues"],
+    reply: "14 issues fall into 4 groups. The largest is shadowed MCP servers after migration (6 issues)." },
+  "export-skill": { title: "Export design system skill", scope: { workspace: "adt", harness: "codex", environment: "local" }, time: "Yesterday",
+    prompt: "Export the design system as a skill.", steps: ["Read <strong>system.json</strong>"], reply: "Exported to .github/skills/vscode-design-system." },
+};
+let seq = 0;
+const page = document.getElementById("page"), newView = page.querySelector("vsc-session-view"), composer = document.getElementById("composer");
+const sessionPage = document.createElement("div");
+sessionPage.id = "session-page";
+sessionPage.hidden = true;
+page.append(sessionPage);
+const ccLabel = document.querySelector(".cc-label");
+const ccDefault = ccLabel.textContent;
+const composerScope = () => ({ workspace: composer.getAttribute("workspace") || "vscode", harness: composer.getAttribute("harness") || "copilot", environment: composer.getAttribute("environment") || "local" });
+
+window.__openSession = (id) => openSession(id);
+function openSession(id) {
+  const s = SESSIONS[id];
+  setState({ mode: "session", scope: { ...s.scope }, session: { id, ...s } });
+  for (const r of sidebar.querySelectorAll("[data-session]")) r.classList.toggle("selected", r.dataset.session === id);
+  navCustomizations.classList.toggle("active", false);
+  const steps = s.steps.map((t, i) => `<vsc-chat-tool-call icon="${/^Read|^Reading/.test(t) ? "book-compact" : /^Edited/.test(t) ? "edit-compact" : "tools"}"${s.running && i === s.steps.length - 1 ? " running" : ""}>${t}</vsc-chat-tool-call>`).join("");
+  sessionPage.innerHTML = `<div class="s-head"><h2>${window.CUST.esc(s.title)}</h2><vsc-toolbar label="Session Actions"><vsc-action icon="ellipsis" label="More Actions..."></vsc-action></vsc-toolbar></div>
+    <div class="s-chat"><vsc-chat-view><vsc-chat-request timestamp="${s.time}">${window.CUST.esc(s.prompt)}</vsc-chat-request>
+      <vsc-chat-response><vsc-chat-tool-chain>${steps}</vsc-chat-tool-chain>${s.reply ? `<vsc-chat-markdown>${window.CUST.esc(s.reply)}</vsc-chat-markdown>` : ""}</vsc-chat-response></vsc-chat-view></div>
+    <div class="s-composer"><vsc-session-view><vsc-chat-input variant="session" harness="${s.scope.harness}" context-usage="${s.running ? 22 : 14}"></vsc-chat-input></vsc-session-view></div>`;
+  newView.hidden = true;
+  sessionPage.hidden = false;
+  page.scrollTop = 0;
+  ccLabel.textContent = s.title;
+  document.dispatchEvent(new CustomEvent("session-open", { detail: { id, session: s, el: sessionPage } }));
+}
+function newSession() {
+  setState({ mode: "new", scope: composerScope(), session: null });
+  for (const r of sidebar.querySelectorAll("[data-session]")) r.classList.remove("selected");
+  sessionPage.hidden = true;
+  newView.hidden = false;
+  ccLabel.textContent = ccDefault;
+  document.dispatchEvent(new CustomEvent("session-new"));
+}
+sidebar.addEventListener("click", (e) => {
+  const row = e.target.closest("[data-session]");
+  if (row) return openSession(row.dataset.session);
   const b = e.target.closest("[data-nav]");
-  if (b && b.dataset.nav !== "customizations") import("./panel-shell.js").then((m) => m.toast(b.dataset.nav === "new" ? "You're already in a new session." : "Automations aren't part of this prototype."));
+  if (!b) return;
+  if (b.dataset.nav === "new") newSession();
+  else if (b.dataset.nav === "automations") notify("Automations aren't part of this prototype.");
 });
+document.addEventListener("keydown", (e) => { if (e.metaKey && !e.shiftKey && e.key.toLowerCase() === "n") { e.preventDefault(); newSession(); } });
+
+// Sending from the new-session composer starts a session: the scope you picked becomes fixed.
+function send() {
+  const text = (composer._value || "").trim();
+  if (!text || store.mode !== "new") return;
+  const scope = composerScope(), id = "new-" + ++seq;
+  SESSIONS[id] = { title: text.length > 48 ? text.slice(0, 47) + "…" : text, scope, time: "Now", running: true, prompt: text, steps: ["Working"], reply: "" };
+  const { workspaceLabel } = window.SCOPE;
+  const label = scope.workspace === "chat" ? "Chats" : workspaceLabel(scope.workspace) + (scope.environment === "local" ? "" : ` [${scope.environment}]`);
+  let section = [...sidebar.querySelectorAll(".ssb-section")].find((x) => x.textContent.trim() === label);
+  if (!section) {
+    section = document.createElement("div");
+    section.className = "ssb-section"; section.setAttribute("role", "treeitem");
+    section.innerHTML = `<span class="codicon codicon-folder ssb-icon" aria-hidden="true"></span><span class="ssb-label">${window.CUST.esc(label)}</span>`;
+    const firstWs = [...sidebar.querySelectorAll(".ssb-section")].find((x) => x.querySelector(".codicon-folder"));
+    sidebar.querySelector(".ssb-list").insertBefore(section, firstWs || null);
+  }
+  const row = document.createElement("button");
+  row.className = "ssb-chat"; row.setAttribute("role", "treeitem"); row.dataset.session = id;
+  row.innerHTML = `<span class="ssb-status"><span class="ssb-spinner" aria-label="In progress"></span></span><span class="ssb-title">${window.CUST.esc(SESSIONS[id].title)}</span>`;
+  section.after(row);
+  composer.setAttribute("value", "");
+  composer._value = "";
+  openSession(id);
+}
+composer.addEventListener("click", (e) => { if (e.target.closest("vsc-chat-submit")) send(); });
+composer.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); send(); } }, true);
 
 const C = window.PANEL_CONFIG, params = new URLSearchParams(location.search);
-const { TYPES, SOURCES, WORKSPACES, items } = window.SCOPE, { esc } = window.CUST;
+const { TYPES, SOURCES, WORKSPACES, items, workspaceTitle } = window.SCOPE, { esc } = window.CUST;
 const $ = (s) => document.querySelector(s);
 
 function setView(view) {
@@ -216,13 +310,13 @@ $("#views").addEventListener("change", (e) => setView(e.detail.value));
 
 mountSession($("#v-session"), { scope: C.scope, composer: $("#composer"), footer: false });
 
-// Library: one section per type; inside, the type's tree grouped by source (yours, each workspace, plugins, built-in).
+// Library: one section per type; inside, the type's tree grouped by source (user, each workspace, plugins, built-in).
 const flow = $("#lib-flow"), chips = $("#lib-chips");
 const state = { filter: params.get("filter") || C.filter, q: "" };
 const groupsFor = (t) => {
   const of = items.filter((it) => it.type === t.id);
-  const parts = [["Yours", "account", of.filter((it) => it.source === "user")],
-    ...Object.entries(WORKSPACES).map(([id, w]) => [w.label, "folder", of.filter((it) => it.source === "workspace" && it.workspace === id)]),
+  const parts = [["User", "account", of.filter((it) => it.source === "user")],
+    ...Object.keys(WORKSPACES).map((id) => [workspaceTitle(id), "folder", of.filter((it) => it.source === "workspace" && it.workspace === id)]),
     ["From plugins", "plug", of.filter((it) => it.source === "plugin")], ["Built-in", "vscode-insiders", of.filter((it) => it.source === "builtin")]];
   return parts.filter(([, , rows]) => rows.length).map(([label, icon, rows], i) =>
     `<vsc-customization-group label="${esc(label)}" count="${rows.length}" icon="${icon}" actions=""${i === 0 ? " first" : ""}${rows.length > 6 ? " collapsed" : ""}></vsc-customization-group>` + rows.map((r) => r.html).join("")).join("");

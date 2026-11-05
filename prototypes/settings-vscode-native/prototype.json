@@ -1,0 +1,25 @@
+{
+  "title": "Settings",
+  "description": "V1 with list items and sections rendered the way VS Code's current Settings editor renders them (settingsEditor2.css), in response to feedback that rounded cards with dividers stray from VS Code's design language: no cards or row dividers, plain bold headings (26px page / 18px section), flat rows with the settings hover/focused-row background and outline (rounded), the 2px modified bar, \"Category: Label\" titles, list settings as plain rounded rows with a small Add Item button. Also includes V4's organization-managed policies and the dedicated Managed page.",
+  "status": "draft",
+  "tags": [
+    "settings",
+    "vscode",
+    "information-architecture",
+    "enterprise",
+    "policy"
+  ],
+  "system": "vscode",
+  "group": "settings-modernization",
+  "variantOf": "settings",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-04T18:17:31.651Z",
+  "updatedAt": "2026-11-04T18:38:56.575Z"
+}

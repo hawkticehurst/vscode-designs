@@ -84,3 +84,47 @@ export function filterList(list, query) {
   close();
   return matches;
 }
+
+// Context menu (<vsc-menu>) at a point or under an element. items: [{ label, checked, disabled } | "-"]; onPick(item).
+let openMenuEl = null;
+export function closeMenu() { openMenuEl?.remove(); openMenuEl = null; }
+export function openMenu(at, items, onPick) {
+  closeMenu();
+  const wb = document.getElementById("wb"), box = wb.getBoundingClientRect();
+  const r = at instanceof Element ? at.getBoundingClientRect() : { left: at.x, bottom: at.y, right: at.x };
+  const menu = document.createElement("vsc-menu");
+  menu.setAttribute("label", "Actions");
+  for (const it of items) {
+    const el = document.createElement(it === "-" ? "vsc-menu-separator" : "vsc-menu-item");
+    if (it !== "-") {
+      el.setAttribute("label", it.label);
+      if (it.checked) el.setAttribute("checked", "");
+      if (it.disabled) el.setAttribute("disabled", "");
+      el.__item = it;
+    }
+    menu.append(el);
+  }
+  menu.setAttribute("x", String(Math.round(r.left - box.left)));
+  menu.setAttribute("y", String(Math.round(r.bottom - box.top + 2)));
+  menu.addEventListener("click", (e) => {
+    const item = e.target.closest("vsc-menu-item");
+    if (item && !item.__item.disabled) { closeMenu(); onPick(item.__item); }
+    else if (e.target.closest(".context-view-block")) closeMenu();
+  });
+  wb.append(menu);
+  openMenuEl = menu;
+  // Keep it on screen, still aligned to an edge of what opened it: its left edge by default, its right edge when that
+  // would overflow, and above it when there's no room below.
+  requestAnimationFrame(() => {
+    const m = menu.getBoundingClientRect();
+    if (m.right > box.right - 8) menu.style.left = Math.max(8, r.right - box.left - m.width) + "px";
+    if (m.bottom > box.bottom - 8) menu.style.top = Math.max(8, r.top - box.top - m.height - 2) + "px";
+  });
+}
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && openMenuEl) { e.stopPropagation(); closeMenu(); } }, true);
+
+export function toast(message, buttons = [], onAction) {
+  const el = document.querySelector("vsc-notification-toasts")?.show({ severity: "info", message, buttons });
+  if (el && onAction) el.addEventListener("action", (e) => onAction(e.detail.label));
+  return el;
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Settings",
+  "status": "draft",
+  "tags": [
+    "settings",
+    "vscode",
+    "information-architecture",
+    "enterprise",
+    "policy"
+  ],
+  "system": "vscode",
+  "group": "settings-modernization",
+  "variantOf": "settings-theme-picker",
+  "entry": "index.html",
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-04T20:06:57.382Z",
+  "updatedAt": "2026-11-04T20:06:57.382Z",
+  "description": "V7 with a different theme preview graphic: each theme card shows a real, tiny TypeScript snippet (with line numbers and a greet.ts tab) rendered in the theme's actual editor background, syntax colors and status bar color, instead of a miniature workbench.",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  }
+}

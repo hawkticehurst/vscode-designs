@@ -1,7 +1,7 @@
 /* ToolsListWidget rows (src/vs/workbench/contrib/chat/browser/aiCustomization/toolsListWidget.ts). */
 class ToolSetItem extends ds.Element {
   static hostClass = "monaco-list-row";
-  static props = ["name", "description", "count", "enabled", "locked", "more", "connected", "action"];
+  static props = ["name", "description", "count", "enabled", "locked", "more", "connected", "action", "expanded"];
 
   render() {
     const h = ds.h;
@@ -34,7 +34,10 @@ class ToolSetItem extends ds.Element {
     } else {
       const count = this.attr("count", "");
       const [on, total] = count.split("/");
-      contents = h("div.monaco-tl-contents.tools-list-setrow", this.flag("locked") ? { "aria-expanded": "false" } : { "aria-checked": String(enabled), "aria-expanded": "false" },
+      const expanded = this.hasAttribute("expanded");
+      // The chevron expands the set to its tools (ToolsSetRowRenderer: codicon-chevron-down-compact when expanded).
+      const expand = (e) => { e.preventDefault(); e.stopPropagation(); this.toggleAttribute("expanded"); this.dispatchEvent(new CustomEvent("expand", { bubbles: true, detail: { name, expanded: !expanded } })); };
+      contents = h("div.monaco-tl-contents.tools-list-setrow", this.flag("locked") ? { "aria-expanded": String(expanded) } : { "aria-checked": String(enabled), "aria-expanded": String(expanded) },
         sw,
         h("div.tools-list-row-main", null, text),
         h("span.tools-list-always-available", { style: "display: none;" }, "Always Available"),
@@ -42,7 +45,7 @@ class ToolSetItem extends ds.Element {
         this.flag("more")
           ? h("button.tools-list-more-action.codicon.codicon-ellipsis", { type: "button", tabindex: "-1", style: "", "aria-label": `More actions for ${name}`, title: `More actions for ${name}` })
           : h("button.tools-list-more-action.codicon.codicon-ellipsis", { type: "button", tabindex: "-1", style: "display: none;" }),
-        h("a.tools-list-chevron.codicon.codicon-chevron-right-compact", { "aria-hidden": "true" }));
+        h("a.tools-list-chevron.codicon.codicon-chevron-" + (expanded ? "down" : "right") + "-compact", { "aria-hidden": "true", onclick: expand }));
     }
     return h("div.monaco-tl-row", null,
       h("div.monaco-tl-indent", { style: "width: 8px;" }),

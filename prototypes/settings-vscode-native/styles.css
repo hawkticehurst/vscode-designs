@@ -1,0 +1,576 @@
+/* The modal editor part fills its panel; the DS sizes .content with a fixed calc that leaves a gap. */
+.modal-editor-part:has(.se) { display: flex; flex-direction: column; }
+.modal-editor-part:has(.se) > .content { flex: 1 1 auto; min-height: 0; height: auto !important; }
+.modal-editor-part:has(.se) > .modal-editor-header { flex: none; box-sizing: border-box; border-bottom: 1px solid var(--vscode-widget-border); }
+
+/* Size the modal from its container (not once at load), so it follows window/viewer resizes. */
+.monaco-modal-editor-block .modal-editor-resizable:has(.se) { container: se-modal / inline-size; }
+.monaco-modal-editor-block .modal-editor-resizable:has(.se):not(.se-maximized) {
+	--se-modal-w: min(1240px, calc(100% - 48px));
+	--se-modal-h: min(880px, calc(100% - 48px));
+	width: var(--se-modal-w) !important; height: var(--se-modal-h) !important;
+	left: calc((100% - var(--se-modal-w)) / 2) !important; top: calc((100% - var(--se-modal-h)) / 2) !important;
+	/* Snap to whole pixels: a half-pixel offset makes text re-rasterize (and appear to shift) when anything on top repaints. */
+	width: round(down, var(--se-modal-w), 1px) !important; height: round(down, var(--se-modal-h), 1px) !important;
+	left: round(down, calc((100% - var(--se-modal-w)) / 2), 1px) !important; top: round(down, calc((100% - var(--se-modal-h)) / 2), 1px) !important;
+}
+
+/* Settings editor (proposal). Built on VS Code theme tokens; prototype-owned elements use border-box. */
+.se, .se * { box-sizing: border-box; }
+.se {
+	--se-mono: var(--monaco-monospace-font, "SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", monospace);
+	--se-card: color-mix(in srgb, var(--vscode-editorWidget-background) 55%, var(--vscode-editor-background));
+	--se-line: var(--vscode-widget-border);
+	--se-nav-w: 224px;
+	position: relative; display: grid; grid-template-columns: var(--se-nav-w) minmax(0, 1fr); height: 100%; min-height: 0;
+	color: var(--vscode-foreground); background: var(--vscode-editor-background);
+	font-size: var(--vscode-bodyFontSize, 13px); line-height: 1.4;
+}
+.se button { font: inherit; color: inherit; }
+.se .codicon { flex: none; }
+.se-flex { flex: 1; }
+.se mark { background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 32%, transparent); color: inherit; border-radius: 2px; }
+
+/* ---------- sidebar ---------- */
+.se-nav { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--vscode-settings-sashBorder); background: color-mix(in srgb, var(--vscode-sideBar-background) 60%, var(--vscode-editor-background)); }
+.se-nav-list { flex: 1; overflow-y: auto; padding: 6px; display: flex; flex-direction: column; gap: 1px; }
+.se-nav-item { display: flex; align-items: center; gap: 8px; height: 26px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer; user-select: none; color: var(--vscode-foreground); outline: none; }
+.se-nav-item:hover { background: var(--vscode-list-hoverBackground); }
+.se-nav-item:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.se-nav-item.active { background: var(--vscode-list-activeSelectionBackground); color: var(--vscode-list-activeSelectionForeground); font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.se-nav-item.empty { opacity: 0.45; }
+.se-nav-icon { color: var(--vscode-descriptionForeground); }
+.se-nav-item.active .se-nav-icon { color: var(--vscode-list-activeSelectionIconForeground, currentColor); }
+.se-nav-label { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.se-nav-count { font-size: var(--vscode-fontSize-label2, 11px); font-weight: 400; color: var(--vscode-descriptionForeground); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.se-nav-list > *, .se-nav-subs > * { flex: none; }
+.se-nav-sep { height: 1px; margin: 5px 8px; background: var(--se-line); flex: none; }
+.se-nav-subs { position: relative; margin: 1px 0 4px 15px; padding-left: 9px; display: flex; flex-direction: column; gap: 1px; }
+.se-nav-subs::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 1px; background: var(--se-line); }
+.se-nav-sub { position: relative; display: flex; align-items: center; gap: 8px; height: 22px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-nav-sub:hover { color: var(--vscode-foreground); background: var(--vscode-list-hoverBackground); }
+.se-nav-sub.active { color: var(--vscode-foreground); }
+.se-nav-sub.active::before { content: ""; position: absolute; left: -10px; top: 4px; bottom: 4px; width: 2px; border-radius: 2px; background: var(--vscode-button-background); }
+.se-nav-sub .se-nav-count { opacity: 0.8; }
+.se-nav-footer { flex: none; padding: 6px; border-top: 1px solid var(--se-line); }
+.se-nav-footer-btn { display: flex; align-items: center; gap: 8px; width: 100%; height: 26px; padding: 0 8px; border: 0; background: none; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer; color: var(--vscode-descriptionForeground) !important; }
+.se-nav-footer-btn:hover { background: var(--vscode-list-hoverBackground); color: var(--vscode-foreground) !important; }
+
+/* ---------- header ---------- */
+.se-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.se-header { flex: none; padding: 14px 14px 0; }
+.se-search { display: flex; align-items: center; gap: 4px; height: 32px; padding: 0 4px 0 10px; border-radius: var(--vscode-cornerRadius-medium);
+	background: var(--vscode-settings-textInputBackground); border: 1px solid var(--vscode-settings-textInputBorder); }
+.se-search:focus-within { border-color: var(--vscode-focusBorder); }
+.se-search-icon { color: var(--vscode-descriptionForeground); }
+.se-search-input { flex: 1; min-width: 0; height: 100%; border: 0; outline: none; background: transparent; color: var(--vscode-settings-textInputForeground); font: inherit; padding: 0 4px; }
+/* Mouse focus shouldn't draw a ring (the DS outlines every :focus); keyboard focus keeps it. */
+.se button:focus:not(:focus-visible) { outline: none !important; }
+/* The container shows focus; the DS's input focus outline would double it. */
+.se .se-search-input:focus, .se .se-input:focus, .se .se-json-input:focus { outline: none !important; }
+.se-search-input::placeholder { color: var(--vscode-input-placeholderForeground); }
+.se-search-count { flex: none; padding: 1px 8px; border-radius: var(--vscode-cornerRadius-circle); font-size: var(--vscode-fontSize-label2, 11px);
+	background: var(--vscode-badge-background); color: var(--vscode-badge-foreground); }
+.se-header-row { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--vscode-settings-headerBorder); }
+.se-tabs { display: flex; gap: 2px; }
+.se-tab { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border: 0; border-radius: var(--vscode-cornerRadius-medium); background: transparent; cursor: pointer; color: var(--vscode-descriptionForeground) !important; }
+.se-tab:hover { background: var(--vscode-modernTab-hoverBackground, var(--vscode-list-hoverBackground)); color: var(--vscode-foreground) !important; }
+.se-tab.active { background: var(--vscode-modernTab-activeBackground, var(--vscode-list-activeSelectionBackground)); color: var(--vscode-modernTab-activeForeground, var(--vscode-foreground)) !important; }
+.se-tab-detail { margin-left: 6px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-tab-count { min-width: 16px; padding: 0 5px; border-radius: var(--vscode-cornerRadius-circle); font-size: 10px; line-height: 16px; text-align: center;
+	background: color-mix(in srgb, var(--vscode-foreground) 12%, transparent); }
+
+/* ---------- buttons ---------- */
+.se-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 26px; padding: 0 10px; cursor: pointer; white-space: nowrap;
+	border-radius: var(--vscode-cornerRadius-small); border: 1px solid var(--vscode-button-secondaryBorder, transparent);
+	background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground) !important; }
+.se-btn:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.se-btn.primary { background: var(--vscode-button-background); border-color: var(--vscode-button-border, transparent); color: var(--vscode-button-foreground) !important; }
+.se-btn.primary:hover { background: var(--vscode-button-hoverBackground); }
+.se-btn.small { height: 24px; font-size: var(--vscode-fontSize-label1, 12px); }
+.se-btn:focus-visible, .se-icon-btn:focus-visible, .se-link-btn:focus-visible, .se-dropdown:focus-visible, .se-chip:focus-visible, .se-tab:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+.se-icon-btn { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: transparent; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; color: var(--vscode-foreground) !important; flex: none; }
+.se-icon-btn:hover { background: var(--vscode-toolbar-hoverBackground); }
+.se-link-btn { display: inline-flex; align-items: center; gap: 4px; padding: 0; border: 0; background: none; cursor: pointer; color: var(--vscode-textLink-foreground) !important; font-size: inherit; }
+.se-link-btn:hover { text-decoration: underline; color: var(--vscode-textLink-activeForeground) !important; }
+.se-link-btn .codicon { font-size: 14px; }
+
+/* ---------- content ---------- */
+.se-scroll { flex: 1; min-height: 0; overflow-y: auto; scroll-padding-top: 12px; }
+.se-content { padding: 20px 14px 14px; }
+.se-page-header { display: flex; gap: 14px; align-items: flex-start; margin: 4px 0 18px; }
+.se-page-title { margin: 0; font-size: var(--vscode-fontSize-heading2, 18px); font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-settings-headerForeground); line-height: 1.3; }
+.se-page-desc { margin: 2px 0 0; color: var(--vscode-descriptionForeground); }
+
+
+/* ---------- groups ---------- */
+.se-group { margin-top: 24px; }
+.se-group-header { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 4px 4px 6px;
+	background: var(--vscode-editor-background); }
+.se-group-title { margin: 0; font-size: var(--vscode-fontSize-heading3, 13px); font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-settings-headerForeground); }
+.se-group-icon { color: var(--vscode-descriptionForeground); }
+.se-group-count { font-size: var(--vscode-fontSize-label2, 11px); color: var(--vscode-descriptionForeground); font-variant-numeric: tabular-nums; }
+.se-group-card { border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-large); background: var(--se-card); overflow: clip; }
+.se-group-hidden { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-top: 1px solid var(--se-line); color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-group-card > .se-group-hidden:first-child { border-top: 0; }
+.se-group-body:empty { display: none; }
+.se-group-body:empty + .se-group-hidden { border-top: 0; }
+.se-group-more { display: block; width: 100%; padding: 8px 16px; border: 0; border-top: 1px solid var(--se-line); background: none; text-align: left; cursor: pointer; color: var(--vscode-textLink-foreground) !important; font-size: var(--vscode-fontSize-label1, 12px); }
+.se-group-more:hover { background: var(--vscode-list-hoverBackground); }
+
+/* Flat groups were replaced by cards in every version (section titles sit above the cards). */
+
+/* Subcategory chips (flat nav variant). */
+.se-chipbar { position: sticky; top: 0; z-index: 3; display: flex; gap: 6px; padding: 8px 0 10px; margin: -4px 0 4px; overflow-x: auto; scrollbar-width: none;
+	background: var(--vscode-editor-background); }
+.se-chipbar-chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; flex: none; cursor: pointer; white-space: nowrap;
+	border-radius: var(--vscode-cornerRadius-circle); border: 1px solid var(--se-line); background: transparent; color: var(--vscode-descriptionForeground) !important; font-size: var(--vscode-fontSize-label1, 12px); }
+.se-chipbar-chip:hover { color: var(--vscode-foreground) !important; background: var(--vscode-list-hoverBackground); }
+.se-chipbar-chip.active { background: var(--vscode-list-activeSelectionBackground); color: var(--vscode-list-activeSelectionForeground) !important; border-color: transparent; }
+.se-chipbar-count { opacity: 0.7; font-variant-numeric: tabular-nums; }
+.nav-flat .se-content:has(> .se-chipbar) .se-group-header { top: 44px; }
+
+/* ---------- rows ---------- */
+.se-row { position: relative; padding: 12px 16px; border-top: 1px solid var(--se-line); outline: none; transition: background-color 0.15s; }
+.se-group-body > .se-row:first-child { border-top: 0; }
+.se-row:hover { background: var(--vscode-settings-rowHoverBackground); }
+.se-row:focus:not(:focus-visible) { outline: none !important; }
+/* Row backgrounds and outlines follow the card's rounded corners. */
+.se-group-card > .se-group-body > .se-row:first-child { border-radius: calc(var(--vscode-cornerRadius-large) - 1px) calc(var(--vscode-cornerRadius-large) - 1px) 0 0; }
+.se-group-card > .se-group-body:last-child > .se-row:last-child { border-radius: 0 0 calc(var(--vscode-cornerRadius-large) - 1px) calc(var(--vscode-cornerRadius-large) - 1px); }
+.se-group-card > .se-group-body:last-child > .se-row:only-child { border-radius: calc(var(--vscode-cornerRadius-large) - 1px); }
+.se-group-card > .se-group-more:last-child, .se-group-card > .se-group-hidden:last-child { border-radius: 0 0 calc(var(--vscode-cornerRadius-large) - 1px) calc(var(--vscode-cornerRadius-large) - 1px); }
+.se-group-lock { display: inline-flex; align-items: center; gap: 4px; font-size: var(--vscode-fontSize-label2, 11px); color: var(--vscode-descriptionForeground); }
+.se-group-lock .codicon { font-size: 12px !important; }
+.se-row:focus-within { background: var(--vscode-settings-focusedRowBackground); }
+.se-row.modified::before { content: ""; position: absolute; left: 4px; top: 14px; bottom: 14px; width: 2px; border-radius: 2px; background: var(--vscode-settings-modifiedItemIndicator); }
+/* Settings controlled by the setting above them: a nested card under it, shown only while it's on. */
+.se-row.parent:has(+ .se-children) { padding-bottom: 10px; }
+.se-children { margin: 0 16px 14px; border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-medium);
+	background: color-mix(in srgb, var(--vscode-foreground) 2.5%, transparent); overflow: clip; }
+.se-children > .se-row { padding-left: 14px; padding-right: 12px; }
+.se-children > .se-row:first-child { border-top: 0; }
+.se-children > .se-row.modified::before { left: 3px; }
+.se-row.flash { animation: se-flash 1.6s ease-out; }
+@keyframes se-flash { 0%, 40% { background: var(--vscode-settings-focusedRowBackground); box-shadow: inset 0 0 0 1px var(--vscode-settings-focusedRowBorder); } 100% { box-shadow: inset 0 0 0 1px transparent; } }
+.se-row-main { display: flex; align-items: center; gap: 16px; }
+.se-row-text { flex: 1; min-width: 0; }
+.se-row-title { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; color: var(--vscode-settings-headerForeground); }
+.se-row-crumb { flex-basis: 100%; font-size: var(--vscode-fontSize-label2, 11px); color: var(--vscode-descriptionForeground); }
+.se-row-prefix { color: var(--vscode-descriptionForeground); }
+.se-row-label { font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.se-row-key { margin-top: 1px; font-family: var(--se-mono); font-size: 11px; color: var(--vscode-descriptionForeground); opacity: 0.75; word-break: break-all; user-select: all; }
+.se-row-desc { margin-top: 4px; color: var(--vscode-descriptionForeground); line-height: 1.5; overflow-wrap: anywhere; }
+.se-row-desc p, .se-row-deprecation p, .se-dropdown-detail p { margin: 0 0 4px; }
+.se-row-desc p:last-child:last-child, .se-row-deprecation p:last-child { margin-bottom: 0; }
+.se-row-desc ul { margin: 4px 0; padding-left: 18px; }
+.se-row-desc li { margin: 2px 0; }
+.se .rendered-markdown code, .se-dropdown-detail code { font-family: var(--se-mono); font-size: 12px; padding: 1px 4px; border-radius: var(--vscode-cornerRadius-small);
+	background: var(--vscode-textPreformat-background); color: var(--vscode-textPreformat-foreground); }
+.se .rendered-markdown a, .se-setting-link { color: var(--vscode-textLink-foreground); text-decoration: none; cursor: pointer; }
+.se .rendered-markdown a:hover, .se-setting-link:hover { text-decoration: underline; }
+.se-setting-link { font-family: inherit; }
+/* Same width as block controls (lists, JSON) — see .se-row-block. */
+.se-md-code { max-width: 640px; margin: 6px 0; padding: 6px 10px; border-radius: var(--vscode-cornerRadius-medium); background: var(--vscode-textCodeBlock-background); font-family: var(--se-mono); font-size: 12px; line-height: 1.45; tab-size: 2; overflow-x: auto; white-space: pre; }
+.se-md-code code { background: none !important; padding: 0 !important; }
+.se-row-deprecation { display: flex; gap: 6px; margin-top: 8px; padding: 6px 8px; border-radius: var(--vscode-cornerRadius-small); font-size: var(--vscode-fontSize-label1, 12px);
+	background: var(--vscode-inputValidation-warningBackground); border: 1px solid color-mix(in srgb, var(--vscode-inputValidation-warningBorder) 50%, transparent); color: var(--vscode-inputValidation-warningForeground); }
+.se-row-deprecation > .codicon { color: var(--vscode-editorWarning-foreground); }
+.se-row-control { flex: none; display: flex; align-items: center; min-height: 22px; }
+.se-row-actions { flex: none; display: flex; justify-content: flex-end; gap: 2px; width: 50px; margin-right: -8px; opacity: 0; }
+.se-row.block .se-row-actions { margin-right: 0; }
+.se-row:hover .se-row-actions, .se-row:focus-within .se-row-actions, .se-row-actions:has(.se-reset) { opacity: 1; }
+.se-row-actions .se-more { opacity: 0; }
+.se-row:hover .se-more, .se-row:focus-within .se-more { opacity: 1; }
+.se-reset { color: var(--vscode-descriptionForeground) !important; }
+.se-row.block .se-row-main { align-items: flex-start; }
+.se-row-block { margin-top: 10px; max-width: 640px; }
+.se-row.readonly .se-row-control, .se-row.readonly .se-row-block { opacity: 0.6; }
+
+.se-badge { display: inline-flex; align-items: center; height: 16px; padding: 0 6px; border-radius: var(--vscode-cornerRadius-circle); font-size: 10px; font-weight: 600; letter-spacing: 0.02em;
+	background: color-mix(in srgb, var(--vscode-foreground) 10%, transparent); color: var(--vscode-descriptionForeground); }
+.se-badge.preview { background: color-mix(in srgb, var(--vscode-charts-blue) 18%, transparent); color: var(--vscode-charts-blue); }
+.se-badge.experimental { background: color-mix(in srgb, var(--vscode-charts-orange) 18%, transparent); color: var(--vscode-charts-orange); }
+.se-badge.deprecated { background: color-mix(in srgb, var(--vscode-errorForeground) 16%, transparent); color: var(--vscode-errorForeground); }
+
+.se-indicators { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 8px; }
+.se-ind { display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 7px; border-radius: var(--vscode-cornerRadius-small); font-size: var(--vscode-fontSize-label2, 11px);
+	background: color-mix(in srgb, var(--vscode-foreground) 6%, transparent); color: var(--vscode-descriptionForeground); max-width: 100%; }
+/* `.se button` resets color to inherit; restore the badge's muted color. */
+.se button.se-ind { border: 0; font: inherit; font-size: var(--vscode-fontSize-label2, 11px); cursor: pointer; color: var(--vscode-descriptionForeground); }
+.se button.se-ind.scope { color: var(--vscode-foreground); }
+button.se-ind:hover { background: color-mix(in srgb, var(--vscode-foreground) 12%, transparent); color: var(--vscode-foreground) !important; }
+button.se-ind:hover > span { text-decoration: underline; text-underline-offset: 2px; }
+.se-ind > span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.se button.se-ind.policy { color: var(--vscode-editorWarning-foreground); }
+.se-ind.policy { color: var(--vscode-editorWarning-foreground); background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 12%, transparent); }
+.se-ind.agents { color: var(--vscode-charts-purple); background: color-mix(in srgb, var(--vscode-charts-purple) 12%, transparent); }
+.se-ind.scope { color: var(--vscode-foreground); }
+
+/* ---------- switch (src/vs/base/browser/ui/toggle/switch.css) ---------- */
+.se .monaco-switch { position: relative; container-type: size; flex: 0 0 auto; width: var(--vscode-spacing-size280, 28px); height: var(--vscode-spacing-size160, 16px); padding: 0;
+	border: var(--vscode-strokeThickness, 1px) solid transparent; border-radius: var(--vscode-cornerRadius-circle); cursor: pointer;
+	background: color-mix(in srgb, var(--vscode-descriptionForeground) 36%, transparent); transition: background-color 120ms ease, border-color 120ms ease; box-sizing: content-box; }
+.se .monaco-switch.checked { background: var(--vscode-button-background); border-color: var(--vscode-button-background); }
+.se .monaco-switch:disabled { cursor: default; opacity: 0.5; }
+.se .monaco-switch:focus-visible { outline: var(--vscode-strokeThickness, 1px) solid var(--vscode-focusBorder); outline-offset: var(--vscode-spacing-size20, 2px); }
+.se .monaco-switch-thumb { position: absolute; top: 0; bottom: 0; left: 0; box-sizing: border-box; width: 100cqh; border: var(--vscode-strokeThickness, 1px) solid transparent;
+	border-radius: var(--vscode-cornerRadius-circle); background-color: var(--vscode-button-foreground); background-clip: padding-box; transition: left 120ms ease; }
+.se .monaco-switch.checked .monaco-switch-thumb { left: calc(100% - 100cqh); }
+.monaco-reduce-motion .se .monaco-switch, .monaco-reduce-motion .se .monaco-switch-thumb { transition: none; }
+
+/* ---------- dropdown ---------- */
+.se-dropdown { display: inline-flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 168px; max-width: 280px; height: 26px; padding: 0 6px 0 8px; cursor: pointer;
+	border-radius: var(--vscode-cornerRadius-small); border: 1px solid var(--vscode-settings-dropdownBorder); background: var(--vscode-settings-dropdownBackground); color: var(--vscode-settings-dropdownForeground) !important; }
+.se-dropdown:disabled { cursor: default; }
+/* The open menu is focused for keyboard use; neither it nor its button draws a focus ring. */
+.se .se-dropdown-popup:focus, .se .se-dropdown-popup:focus-visible { outline: none !important; }
+.se-dropdown-label { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.se-dropdown-popup { position: absolute; z-index: 60; max-width: 420px; padding: 4px; outline: none; border-radius: var(--vscode-cornerRadius-medium);
+	background: var(--vscode-dropdown-listBackground, var(--vscode-dropdown-background)); border: 1px solid var(--vscode-settings-dropdownListBorder); box-shadow: 0 4px 16px var(--vscode-widget-shadow); }
+.se-dropdown-options { max-height: 260px; overflow-y: auto; }
+.se-dropdown-option { display: flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px 0 4px; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; white-space: nowrap; }
+.se-dropdown-option.active { background: var(--vscode-list-activeSelectionBackground); color: var(--vscode-list-activeSelectionForeground); }
+.se-dropdown-check { width: 16px; display: grid; place-items: center; }
+.se-dropdown-option-label { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.se-dropdown-default { font-size: 10px; color: var(--vscode-descriptionForeground); }
+/* Paragraph margins would leave extra space under the last line. */
+.se-dropdown-detail p:last-child { margin-bottom: 0; }
+.se-dropdown-detail { margin: 4px -4px -4px; padding: 8px 12px; border-top: 1px solid var(--se-line); font-size: var(--vscode-fontSize-label1, 12px); color: var(--vscode-descriptionForeground); white-space: normal; }
+
+/* ---------- inputs ---------- */
+.se-input-wrap { position: relative; display: flex; flex-direction: column; }
+.se-input { height: 26px; width: 220px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-small); outline: none; font: inherit;
+	background: var(--vscode-settings-textInputBackground); border: 1px solid var(--vscode-settings-textInputBorder); color: var(--vscode-settings-textInputForeground); }
+.se-input:focus { border-color: var(--vscode-focusBorder); }
+.se-input:disabled { opacity: 0.6; }
+.se-input-number { width: 96px; text-align: right; font-variant-numeric: tabular-nums; background: var(--vscode-settings-numberInputBackground); border-color: var(--vscode-settings-numberInputBorder); }
+.se-input-wrap.wide .se-input { width: 100%; font-family: var(--se-mono); font-size: 12px; }
+.se-input-wrap.invalid .se-input { border-color: var(--vscode-inputValidation-errorBorder); }
+.se-validation { margin-top: 2px; padding: 4px 8px; border-radius: var(--vscode-cornerRadius-small); font-size: var(--vscode-fontSize-label1, 12px); max-width: 320px;
+	background: var(--vscode-inputValidation-errorBackground); border: 1px solid var(--vscode-inputValidation-errorBorder); color: var(--vscode-inputValidation-errorForeground); }
+.se-row-control .se-validation { position: absolute; right: 0; top: 100%; z-index: 4; width: max-content; }
+
+/* ---------- lists ---------- */
+.se-list { border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-medium); background: var(--vscode-editor-background); overflow: hidden; }
+.se-list-row { display: flex; align-items: center; gap: 8px; min-height: 30px; padding: 3px 8px 3px 10px; border-top: 1px solid var(--se-line); }
+/* Whatever comes first in a list (a row, or the Add/Show more button of an empty list) sits flush against its border. */
+.se-list > :first-child, .se-list > [hidden]:first-child + * { border-top: 0; }
+.se-list-row[hidden] { display: none; }
+.se-list-row:hover { background: var(--vscode-list-hoverBackground); }
+.se-list-row.editing { background: var(--vscode-settings-focusedRowBackground); }
+.se-list-value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.se-list-value.mono, .se-list-row .mono { font-family: var(--se-mono); font-size: 12px; }
+.se-list-value.muted { color: var(--vscode-descriptionForeground); }
+.se-list-arrow { color: var(--vscode-descriptionForeground); }
+.se-list-tag { font-size: 10px; padding: 0 5px; border-radius: var(--vscode-cornerRadius-circle); background: color-mix(in srgb, var(--vscode-settings-modifiedItemIndicator) 60%, transparent); }
+.se-list-actions { display: flex; gap: 2px; opacity: 0; }
+.se-list-row:hover .se-list-actions, .se-list-row:focus-within .se-list-actions { opacity: 1; }
+.se-list-edit-fields { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.se-list-edit-inputs { display: flex; gap: 6px; }
+.se-list-edit-fields .se-validation { max-width: none; }
+.se-list-edit-fields .se-dropdown { max-width: 360px; }
+.se-list-value.se-enum-value { flex: 0 0 160px; }
+.se-list-edit-inputs .se-input { flex: 1; width: auto; font-family: var(--se-mono); font-size: 12px; }
+.se-list-empty { padding: 8px 10px; color: var(--vscode-descriptionForeground); font-style: italic; }
+.se-list-add, .se-list-more { display: flex; align-items: center; gap: 6px; width: 100%; height: 30px; padding: 0 10px; border: 0; border-top: 1px solid var(--se-line); background: none; cursor: pointer; color: var(--vscode-textLink-foreground) !important; }
+.se-list-more { color: var(--vscode-descriptionForeground) !important; }
+.se-list-add:hover, .se-list-more:hover { background: var(--vscode-list-hoverBackground); }
+.se-chip-set { display: flex; flex-wrap: wrap; gap: 6px; }
+.se-chip { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 10px; border-radius: var(--vscode-cornerRadius-circle); cursor: pointer; border: 1px solid var(--se-line); background: transparent; font-size: 12px; }
+.se-chip.on { background: color-mix(in srgb, var(--vscode-button-background) 25%, transparent); border-color: var(--vscode-button-background); }
+
+/* ---------- JSON ---------- */
+/* Inline JSON editor. The textarea (transparent text, visible caret) sits over a highlighted mirror;
+   both share one grid cell so they wrap identically and the box grows with the content. */
+.se-json-box { position: relative; border: 1px solid var(--vscode-settings-textInputBorder); border-radius: var(--vscode-cornerRadius-medium);
+	background: var(--vscode-settings-textInputBackground); overflow: hidden; }
+.se-json-box:hover:not(.readonly) { border-color: color-mix(in srgb, var(--vscode-focusBorder) 50%, var(--vscode-settings-textInputBorder)); }
+.se-json-box:focus-within { border-color: var(--vscode-focusBorder); }
+.se-json-box.invalid, .se-json-box.invalid:hover:not(.readonly) { border-color: var(--vscode-inputValidation-errorBorder); }
+.se-json-scroll { max-height: 280px; overflow: auto; }
+.se-json-stack { display: grid; }
+.se-json-mirror, .se-json-input { grid-area: 1 / 1; margin: 0; padding: 8px 40px 8px 10px; border: 0; font-family: var(--se-mono); font-size: 12px; line-height: 1.5;
+	white-space: pre-wrap; overflow-wrap: anywhere; tab-size: 2; letter-spacing: normal; }
+.se-json-mirror { pointer-events: none; color: var(--vscode-settings-textInputForeground); }
+.se-json-input { resize: none; overflow: hidden; outline: none !important; background: transparent; color: transparent; caret-color: var(--vscode-editorCursor-foreground, var(--vscode-foreground)); }
+.se-json-input::selection { background: var(--vscode-editor-selectionBackground, rgba(38, 79, 120, 0.6)); color: transparent; }
+.se-json-box.readonly .se-json-input { cursor: default; }
+.se-json-open { position: absolute; top: 4px; right: 4px; opacity: 0; color: var(--vscode-descriptionForeground) !important; }
+.se-json-box:hover .se-json-open, .se-json-box:focus-within .se-json-open, .se-json-open:focus-visible { opacity: 1; }
+.se-json-open:hover { color: var(--vscode-foreground) !important; }
+.se-json-footer { display: flex; align-items: center; gap: 6px; padding: 4px 4px 4px 10px; border-top: 1px solid var(--se-line);
+	background: color-mix(in srgb, var(--vscode-foreground) 3%, transparent); }
+.se-json-footer[hidden] { display: none; }
+.se-json-status { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--vscode-fontSize-label2, 11px); color: var(--vscode-descriptionForeground); }
+.se-json-box.invalid .se-json-status { color: var(--vscode-errorForeground); }
+.se-btn:disabled { opacity: 0.5; cursor: default; }
+.j-key { color: var(--vscode-debugTokenExpression-name, #9cdcfe); }
+.j-str { color: var(--vscode-debugTokenExpression-string, #ce9178); }
+.j-num { color: var(--vscode-debugTokenExpression-number, #b5cea8); }
+.j-kw { color: var(--vscode-debugTokenExpression-boolean, #569cd6); }
+
+/* ---------- menu, drawer, toast, empty ---------- */
+.se-menu { position: absolute; z-index: 70; min-width: 220px; padding: 4px; border-radius: var(--vscode-cornerRadius-large);
+	background: var(--vscode-menu-background, var(--vscode-editorWidget-background)); border: 1px solid var(--vscode-menu-border, var(--se-line)); color: var(--vscode-menu-foreground, var(--vscode-foreground)); box-shadow: 0 4px 16px var(--vscode-widget-shadow); }
+.se-menu-item { display: flex; align-items: center; gap: 16px; width: 100%; height: 26px; padding: 0 12px; border: 0; background: none; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; text-align: left; }
+.se-menu-item:hover:not(:disabled) { background: var(--vscode-menu-selectionBackground, var(--vscode-list-activeSelectionBackground)); color: var(--vscode-menu-selectionForeground, inherit) !important; }
+.se-menu-item:disabled { opacity: 0.45; cursor: default; }
+.se-menu-label { flex: 1; }
+.se-menu-kb { font-family: var(--se-mono); font-size: 11px; color: var(--vscode-descriptionForeground); }
+.se-menu-sep { height: 1px; margin: 4px 8px; background: var(--vscode-menu-separatorBackground, var(--se-line)); }
+.se-json-drawer { position: absolute; z-index: 40; top: 0; right: 0; bottom: 0; width: min(520px, 55%); display: flex; flex-direction: column;
+	background: var(--vscode-editor-background); border-left: 1px solid var(--se-line); box-shadow: -8px 0 24px var(--vscode-widget-shadow); }
+.se-json-sash { position: absolute; z-index: 1; top: 0; bottom: 0; left: -3px; width: 6px; cursor: ew-resize; touch-action: none; }
+.se-json-sash::after { content: ""; position: absolute; top: 0; bottom: 0; left: 2px; width: 2px; background: transparent; transition: background-color 0.1s ease-out 0.3s; }
+.se-json-sash:hover::after, .se-json-sash.active::after { background: var(--vscode-sash-hoverBorder, var(--vscode-focusBorder)); }
+.se.resizing-json { cursor: ew-resize; user-select: none; }
+.se-json-drawer header { flex: none; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 8px 0 12px; border-bottom: 1px solid var(--se-line); }
+.se-json-title { font-weight: 600; }
+.se-json-path { color: var(--vscode-descriptionForeground); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.se-json-file { flex: 1; margin: 0; padding: 10px 0; overflow: auto; font-family: var(--se-mono); font-size: 12px; line-height: 18px; tab-size: 4; counter-reset: ln; }
+.se-json-line { display: block; padding: 0 12px 0 52px; position: relative; white-space: pre; }
+.se-json-line::before { counter-increment: ln; content: counter(ln); position: absolute; left: 0; width: 36px; text-align: right; color: var(--vscode-editorLineNumber-foreground, var(--vscode-descriptionForeground)); }
+.se-json-line.hl { background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 14%, transparent); }
+.se-toast { position: absolute; z-index: 80; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+	border-radius: var(--vscode-cornerRadius-large); background: var(--vscode-notifications-background, var(--vscode-editorWidget-background)); color: var(--vscode-notifications-foreground, var(--vscode-foreground));
+	border: 1px solid var(--se-line); box-shadow: 0 4px 16px var(--vscode-widget-shadow); animation: se-toast-in 0.15s ease-out; }
+.se-toast .codicon { color: var(--vscode-notificationsInfoIcon-foreground, var(--vscode-textLink-foreground)); }
+@keyframes se-toast-in { from { opacity: 0; transform: translate(-50%, 6px); } }
+.se-empty { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 80px 0; color: var(--vscode-descriptionForeground); text-align: center; }
+.se-empty .codicon { font-size: 32px !important; opacity: 0.6; }
+.se-empty h2 { margin: 6px 0 0; font-size: 14px; color: var(--vscode-foreground); }
+.se-empty p { margin: 0 0 8px; }
+
+/* Agents window: tighter type to match the Agents window's panels. */
+.ctx-agents { --se-nav-w: 216px; }
+
+@container se-modal (max-width: 860px) {
+	.se { --se-nav-w: 196px; }
+	.se-content { padding-top: 16px; }
+}
+
+/* ---------- rich hover (src/vs/platform/hover/browser/hover.css; the DS has the box, not the pointer) ---------- */
+.se-hover { position: absolute; z-index: 90; pointer-events: none; max-width: min(360px, calc(100% - 8px)); animation: se-hover-in 0.1s linear; }
+.se-hover.above { padding-bottom: 3px; }
+.se-hover.below { padding-top: 3px; }
+.se-hover .workbench-hover-pointer { position: absolute; z-index: 41; pointer-events: none; }
+.se-hover .workbench-hover-pointer:after { content: ''; position: absolute; box-sizing: border-box; width: 6px; height: 6px;
+	background-color: var(--vscode-editorHoverWidget-background); border-right: 1px solid var(--vscode-editorHoverWidget-border); border-bottom: 1px solid var(--vscode-editorHoverWidget-border); }
+/* The caret is centred on the hover's edge, so only its outer half (≈4px) shows; its tip stops just short of the badge. */
+.se-hover .workbench-hover-pointer.top { top: 0; }
+.se-hover .workbench-hover-pointer.bottom { bottom: 3px; }
+.se-hover .workbench-hover-pointer.bottom:after { top: -3px; }
+.se-hover .workbench-hover-pointer.top:after { transform: rotate(225deg); }
+.se-hover .workbench-hover-pointer.bottom:after { transform: rotate(45deg); }
+.se-hover .se-hover-box { white-space: normal; }
+.se-hover .hover-contents { padding: 6px 10px !important; }
+.se-hover-title { font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-editorHoverWidget-foreground); }
+.se-hover-body { margin-top: 2px; color: var(--vscode-descriptionForeground); line-height: 1.45; }
+.se-hover-body p { margin: 0; }
+.se-hover-body strong { color: var(--vscode-editorHoverWidget-foreground); font-weight: 600; }
+.se-hover-action { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--vscode-editorHoverWidget-border); color: var(--vscode-textLink-foreground); }
+@keyframes se-hover-in { from { opacity: 0; } }
+.monaco-reduce-motion .se-hover { animation: none; }
+
+/* Badges: pointer only when clicking does something; informational ones keep the default arrow (not the text I-beam). */
+.se .se-ind, .se .se-badge { cursor: default; }
+.se button.se-ind.clickable { cursor: pointer; }
+
+/* ============================================================================================
+   groups: 'native' (V5) — sections and rows rendered like VS Code's Settings editor
+   (src/vs/workbench/contrib/preferences/browser/media/settingsEditor2.css, settingsWidgets.css):
+   no cards or dividers, plain bold group titles, flat rows with hover / focused-row states.
+   ============================================================================================ */
+.groups-native { --se-row-x: 14px; }
+.groups-native .se-page-header { margin: 2px 0 6px; padding: 0 var(--se-row-x); }
+/* .settings-group-level-1 / -2 */
+.groups-native .se-page-title { font-size: 26px; line-height: 1.3; }
+.groups-native .se-group { margin-top: 10px; }
+.groups-native .se-group-header { min-height: 0; padding: 10px var(--se-row-x) 4px; }
+.groups-native .se-group-title { font-size: var(--vscode-fontSize-heading2, 18px); line-height: 1.3; }
+.groups-native .se-group-count { font-size: var(--vscode-fontSize-body1, 13px); }
+.groups-native .se-group-icon { display: none; }
+
+.groups-native .se-group-card { border: 0; border-radius: 0; background: none; overflow: visible; }
+/* Hover and focus surfaces are rounded everywhere in V5. */
+.groups-native .se-row { padding: 12px var(--se-row-x) 18px; border-top: 0 !important; border-radius: var(--vscode-cornerRadius-medium) !important; transition: none; }
+.groups-native .se-row:hover { background: var(--vscode-settings-rowHoverBackground); }
+.groups-native .se-row:focus-within { background: var(--vscode-settings-focusedRowBackground); outline: 1px solid var(--vscode-settings-focusedRowBorder); outline-offset: -1px; }
+.groups-native .se-row.modified::before { left: 5px; top: 15px; bottom: 18px; border-radius: 0; }
+.groups-native .se-row-title { color: var(--vscode-settings-headerForeground); }
+.groups-native .se-row-prefix { font-weight: 600; color: var(--vscode-settings-headerForeground); opacity: 0.9; }
+.groups-native .se-row-desc { color: var(--vscode-foreground); opacity: 0.9; }
+.groups-native .se-row-crumb { opacity: 0.9; }
+
+/* Settings that depend on the one above: indented, no box. */
+.groups-native .se-children { margin: 0; border: 0; border-radius: 0; background: none; overflow: visible; }
+.groups-native .se-children > .se-row { padding-left: calc(var(--se-row-x) + 20px); padding-right: var(--se-row-x); }
+.groups-native .se-children > .se-row.modified::before { left: 25px; }
+.groups-native .se-row.parent:has(+ .se-children) { padding-bottom: 12px; }
+
+.groups-native .se-group-hidden, .groups-native .se-group-more { border-top: 0; padding-left: var(--se-row-x); border-radius: var(--vscode-cornerRadius-medium) !important; }
+
+/* .setting-list-widget: no frame, hoverable rows, and a real "Add Item" button under the list. */
+.groups-native .se-list { border: 0; border-radius: 0; background: none; overflow: visible; }
+.groups-native .se-list-row { min-height: 24px; padding: 1px 4px 1px 6px; border-top: 0 !important; }
+.groups-native .se-list-row { border-radius: var(--vscode-cornerRadius-small); }
+.groups-native .se-list-row:hover { background: var(--vscode-list-hoverBackground); }
+/* The inline add/edit row stays transparent (no fill, no hover). */
+.groups-native .se-list-row.editing, .groups-native .se-list-row.editing:hover { background: transparent; padding-left: 0; padding-right: 0; }
+.groups-native .se-list-empty { display: none; }
+.groups-native .se-list-more { width: auto; height: 24px; padding: 0 6px; border-top: 0; border-radius: var(--vscode-cornerRadius-small); }
+/* Same as .se-btn.small */
+.groups-native .se-list-add { display: inline-flex; width: auto; height: 24px; margin-top: 4px; padding: 0 8px; font-size: var(--vscode-fontSize-label1, 12px); border: 1px solid var(--vscode-button-border, transparent) !important;
+	border-radius: var(--vscode-cornerRadius-small); background: var(--vscode-button-background); color: var(--vscode-button-foreground) !important; }
+.groups-native .se-list-add:hover { background: var(--vscode-button-hoverBackground); }
+.groups-native .se-list-add .codicon { display: none; }
+/* Commonly Used is a single section named like its page; at these sizes the repeated heading is redundant. */
+.groups-native .se-group[data-sub="all"] > .se-group-header { display: none; }
+
+/* Sticky headers sit 1px above the scroller's edge (padding compensates) and paint a strip above themselves,
+   so no sliver of content shows between them and the search header when the modal lands on a fractional pixel. */
+.se .se-group-header { top: -1px; padding-top: 5px; box-shadow: 0 -4px 0 var(--vscode-editor-background); }
+.se .se-chipbar { top: -1px; padding-top: 9px; box-shadow: 0 -4px 0 var(--vscode-editor-background); }
+.nav-flat .se-content:has(> .se-chipbar) .se-group-header { top: 43px; box-shadow: none; }
+.groups-native .se-group-header { padding-top: 11px; }
+/* "Category: Label" with a single space's width after the colon. */
+.groups-native .se-row-prefix + .se-row-label { margin-left: -2px; }
+
+/* ============================================================================================
+   pages: 'nested' (V6) — subsection overview, nested sub-pages and a header breadcrumb
+   ============================================================================================ */
+.se-crumbs { display: flex; align-items: center; gap: 4px; min-width: 0; }
+.se-crumb-list { margin-left: -6px; }
+.se-crumb-list { display: flex; align-items: center; gap: 2px; min-width: 0; }
+.se-crumb { min-width: 0; padding: 2px 6px; border: 0; border-radius: var(--vscode-cornerRadius-small); background: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+	font: inherit; color: var(--vscode-descriptionForeground) !important; cursor: pointer; }
+.se-crumb:hover { background: var(--vscode-toolbar-hoverBackground); color: var(--vscode-foreground) !important; }
+.se-crumb.current { color: var(--vscode-foreground) !important; font-weight: var(--vscode-fontWeight-semiBold, 600); cursor: default; }
+.se-crumb-sep { font-size: 12px !important; color: var(--vscode-descriptionForeground); }
+.se-crumbs + .se-flex + .se-tabs { margin-right: 6px; }
+
+.se-subpage-list { display: flex; flex-direction: column; gap: 2px; margin-top: 10px; }
+.se-subpage-link { display: flex; align-items: center; gap: 16px; padding: 12px 14px; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer; outline: none; }
+.se-subpage-link:hover { background: var(--vscode-list-hoverBackground); }
+.se-subpage-link:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.se-subpage-text { flex: 1; min-width: 0; }
+.se-subpage-title { display: flex; align-items: baseline; gap: 8px; font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-settings-headerForeground); }
+.se-subpage-count { font-weight: 400; font-size: var(--vscode-fontSize-label1, 12px); color: var(--vscode-descriptionForeground); font-variant-numeric: tabular-nums; }
+.se-subpage-preview { margin-top: 2px; color: var(--vscode-descriptionForeground); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.se-subpage-meta { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 6px; }
+.se-subpage-switch { flex: none; display: flex; align-items: center; }
+.se-subpage-chevron { flex: none; color: var(--vscode-descriptionForeground); }
+.se-subpage-link:hover .se-subpage-chevron { color: var(--vscode-foreground); }
+
+.se-subpage-header { align-items: center; }
+.se .se-page-title:focus { outline: none !important; }
+.se-subpage-empty { padding: 4px var(--se-row-x, 14px); color: var(--vscode-descriptionForeground); }
+.se-page-actions { flex: none; display: flex; align-items: center; gap: 6px; }
+.se-subpage-header + .se-group { margin-top: 4px; }
+
+.se-sync-btn { margin-left: 2px; }
+/* Nested overview with cards: one rounded box, a divider between entries. */
+.groups-cards .se-subpage-list { gap: 0; margin-top: 4px; border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-large); background: var(--se-card); overflow: clip; }
+.groups-cards .se-subpage-link { border-radius: 0; padding: 12px 16px; }
+.groups-cards .se-subpage-link + .se-subpage-link { border-top: 1px solid var(--se-line); }
+.groups-cards .se-subpage-link:hover { background: var(--vscode-settings-rowHoverBackground); }
+/* Entries follow the box's rounded corners so hover, focus and outline aren't clipped. */
+.groups-cards .se-subpage-link:focus-visible { outline-offset: -1px; }
+.groups-cards .se-subpage-link:first-child { border-top-left-radius: calc(var(--vscode-cornerRadius-large) - 1px); border-top-right-radius: calc(var(--vscode-cornerRadius-large) - 1px); }
+.groups-cards .se-subpage-link:last-child { border-bottom-left-radius: calc(var(--vscode-cornerRadius-large) - 1px); border-bottom-right-radius: calc(var(--vscode-cornerRadius-large) - 1px); }
+/* Pages without a title (the breadcrumb names them) start a little closer to the header. */
+.se-content > .se-group:first-child, .se-content > .se-subpage-list:first-child { margin-top: 4px; }
+
+.se-subpage-lead + .se-group { margin-top: 12px; }
+.se-content > .se-subpage-lead:first-child { margin-top: 4px; }
+
+/* Same for the nested card of child settings. */
+.groups-cards .se-children > .se-row:first-child { border-top-left-radius: calc(var(--vscode-cornerRadius-medium) - 1px) !important; border-top-right-radius: calc(var(--vscode-cornerRadius-medium) - 1px) !important; }
+.groups-cards .se-children > .se-row:last-child { border-bottom-left-radius: calc(var(--vscode-cornerRadius-medium) - 1px) !important; border-bottom-right-radius: calc(var(--vscode-cornerRadius-medium) - 1px) !important; }
+/* Only keyboard focus draws a ring on overview entries. */
+.se .se-subpage-link:focus:not(:focus-visible) { outline: none !important; }
+
+/* ============================================================================================
+   Theme picker (themePicker: true) — Appearance › Color Theme
+   ============================================================================================ */
+.se-theme-picker { position: relative; display: flex; flex-direction: column; gap: 18px; margin-bottom: 16px; }
+.se-tp-reset { position: absolute; top: -2px; right: 0; }
+.se-tp-heading { display: flex; align-items: center; gap: 12px; min-height: 26px; margin-bottom: 8px; padding: 0 2px; font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-settings-headerForeground); }
+.se-tp-hint { margin: -4px 2px 10px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-tp-tabs-toggle { display: inline-flex; gap: 2px; padding: 2px; border-radius: var(--vscode-cornerRadius-medium); background: color-mix(in srgb, var(--vscode-foreground) 6%, transparent); font-weight: 400; }
+.se-tp-tab-btn { height: 22px; padding: 0 10px; border: 0; border-radius: var(--vscode-cornerRadius-small); background: transparent; cursor: pointer; font-size: var(--vscode-fontSize-label1, 12px); color: var(--vscode-descriptionForeground) !important; }
+.se-tp-tab-btn:hover { color: var(--vscode-foreground) !important; }
+.se-tp-tab-btn.active { background: var(--vscode-editor-background); color: var(--vscode-foreground) !important; box-shadow: 0 0 0 1px var(--se-line); }
+
+/* Mode and theme cards share the card chrome. */
+.se-tp-modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.se-tp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 12px; }
+.se-tp-mode, .se-tp-card { display: flex; flex-direction: column; gap: 8px; padding: 6px 6px 8px; border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-large);
+	background: var(--se-card); cursor: pointer; text-align: left; color: var(--vscode-foreground) !important; font: inherit; }
+.se-tp-mode:hover:not(:disabled), .se-tp-card:hover:not(:disabled) { border-color: color-mix(in srgb, var(--vscode-focusBorder) 55%, var(--se-line)); }
+.se-tp-mode.selected, .se-tp-card.selected { border-color: var(--vscode-focusBorder); box-shadow: 0 0 0 1px var(--vscode-focusBorder); }
+.se-tp-mode:disabled, .se-tp-card:disabled { cursor: default; opacity: 0.6; }
+.se-tp-mode-label, .se-tp-card-label { display: flex; align-items: baseline; gap: 6px; min-width: 0; padding: 0 4px; }
+.se-tp-mode-label > span:first-child { font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.se-tp-mode-detail { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.se-tp-card-label { align-items: center; }
+.se-tp-card-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.se-tp-tag { flex: none; padding: 0 5px; border-radius: var(--vscode-cornerRadius-circle); font-size: 10px; line-height: 16px; color: var(--vscode-descriptionForeground); background: color-mix(in srgb, var(--vscode-foreground) 8%, transparent); }
+.se-tp-check { margin-left: auto; color: var(--vscode-focusBorder); }
+
+/* Miniature workbench: title bar, activity bar, side bar, editor (tab + code bars) and status bar. */
+.se-tp-preview { display: flex; flex-direction: column; aspect-ratio: 16 / 9; border-radius: var(--vscode-cornerRadius-medium); overflow: hidden; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vscode-foreground) 10%, transparent); }
+.se-tp-title { flex: 0 0 7%; }
+.se-tp-body { flex: 1; display: flex; min-height: 0; }
+.se-tp-activity { flex: 0 0 7%; display: flex; flex-direction: column; align-items: center; gap: 8%; padding-top: 10%; }
+.se-tp-activity i { width: 46%; aspect-ratio: 1; border-radius: 2px; opacity: 0.45; }
+.se-tp-side { flex: 0 0 24%; display: flex; flex-direction: column; gap: 9%; padding: 14% 10% 0; }
+.se-tp-side i { height: 3px; border-radius: 2px; background: var(--side-fg); opacity: 0.3; }
+.se-tp-side i:nth-child(2) { width: 70%; }
+.se-tp-side i:nth-child(3) { width: 85%; }
+.se-tp-editor { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.se-tp-tabs { flex: 0 0 13%; display: flex; }
+.se-tp-tab { width: 34%; }
+.se-tp-code { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 7%; padding: 0 8%; }
+.se-tp-line { display: flex; gap: 3%; min-height: 3px; }
+.se-tp-line i { height: 3px; border-radius: 2px; flex: none; }
+.se-tp-status { flex: 0 0 5%; }
+/* "Match system": the light preference on one side of a diagonal, the dark one on the other. */
+.se-tp-split { position: relative; aspect-ratio: 16 / 9; border-radius: var(--vscode-cornerRadius-medium); overflow: hidden; }
+.se-tp-split > .se-tp-preview { position: absolute; inset: 0; border-radius: 0; box-shadow: none; }
+.se-tp-split > .half-b { clip-path: polygon(58% 0, 100% 0, 100% 100%, 42% 100%); }
+.se-tp-split::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vscode-foreground) 10%, transparent); pointer-events: none; }
+
+@container se-modal (max-width: 860px) {
+	.se-tp-modes { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+	.se-tp-mode-detail { display: none; }
+}
+.se-tp-mode .se-tp-preview, .se-tp-mode .se-tp-split { aspect-ratio: 5 / 2; }
+
+/* Theme preview style: code sample (themePreview: 'code') */
+.se-tp-code-preview { position: relative; container-type: inline-size; width: 100%; }
+/* Shorter snippet lines so they fit small cards: drop the ': string' annotation's tail when narrow. */
+.se-tp-cp-tabs { flex: 0 0 auto; display: flex; height: 11cqw; }
+.se-tp-cp-tab { display: flex; align-items: center; padding: 0 5cqw; font-size: 4.6cqw; font-family: var(--vscode-font-family, system-ui); white-space: nowrap; }
+.se-tp-cp-code { flex: 1; margin: 0; padding: 3.5cqw 0 0; overflow: hidden; font-family: var(--se-mono); font-size: 4.6cqw; line-height: 1.42; white-space: pre; }
+.se-tp-cp-ln { display: inline-block; width: 2.6em; padding-right: 0.9em; text-align: right; opacity: 0.8; }
+.se-tp-cp-status { flex: 0 0 4px; }
+.se-tp-mode .se-tp-cp-code { font-size: 3.4cqw; padding-top: 2.2cqw; }
+.se-tp-mode .se-tp-cp-tabs { height: 7cqw; }
+.se-tp-mode .se-tp-cp-tab { font-size: 2.8cqw; padding: 0 3cqw; }
+
+/* Theme preview style: type specimen + palette (themePreview: 'specimen') */
+.se-tp-specimen { position: relative; container-type: inline-size; display: block; }
+.se-tp-sp-side { position: absolute; left: 0; top: 0; bottom: 0; width: 9%; }
+.se-tp-sp-aa { position: absolute; left: 15%; top: 50%; transform: translateY(-58%); font-size: 30cqw; line-height: 1; font-weight: 500; letter-spacing: -0.04em;
+	font-family: var(--vscode-font-family, system-ui); }
+.se-tp-sp-palette { position: absolute; right: 9%; top: 50%; transform: translateY(-50%); width: 36%; display: flex; flex-direction: column; align-items: flex-end; gap: 5cqw; }
+.se-tp-sp-palette i { height: 3.6cqw; min-height: 3px; border-radius: 99px; }
+.se-tp-sp-accent { position: absolute; left: 15%; bottom: 9%; display: flex; gap: 2.4cqw; }
+.se-tp-sp-accent i { width: 4.4cqw; height: 4.4cqw; min-width: 5px; min-height: 5px; border-radius: 50%; box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 10%, transparent); }
+.se-tp-mode .se-tp-sp-aa { font-size: 17cqw; left: 13%; }
+.se-tp-mode .se-tp-sp-palette { gap: 2.4cqw; width: 30%; }
+.se-tp-mode .se-tp-sp-palette i { height: 2cqw; }
+.se-tp-mode .se-tp-sp-accent { left: 13%; bottom: 10%; gap: 1.4cqw; }
+.se-tp-mode .se-tp-sp-accent i { width: 2.4cqw; height: 2.4cqw; }

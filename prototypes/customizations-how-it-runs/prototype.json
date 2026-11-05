@@ -1,0 +1,28 @@
+{
+  "title": "Customizations",
+  "description": "V7 — How it runs: V5's session panel and Library, with a \"How it runs\" view that lays the session's customizations along the agent loop (session start → each prompt → while the agent works → when it stops), with a context estimate, overrides and duplicates, and what doesn't apply and why. Rows drill in (V2's pattern). \"Where it's from\" keeps V5's by-source view.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "scope",
+    "lifecycle",
+    "library",
+    "exploration"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-03T19:55:25.279Z",
+  "updatedAt": "2026-11-03T19:55:34.714Z"
+}

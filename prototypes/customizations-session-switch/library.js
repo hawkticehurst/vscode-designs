@@ -1,126 +1,149 @@
-/* Library: everything you have, across workspaces and agents, in the Settings prototypes' modal layout (nav, search
-   with source tabs, a page per type, one card per source). Discover, Tools and Extensions host the product pages. */
-import { filterList, openMenu, toast } from "./panel-shell.js";
-const { TYPES, SOURCES, WORKSPACES, items, type: typeOf } = window.SCOPE;
+/* Library: everything you have (user, plugins, built-in and the workspaces you've opened recently), in the Settings
+   prototypes' modal layout (left nav, one page at a time). It isn't scoped to a session: workspaces are groups you can
+   filter to, and agents (harnesses) are compatibility, shown as badges and a "Works with" filter. Opened from a session's
+   panel, it starts filtered to that session's workspace and agent, with a chip to show everything.
+   Every page is the product's page design: type pages are the Customizations editor's list page (description, search
+   and the grouped tree); Discover, Tools and Extensions are the product pages as they are. */
+import { openMenu, toast } from "./panel-shell.js";
+const { TYPES, WORKSPACES, HARNESSES, items, worksWith, type: typeOf, workspaceTitle } = window.SCOPE;
 const { first: pages, CATEGORIES, esc, hostPage } = window.CUST;
-const NAV = [{ id: "browse", label: "Discover", icon: "compass" }, "-", ...TYPES.map((t) => ({ id: t.id, label: t.label, icon: t.icon })), "-",
-  { id: "tools", label: "Tools", icon: "ai-customization-tools" }, { id: "extensions", label: "Extensions", icon: "extensions-view-icon" }];
-const TABS = [{ id: "all", label: "All" }, { id: "user", label: "Yours" }, { id: "workspace", label: "Workspaces" }, { id: "plugin", label: "Plugins" }, { id: "builtin", label: "Built-in" }];
+const NAV = [{ id: "browse", label: "Discover" }, "-", ...TYPES.map((t) => ({ id: t.id, label: t.label })), "-", { id: "tools", label: "Tools" }, { id: "extensions", label: "Extensions" }];
 const countOf = (id) => id === "tools" ? 36 : id === "extensions" ? 11 : id === "browse" ? "" : items.filter((it) => it.type === id).length;
+const HARNESS_IDS = Object.keys(HARNESSES);
+
+/** Agents that can use an item, as a badge, only when it's not all of them ("Copilot only", "Copilot, Codex"). */
+function compatBadge(it) {
+  const ok = HARNESS_IDS.filter((h) => worksWith(it, h));
+  if (ok.length === HARNESS_IDS.length) return "";
+  return ok.length === 1 ? `${HARNESSES[ok[0]].label} only` : ok.length ? ok.map((h) => HARNESSES[h].label).join(", ") : "No agents";
+}
+const withBadge = (it) => {
+  const b = compatBadge(it);
+  return b && /^<vsc-customization-item /.test(it.html) && !/ badge="[^"]/.test(it.html) ? it.html.replace(/^<vsc-customization-item /, `<vsc-customization-item badge="${esc(b)}" `) : it.html;
+};
+
+/** A type's list page: the product's <vsc-customization-list>, grouped by where each item is defined, after filters. */
+function typePage(id, filter) {
+  const t = typeOf(id), page = pages[id], cat = CATEGORIES.find((c) => c.id === id);
+  const of = items.filter((it) => it.type === id && (!filter.harness || worksWith(it, filter.harness)));
+  const wsIds = Object.keys(WORKSPACES).filter((w) => !filter.workspace || filter.workspace === w);
+  const groups = [["User", "account", of.filter((it) => it.source === "user"), true],
+    ...wsIds.map((w) => [workspaceTitle(w), "folder", of.filter((it) => it.source === "workspace" && it.workspace === w), id !== "plugins", WORKSPACES[w].path]),
+    ["From plugins", "plug", of.filter((it) => it.source === "plugin"), false], ["Built-in", "vscode-insiders", of.filter((it) => it.source === "builtin"), false]];
+  let first = true, rows = "";
+  for (const [label, icon, list, canAdd, path] of groups) {
+    if (!list.length && !canAdd) continue;
+    rows += `<vsc-customization-group label="${esc(label)}" count="${list.length}" icon="${icon}"${path ? ` data-path="${esc(path)}"` : ""}${canAdd && cat?.add ? ` actions="add" add-label="${esc(cat.add)}"` : ' actions=""'}${first ? " first" : ""}></vsc-customization-group>` + list.map(withBadge).join("");
+    first = false;
+  }
+  const tmp = document.createElement("div");
+  tmp.innerHTML = `<vsc-customization-list section="${id}" kind="${t.kind}" heading="${esc(t.label)}" description="${esc(page.getAttribute("description") || "")}" link="${esc(page.getAttribute("link") || "")}">${rows}</vsc-customization-list>`;
+  return tmp.firstElementChild;
+}
+// Workspace groups show their folder in the header's description slot.
+function showPaths(root) {
+  customElements.whenDefined("vsc-customization-group").then(() => requestAnimationFrame(() => {
+    // The filters sit under the page's search box, right above the list they narrow.
+    const bar = root.querySelector(":scope > .lib-filters"), search = root.querySelector(".list-search-and-button-container");
+    if (bar && search) search.after(bar);
+    for (const g of root.querySelectorAll("vsc-customization-group[data-path]")) {
+      const host = g.querySelector(".group-title-row, .group-label-group");
+      if (!host || host.querySelector(".lib-group-path")) continue;
+      const p = document.createElement("span");
+      p.className = "lib-group-path";
+      p.textContent = g.dataset.path;
+      host.append(p);
+    }
+  }));
+}
 
 export function mountLibrary(root, opts = {}) {
   root.className = "se lib";
   root.innerHTML = `
     <nav class="se-nav" aria-label="Customization types"><div class="se-nav-list" role="tablist" aria-orientation="vertical">${NAV.map((n) => n === "-" ? '<div class="se-nav-sep" role="presentation"></div>'
-      : `<div class="se-nav-item" role="tab" tabindex="-1" data-id="${n.id}"><span class="codicon codicon-${n.icon} se-nav-icon" aria-hidden="true"></span><span class="se-nav-label">${n.label}</span><span class="se-nav-count">${countOf(n.id)}</span></div>`).join("")}</div>
+      : `<div class="se-nav-item" role="tab" tabindex="-1" data-id="${n.id}"><span class="se-nav-label">${n.label}</span><span class="se-nav-count">${countOf(n.id)}</span></div>`).join("")}</div>
       <div class="se-nav-footer"><button class="se-nav-footer-btn" data-act="session"><span class="codicon codicon-layout-sidebar-right" aria-hidden="true"></span>What this session uses</button></div></nav>
-    <div class="se-main">
-      <div class="se-header lib-header">
-        <div class="se-search"><span class="codicon codicon-search se-search-icon" aria-hidden="true"></span><input class="se-search-input" placeholder="Search customizations" aria-label="Search customizations" /><span class="se-search-count" hidden></span></div>
-        <div class="se-header-row"><div class="se-tabs" role="tablist" aria-label="Source"></div><span class="se-flex"></span>
-          <button class="se-btn small" data-act="browse"><span class="codicon codicon-compass" aria-hidden="true"></span>Browse</button></div>
-      </div>
-      <div class="se-scroll"><div class="se-content"></div></div>
-      <div class="lib-host" hidden></div>
-    </div>`;
-  const $ = (s) => root.querySelector(s);
-  const content = $(".se-content"), host = $(".lib-host"), scroll = $(".se-scroll"), header = $(".lib-header");
+    <div class="se-main"><div class="lib-host"></div></div>`;
+  const host = root.querySelector(".lib-host");
   const hosted = {};
-  const state = { section: "plugins", tab: "all", q: "" };
+  const state = { section: "plugins", lastType: "plugins" };
+  // Filters apply to the type pages. `from` is set when the panel opened the modal on a session's scope.
+  const filter = { workspace: null, harness: null, from: false };
+  const filterKey = () => `${filter.workspace}|${filter.harness}`;
+  const filterBar = () => {
+    const ws = filter.workspace ? workspaceTitle(filter.workspace) : "All workspaces", h = filter.harness ? HARNESSES[filter.harness].label : "All agents";
+    return `<div class="lib-filters">
+      <button class="lib-filter${filter.workspace ? " set" : ""}" data-filter="workspace">${esc(ws)}<span class="codicon codicon-chevron-down" aria-hidden="true"></span></button>
+      <button class="lib-filter${filter.harness ? " set" : ""}" data-filter="harness" title="Show only what this agent can use">Works with: ${esc(h)}<span class="codicon codicon-chevron-down" aria-hidden="true"></span></button>
+      ${filter.workspace || filter.harness ? `<span class="lib-chip">${filter.from ? "This session" : "Filtered"}<button class="lib-chip-x" data-filter="clear" aria-label="Show everything" title="Show everything"><span class="codicon codicon-close-compact" aria-hidden="true"></span></button></span>` : ""}
+    </div>`;
+  };
 
-  const listFor = (t, rows) => `<div class="ai-customization-management-editor cust-flow"><vsc-customization-list kind="${t.kind}">${rows.map((r) => r.html).join("")}</vsc-customization-list></div>`;
-  function renderType(id) {
-    const t = typeOf(id), page = pages[id], cat = CATEGORIES.find((c) => c.id === id);
-    const of = items.filter((it) => it.type === id);
-    const bySrc = (s) => of.filter((it) => it.source === s);
-    const tabs = TABS.map((tb) => ({ ...tb, n: tb.id === "all" ? of.length : bySrc(tb.id).length }));
-    $(".se-tabs").innerHTML = tabs.map((tb) => `<button class="se-tab${tb.id === state.tab ? " active" : ""}" role="tab" aria-selected="${tb.id === state.tab}" data-tab="${tb.id}">${tb.label}<span class="se-tab-count">${tb.n}</span></button>`).join("");
-    const group = (src, title, desc, body, n) => `<section class="se-group" data-src="${src}"><div class="se-group-header"><span class="codicon codicon-${SOURCES[src].icon} se-group-icon" aria-hidden="true"></span>
-      <h3 class="se-group-title">${title}</h3><span class="se-group-count">${n}</span><span class="se-group-desc">· ${desc}</span><span class="se-flex"></span></div>${body}</section>`;
-    let html = `<div class="se-page-header"><div class="lib-page-icon"><span class="codicon codicon-${t.icon}" aria-hidden="true"></span></div><div class="se-flex"><h2 class="se-page-title">${t.label}</h2>
-      <p class="se-page-desc">${esc(page.getAttribute("description") || "")} ${page.getAttribute("link") ? `<a href="#">${esc(page.getAttribute("link"))}</a>` : ""}</p></div>
-      ${cat && cat.add ? `<button class="se-btn primary small" data-act="new"><span class="codicon codicon-add" aria-hidden="true"></span>${esc(cat.add)}<span class="codicon codicon-chevron-down" aria-hidden="true"></span></button>` : ""}</div>`;
-    const show = (src) => state.tab === "all" || state.tab === src;
-    if (show("user")) html += group("user", "Yours", "In all your sessions", `<div class="se-group-card">${bySrc("user").length ? listFor(t, bySrc("user")) : `<div class="lib-empty">None yet.</div>`}</div>`, bySrc("user").length);
-    if (show("workspace") && id !== "plugins") {
-      const wsRows = bySrc("workspace");
-      const body = `<div class="se-subgroups">${Object.entries(WORKSPACES).map(([wid, w]) => {
-        const rows = wsRows.filter((r) => r.workspace === wid);
-        return `<div><div class="se-subheading"><span class="codicon codicon-folder" aria-hidden="true"></span>${esc(w.label)} <span class="lib-sub-path">${esc(w.path)}</span><span class="se-subheading-count">${rows.length}</span></div>
-          <div class="se-group-card">${rows.length ? listFor(t, rows) : `<div class="lib-empty">No ${t.label.toLowerCase()} in ${esc(w.label)}.</div>`}</div></div>`;
-      }).join("")}</div>`;
-      html += group("workspace", "Workspaces", "Only in sessions in that workspace", body, wsRows.length);
-    }
-    if (show("plugin") && bySrc("plugin").length) html += group("plugin", "From plugins", SOURCES.plugin.sub, `<div class="se-group-card">${listFor(t, bySrc("plugin"))}</div>`, bySrc("plugin").length);
-    if (show("builtin") && bySrc("builtin").length) html += group("builtin", "Built-in", SOURCES.builtin.sub, `<div class="se-group-card">${listFor(t, bySrc("builtin"))}</div>`, bySrc("builtin").length);
-    content.innerHTML = html;
-    if (state.q) requestAnimationFrame(applyQuery);
-  }
-
-  function renderHosted(id) {
+  function render(id) {
+    if (hosted[id] && typeOf(id) && hosted[id].dataset.filter !== filterKey()) { hosted[id].remove(); delete hosted[id]; }
     if (!hosted[id]) {
       const wrap = document.createElement("div");
       wrap.className = "lib-hosted";
-      wrap.style.cssText = "display:flex;flex-direction:column;flex:1;min-height:0";
-      const n = NAV.find((x) => x.id === id);
-      wrap.innerHTML = `<div class="se-page-header"><div class="lib-page-icon"><span class="codicon codicon-${n.icon}" aria-hidden="true"></span></div><div class="se-flex"><h2 class="se-page-title">${id === "browse" ? "Discover" : n.label}</h2>
-        </div></div>`;
-      const page = hostPage(pages[id]);
+      const n = NAV.find((x) => x.id === id), cat = CATEGORIES.find((c) => c.id === id);
+      wrap.innerHTML = `<div class="se-page-header"><div class="se-flex"><h2 class="se-page-title">${n.label}</h2></div>
+        ${typeOf(id) && cat?.browse ? `<button class="se-btn small" data-act="browse">Browse</button>` : ""}</div>${typeOf(id) ? filterBar() : ""}`;
+      wrap.dataset.filter = filterKey();
+      const page = hostPage(typeOf(id) ? typePage(id, filter) : pages[id]);
       page.style.cssText = "flex:1;min-height:0";
       wrap.append(page);
       hosted[id] = wrap;
       host.append(wrap);
+      showPaths(wrap);
     }
     for (const [k, el] of Object.entries(hosted)) el.style.display = k === id ? "flex" : "none";
   }
 
-  function show(section) {
+  /** scope: { workspace, harness } to start filtered to a session's scope, or null to keep the current filters. */
+  function show(section, scope) {
+    if (scope) Object.assign(filter, { workspace: WORKSPACES[scope.workspace] ? scope.workspace : null, harness: scope.harness || null, from: true });
     state.section = section;
+    if (section !== "browse") state.lastType = section;
     for (const el of root.querySelectorAll(".se-nav-item")) {
       const on = el.dataset.id === section;
       el.classList.toggle("active", on);
       el.setAttribute("aria-selected", String(on));
       el.tabIndex = on ? 0 : -1;
     }
-    const isType = !!typeOf(section);
-    scroll.hidden = !isType;
-    header.hidden = !isType;
-    host.hidden = isType;
-    if (isType) { renderType(section); scroll.scrollTop = 0; } else renderHosted(section);
+    render(section);
     opts.onShow?.(section);
   }
 
-  function applyQuery() {
-    let total = 0;
-    for (const g of content.querySelectorAll(".se-group")) {
-      let n = 0;
-      for (const l of g.querySelectorAll("vsc-customization-list")) {
-        const m = filterList(l, state.q);
-        l.closest(".se-group-card").hidden = !!state.q && m === 0;
-        n += m;
-      }
-      g.hidden = !!state.q && n === 0;
-      total += n;
-    }
-    const c = $(".se-search-count");
-    c.hidden = !state.q;
-    c.textContent = `${total} found`;
-  }
-
+  function setFilter(patch) { Object.assign(filter, patch, { from: false }); render(state.section); }
+  // A group header's ＋ creates that type in the group's scope: User → ~/.copilot/…, Workspace (name) → that repo.
+  const DIRS = { skills: ["skills/", ".github/skills/"], instructions: ["instructions/", ".github/instructions/"], agents: ["agents/", ".github/agents/"],
+    hooks: ["hooks/", ".github/hooks/"], mcp: ["mcp-config.json", ".vscode/mcp.json"], plugins: ["installed-plugins/", null] };
   root.addEventListener("click", (e) => {
+    const add = e.target.closest("vsc-customization-group .codicon-add");
+    if (add) {
+      e.stopPropagation();
+      const g = add.closest("vsc-customization-group"), t = typeOf(state.section), label = g.getAttribute("label");
+      const [userDir, wsDir] = DIRS[t.id];
+      const ws = Object.keys(WORKSPACES).find((w) => workspaceTitle(w) === label);
+      if (t.id === "plugins") return toast("Install a plugin from a folder or Git URL. It will be available in all your sessions.");
+      return toast(ws ? `New ${t.one} in ${WORKSPACES[ws].label}/${wsDir}. Only sessions in ${label} will use it.` : `New ${t.one} in ~/.copilot/${userDir}. All your sessions will use it.`);
+    }
+    const f = e.target.closest("[data-filter]");
+    if (f) {
+      const kind = f.dataset.filter;
+      if (kind === "clear") return setFilter({ workspace: null, harness: null });
+      if (kind === "workspace") return openMenu(f, [{ label: "All Workspaces", value: null, checked: !filter.workspace }, "-",
+        ...Object.keys(WORKSPACES).map((w) => ({ label: workspaceTitle(w), value: w, checked: filter.workspace === w })), "-", { label: "Add Folder...", add: true }],
+        (it) => it.add ? toast("Pick a folder to include its customizations in the library.") : setFilter({ workspace: it.value }));
+      return openMenu(f, [{ label: "All Agents", value: null, checked: !filter.harness }, "-", ...HARNESS_IDS.map((h) => ({ label: HARNESSES[h].label, value: h, checked: filter.harness === h }))],
+        (it) => setFilter({ harness: it.value }));
+    }
     const nav = e.target.closest(".se-nav-item");
     if (nav) return show(nav.dataset.id);
-    const tab = e.target.closest("[data-tab]");
-    if (tab) { state.tab = tab.dataset.tab; return renderType(state.section); }
     const act = e.target.closest("[data-act]");
     if (!act) return;
     if (act.dataset.act === "browse") show("browse");
     else if (act.dataset.act === "session") opts.onSession?.();
-    else if (act.dataset.act === "new") {
-      const t = typeOf(state.section);
-      openMenu(act, [{ label: "For All Your Sessions", where: "user" }, "-", ...Object.values(WORKSPACES).map((w) => ({ label: `In ${w.label}`, where: w.label })), { label: "In Another Workspace...", where: "other" }], (it) =>
-        toast(it.where === "user" ? `New ${t.one}: all your sessions will use it.` : it.where === "other" ? "Pick a folder for the new " + t.one + "." : `New ${t.one} in ${it.where}: only sessions in ${it.where} will use it.`));
-    }
+
   });
   root.addEventListener("browse", () => show("browse"));
   root.querySelector(".se-nav-list").addEventListener("keydown", (e) => {
@@ -131,7 +154,6 @@ export function mountLibrary(root, opts = {}) {
     const el = navItems[(next + navItems.length) % navItems.length];
     el.focus(); show(el.dataset.id);
   });
-  $(".se-search-input").addEventListener("input", (e) => { state.q = e.target.value.trim(); applyQuery(); });
   // Browse search filters the marketplace cards (the same filter as the side panel's).
   host.addEventListener("search", (e) => {
     const q = e.detail.query.trim().toLowerCase();
@@ -144,5 +166,26 @@ export function mountLibrary(root, opts = {}) {
       s.style.display = any ? "" : "none";
     }
   });
-  return { show, get section() { return state.section; } };
+  const GROUP_OF = { Plugin: "From plugins" };
+  function reveal(name, source) {
+    const list = host.querySelector(`.lib-hosted vsc-customization-list[section="${state.section}"]`) || hosted[state.section]?.querySelector("vsc-customization-list");
+    if (!list) return;
+    const input = list.querySelector("input");
+    if (input && input.value) { input.value = ""; list.filter(""); }
+    let group = null, target = null, targetGroup = null;
+    const want = GROUP_OF[source] || source;
+    for (const row of list.rows()) {
+      if (row.localName === "vsc-customization-group") { group = row; continue; }
+      if (row.getAttribute("name") !== name) continue;
+      const gl = group?.getAttribute("label");
+      if (!target || gl === want || (want === "Built-in tools" && /Built-in/.test(gl || ""))) { target = row; targetGroup = group; if (gl === want) break; }
+    }
+    if (!target) return;
+    if (targetGroup?.hasAttribute("collapsed")) { targetGroup.removeAttribute("collapsed"); list.applyVisibility(); }
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ block: "center" });
+      target.classList.remove("lib-reveal"); void target.offsetWidth; target.classList.add("lib-reveal");
+    });
+  }
+  return { show, reveal, get section() { return state.section; }, get lastType() { return state.lastType; } };
 }

@@ -121,7 +121,7 @@
 
 		const title = h('div.se-row-title', null,
 			opts.crumb ? h('span.se-row-crumb', null, opts.crumb) : null,
-			prefix ? h('span.se-row-prefix', { html: highlight(prefix + ' › ', opts.words) }) : null,
+			prefix ? h('span.se-row-prefix', { html: highlight(prefix + (CFG.groups === 'native' ? ':' : ' › '), opts.words) }) : null,
 			h('span.se-row-label', { html: highlight(label, opts.words) }),
 			badges(s));
 
@@ -202,7 +202,7 @@
 		const center = tr.left + tr.width / 2 - rr.left;
 		const left = Math.max(4, Math.min(center - w / 2, rr.width - w - 4));
 		el.style.left = left + 'px';
-		el.style.top = (above ? tr.top - rr.top - el.offsetHeight - 2 : tr.bottom - rr.top + 2) + 'px';
+		el.style.top = (above ? tr.top - rr.top - el.offsetHeight - 3 : tr.bottom - rr.top + 3) + 'px';
 		pointer.classList.add(above ? 'bottom' : 'top');
 		pointer.style.left = (center - left - POINTER) + 'px';
 		current = { el, target };

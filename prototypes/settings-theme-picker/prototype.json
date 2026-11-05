@@ -1,0 +1,25 @@
+{
+  "title": "Settings",
+  "status": "draft",
+  "tags": [
+    "settings",
+    "vscode",
+    "information-architecture",
+    "enterprise",
+    "policy"
+  ],
+  "system": "vscode",
+  "group": "settings-modernization",
+  "variantOf": "settings-nested-pages",
+  "entry": "index.html",
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-04T19:48:35.860Z",
+  "updatedAt": "2026-11-04T19:48:35.860Z",
+  "description": "V6 (nested pages) with two content explorations. 1) A re-ordered, expanded Commonly Used list (18 settings: appearance and readability first, then saving/formatting, editing, AI, terminal and files; adds Zoom Level, Minimap, Inline Suggestions, Terminal Font Size and Default Profile, and File Icon Theme). 2) A visual theme picker on Appearance › Color Theme: a Match System / Light / Dark mode choice with workbench previews, and a grid of theme cards with miniature workbench + code previews built from each built-in theme's real colors (including light/dark preferences when matching the system).",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  }
+}

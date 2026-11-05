@@ -1,0 +1,86 @@
+{
+  "tag": "vsc-customization-source-node",
+  "kind": "component",
+  "title": "Customization source node",
+  "category": "chat",
+  "description": "A plugin, extension or organization row in a customization list (`.customization-source-node`) whose children are the customizations it supplies: twistie, kind icon, bold label, kind (\"Plugin\", \"Extension\", \"Organization\") and an open (link-external) action shown on hover or focus. Items after it with the `nested` attribute are its children: indented one more level, 32px tall and (prompt files, MCP servers) name only.",
+  "usage": "Direct child of <vsc-customization-list>, inside a group, followed by its children with `nested`: <vsc-customization-source-node label=\"Security & Code Quality Plugin\" kind=\"plugin\" count=\"1\" open-label=\"Show Plugin\"></vsc-customization-source-node><vsc-customization-item nested name=\"...\"></vsc-customization-item>. Clicking it (not the open action) collapses its children; the open action dispatches `open-source`.",
+  "attributes": [
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Plugin, extension or organization name"
+    },
+    {
+      "name": "kind",
+      "type": "enum",
+      "values": [
+        "plugin",
+        "extension",
+        "organization"
+      ],
+      "default": "plugin"
+    },
+    {
+      "name": "count",
+      "type": "number",
+      "description": "Number of nested items (aria label)"
+    },
+    {
+      "name": "collapsed",
+      "type": "boolean"
+    },
+    {
+      "name": "open-label",
+      "type": "string",
+      "description": "Shows the open action with this label (e.g. Show Plugin); omit to hide it"
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "collapsed",
+      "trigger": "Click the row (handled by <vsc-customization-list>)."
+    },
+    {
+      "name": "hover",
+      "trigger": "Reveals the open action."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "hostTag": "div",
+  "cssCaptures": [],
+  "requires": [
+    "vsc-workbench",
+    "vsc-customization-list"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/customizationSourceNode.ts",
+      "note": "microsoft/vscode#344320 (branch agents/customization-modal-organization-update @ cd41c1b2397)"
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/aiCustomizationListWidget.ts",
+      "line": 86,
+      "note": "ITEM_HEIGHT 44, NESTED_ITEM_HEIGHT 32; nested items show only their name"
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/media/aiCustomizationManagement.css",
+      "line": 823
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plugin with a nested skill",
+      "html": "<vsc-customization-list kind=\"prompts\" heading=\"Skills\" description=\"\"><vsc-customization-group label=\"User\" count=\"2\" first></vsc-customization-group><vsc-customization-item name=\"comparison-screenshot\" path=\"~/.copilot/skills/comparison-screenshot/SKILL.md\"></vsc-customization-item><vsc-customization-source-node label=\"Security &amp; Code Quality Plugin\" kind=\"plugin\" count=\"1\" open-label=\"Show Plugin\"></vsc-customization-source-node><vsc-customization-item nested name=\"ai-prompt-engineering-safety-review\" path=\"~/.copilot/installed-plugins/security-best-practices/skills/ai-prompt-engineering-safety-review/SKILL.md\"></vsc-customization-item></vsc-customization-list>",
+      "width": 720
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-11-05T17:30:11.024Z",
+  "updatedAt": "2026-11-05T17:30:11.024Z"
+}

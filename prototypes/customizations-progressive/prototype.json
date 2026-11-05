@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V10 — Progressive. V9's environments model with every Customizations page (the global surface, formerly \"Configure\") as the product's tree (with hover backgrounds): Connectors and MCP Servers (separate pages, with MCP state shown as in microsoft/vscode#337402, and On / Ask / Off on each row), Skills, Plugins, Instructions, Agents, Hooks, Tools (with per-tool switches) and Canvases, grouped by User / Workspace · folder / Built-in with plugin, extension and organization source nodes (microsoft/vscode#344320). A context picker (Environment › Workspace › Agent, any part optional) narrows every page and its counts to what an agent would see there; with a workspace picked, On / Ask / Off sets that workspace's value. Opening from a session starts in that session's context. Clicking a row opens the item itself (file content; server status, errors, tools, configuration; plugin contents) and where it's installed, configured in place per environment. An environment can stay synced with another.",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "connections",
+    "skills",
+    "environments",
+    "configure",
+    "progressive-disclosure",
+    "item-details",
+    "exploration"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-environments",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-05T16:53:01.864Z",
+  "updatedAt": "2026-11-05T18:06:29.507Z"
+}

@@ -3,7 +3,7 @@
   "kind": "component",
   "title": "MCP server item",
   "category": "chat",
-  "description": "An MCP server row (`.mcp-server-item`): server icon, name, config source path or connector detail, then actions — Start / Sign In, error state, the enablement switch and ⋯ More actions.",
+  "description": "An MCP server row (`.mcp-server-item`): server icon, name, config source path or connector detail, then actions \u2014 Start / Sign In, error state, the enablement switch and \u22ef More actions. States follow microsoft/vscode#337402: icon-only status (spinner while starting, error icon + Show Output), Start for stopped servers, the disabled scope beside an off switch, compatibility on the secondary line, no configuration path on rows.",
   "usage": "Rows of a kind=\"mcp\" <vsc-customization-list>.",
   "attributes": [
     {
@@ -53,6 +53,34 @@
       "name": "error",
       "type": "boolean",
       "description": "Error state icon."
+    },
+    {
+      "name": "state",
+      "type": "enum",
+      "values": [
+        "",
+        "running",
+        "starting",
+        "stopped",
+        "auth-required",
+        "error"
+      ],
+      "description": "Runtime state (microsoft/vscode#337402): running shows nothing, starting a spinner, stopped a Start action, auth-required Sign In, error the error icon and Show Output"
+    },
+    {
+      "name": "disabled-label",
+      "type": "string",
+      "description": "Shown beside an off switch: the scope that turned it off, e.g. Disabled (Globally), Disabled (Workspace)"
+    },
+    {
+      "name": "compatibility",
+      "type": "enum",
+      "values": [
+        "",
+        "partially-supported",
+        "unsupported"
+      ],
+      "description": "Compatibility message on the secondary line: warning (Partially supported) or error (Unsupported), with a Migrations link"
     }
   ],
   "slots": [],
@@ -82,6 +110,11 @@
     },
     {
       "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/customizationToggle.ts"
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/mcpListWidget.ts",
+      "line": 1005,
+      "note": "getMcpStatusPresentation, renderMcpListActions (#337402)"
     }
   ],
   "examples": [

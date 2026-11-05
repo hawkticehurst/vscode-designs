@@ -29,7 +29,7 @@
 
 	const EXPERIMENTAL = {
 		id: 'experimental', label: 'Experimental', icon: 'beaker', special: true,
-		description: 'Features still in development. They can change or be removed at any time; Preview settings are close to shipping.',
+		description: 'Features still in development that can change or be removed at any time. Preview settings are close to shipping.',
 		subs: [],
 	};
 	const POPULAR = { id: 'popular', label: 'Commonly Used', icon: 'star-full', special: true, description: 'The settings people change most often.', subs: [{ id: 'all', label: 'Commonly Used' }] };
@@ -136,6 +136,7 @@
 		values: { user: {}, workspace: {} },
 		cat: CFG.context === 'agents' ? 'ai' : 'popular',
 		query: '',
+		sub: null,
 		showAdvanced: false,
 		showDeprecated: false,
 		// Sections whose advanced / deprecated settings are shown: `${catId}/${subId}:advanced|deprecated`.

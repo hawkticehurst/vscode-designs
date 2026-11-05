@@ -72,3 +72,26 @@
 .ssb-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .ssb-detail { display: flex; align-items: center; gap: 4px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); line-height: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ssb-detail .codicon { font-size: 12px; }
+
+.ssb .ssb-chat.selected { background: var(--vscode-list-inactiveSelectionBackground) !important; }
+
+/* Scope bar: a new session's pickers (same state as the composer's) or an open session's fixed scope. */
+.ss-chips.ss-fixed { align-items: center; gap: var(--vscode-spacing-size40); color: var(--vscode-foreground); }
+.ss-fixed .ss-chip { border: 0; padding: 0; height: 20px; cursor: default; background: transparent !important; }
+.ss-fixed .ss-sep { color: var(--vscode-descriptionForeground); }
+.ss-fixed .ss-lock { margin-left: auto; display: inline-flex; color: var(--vscode-descriptionForeground); cursor: help; }
+.ss-fixed .ss-lock .codicon { font-size: 14px; }
+/* The composer's picker flashes when the panel changes it. */
+@keyframes scope-flash { 0%, 60% { background: color-mix(in srgb, var(--vscode-focusBorder) 28%, transparent); } 100% { background: transparent; } }
+vsc-session-picker.scope-flash .action-label { animation: scope-flash 900ms ease-out; border-radius: var(--vscode-cornerRadius-small); }
+
+/* Open session: header, transcript and the composer pinned to the bottom (after prototypes/inbox-one-v4). */
+.page > vsc-session-view[hidden], #session-page[hidden] { display: none; }
+#session-page { min-height: 100%; display: flex; flex-direction: column; }
+#session-page .s-head { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; gap: 8px; box-sizing: border-box; width: 100%; max-width: 800px; height: 40px;
+  margin: 0 auto; padding: 0 16px; background: var(--vscode-agentsPanel-background); }
+#session-page .s-head h2 { flex: 1; min-width: 0; margin: 0; font-size: 13px; font-weight: 400; line-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#session-page .s-chat { flex: 1; width: 100%; max-width: 800px; margin: 0 auto; padding-bottom: 8px; }
+#session-page vsc-chat-view { background: transparent; display: block; }
+#session-page .s-composer { position: sticky; bottom: 0; z-index: 2; width: 100%; max-width: 800px; margin: 0 auto; padding-bottom: 12px; background: var(--vscode-agentsPanel-background); }
+#session-page .s-composer vsc-session-view { --session-view-content-horizontal-padding: 16px; }

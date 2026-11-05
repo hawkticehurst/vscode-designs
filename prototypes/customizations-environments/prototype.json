@@ -1,0 +1,29 @@
+{
+  "title": "Customizations",
+  "description": "V9 — Environments. Splits global Configure (Agent Window: connections and skills across every environment and agent, environments, sessions, extensions, Discover with install-to-many) from session Customize (session header button, side panel and composer Connections dropdown, always labeled with the session's environment and agent). Connections get On / Ask first / Off, saved for the workspace or just this session; sign-in is asked only when needed; the panel flags what's missing on this environment; Developer mode shows How it runs.",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "connections",
+    "skills",
+    "environments",
+    "configure",
+    "exploration"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-everyday",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-05T16:07:40.938Z",
+  "updatedAt": "2026-11-05T16:18:25.808Z"
+}

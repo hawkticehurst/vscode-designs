@@ -1,26 +1,21 @@
-/* "This session": the customizations a session uses, grouped by where they're defined (workspace, yours, plugins,
-   built-in) in precedence order, plus what doesn't apply and why. The scope follows the composer's workspace,
-   harness and environment pickers, and the chips at the top change them too. */
+/* "This session": the customizations a session uses, grouped by where they're defined (workspace, user, plugins,
+   built-in) in precedence order, plus what doesn't apply and why. The scope comes from scope-store.js: the
+   composer's pickers for a new session, fixed for an open one. */
 import { filterList, openMenu, toast } from "./panel-shell.js";
-const { TYPES, SOURCES, HARNESSES, ENVIRONMENTS, WORKSPACES, resolve, type: typeOf, workspaceLabel } = window.SCOPE;
+import { store, subscribe, renderScopeBar } from "./scope-store.js";
+const { TYPES, SOURCES, HARNESSES, ENVIRONMENTS, WORKSPACES, resolve, type: typeOf, workspaceLabel, workspaceTitle } = window.SCOPE;
 const esc = window.CUST.esc;
 const keyOf = (it) => `${it.source}:${it.type}:${it.name}`;
 const withAttrs = (html, attrs) => html.replace(/^<([a-z-]+)/, (m) => m + " " + Object.entries(attrs).filter(([, v]) => v != null).map(([k, v]) => v === true ? k : `${k}="${esc(v)}"`).join(" "));
 const asItem = (it, badge) => `<vsc-customization-item ${Object.entries({ name: it.name, path: it.path, icon: typeOf(it.type).icon, badge }).map(([k, v]) => `${k}="${esc(v || "")}"`).join(" ")} data-key="${esc(keyOf(it))}"></vsc-customization-item>`;
 
 export function mountSession(root, opts) {
-  const scope = { ...opts.scope };
-  const off = new Map(); // key -> "session" | "everywhere"
-  const composer = opts.composer;
+  let scope = store.scope;
+  // Turned-off items, per session ("new" until one starts): key -> "session" | "everywhere".
+  const offs = new Map();
+  const off = () => { const k = store.session?.id || "new"; if (!offs.has(k)) offs.set(k, new Map()); return offs.get(k); };
   root.innerHTML = `
-    <div class="ss-scope">
-      <div class="ss-scope-label">Customizations this session uses</div>
-      <div class="ss-chips" role="group" aria-label="Session scope">
-        <button class="ss-chip" data-pick="workspace"></button>
-        <button class="ss-chip" data-pick="harness"></button>
-        <button class="ss-chip" data-pick="environment"></button>
-      </div>
-    </div>
+    <div class="ss-scope"></div>
     <div class="cp-search"><vsc-input class="ss-q" placeholder="Search this session's customizations"></vsc-input></div>
     <div class="cp-scroll ss-scroll"><div class="ai-customization-management-editor cust-flow ss-flow"></div><div class="cp-empty" hidden></div></div>
     <div class="ss-footer"${opts.footer === false ? " hidden" : ""}>
@@ -37,13 +32,6 @@ export function mountSession(root, opts) {
     }
   };
 
-  const chip = (kind) => {
-    const el = root.querySelector(`[data-pick="${kind}"]`);
-    const v = kind === "workspace" ? { icon: scope.workspace === "chat" ? "circle-slash" : "folder", label: workspaceLabel(scope.workspace) }
-      : kind === "harness" ? HARNESSES[scope.harness] : ENVIRONMENTS[scope.environment];
-    el.innerHTML = `<span class="codicon codicon-${v.icon}" aria-hidden="true"></span><span>${esc(v.label)}</span><span class="codicon codicon-chevron-down ss-chev" aria-hidden="true"></span>`;
-    el.setAttribute("aria-label", `${kind[0].toUpperCase() + kind.slice(1)}: ${v.label}`);
-  };
 
   function lists(rows, { badge, collapseOver = 5, src } = {}) {
     let html = "", prompts = "";
@@ -52,7 +40,7 @@ export function mountSession(root, opts) {
       if (!of.length) continue;
       const group = (first) => `<vsc-customization-group label="${t.label}" count="${of.length}" icon="${t.icon}" actions=""${first ? " first" : ""}${(folded.get(src + "/" + t.label) ?? of.length > collapseOver) ? " collapsed" : ""}></vsc-customization-group>`;
       const rowHtml = of.map((it) => {
-        const o = off.get(keyOf(it));
+        const o = off().get(keyOf(it));
         if (badge || t.kind === "prompts") return asItem(it, badge ? it.blocked.badge : o === "session" ? "Off in this session" : o === "everywhere" ? "Off everywhere" : "");
         return withAttrs(it.html.replace(/ enabled(="")?/, o ? "" : "$&"), { "data-key": keyOf(it) });
       }).join("");
@@ -78,7 +66,7 @@ export function mountSession(root, opts) {
 
   function render() {
     remember();
-    ["workspace", "harness", "environment"].forEach(chip);
+    renderScopeBar(root.querySelector(".ss-scope"), { new: "Your new session will use", session: "This session uses" });
     const { applies, excluded } = resolve(scope);
     const h = HARNESSES[scope.harness], env = ENVIRONMENTS[scope.environment];
     const by = (src) => applies.filter((it) => it.source === src);
@@ -88,9 +76,9 @@ export function mountSession(root, opts) {
       html += section("workspace", { icon: "folder", label: "No workspace", sub: "Pick a folder to use the customizations in it, like a repo's skills and AGENTS.md.", body: "" });
     } else {
       const rows = by("workspace");
-      html += section("workspace", { icon: "folder", label: workspaceLabel(scope.workspace), count: rows.length, add: `New in ${workspaceLabel(scope.workspace)}...`,
+      html += section("workspace", { icon: "folder", label: workspaceTitle(scope.workspace), count: rows.length, add: `New in ${workspaceTitle(scope.workspace)}...`,
         sub: `Only in sessions in this workspace${ws ? ` · <span class="ss-path">${esc(ws.path)}</span>` : ""}`,
-        body: rows.length ? lists(rows, { src: "workspace" }) : `<p class="ss-none">No customizations in ${esc(workspaceLabel(scope.workspace))} yet. Add skills, instructions or an AGENTS.md to share them with everyone who works here.</p>` });
+        body: rows.length ? lists(rows, { src: "workspace" }) : `<p class="ss-none">No customizations in ${esc(workspaceTitle(scope.workspace))} yet. Add skills, instructions or an AGENTS.md to share them with everyone who works here.</p>` });
     }
     for (const src of ["user", "plugin", "builtin"]) {
       const rows = by(src);
@@ -122,28 +110,7 @@ export function mountSession(root, opts) {
     empty.textContent = `Nothing in this session matches "${query}".`;
   }
 
-  function setScope(next, fromComposer) {
-    Object.assign(scope, next);
-    if (!fromComposer && composer) for (const [k, v] of Object.entries(next)) composer.setAttribute(k, v);
-    render();
-  }
-
-  // Scope chips.
-  root.querySelector(".ss-chips").addEventListener("click", (e) => {
-    const el = e.target.closest("[data-pick]");
-    if (!el) return;
-    const kind = el.dataset.pick;
-    const options = kind === "workspace"
-      ? [...Object.keys(WORKSPACES), "adt", "temp-test", "-", "chat"].map((id) => id === "-" ? "-" : { label: workspaceLabel(id), value: id, checked: scope.workspace === id })
-      : Object.entries(kind === "harness" ? HARNESSES : ENVIRONMENTS).map(([id, v]) => ({ label: v.label, value: id, checked: scope[kind] === id }));
-    openMenu(el, options, (it) => setScope({ [kind]: it.value }));
-  });
-  composer?.addEventListener("change", (e) => {
-    const d = e.detail || {};
-    const next = {};
-    for (const k of ["workspace", "harness", "environment"]) if (d[k]) next[k] = d[k];
-    if (Object.keys(next).length) setScope(next, true);
-  });
+  subscribe((st) => { scope = st.scope; render(); });
 
   root.querySelector(".ss-q").addEventListener("input", (e) => { query = e.target.value.trim(); applyQuery(); });
 
@@ -160,7 +127,7 @@ export function mountSession(root, opts) {
         const t = typeOf(it.type);
         const dir = where === "user" ? { skills: "~/.copilot/skills/", instructions: "~/.copilot/instructions/", agents: "~/.copilot/agents/", hooks: "~/.copilot/hooks/", mcp: "~/.copilot/mcp-config.json", plugins: "~/.copilot/installed-plugins/" }[it.type]
           : { skills: ".github/skills/", instructions: ".github/instructions/", agents: ".github/agents/", hooks: ".github/hooks/", mcp: ".vscode/mcp.json" }[it.type];
-        toast(where === "user" ? `New ${t.one} in ${dir}. All your sessions will use it.` : `New ${t.one} in ${wsName}/${dir}. Only sessions in ${wsName} will use it, and it's shared with everyone who clones the repo.`);
+        toast(where === "user" ? `New ${t.one} in ${dir}. All your sessions will use it.` : `New ${t.one} in ${wsName}/${dir}. Only sessions in ${workspaceTitle(scope.workspace)} will use it, and it's shared with everyone who clones the repo.`);
       });
       return;
     }
@@ -176,18 +143,18 @@ export function mountSession(root, opts) {
     const row = more && more.closest("[data-key]");
     if (!row) return;
     e.stopPropagation();
-    const key = row.dataset.key, [src] = key.split(":"), name = row.getAttribute("name"), state = off.get(key);
+    const key = row.dataset.key, [src] = key.split(":"), name = row.getAttribute("name"), state = off().get(key);
     if (src === "excluded" || row.closest('[data-src="excluded"]')) return;
     const turn = state ? { label: state === "session" ? "Turn On for This Session" : "Turn On Everywhere", act: "on" } : { label: "Turn Off for This Session", act: "session" };
-    const items = src === "workspace" ? [{ label: "Open File", act: "open" }, "-", turn, "-", { label: `Delete from ${workspaceLabel(scope.workspace)}...`, act: "delete" }]
+    const items = src === "workspace" ? [{ label: "Open File", act: "open" }, "-", turn, "-", { label: `Delete from ${workspaceTitle(scope.workspace)}...`, act: "delete" }]
       : src === "user" ? [{ label: "Edit (Applies to All Your Sessions)", act: "edit" }, "-", turn, ...(state ? [] : [{ label: "Turn Off Everywhere", act: "everywhere" }])]
       : [{ label: src === "plugin" ? "Show Plugin" : "View", act: "open" }, "-", turn];
     openMenu(more, items, (it) => {
       if (it.act === "session" || it.act === "everywhere") {
-        off.set(key, it.act);
+        off().set(key, it.act);
         render();
-        toast(it.act === "session" ? `${name} is off for this session. Your other sessions still use it.` : `${name} is off in all your sessions.`, ["Undo"], () => { off.delete(key); render(); });
-      } else if (it.act === "on") { off.delete(key); render(); }
+        toast(it.act === "session" ? `${name} is off for this session. Your other sessions still use it.` : `${name} is off in all your sessions.`, ["Undo"], () => { off().delete(key); render(); });
+      } else if (it.act === "on") { off().delete(key); render(); }
       else if (it.act === "edit") toast(`Editing ${name} changes it for all your sessions, not just this one.`);
       else if (it.act === "delete") toast(`Deleting ${name} removes it from the repo for everyone.`);
     });
@@ -202,5 +169,5 @@ export function mountSession(root, opts) {
   });
 
   render();
-  return { setScope, scope };
+  return {};
 }

@@ -100,3 +100,9 @@
 .cust-flow vsc-customization-group[count="0"] { display: none !important; }
 
 @media (prefers-reduced-motion: reduce) { .cpanel * { transition: none !important; animation: none !important; } }
+
+/* Row actions: switch, then the ⋯ menu on the far right, always visible (the product reveals ⋯ on hover). */
+.ai-customization-list-item .item-right { opacity: 1 !important; }
+
+/* Notifications: no frosted-glass blur behind toasts (the captured ::before backdrop-filter is wider than the toast and shows as a halo). */
+.notification-toast::before { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }

@@ -1,0 +1,65 @@
+{
+  "tag": "vsc-tool-item",
+  "kind": "component",
+  "title": "Tool row",
+  "category": "chat",
+  "description": "A tool inside an expanded tool set on the Tools page (`.tools-list-toolrow`): name, one-line description and its own enablement switch (or \"Always Available\" for read-only sets). Indented under its set by its own padding, as the product does.",
+  "usage": "Direct child of <vsc-customization-list kind=\"tools\">, right after its <vsc-tool-set-item expanded>.",
+  "attributes": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "name": "enabled",
+      "type": "boolean"
+    },
+    {
+      "name": "readonly",
+      "type": "boolean",
+      "description": "The set can't be changed (e.g. Copilot's own tools): shows Always Available instead of a switch"
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "enabled",
+      "trigger": "Click the row or its switch (dispatches toggle with detail.tool)."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "hostTag": "div",
+  "cssCaptures": [],
+  "requires": [
+    "vsc-workbench",
+    "vsc-customization-list"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/toolsListWidget.ts",
+      "line": 336
+    },
+    {
+      "path": "src/vs/workbench/contrib/chat/browser/aiCustomization/media/aiCustomizationManagement.css",
+      "line": 1565
+    }
+  ],
+  "examples": [
+    {
+      "title": "Expanded tool set",
+      "html": "<vsc-customization-list kind=\"tools\" heading=\"Tools\" description=\"\"><vsc-customization-group label=\"User\" count=\"1\"></vsc-customization-group><vsc-tool-set-item name=\"Playwright\" description=\"Drive a browser\" count=\"2/3\" enabled expanded more></vsc-tool-set-item><vsc-tool-item name=\"browser_navigate\" enabled></vsc-tool-item><vsc-tool-item name=\"browser_click\" enabled></vsc-tool-item><vsc-tool-item name=\"browser_evaluate\"></vsc-tool-item></vsc-customization-list>",
+      "width": 720
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-11-05T17:40:54.375Z",
+  "updatedAt": "2026-11-05T17:40:54.375Z"
+}
