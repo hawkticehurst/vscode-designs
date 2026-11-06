@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "title": "Settings feedback",
+  "intro": "Working on a new design for setting!",
+  "questions": [
+    "What do you think of the sidebar organization?"
+  ],
+  "presentation": "both",
+  "device": "desktop",
+  "round": 1,
+  "exportedAt": "2026-11-06T19:18:42.193Z",
+  "project": "VS Code",
+  "items": [
+    {
+      "key": "a",
+      "label": "Option A",
+      "entry": "prototypes/settings-theme-picker-code/index.html",
+      "pages": []
+    },
+    {
+      "key": "b",
+      "label": "Option B",
+      "entry": "prototypes/settings-theme-picker-specimen/index.html",
+      "pages": []
+    }
+  ]
+}
