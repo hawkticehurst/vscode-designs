@@ -1,7 +1,7 @@
 {
   "title": "Inbox One",
   "description": "Builds on the conversation-shaped Summary (the viewer's V7, id inbox-one-v6) without its chat bubble or card grid. The Task is a lead paragraph under a sentence-case \"Task\" heading, no longer a chat request bubble. A one-line agent status (\"Claude finished and is ready for review\") then leads the agent's summary or progress, with model, workspace, branch and environment in its tooltip. Below a divider, Artifacts shows the visual changes card, then plain lists instead of cards. Pull request is a single row with the PR number and title, its status (or Agent Merge status) and Ready to Merge inline. Checks and Changes are hairline-separated lists under a header row the same height as their rows, carrying the overall status (\"All passing\") or file count and diff totals.",
-  "status": "draft",
+  "status": "review",
   "tags": [
     "vscode",
     "agents",

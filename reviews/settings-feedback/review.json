@@ -1,0 +1,41 @@
+{
+  "title": "Settings feedback",
+  "intro": "Working on a new design for setting!",
+  "questions": [
+    "What do you think of the sidebar organization?"
+  ],
+  "presentation": "both",
+  "device": "desktop",
+  "items": [
+    {
+      "prototype": "settings-theme-picker-code",
+      "label": "Option A"
+    },
+    {
+      "prototype": "settings-theme-picker-specimen",
+      "label": "Option B"
+    }
+  ],
+  "slug": "settings-feedback-8d1c63dc",
+  "rounds": [
+    {
+      "round": 1,
+      "publishedAt": "2026-11-06T19:18:46.105Z",
+      "target": "github-pages",
+      "url": "https://hawkticehurst.github.io/vscode-designs/settings-feedback-8d1c63dc/round-1/",
+      "path": "settings-feedback-8d1c63dc/round-1",
+      "prototypes": [
+        {
+          "id": "settings-theme-picker-code",
+          "updatedAt": "2026-11-04T20:06:57.382Z"
+        },
+        {
+          "id": "settings-theme-picker-specimen",
+          "updatedAt": "2026-11-04T20:06:57.382Z"
+        }
+      ]
+    }
+  ],
+  "createdAt": "2026-11-06T19:18:33.880Z",
+  "updatedAt": "2026-11-06T19:18:46.105Z"
+}

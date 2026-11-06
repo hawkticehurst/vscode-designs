@@ -1,21 +1,14 @@
 {
   "title": "Inbox One",
-  "intro": "An initial explorations of an email inbox style agents window homepage.",
-  "questions": [
-    "How does image comparison component feel?",
-    "How do we like inbox split view?"
-  ],
+  "intro": "Exploration of an email inbox style agents workflow.",
+  "questions": [],
   "presentation": "both",
   "device": "desktop",
   "items": [
     {
-      "prototype": "inbox-one-v3",
-      "label": "Inbox Top",
-      "note": "Changed: Image comparison component added."
-    },
-    {
-      "prototype": "inbox-one-v4",
-      "label": "Inbox Split View"
+      "prototype": "inbox-one-v9",
+      "label": "Left Sidebar + Summary View",
+      "note": "Inbox session list goes in left sidebar, groups go in bottom corner, main chat area has a \"Summary\" and \"Chat\" view."
     }
   ],
   "slug": "untitled-review-2-d51edad7",
@@ -53,8 +46,21 @@
           "updatedAt": "2026-10-29T19:54:47.716Z"
         }
       ]
+    },
+    {
+      "round": 3,
+      "publishedAt": "2026-11-06T19:31:51.215Z",
+      "target": "github-pages",
+      "url": "https://hawkticehurst.github.io/vscode-designs/untitled-review-2-d51edad7/round-3/",
+      "path": "untitled-review-2-d51edad7/round-3",
+      "prototypes": [
+        {
+          "id": "inbox-one-v9",
+          "updatedAt": "2026-11-06T17:50:02.054Z"
+        }
+      ]
     }
   ],
   "createdAt": "2026-10-28T19:39:15.210Z",
-  "updatedAt": "2026-10-29T19:59:04.405Z"
+  "updatedAt": "2026-11-06T19:31:51.215Z"
 }
