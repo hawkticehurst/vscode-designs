@@ -1,0 +1,23 @@
+{
+  "title": "Inbox One",
+  "description": "Brings the inbox back into the Agents window's sessions sidebar, after the hawkticehurst/agent-window-inbox-and-threads branch in microsoft/vscode. The sidebar is in Inbox mode: an \"Inbox\" header (search, filter, new session) over a flat list of sessions that need you (needs input, ready for review, failed). Running, On Hold and Ready to Merge sessions sit in collapsed sections anchored below it, with a shimmering \"N sessions running\" label. Show Done in the filter menu adds a Done section. The selected session opens in the existing chat view container, whose title bar now has a Summary | Chat toggle (V switches it, and the choice carries across sessions). Chat is the existing transcript. Summary is the summarized-artifacts view from V4: harness, model, workspace, branch and environment, the task, a summary or progress checklist, then the artifacts: before/after visual card, changes with diff stats, checks and the pull request. Both views share one composer and question area. In Summary, a choice between screenshots sits inline under the summary instead of above the composer. Replying, Mark as Done, Move to On Hold or Mark as Ready to Merge moves you to the next session, like triaging mail. Starting a new session runs it in the background under Running. j/k move through sessions, ⌘B toggles the sidebar, and on narrow windows the sidebar covers the panel.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "inbox",
+    "composer"
+  ],
+  "system": "vscode",
+  "group": "agents-inbox",
+  "variantOf": "inbox-one-v4",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "human"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-06T16:46:24.379Z",
+  "updatedAt": "2026-11-06T16:58:43.779Z"
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Inbox One",
+  "description": "Summary view option C, an outline (a fork of V5). The Summary is a list of collapsible sections. Each header row carries that section's status, so the whole session scans like a table of contents: Task, Summary/Progress/What went wrong (\"Needs your input\", \"Step 2 of 4\"), Changes (\"4 files +185 −24\"), Checks (\"All passing\", or failing with an icon), Pull request (\"#482 · Open\") and Details (\"Copilot · Worktree\"). Task and Summary start open. Checks opens when something is failing, and Pull request opens when it's ready to merge. The rest start collapsed, and the sections you open are remembered per session. Screenshots in the Summary are capped in height so the outline stays in view (Expand opens them full size). The metadata lives in the collapsed Details section. All headings are sentence case.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "inbox",
+    "composer"
+  ],
+  "system": "vscode",
+  "group": "agents-inbox",
+  "variantOf": "inbox-one-v5",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-06T17:26:35.181Z",
+  "updatedAt": "2026-11-06T17:30:14.933Z"
+}

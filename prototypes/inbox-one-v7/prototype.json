@@ -1,0 +1,24 @@
+{
+  "title": "Inbox One",
+  "description": "Summary view option B, a brief with a details rail (a fork of V5). The main column leads with the Task as a 14px lead paragraph under a \"Task\" heading, then \"Summary\" (or \"Progress\" or \"What went wrong\"). A 208px rail on the right holds the reference info: Details (agent, model, workspace, branch, runs on) as a label/value list, a compact Checks list with its overall status, and the Pull request with Ready to Merge. The larger artifacts, the visual changes card and Changes, span the full column below. On narrow widths the rail stacks under the summary. All headings are sentence case, and card headers are the same 28px height as their rows.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "inbox",
+    "composer"
+  ],
+  "system": "vscode",
+  "group": "agents-inbox",
+  "variantOf": "inbox-one-v5",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-06T17:26:35.183Z",
+  "updatedAt": "2026-11-06T17:30:14.934Z"
+}

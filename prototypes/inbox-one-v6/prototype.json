@@ -1,0 +1,24 @@
+{
+  "title": "Inbox One",
+  "description": "Summary view option A, conversation-shaped (a fork of V5). The Summary is laid out like the conversation, so switching to Chat feels familiar. The Task is your request bubble, exactly as it looks in Chat. Below it, a one-line agent status (for example \"Copilot needs you to choose\" or \"Copilot finished and is ready for review\") leads the agent's summary or progress. Artifacts sits under its own sentence-case heading below a divider: the visual changes card, then the Changes, Checks and Pull request cards. The metadata row is gone, and model, workspace, branch and where it runs are in the status line's tooltip. All headings are sentence case, and card headers are the same 28px height as their rows.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "inbox",
+    "composer"
+  ],
+  "system": "vscode",
+  "group": "agents-inbox",
+  "variantOf": "inbox-one-v5",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-06T17:26:35.183Z",
+  "updatedAt": "2026-11-06T17:30:14.933Z"
+}
