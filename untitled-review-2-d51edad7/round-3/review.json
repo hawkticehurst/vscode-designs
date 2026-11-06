@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "title": "Inbox One",
+  "intro": "Exploration of an email inbox style agents workflow.",
+  "questions": [],
+  "presentation": "both",
+  "device": "desktop",
+  "round": 3,
+  "exportedAt": "2026-11-06T19:31:47.457Z",
+  "project": "VS Code",
+  "items": [
+    {
+      "key": "a",
+      "label": "Left Sidebar + Summary View",
+      "note": "Inbox session list goes in left sidebar, groups go in bottom corner, main chat area has a \"Summary\" and \"Chat\" view.",
+      "entry": "prototypes/inbox-one-v9/index.html",
+      "pages": []
+    }
+  ]
+}
