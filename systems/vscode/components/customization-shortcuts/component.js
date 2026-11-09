@@ -13,9 +13,37 @@ const CUSTOMIZATION_SHORTCUTS = [
 
 class CustomizationShortcuts extends ds.Element {
   static hostClass = "agent-sessions-customizations-section";
-  static props = ["active", "counts", "height"];
+  static props = ["active", "counts", "height", "variant", "updates-available"];
+
+  emitOpen(section = "browse") {
+    this.dispatchEvent(new CustomEvent("open-customizations", { bubbles: true, detail: { section } }));
+  }
+
+  renderTop() {
+    const h = ds.h;
+    return h("div.agents-sidebar-top", null,
+      h("button.agents-sidebar-entry.new-session-entry", { type: "button" },
+        h("span.codicon.codicon-add"),
+        h("span", null, "New Session"),
+        h("span.agents-sidebar-keybinding", null, h("kbd", null, "Ctrl"), h("span", null, "+"), h("kbd", null, "N"))),
+      h("button.agents-sidebar-entry", { type: "button" },
+        h("span.codicon.codicon-workflow"),
+        h("span", null, "Automations")),
+      h("button.agents-sidebar-entry", { type: "button", onclick: () => this.emitOpen("browse") },
+        h("span.codicon.codicon-ai-customization"),
+        h("span", null, "Customizations"),
+        this.hasAttribute("updates-available") ? h("span.agents-sidebar-update-dot", { "aria-label": "Updates available", title: "Updates available" }) : null),
+      h("div.agents-sidebar-sessions-heading", null,
+        h("span", null, "Sessions"),
+        h("div.agents-sidebar-heading-actions", null,
+          h("button.codicon.codicon-filter", { type: "button", "aria-label": "Filter Sessions" }),
+          h("button.codicon.codicon-search", { type: "button", "aria-label": "Search Sessions" }),
+          h("button.codicon.codicon-ellipsis", { type: "button", "aria-label": "More Session Actions" }))));
+  }
 
   render() {
+    if (this.attr("variant", "list") === "top") return this.renderTop();
+
     const h = ds.h;
     const counts = this.attr("counts", "2,5,32,2,3,1,36").split(",").map((c) => c.trim());
     const active = this.attr("active", "");
@@ -27,7 +55,7 @@ class CustomizationShortcuts extends ds.Element {
           h("a.monaco-button.secondary.customization-link-button.sidebar-action-button.monaco-text-button", {
             tabindex: "0", role: "button", "aria-disabled": "false", "data-section": s.id, "aria-current": s.id === active ? "true" : undefined,
             style: s.id === active ? "background-color: var(--vscode-list-inactiveSelectionBackground);" : "background-color: transparent;",
-            onclick: () => this.dispatchEvent(new CustomEvent("open-customizations", { bubbles: true, detail: { section: s.id === "overview" ? "browse" : s.id } })) },
+            onclick: () => this.emitOpen(s.id === "overview" ? "browse" : s.id) },
             h("span.codicon.codicon-" + s.icon),
             h("span", null, s.label),
             count ? h("span.customization-link-counts", null, h("span.source-count-badge", null, h("span.source-count-num", null, count)))

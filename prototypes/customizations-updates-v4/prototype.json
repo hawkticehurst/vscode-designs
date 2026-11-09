@@ -1,0 +1,25 @@
+{
+  "title": "Customizations - Updates",
+  "description": "V4: Marketplace Quick Pick shows “Auto Update: On · 2 exceptions.” Both installed marketplace plugins are explicit Off exceptions; toggling the marketplace Off warns that the two custom settings will be overwritten, applies the state to all, and offers Undo.",
+  "status": "review",
+  "tags": [
+    "agents",
+    "customizations",
+    "plugins",
+    "updates",
+    "item-details",
+    "modal",
+    "marketplace"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-updates-v3",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [],
+  "createdAt": "2026-11-06T23:32:11.960Z",
+  "updatedAt": "2026-11-06T23:42:37.889Z"
+}

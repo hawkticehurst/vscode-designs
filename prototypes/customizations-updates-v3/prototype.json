@@ -1,0 +1,21 @@
+{
+  "title": "Customizations - Updates",
+  "description": "V3: V2’s blue dot indicators, plugin-update tooltip, split Update action, and marketplace Auto Update actions, with two manually updateable plugins under Needs Action and the managed plugin under User.",
+  "status": "review",
+  "tags": [
+    "agents",
+    "customizations",
+    "plugins",
+    "updates",
+    "item-details",
+    "modal",
+    "marketplace"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-updates-2",
+  "entry": "index.html",
+  "sourceRefs": [],
+  "createdAt": "2026-11-06T22:56:58.613Z",
+  "updatedAt": "2026-11-06T23:20:23.812Z"
+}

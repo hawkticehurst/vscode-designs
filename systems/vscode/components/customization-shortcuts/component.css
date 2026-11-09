@@ -1,0 +1,91 @@
+vsc-customization-shortcuts[variant="top"] {
+  display: block;
+  height: auto !important;
+  padding: 8px 7px 0;
+  color: var(--vscode-sideBar-foreground);
+}
+
+vsc-customization-shortcuts .agents-sidebar-top {
+  display: flex;
+  flex-direction: column;
+}
+
+vsc-customization-shortcuts .agents-sidebar-entry {
+  display: grid;
+  grid-template-columns: 16px 1fr auto;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 2px;
+  border: 0;
+  color: var(--vscode-sideBar-foreground);
+  background: transparent;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+vsc-customization-shortcuts .agents-sidebar-entry:hover,
+vsc-customization-shortcuts .agents-sidebar-sessions-heading button:hover {
+  color: var(--vscode-foreground);
+}
+
+vsc-customization-shortcuts .agents-sidebar-entry > .codicon {
+  color: var(--vscode-icon-foreground);
+  font-size: 15px;
+}
+
+vsc-customization-shortcuts .agents-sidebar-keybinding {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--vscode-descriptionForeground);
+}
+
+vsc-customization-shortcuts .agents-sidebar-keybinding kbd {
+  min-width: 22px;
+  padding: 1px 5px;
+  border: 1px solid var(--vscode-keybindingLabel-border);
+  border-bottom-color: var(--vscode-keybindingLabel-bottomBorder);
+  border-radius: 3px;
+  color: var(--vscode-keybindingLabel-foreground);
+  background: var(--vscode-keybindingLabel-background);
+  box-shadow: inset 0 -1px 0 var(--vscode-keybindingLabel-bottomBorder);
+  font: inherit;
+  font-size: 11px;
+  text-align: center;
+}
+
+vsc-customization-shortcuts .agents-sidebar-update-dot {
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  border-radius: 50%;
+  background: var(--vscode-notificationsWarningIcon-foreground);
+}
+
+vsc-customization-shortcuts .agents-sidebar-sessions-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 32px;
+  margin-top: 6px;
+  color: var(--vscode-foreground);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+vsc-customization-shortcuts .agents-sidebar-heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+vsc-customization-shortcuts .agents-sidebar-sessions-heading button {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  color: var(--vscode-icon-foreground);
+  background: transparent;
+  cursor: pointer;
+}

@@ -3,24 +3,52 @@
   "kind": "component",
   "title": "Customization shortcuts (Agents sidebar)",
   "category": "chat",
-  "description": "The Customizations section at the bottom of the Agents window's sessions sidebar (`.agent-sessions-customizations-section`): a collapsible \"Customizations\" header and the shortcut links (Overview, Plugins, MCP Servers, Skills, Instructions, Agents, Hooks, Tools, Extensions) with their counts. Each link opens the Customizations editor on that section. Verified geometry, fonts and colors against the live sidebar; the remaining diff is the color of a `border-style: none` border (`currentcolor`), which isn't painted.",
+  "description": "Agents sidebar Customizations navigation. The top variant renders the current New Session, Automations, Customizations, and Sessions controls; the default preserves the legacy expanded shortcut list.",
   "usage": "Bottom of the Agents window sessions sidebar (280px wide). Listen for `open-customizations` to open <vsc-customizations-editor> on that section.",
   "attributes": [
     {
       "name": "active",
-      "type": "string",
-      "description": "Section id of the link to highlight (overview, plugins, mcp, skills, instructions, agents, hooks, tools, extensions)."
+      "type": "enum",
+      "values": [
+        "overview",
+        "plugins",
+        "mcp",
+        "skills",
+        "instructions",
+        "agents",
+        "hooks",
+        "tools",
+        "extensions"
+      ],
+      "default": "",
+      "description": "Active shortcut in the legacy expanded list."
     },
     {
       "name": "counts",
       "type": "string",
       "default": "2,5,32,2,3,1,36",
-      "description": "Counts for Plugins, MCP Servers, Skills, Instructions, Agents, Hooks, Tools."
+      "description": "Comma-separated counts for Plugins through Tools in the legacy expanded list."
     },
     {
       "name": "height",
       "type": "number",
-      "default": "300"
+      "default": "300",
+      "description": "Legacy expanded-list height in pixels."
+    },
+    {
+      "name": "variant",
+      "type": "enum",
+      "values": [
+        "list",
+        "top"
+      ],
+      "default": "list",
+      "description": "Use top for the current Agents sidebar actions and Sessions toolbar."
+    },
+    {
+      "name": "updates-available",
+      "type": "boolean",
+      "description": "Shows the yellow update indicator beside Customizations in the top variant."
     }
   ],
   "slots": [],
@@ -34,7 +62,17 @@
       "trigger": "`active` highlights the link of the open section (prototype affordance; the product doesn't track it)."
     }
   ],
-  "variants": [],
+  "variants": [
+    {
+      "name": "list",
+      "description": "Legacy expanded Customizations shortcuts."
+    },
+    {
+      "name": "top",
+      "description": "Current top-of-sidebar navigation and Sessions toolbar.",
+      "html": "<vsc-customization-shortcuts variant=\"top\" updates-available></vsc-customization-shortcuts>"
+    }
+  ],
   "hostDisplay": "block",
   "cssCaptures": [
     "agents-customizations-shortcuts-dark",
@@ -105,5 +143,5 @@
     ]
   },
   "createdAt": "2026-10-30T19:23:49.311Z",
-  "updatedAt": "2026-10-30T19:24:21.317Z"
+  "updatedAt": "2026-11-05T23:57:24.183Z"
 }

@@ -1,0 +1,23 @@
+{
+  "title": "Customizations - Updates",
+  "description": "Interactive VS Code Agents-window prototype for plugin updates: sidebar and Plugins indicators, row and detail actions, auto-update, managed-policy states, version quick pick, marketplace source toggles, progress, confirmation, and restart-required handling.",
+  "status": "review",
+  "tags": [
+    "agents",
+    "customizations",
+    "plugins",
+    "updates",
+    "item-details",
+    "modal",
+    "marketplace"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "human"
+  },
+  "sourceRefs": [],
+  "createdAt": "2026-11-05T21:53:11.839Z",
+  "updatedAt": "2026-11-05T23:58:22.087Z"
+}

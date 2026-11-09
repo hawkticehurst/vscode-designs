@@ -1,0 +1,114 @@
+{
+  "tag": "vsc-plugin-details",
+  "kind": "component",
+  "title": "Plugin details",
+  "category": "chat",
+  "description": "The current Customizations plugin detail page: back navigation and plugin title, installed actions in the upper-right, Auto Update on its own row above Details, a manual Update action only when Auto Update is off, or a single Install action for marketplace plugins, plus Details, Contains, and README sections.",
+  "usage": "Use as a section page inside the Customizations modal or docked editor. Add `uninstalled` for marketplace details with a single Install action. Listen for `back`, `install`, `update`, `uninstall`, `uninstall-menu`, `enablement-change`, and `auto-update-change`.",
+  "attributes": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Plugin display name."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "description": "Installed or marketplace plugin version."
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "description": "Installed location or marketplace source."
+    },
+    {
+      "name": "skills",
+      "type": "string",
+      "description": "Comma-separated skill names."
+    },
+    {
+      "name": "readme",
+      "type": "string",
+      "default": "No README was provided for this plugin."
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "default": "true"
+    },
+    {
+      "name": "update-available",
+      "type": "boolean",
+      "description": "Makes the manual Update action available while Auto Update is off."
+    },
+    {
+      "name": "auto-update",
+      "type": "boolean",
+      "description": "Initial Auto Update switch state. Suppresses the manual Update action while enabled."
+    },
+    {
+      "name": "uninstalled",
+      "type": "boolean",
+      "description": "Marketplace detail state with only an Install action."
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "installed",
+      "trigger": "Default state: enablement and uninstall splits in the heading, Auto Update above Details, and an optional manual Update action."
+    },
+    {
+      "name": "uninstalled",
+      "trigger": "Set `uninstalled`: only Install is shown and fires `install`."
+    },
+    {
+      "name": "auto-update",
+      "trigger": "Click the Auto Update switch; fires `auto-update-change` and hides manual Update while enabled."
+    },
+    {
+      "name": "update",
+      "trigger": "Click Update while Auto Update is off; fires `update`."
+    },
+    {
+      "name": "back",
+      "trigger": "Click Back; fires `back`."
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "cssCaptures": [],
+  "requires": [
+    "vsc-workbench"
+  ],
+  "tokens": [
+    "--vscode-editor-background",
+    "--vscode-foreground",
+    "--vscode-descriptionForeground",
+    "--vscode-panel-border",
+    "--vscode-textLink-foreground",
+    "--vscode-button-background",
+    "--vscode-button-foreground",
+    "--vscode-button-secondaryBackground",
+    "--vscode-button-secondaryForeground",
+    "--vscode-focusBorder"
+  ],
+  "uses": [],
+  "sources": [],
+  "examples": [
+    {
+      "title": "Installed with manual update available",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 1040px; height: 680px;\"><vsc-plugin-details name=\"github-copilot\" version=\"0.16.0\" location=\"C:\\Users\\jehoughton\\vscode-insiders\\extensions\\github.copilot-evals-0.16.0\\dist\\plugin\" skills=\"compare,create,improve,review,run,setup\" enabled update-available></vsc-plugin-details></vsc-workbench>",
+      "width": 1040
+    },
+    {
+      "title": "Marketplace plugin",
+      "html": "<vsc-workbench window=\"agents\" theme=\"light-2026\" style=\"width: 1040px; height: 680px;\"><vsc-plugin-details name=\"review-toolkit\" version=\"1.2.0\" location=\"vscode-team-kit marketplace\" skills=\"pr-review,change-summary\" uninstalled></vsc-plugin-details></vsc-workbench>",
+      "width": 1040
+    }
+  ],
+  "references": [],
+  "status": "stable",
+  "createdAt": "2026-11-05T21:59:36.793Z",
+  "updatedAt": "2026-11-05T23:58:10.649Z"
+}
