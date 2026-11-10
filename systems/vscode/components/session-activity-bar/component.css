@@ -1,0 +1,81 @@
+/*
+ * State rules of the menu activity bar that the element capture didn't keep (their selectors use :is()/:not() lists
+ * with the state classes). Copied verbatim from the live Agents window stylesheet
+ * (VS Code - Insiders 1.146.0, commit 6bd30dab6e2), same cascade order.
+ */
+
+/* @capture sessions.desktop.main.css@8885 */
+.monaco-workbench .menu-activity-bar.size-compact .menu-activity-bar-badge.count {
+  top: var(--vscode-spacing-size100);
+  right: 0px;
+  min-width: var(--vscode-spacing-size120);
+  height: var(--vscode-spacing-size120);
+  padding: 0 var(--vscode-spacing-size20);
+  line-height: calc(var(--vscode-spacing-size120) - 2 * var(--vscode-strokeThickness));
+}
+
+/* @capture sessions.desktop.main.css@8890 */
+.monaco-workbench .menu-activity-bar.hidden {
+  display: none;
+}
+
+/* @capture sessions.desktop.main.css@8896 */
+.monaco-workbench .menu-activity-bar .monaco-action-bar.vertical .action-label:not(.disabled, .separator, .checked, .submenu-open):hover {
+  color: var(--menu-activity-bar-hover-foreground);
+}
+
+/* @capture sessions.desktop.main.css@8897 */
+.monaco-workbench .menu-activity-bar .monaco-action-bar.vertical .action-label:not(.disabled, .separator, .checked, .submenu-open):hover::after {
+  background-color: var(--menu-activity-bar-hover-background);
+  outline: var(--vscode-strokeThickness) dashed var(--menu-activity-bar-hover-outline);
+  outline-offset: calc(-1 * var(--vscode-strokeThickness));
+}
+
+/* @capture sessions.desktop.main.css@8898 */
+.monaco-workbench .menu-activity-bar .monaco-action-bar.vertical .action-label:is(.checked, .submenu-open):not(.disabled) {
+  color: var(--menu-activity-bar-active-foreground);
+}
+
+/* @capture sessions.desktop.main.css@8899 */
+.monaco-workbench .menu-activity-bar .monaco-action-bar.vertical .action-label:is(.checked, .submenu-open):not(.disabled)::after {
+  background-color: var(--menu-activity-bar-active-background);
+}
+
+/* @capture sessions.desktop.main.css@8900 */
+.monaco-workbench:is(.hc-black, .hc-light) .menu-activity-bar .monaco-action-bar.vertical .action-label:is(.checked, .submenu-open):not(.disabled)::after {
+  background-color: transparent;
+  outline: var(--vscode-strokeThickness) solid var(--vscode-contrastActiveBorder);
+  outline-offset: calc(-1 * var(--vscode-strokeThickness));
+}
+
+/* @capture sessions.desktop.main.css@8901 */
+.monaco-workbench:is(.hc-black, .hc-light) .menu-activity-bar .monaco-action-bar.vertical .action-label:not(.disabled, .separator, .checked, .submenu-open):hover::after {
+  background-color: transparent;
+  outline: var(--vscode-strokeThickness) dashed var(--vscode-contrastActiveBorder);
+  outline-offset: calc(-1 * var(--vscode-strokeThickness));
+}
+
+/* @capture sessions.desktop.main.css@8905 */
+.monaco-workbench .menu-activity-bar .menu-activity-bar-badge.visible {
+  display: block;
+}
+
+/* @capture sessions.desktop.main.css@8906 */
+.monaco-workbench .menu-activity-bar .menu-activity-bar-badge.count {
+  top: var(--vscode-spacing-size160);
+  right: var(--vscode-spacing-size20);
+  width: auto;
+  min-width: var(--vscode-spacing-size160);
+  height: var(--vscode-spacing-size160);
+  padding: 0 var(--vscode-spacing-size40);
+  font-size: var(--vscode-fontSize-label3);
+  line-height: calc(var(--vscode-spacing-size160) - 2 * var(--vscode-strokeThickness));
+  text-align: center;
+}
+
+/* @capture sessions.desktop.main.css@9362 */
+.monaco-workbench .session-activity-bar.hidden,
+.monaco-workbench .session-activity-bar.inactive,
+.monaco-workbench.phone-layout .session-activity-bar {
+  display: none;
+}

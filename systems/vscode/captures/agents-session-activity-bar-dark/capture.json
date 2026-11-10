@@ -1,0 +1,189 @@
+{
+  "label": "agents-session-activity-bar-dark",
+  "url": "vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/vs/sessions/electron-browser/sessions.html",
+  "selector": ".session-activity-bar-column",
+  "theme": "dark-2026",
+  "capturedAt": "2026-11-10T16:39:43.569Z",
+  "rect": {
+    "x": 1402,
+    "y": 44,
+    "w": 34,
+    "h": 852
+  },
+  "parentWidth": 34,
+  "ancestors": [
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-view visible",
+      "w": 34,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-container",
+      "w": 1436,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-scrollable-element  mac",
+      "w": 1436,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-split-view2 horizontal",
+      "w": 1436,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-grid-branch-node",
+      "w": 1436,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-view visible",
+      "w": 1436,
+      "h": 852,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "split-view-container",
+      "w": 1436,
+      "h": 896,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-scrollable-element  mac",
+      "w": 1436,
+      "h": 896,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-split-view2 vertical",
+      "w": 1436,
+      "h": 896,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-grid-branch-node",
+      "w": 1436,
+      "h": 896,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "monaco-grid-view",
+      "w": 1436,
+      "h": 896,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "classes": "modern-ui-connected-editor-tabs monaco-enable-motion monaco-workbench agent-sessions-workbench modern-ui-tabs modern-ui-notifications-dialogs mac chromium nomaineditorarea nopanel nocustomviewgrid nostatusbar panel-alignment-justify macos-tahoe agents-side-pane-multiple-tabs dock-detail-panel session-activity-bar-column-visible file-icons-enabled modern-ui-frosted-glass vs-dark vscode-theme-defaults-themes-2026-dark-json",
+      "w": 1440,
+      "h": 900,
+      "display": "block",
+      "bg": "rgb(18, 19, 20)"
+    },
+    {
+      "tag": "body",
+      "id": "",
+      "classes": "",
+      "w": 1440,
+      "h": 900,
+      "display": "block",
+      "bg": "rgba(0, 0, 0, 0)"
+    }
+  ],
+  "inherited": {
+    "color": "rgb(191, 191, 191)",
+    "font-family": "-apple-system, \"system-ui\", sans-serif",
+    "font-size": "13px",
+    "font-weight": "400",
+    "line-height": "18.2px",
+    "letter-spacing": "normal",
+    "-webkit-font-smoothing": "auto",
+    "user-select": "none"
+  },
+  "vars": {
+    "--vscode-cornerRadius-medium": "6px",
+    "--vscode-disabledForeground": "#555555",
+    "--vscode-menu-separatorBackground": "#2a2b2c",
+    "--vscode-icon-foreground": "#8c8c8c",
+    "--vscode-focusBorder": "rgba(57, 148, 188, 0.7)",
+    "--vscode-cornerRadius-small": "4px",
+    "--agents-window-corner-radius": "max(0px, calc(calc(16px / 1) - 4px))",
+    "--vscode-spacing-size80": "8px",
+    "--vscode-spacing-size20": "2px",
+    "--vscode-activityBar-inactiveForeground": "#8c8c8c",
+    "--vscode-modernActivityBarItem-hoverForeground": "#bfbfbf",
+    "--vscode-modernActivityBarItem-hoverBackground": "rgba(255, 255, 255, 0.07)",
+    "--vscode-modernActivityBarItem-activeForeground": "#ededed",
+    "--vscode-activityBar-activeBackground": "#313233",
+    "--vscode-modernActivityBarItem-activeBackground": "rgba(255, 255, 255, 0.13)",
+    "--vscode-strokeThickness": "1px",
+    "--vscode-modernActivityBar-border": "#252526",
+    "--vscode-cornerRadius-large": "8px",
+    "--vscode-modernActivityBar-background": "#191a1b",
+    "--vscode-spacing-size240": "24px",
+    "--vscode-codiconFontSize": "16px",
+    "--vscode-spacing-size60": "6px",
+    "--vscode-spacing-size160": "16px",
+    "--vscode-spacing-size120": "12px",
+    "--vscode-spacing-size200": "20px",
+    "--vscode-cornerRadius-circle": "9999px",
+    "--vscode-activityBarBadge-background": "#307e9f",
+    "--vscode-activityBarBadge-foreground": "#ffffff",
+    "--vscode-toolbar-hoverBackground": "rgba(90, 93, 94, 0.31)"
+  },
+  "fontFaces": [
+    {
+      "family": "codicon",
+      "css": "@font-face { font-family: codicon; font-display: block; src: url(\"../../media/codicon.ttf\") format(\"truetype\"); }",
+      "urls": [
+        "vscode-file://vscode-app/Applications/Visual%20Studio%20Code%20-%20Insiders.app/Contents/Resources/app/out/media/codicon.ttf"
+      ]
+    }
+  ],
+  "rules": 49,
+  "scale": 2,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  }
+}

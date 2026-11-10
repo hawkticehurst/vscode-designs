@@ -1,0 +1,78 @@
+{
+  "tag": "vsc-session-activity-item",
+  "kind": "component",
+  "title": "Session activity item",
+  "category": "workbench",
+  "description": "One entry of the Agents window's Session Activity Bar (`li.action-item.menu-entry > a.action-label.codicon` + `.menu-activity-bar-badge`): a 24px icon-only button that opens or activates a side pane tab, highlighted while its tab is the one the side pane shows, with an optional dot or count badge. With `separator` it renders the bar's group separator instead.",
+  "usage": "Only inside <vsc-session-activity-bar>. Set `checked` on the entry whose tab the open side pane shows (clicking it again closes the side pane, like the workbench activity bar). `badge` with no value shows the unseen-changes dot; a number shows a count. Use `separator` between the side pane entries and the panel entries (Terminal).",
+  "attributes": [
+    {
+      "name": "icon",
+      "type": "string",
+      "description": "Codicon name, e.g. diff-multiple, files, globe, terminal"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Accessible name and hover, with the keybinding, e.g. 'Files (⇧⌘E)'"
+    },
+    {
+      "name": "checked",
+      "type": "boolean",
+      "description": "The side pane shows this entry's tab (aria-pressed)"
+    },
+    {
+      "name": "badge",
+      "type": "string",
+      "description": "Present: show the badge. Empty = dot; a number = count badge"
+    },
+    {
+      "name": "separator",
+      "type": "boolean",
+      "description": "Render the group separator instead of an entry"
+    }
+  ],
+  "slots": [],
+  "states": [
+    {
+      "name": "checked",
+      "trigger": "checked attribute (.action-label.checked)"
+    },
+    {
+      "name": "hover",
+      "trigger": ":hover"
+    },
+    {
+      "name": "badge",
+      "trigger": "badge attribute (.menu-activity-bar-badge.visible)"
+    }
+  ],
+  "variants": [],
+  "hostDisplay": "block",
+  "hostTag": "li",
+  "cssCaptures": [],
+  "requires": [
+    "vsc-workbench",
+    "vsc-session-activity-bar"
+  ],
+  "tokens": [],
+  "uses": [],
+  "sources": [
+    {
+      "path": "src/vs/sessions/browser/parts/sessionActivityBar.ts"
+    },
+    {
+      "path": "src/vs/sessions/browser/parts/media/sessionActivityBar.css"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Entries",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 34px; height: 140px;\"><vsc-session-activity-bar style=\"height: 140px;\"><vsc-session-activity-item icon=\"diff-multiple\" label=\"Changes (⌃⇧G)\" badge></vsc-session-activity-item><vsc-session-activity-item icon=\"files\" label=\"Files (⇧⌘E)\" checked></vsc-session-activity-item><vsc-session-activity-item icon=\"globe\" label=\"Browser\"></vsc-session-activity-item><vsc-session-activity-item separator></vsc-session-activity-item><vsc-session-activity-item icon=\"terminal\" label=\"Terminal (⌘↓)\"></vsc-session-activity-item></vsc-session-activity-bar></vsc-workbench>"
+    }
+  ],
+  "references": [],
+  "status": "draft",
+  "createdAt": "2026-11-10T16:42:17.106Z",
+  "updatedAt": "2026-11-10T16:42:17.106Z"
+}

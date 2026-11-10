@@ -1,0 +1,95 @@
+{
+  "tag": "vsc-session-activity-bar",
+  "kind": "component",
+  "title": "Session activity bar",
+  "category": "workbench",
+  "description": "The Agents window's Session Activity Bar (`.session-activity-bar-column > .menu-activity-bar.size-compact.session-activity-bar.docked`): a full-height, 30px rounded strip in its own 34px grid column at the right edge of the window, right of the side pane (4px gap). Its compact icon entries open or activate the side pane's tabs (Changes, Files, Browser, Canvas), then a separator and the panel's Terminal. It stays visible whether the side pane is open or closed. Captured from VS Code - Insiders 1.146.0 (commit 6bd30dab6e2); the drag handle only shows in the floating (in-chat) placement, so it's rendered hidden like the docked bar.",
+  "usage": "Agents window layouts (<vsc-workbench window=\"agents\">): the last child of the parts row, after the side pane (<vsc-agents-editor-part>), full height. Give it the row's height; it sets its own 34px width. Entries are <vsc-session-activity-item>s: one per side pane tab that is available for the session (not only open ones), a separator, then Terminal. It isn't shown in the phone layout.",
+  "attributes": [
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Session Activity Bar",
+      "description": "Accessible name of the toolbar"
+    }
+  ],
+  "slots": [
+    {
+      "name": "",
+      "description": "<vsc-session-activity-item> entries (and separators)"
+    }
+  ],
+  "states": [],
+  "variants": [],
+  "hostDisplay": "block",
+  "cssCaptures": [
+    "agents-session-activity-bar-dark",
+    "agents-session-activity-bar-light"
+  ],
+  "requires": [
+    "vsc-workbench"
+  ],
+  "tokens": [
+    "--vscode-modernActivityBar-background",
+    "--vscode-modernActivityBar-border",
+    "--vscode-activityBar-inactiveForeground",
+    "--vscode-activityBar-activeBackground",
+    "--vscode-modernActivityBarItem-activeForeground",
+    "--vscode-modernActivityBarItem-hoverForeground",
+    "--vscode-modernActivityBarItem-hoverBackground",
+    "--vscode-activityBarBadge-background"
+  ],
+  "uses": [
+    "vsc-session-activity-item"
+  ],
+  "sources": [
+    {
+      "path": "src/vs/sessions/browser/parts/sessionActivityBar.ts"
+    },
+    {
+      "path": "src/vs/sessions/browser/parts/media/sessionActivityBar.css"
+    },
+    {
+      "path": "src/vs/sessions/DESKTOP.md",
+      "line": 92,
+      "note": "Session Activity Bar behavior"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Files open in the side pane",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 34px; height: 852px;\"><vsc-session-activity-bar style=\"height: 852px;\"><vsc-session-activity-item icon=\"diff-multiple\" label=\"Changes (⌃⇧G)&#10;2 Files, +4, -4\"></vsc-session-activity-item><vsc-session-activity-item icon=\"files\" label=\"Files (⇧⌘E)\" checked></vsc-session-activity-item><vsc-session-activity-item icon=\"globe\" label=\"Browser\"></vsc-session-activity-item><vsc-session-activity-item separator></vsc-session-activity-item><vsc-session-activity-item icon=\"terminal\" label=\"Terminal (⌘↓)\"></vsc-session-activity-item></vsc-session-activity-bar></vsc-workbench>"
+    },
+    {
+      "title": "Side pane closed, unseen changes",
+      "html": "<vsc-workbench window=\"agents\" theme=\"dark-2026\" style=\"width: 34px; height: 240px;\"><vsc-session-activity-bar style=\"height: 240px;\"><vsc-session-activity-item icon=\"diff-multiple\" label=\"Changes (⌃⇧G)\" badge></vsc-session-activity-item><vsc-session-activity-item icon=\"files\" label=\"Files (⇧⌘E)\"></vsc-session-activity-item><vsc-session-activity-item icon=\"globe\" label=\"Browser\"></vsc-session-activity-item><vsc-session-activity-item icon=\"preview\" label=\"Canvas\"></vsc-session-activity-item><vsc-session-activity-item separator></vsc-session-activity-item><vsc-session-activity-item icon=\"terminal\" label=\"Terminal (⌘↓)\"></vsc-session-activity-item></vsc-session-activity-bar></vsc-workbench>"
+    }
+  ],
+  "references": [
+    {
+      "capture": "agents-session-activity-bar-dark",
+      "example": 0,
+      "theme": "dark-2026",
+      "width": 34,
+      "ignore": []
+    },
+    {
+      "capture": "agents-session-activity-bar-light",
+      "example": 0,
+      "theme": "light-2026",
+      "width": 34,
+      "ignore": []
+    }
+  ],
+  "status": "draft",
+  "verification": {
+    "status": "verified",
+    "checkedAt": "2026-11-10T16:42:58.429Z",
+    "compared": 30,
+    "diffs": 0,
+    "theme": "dark-2026",
+    "summary": []
+  },
+  "createdAt": "2026-11-10T16:42:47.051Z",
+  "updatedAt": "2026-11-10T16:43:18.858Z"
+}

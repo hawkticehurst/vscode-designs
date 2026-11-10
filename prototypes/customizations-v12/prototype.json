@@ -1,0 +1,30 @@
+{
+  "title": "Customizations",
+  "description": "The scoped right-side view is named Session Customizations; the global left navigation and modal remain Customizations. The Session Customizations entry lives in the Agents window's Session Activity Bar and opens a flat VS Code-style side pane with whole-row detail clicks, switches, and required MCP state actions. More in Customizations uses the V2 Discover banner followed by Skills, Canvases, Instructions, Agents, Hooks, and Tools. The global Customizations modal navigation is ordered Browse, Plugins, Canvases, MCP Servers, Skills, Instructions, Agents, Hooks, Tools, then Extensions. Lists follow merged VS Code PRs #344320 and #346676: the active Workspace group first, then User, then Built-in; every page shows at most one workspace group, and contributed customizations are flat rows within their derived scope. Copilot badges are hidden and list-item overflow actions appear only on hover or keyboard focus. Detail pages are intentionally reduced to a borderless header with a back arrow and title plus a prototype-placeholder message. MCP rows and install flows use switches instead of tri-state controls. Adds <vsc-session-activity-bar> and <vsc-session-activity-item> to the VS Code design system, captured live from VS Code - Insiders 1.146.0 and verified in both themes.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-session-sidebar",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "human"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-10T16:34:53.648Z",
+  "updatedAt": "2026-11-10T18:10:10.278Z"
+}
