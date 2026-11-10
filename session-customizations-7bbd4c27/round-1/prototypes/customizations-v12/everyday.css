@@ -1,0 +1,112 @@
+/* ===== V8 — Everyday (everyday.js) ===== */
+.ev-stack { position: relative; flex: 1; min-height: 0; overflow: hidden; }
+.ev-view { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--cp-bg);
+  transition: transform 220ms cubic-bezier(0.2, 0, 0, 1), opacity 220ms cubic-bezier(0.2, 0, 0, 1), visibility 0s linear 0s; }
+.ev-view[aria-hidden="true"] { transform: translateX(100%); visibility: hidden; transition-delay: 0s, 0s, 220ms; }
+.ev-view.ev-home[aria-hidden="true"] { transform: translateX(-25%); opacity: 0; }
+.ev-view:not(.ev-home) { box-shadow: -1px 0 0 var(--vscode-agentsPanel-border); }
+.ev-sub-head { padding-left: calc(var(--vscode-spacing-size120) - 3px); }
+.ev-intro { flex: none; margin: 0 var(--vscode-spacing-size120) var(--vscode-spacing-size80); color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); line-height: 1.45; }
+.ev-skill-list { padding: 0 var(--vscode-spacing-size120) var(--vscode-spacing-size160); display: flex; flex-direction: column; gap: var(--vscode-spacing-size120); }
+.ev-scroll { padding: 0 var(--vscode-spacing-size120) var(--vscode-spacing-size160); display: flex; flex-direction: column; gap: var(--vscode-spacing-size200); }
+.ev-sec-head { display: flex; align-items: center; gap: 8px; min-height: 26px; margin-bottom: var(--vscode-spacing-size60); }
+.ev-sec-head h3 { margin: 0; font-size: var(--vscode-fontSize-body1); font-weight: var(--vscode-agents-fontWeight-semiBold); color: var(--vscode-foreground); }
+.ev-sec-meta { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.ev-sec-head .grow { flex: 1; }
+.ev-sec-desc { margin: 2px 0 var(--vscode-spacing-size80); color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); line-height: 1.45; }
+
+/* Rows: logo, name and one line, actions, switch. */
+.ev-row { display: flex; align-items: center; gap: var(--vscode-spacing-size100); min-height: 44px; padding: var(--vscode-spacing-size60) var(--vscode-spacing-size100); box-sizing: border-box; }
+.ov-list > .ev-row + .ev-row, .ov-list > .ev-row + .ov-row, .ev-pop-list > .ev-row + .ev-row { box-shadow: inset 0 1px 0 var(--vscode-agentsCard-border); }
+.ev-row-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.ev-row-name { display: flex; align-items: center; gap: 6px; min-width: 0; color: var(--vscode-foreground); font-weight: var(--vscode-agents-fontWeight-semiBold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ev-row-sub { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ev-row.is-off :is(.ev-row-name, .ev-logo) { opacity: 0.6; }
+.ev-row vsc-toolbar { flex: none; margin-right: -4px; }
+.ev-row .monaco-switch { flex: none; }
+.ev-warn { display: inline-flex; align-items: center; gap: 4px; color: var(--vscode-foreground); }
+.ev-warn .codicon { font-size: 14px; color: var(--vscode-editorWarning-foreground); }
+.ev-logo { flex: none; display: block; border-radius: var(--vscode-cornerRadius-small); object-fit: cover; }
+.ev-logo-glyph { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; color: var(--vscode-foreground); }
+.ev-logo-glyph .codicon { font-size: 16px; }
+.ev-logo-letter { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; line-height: 1; }
+.ev-skill-group { min-height: 36px !important; }
+.ev-row.ev-skill { min-height: 36px; }
+
+/* Buttons */
+.ev-btn { flex: none; display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 10px; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; font: inherit; font-size: var(--vscode-fontSize-label1); white-space: nowrap;
+  border: 1px solid var(--vscode-button-secondaryBorder, var(--vscode-agentsCard-border)); background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); }
+.ev-btn:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.ev-btn.primary { border-color: var(--vscode-button-border, transparent); background: var(--vscode-button-background); color: var(--vscode-button-foreground); }
+.ev-btn.primary:hover { background: var(--vscode-button-hoverBackground); }
+.ev-btn .codicon { font-size: 14px; color: inherit !important; }
+.ev-link { display: inline-flex; align-items: center; gap: 4px; padding: 0; border: 0; background: none; cursor: pointer; font: inherit; color: var(--vscode-textLink-foreground); }
+.ev-link:hover { text-decoration: underline; }
+.ev-link .codicon { font-size: 14px; color: inherit !important; }
+.ev-icon-btn { flex: none; display: inline-grid; place-items: center; width: 22px; height: 22px; padding: 0; border: 0; border-radius: var(--vscode-cornerRadius-small); background: transparent; color: var(--vscode-icon-foreground); cursor: pointer; }
+.ev-icon-btn:hover { background: var(--vscode-toolbar-hoverBackground); }
+:is(.ev-btn, .ev-link, .ev-icon-btn, .ev-pill, .ev-seg-btn, .ev-skill-link):focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+:is(.ev-btn, .ev-link, .ev-icon-btn, .ev-pill, .ev-seg-btn, .ev-skill-link):focus:not(:focus-visible) { outline: none !important; }
+
+/* Pills above the composer (after src/vs/workbench/browser/media/chatPills.css: secondary buttons, 6px apart). */
+.ev-pills { display: flex; align-items: center; flex-wrap: wrap; gap: var(--vscode-spacing-size60); }
+/* Anchored to the composer's top-right corner. New session: on the session options strip's line (the strip is
+   left-aligned, so its right side is free); the row takes no height. Open session: right-aligned above the input. */
+.ev-new-pills { position: relative; z-index: 2; width: 100%; max-width: 800px; height: 0; box-sizing: border-box; padding: 0; justify-content: flex-end; flex-wrap: nowrap; }
+.ev-new-pills .ev-pill { transform: translateY(var(--ev-strip-offset, 31px)); }
+#session-page .s-composer .ev-pills { justify-content: flex-end; padding: 0 16px var(--vscode-spacing-size40); }
+#session-page .s-composer .ev-pills:empty { display: none; }
+.ev-pill { position: relative; display: inline-flex; align-items: center; gap: var(--vscode-spacing-size40); height: 22px; padding: 0 6px; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer;
+  border: 1px solid var(--vscode-button-secondaryBorder, transparent); background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground);
+  font: inherit; font-size: var(--vscode-fontSize-label1); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ev-pill:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.ev-pill > .codicon { font-size: 14px; color: inherit !important; }
+.ev-pill .codicon-chevron-down-compact { font-size: 12px; opacity: 0.8; }
+.ev-pill-logos { display: inline-flex; }
+.ev-pill-logos .ev-logo { box-shadow: 0 0 0 1.5px var(--vscode-button-secondaryBackground, var(--cp-bg)); border-radius: 3px; }
+.ev-pill-logos .ev-logo + .ev-logo { margin-left: -4px; }
+.ev-pill-logos .ev-logo-letter { font-size: 8px; }
+.ev-pill-logos .ev-logo-glyph .codicon { font-size: 12px; }
+.ev-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--vscode-editorWarning-foreground); }
+
+/* Popover anchored to a pill. */
+.ev-popover { position: absolute; z-index: 2560; width: 340px; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--vscode-cornerRadius-large);
+  background: var(--vscode-menu-background, var(--vscode-editorWidget-background)); color: var(--vscode-menu-foreground, var(--vscode-foreground));
+  border: 1px solid var(--vscode-menu-border, var(--vscode-widget-border)); box-shadow: 0 4px 16px var(--vscode-widget-shadow); font-size: var(--vscode-fontSize-body1); }
+.ev-pop-head { padding: 10px 12px 6px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); font-weight: var(--vscode-agents-fontWeight-semiBold); }
+.ev-pop-list { flex: 1; min-height: 0; overflow-y: auto; }
+.ev-pop-head, .ev-pop-note, .ev-pop-foot { flex: none; }
+.ev-pop-list .ev-row { min-height: 40px; padding-block: 4px; }
+.ev-pop-note { padding: 6px 12px 0; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.ev-pop-foot { display: flex; justify-content: space-between; gap: 8px; padding: 8px 12px 10px; border-top: 1px solid var(--vscode-agentsCard-border); margin-top: 6px; }
+
+/* Hint above the new-session composer: connect a tool the user just linked to. */
+.ev-hint { display: flex; align-items: center; gap: 10px; width: 100%; max-width: 800px; box-sizing: border-box; margin-bottom: var(--vscode-spacing-size60); padding: 8px 8px 8px 10px;
+  border: 1px solid var(--vscode-agentsCard-border); border-radius: var(--vscode-cornerRadius-large); background: var(--vscode-agentsPanel-background); }
+.ev-hint[hidden] { display: none; }
+.ev-hint .ev-row-name { font-weight: 400; }
+
+/* In-chat cards, in the transcript column (chat items are inset 16px). */
+.ev-card { margin: 4px 16px 12px; padding: 12px; border: 1px solid var(--vscode-agentsCard-border); border-radius: var(--vscode-cornerRadius-large); background: var(--vscode-agentsPanel-background); }
+.ev-card-head { display: flex; align-items: flex-start; gap: 10px; }
+.ev-card-head .ev-row-sub { white-space: normal; line-height: 1.45; }
+.ev-card-head .ev-logo { margin-top: 1px; }
+.ev-card-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; padding-left: 30px; }
+.ev-card.ev-save:has(.ev-field) .ev-card-actions { padding-left: 0; }
+.ev-card-title { margin-bottom: 10px; font-weight: var(--vscode-agents-fontWeight-semiBold); }
+.ev-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; font-size: var(--vscode-fontSize-label1); color: var(--vscode-descriptionForeground); }
+.ev-field textarea { resize: vertical; padding: 4px 6px; border-radius: var(--vscode-cornerRadius-small); font: inherit; font-size: var(--vscode-fontSize-body1); line-height: 1.4;
+  border: 1px solid var(--vscode-input-border, transparent); background: var(--vscode-input-background); color: var(--vscode-input-foreground); }
+.ev-field textarea:focus { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.ev-seg { display: flex; gap: 6px; }
+.ev-seg-btn { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 1px; padding: 6px 10px; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer; text-align: left;
+  border: 1px solid var(--vscode-agentsCard-border); background: transparent; color: var(--vscode-foreground); font: inherit; }
+.ev-seg-btn small { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label2); }
+.ev-seg-btn[aria-checked="true"] { border-color: var(--vscode-focusBorder); background: var(--vscode-list-inactiveSelectionBackground); }
+.ev-inline-note { display: flex; align-items: center; gap: 6px; margin: 2px 16px 8px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.ev-inline-note .codicon { font-size: 14px; }
+.ev-inline-note .codicon-check { color: var(--vscode-charts-green); }
+.ev-skill-link { padding: 0; border: 0; background: none; font: inherit; font-weight: var(--vscode-agents-fontWeight-semiBold); color: inherit; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+.ev-skill-link:hover { color: var(--vscode-textLink-foreground); }
+@keyframes ev-flash { 0%, 40% { background: color-mix(in srgb, var(--vscode-focusBorder) 26%, transparent); } 100% { background: transparent; } }
+.ev-row.ev-flash { animation: ev-flash 1.4s ease-out; }
