@@ -1,0 +1,149 @@
+/* V12 — flat, VS Code-style lists in the session Customizations side pane. */
+.sb-panel .sb-scroll {
+  gap: var(--vscode-spacing-size160);
+  padding-inline: var(--vscode-spacing-size80);
+}
+
+.sb-panel .ev-sec-head {
+  min-height: 24px;
+  margin: 0 var(--vscode-spacing-size40) var(--vscode-spacing-size20);
+}
+
+/* VS Code lists are flat against their view surface rather than grouped into bordered cards. */
+.sb-panel .ov-list {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.sb-panel .ov-list > .ev-row + .ev-row,
+.sb-panel .ov-list > .ev-row + .ov-row,
+.sb-panel .ov-list > .ov-row + .ov-row {
+  box-shadow: none;
+}
+
+.sb-panel :is(.sb-row, .ev-skill-group) {
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+.sb-panel .sb-row {
+  min-height: 40px;
+  padding: var(--vscode-spacing-size40) var(--vscode-spacing-size60);
+  cursor: pointer;
+}
+
+.sb-panel .sb-state-icon {
+  flex: none;
+  color: var(--vscode-icon-foreground);
+}
+
+.sb-panel .sb-state-icon.is-error {
+  color: var(--vscode-errorForeground);
+}
+
+.sb-panel .sb-state-action {
+  height: 22px;
+  padding-inline: var(--vscode-spacing-size80);
+}
+
+.sb-panel .ev-skill-group {
+  min-height: 28px !important;
+  padding: var(--vscode-spacing-size20) var(--vscode-spacing-size60);
+}
+
+.sb-panel :is(.sb-row, .ev-skill-group):hover {
+  background: var(--vscode-list-hoverBackground);
+  color: var(--vscode-list-hoverForeground, var(--vscode-foreground));
+}
+
+.sb-panel :is(.sb-row, .ev-skill-group):focus-within {
+  background: var(--vscode-list-focusBackground, var(--vscode-list-hoverBackground));
+  color: var(--vscode-list-focusForeground, var(--vscode-foreground));
+  outline: 1px solid var(--vscode-list-focusOutline, var(--vscode-focusBorder));
+  outline-offset: -1px;
+}
+
+.sb-panel .en-name-link {
+  cursor: inherit;
+}
+
+.sb-panel .en-name-link:hover {
+  text-decoration: none;
+}
+
+.sb-panel .ov-row:first-child,
+.sb-panel .ov-row:last-child {
+  border-radius: var(--vscode-cornerRadius-small);
+}
+
+/* Reused from V2: the single entry point into Discover. */
+.sb-panel .ov-discover {
+  display: flex;
+  align-items: center;
+  gap: var(--vscode-spacing-size120);
+  width: 100%;
+  margin-bottom: var(--vscode-spacing-size80);
+  padding: var(--vscode-spacing-size120);
+  box-sizing: border-box;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--vscode-cornerRadius-large);
+  border: 1px solid var(--vscode-agentsCard-border);
+  color: inherit;
+  font: inherit;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--vscode-button-background) 14%, transparent), transparent 70%), var(--cp-bg);
+}
+
+.sb-panel .ov-discover:hover {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--vscode-button-background) 22%, transparent), transparent 70%), var(--vscode-list-hoverBackground);
+}
+
+.sb-panel .ov-discover:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+.sb-panel .ov-icons {
+  flex: none;
+  display: flex;
+}
+
+.sb-panel .ov-icons img {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--vscode-cornerRadius-medium);
+  box-shadow: 0 0 0 2px var(--cp-bg);
+  object-fit: cover;
+  background: #fff;
+}
+
+.sb-panel .ov-icons img + img {
+  margin-left: -10px;
+}
+
+/* List-item overflow actions follow VS Code's hover/focus disclosure; page-level menus stay visible. */
+.sc-cfg :is(
+  vsc-customization-item,
+  vsc-mcp-server-item,
+  vsc-plugin-item,
+  vsc-tool-set-item,
+  vsc-tool-item,
+  vsc-agents-extension-item
+) .codicon-ellipsis {
+  visibility: hidden;
+}
+
+.sc-cfg :is(
+  vsc-customization-item,
+  vsc-mcp-server-item,
+  vsc-plugin-item,
+  vsc-tool-set-item,
+  vsc-tool-item,
+  vsc-agents-extension-item
+):is(:hover, :focus-within) .codicon-ellipsis {
+  visibility: visible;
+}
+
+.sc-cfg .sc-detail-head {
+  border-bottom: 0;
+}

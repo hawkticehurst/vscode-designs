@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "title": "Session Customizations",
+  "intro": "Round 2 compares the original Session Customizations direction with a refinement based on initial Slack feedback.\n\nBoth options separate the scoped **Session Customizations** right sidebar from the global **Customizations** modal. The refinement removes explicit session-scope pickers, combines MCP Servers and Connectors, introduces collapsible high-value sections, and aligns the sidebar treatment more closely with the Sessions list.\n\nPlease compare the two options rather than focusing on intentionally omitted customization detail-page content.",
+  "questions": [
+    "Which option makes the session-scoped nature of the right sidebar clearer, and why?",
+    "Does combining MCP Servers and Connectors reduce terminology without losing useful meaning?",
+    "Do collapsible Plugins and MCP Servers sections improve scanability, or add unnecessary interaction?",
+    "Does the refined typography, spacing, and density feel more consistent with the Sessions list?"
+  ],
+  "presentation": "both",
+  "device": "desktop",
+  "theme": "dark-2026",
+  "round": 2,
+  "exportedAt": "2026-11-10T21:08:15.110Z",
+  "project": "VS Code",
+  "items": [
+    {
+      "key": "a",
+      "label": "Original direction",
+      "note": "V12 keeps explicit session scope pickers and separate Plugins, MCP Servers, and Connectors sections.",
+      "entry": "prototypes/customizations-v12/index.html",
+      "pages": []
+    },
+    {
+      "key": "b",
+      "label": "Feedback refinement",
+      "note": "V13 inherits the active session scope, combines MCP Servers and Connectors, and uses collapsible sections with Sessions-list-aligned styling.",
+      "entry": "prototypes/customizations-v13-session-accordions/index.html",
+      "pages": []
+    }
+  ]
+}
