@@ -1,22 +1,60 @@
 {
   "title": "Session Customizations",
-  "intro": "This prototype explores a clearer division between two customization surfaces in the Agents window.\n\n**Session Customizations** is the scoped right sidebar for the active session. It surfaces the high-value customizations people may want to quickly inspect or toggle for that session: Plugins, MCP Servers, and Connectors.\n\nThe global **Customizations** modal is for viewing and managing the complete customization inventory across agent harnesses, workspaces, and environments. In particular, please try the sentence-style scope controls: **View {customization type} for {harness} in {workspace} across {environment}**.\n\nPlease focus feedback on the relationship and distinction between these two surfaces, the right sidebar’s contents, and the modal’s scope controls. Customization detail-page content is intentionally omitted from this prototype.",
+  "intro": "Round 2 compares the original Session Customizations direction with a refinement based on initial Slack feedback.\n\nBoth options separate the scoped **Session Customizations** right sidebar from the global **Customizations** modal. The refinement removes explicit session-scope pickers, combines MCP Servers and Connectors, introduces collapsible high-value sections, and aligns the sidebar treatment more closely with the Sessions list.\n\nPlease compare the two options rather than focusing on intentionally omitted customization detail-page content.",
   "questions": [
-    "Does “Session Customizations” clearly communicate that the right sidebar is scoped to the active session, and are Plugins, MCP Servers, and Connectors the right high-value items to surface there?",
-    "Do the “View {type} for {harness} in {workspace} across {environment}” controls make the global modal’s scope and filtering model understandable?",
-    "Is the relationship between Session Customizations and the global Customizations modal clear? What, if anything, still feels ambiguous?"
+    "Which option makes the session-scoped nature of the right sidebar clearer, and why?",
+    "Does combining MCP Servers and Connectors reduce terminology without losing useful meaning?",
+    "Do collapsible Plugins and MCP Servers sections improve scanability, or add unnecessary interaction?",
+    "Does the refined typography, spacing, and density feel more consistent with the Sessions list?"
   ],
-  "presentation": "sequence",
+  "presentation": "both",
   "device": "desktop",
   "theme": "dark-2026",
   "items": [
     {
       "prototype": "customizations-v12",
-      "label": "Session Customizations",
-      "note": "Use the Session Activity Bar’s Session Customizations entry to inspect the scoped sidebar. Use the left sidebar’s Customizations entry to open the global modal and try its harness, workspace, and environment scope controls."
+      "label": "Original direction",
+      "note": "V12 keeps explicit session scope pickers and separate Plugins, MCP Servers, and Connectors sections."
+    },
+    {
+      "prototype": "customizations-v13-session-accordions",
+      "label": "Feedback refinement",
+      "note": "V13 inherits the active session scope, combines MCP Servers and Connectors, and uses collapsible sections with Sessions-list-aligned styling."
     }
   ],
-  "rounds": [],
+  "slug": "session-customizations-7bbd4c27",
+  "rounds": [
+    {
+      "round": 1,
+      "publishedAt": "2026-11-10T18:23:13.042Z",
+      "target": "github-pages",
+      "url": "https://hawkticehurst.github.io/vscode-designs/session-customizations-7bbd4c27/round-1/",
+      "path": "session-customizations-7bbd4c27/round-1",
+      "prototypes": [
+        {
+          "id": "customizations-v12",
+          "updatedAt": "2026-11-10T18:10:10.278Z"
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "publishedAt": "2026-11-10T21:08:19.394Z",
+      "target": "github-pages",
+      "url": "https://hawkticehurst.github.io/vscode-designs/session-customizations-7bbd4c27/round-2/",
+      "path": "session-customizations-7bbd4c27/round-2",
+      "prototypes": [
+        {
+          "id": "customizations-v12",
+          "updatedAt": "2026-11-10T18:10:10.278Z"
+        },
+        {
+          "id": "customizations-v13-session-accordions",
+          "updatedAt": "2026-11-10T21:07:19.459Z"
+        }
+      ]
+    }
+  ],
   "createdAt": "2026-11-10T18:18:23.489Z",
-  "updatedAt": "2026-11-10T18:19:21.882Z"
+  "updatedAt": "2026-11-10T21:08:19.394Z"
 }

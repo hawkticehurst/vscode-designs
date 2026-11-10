@@ -1,0 +1,27 @@
+{
+  "title": "Customizations",
+  "description": "Slack feedback refinement of V12: Session Customizations inherits the active session context, combines MCP servers and connectors, uses collapsible Plugins and MCP Servers sections (both expanded initially), and aligns typography with the Sessions list while allowing taller rows for standard state-action buttons.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v12",
+  "entry": "index.html",
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-10T21:07:08.334Z",
+  "updatedAt": "2026-11-10T21:07:19.459Z"
+}
