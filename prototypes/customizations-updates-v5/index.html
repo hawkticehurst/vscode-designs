@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customizations - Updates</title>
+  <link rel="stylesheet" href="../../systems/vscode/system.css" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body { font-family: var(--vscode-font-family); background: var(--vscode-editor-background); color: var(--vscode-foreground); }
+    button { font: inherit; }
+    vsc-workbench { display: block; position: relative; width: 100vw; height: 100vh; min-width: 1080px; min-height: 700px; overflow: hidden; }
+    .agents-shell { display: grid; grid-template-columns: 280px 1fr; height: calc(100vh - 35px); padding-top: 35px; }
+    .sessions-rail { position: relative; display: flex; flex-direction: column; min-width: 0; background: var(--vscode-sideBar-background); border-right: 1px solid var(--vscode-sideBar-border); }
+    .session-card { margin: 3px 8px; padding: 9px 10px; border-radius: 6px; color: var(--vscode-foreground); }
+    .session-card:hover { background: var(--vscode-list-hoverBackground); }
+    .session-card strong { display: block; font-size: 13px; font-weight: 600; }
+    .session-card span { display: block; margin-top: 4px; color: var(--vscode-descriptionForeground); font-size: 11px; }
+    .agent-main { position: relative; min-width: 0; background: var(--vscode-editor-background); }
+    .new-session { width: min(840px, calc(100% - 112px)); margin: 132px auto 0; text-align: center; }
+    .new-session h1 { margin: 0 0 10px; font-size: 26px; font-weight: 500; }
+    .new-session p { margin: 0; color: var(--vscode-descriptionForeground); font-size: 13px; }
+    .new-composer { width: min(840px, calc(100% - 112px)); margin: 38px auto 0; text-align: left; }
+    .modal-stage[hidden], .overlay[hidden], .menu-layer[hidden], #browsePage[hidden], #pluginsList[hidden], vsc-plugin-details[hidden], vsc-dialog[hidden] { display: none !important; }
+    .modal-stage { position: absolute; inset: 0; z-index: 20; }
+    .customizations-page { position: relative; height: 100%; }
+    vsc-plugin-details { height: 100%; }
+    vsc-customization-shortcuts .agents-sidebar-update-dot { background: var(--vscode-button-background); }
+    .actions-needed-dot { display: inline-block; box-sizing: border-box; flex: 0 0 8px; width: 8px !important; min-width: 8px !important; max-width: 8px; height: 8px; min-height: 8px; padding: 0 !important; overflow: hidden; border: 0; border-radius: 50%; background: var(--vscode-button-background); color: transparent; font-size: 0; line-height: 0; }
+    #actionsList .section-title-actions { display: none; }
+    #availableUpdatesGroup .plugin-update-button { width: auto; min-width: 0; padding: 2px 6px; font-size: 12px; }
+    vsc-customization-shortcuts .customizations-updates-entry > .codicon { display: none; }
+    vsc-customization-shortcuts .customizations-updates-entry .agents-sidebar-update-dot { justify-self: center; margin-right: 0; }
+    #availableUpdatesGroup[data-empty] { display: none !important; }
+    #availableUpdatesGroup .group-count { color: var(--vscode-button-foreground); background: var(--vscode-button-background); }
+    .row-update-split { display: inline-flex; height: 22px; margin-right: 7px; overflow: hidden; border-radius: 2px; }
+    .row-update-split button { height: 22px; border: 0; color: var(--vscode-button-foreground); background: var(--vscode-button-background); cursor: pointer; }
+    .row-update-split button:hover { background: var(--vscode-button-hoverBackground); }
+    .row-update-main { min-width: 58px; padding: 1px 9px; border-radius: 0 !important; }
+    .row-update-arrow { position: relative; width: 22px; padding: 0; border-radius: 0 !important; color: var(--vscode-button-foreground) !important; font-size: 12px !important; line-height: 22px !important; }
+    .row-update-arrow::before { color: var(--vscode-button-foreground) !important; }
+    .row-update-arrow::after { position: absolute; top: 4px; bottom: 4px; left: 0; width: 1px; background: var(--vscode-button-separator); content: ""; }
+    .managed-note { width: 142px; margin-right: 8px; color: var(--vscode-descriptionForeground); font-size: 11px; text-align: right; line-height: 1.25; }
+    vsc-plugin-details .plugin-detail-auto-setting { flex-wrap: wrap; }
+    .plugin-auto-context { display: flex; flex: 0 0 100%; order: 3; align-items: center; justify-content: flex-end; gap: 3px; margin-top: -3px; color: var(--vscode-descriptionForeground); font-size: 11px; text-align: right; white-space: normal; }
+    .plugin-auto-context .plugin-auto-warning,
+    .plugin-auto-context .plugin-auto-warning::before { color: var(--vscode-charts-yellow) !important; }
+    .plugin-auto-context a { color: var(--vscode-textLink-foreground); cursor: pointer; }
+    .overlay { position: absolute; inset: 0; z-index: 90; display: grid; place-items: start center; padding-top: 42px; background: rgba(0,0,0,.2); }
+    .quick-card { width: min(602px, calc(100vw - 48px)); overflow: hidden; border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border)); border-radius: 10px; background: var(--vscode-quickInput-background); box-shadow: 0 8px 26px var(--vscode-widget-shadow); }
+    .quick-card vsc-quick-input { position: relative !important; top: 0 !important; left: 0 !important; width: 100% !important; }
+    .quick-title-bar { display: flex; align-items: center; justify-content: center; min-height: 30px; padding: 5px 12px 0; color: var(--vscode-quickInput-foreground); font-size: 13px; }
+    .quick-title-bar.with-back { justify-content: flex-start; gap: 8px; }
+    .quick-back { width: 22px; height: 22px; padding: 0; border: 0; color: var(--vscode-foreground); background: transparent; }
+    .version-card { max-height: 580px; }
+    .inline-switch { position: relative; display: block; width: 34px; height: 18px; padding: 0; border: 1px solid var(--vscode-panel-border); border-radius: 9px; background: var(--vscode-button-background); cursor: pointer; }
+    .inline-switch::after { content: ''; position: absolute; top: 2px; right: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--vscode-button-foreground); }
+    .inline-switch[aria-checked="false"] { background: var(--vscode-button-secondaryBackground); }
+    .inline-switch[aria-checked="false"]::after { right: 17px; background: var(--vscode-button-secondaryForeground); }
+    .menu-layer { position: absolute; z-index: 85; }
+    .toast-host { position: absolute; right: 16px; bottom: 16px; z-index: 100; width: 430px; }
+    #marketplaceAutoUpdateDialog { position: absolute; inset: 0; z-index: 200; }
+    #marketplaceAutoUpdateDialog .dialog-shadow { position: absolute; inset: 0; display: grid; place-items: center; background: color-mix(in srgb, var(--vscode-editor-background) 70%, transparent); }
+  </style>
+</head>
+<body>
+  <vsc-workbench window="agents" theme="dark-2026">
+    <vsc-titlebar label="Agents" no-layout-controls></vsc-titlebar>
+    <div class="agents-shell">
+      <aside class="sessions-rail">
+        <vsc-customization-shortcuts id="shortcuts" variant="top" updates-available></vsc-customization-shortcuts>
+        <div class="session-card"><strong>Customizations updates</strong><span>Working in vscode-designs</span></div>
+      </aside>
+      <main class="agent-main">
+        <div class="new-session">
+          <h1>What can I help you build?</h1>
+          <p>Start a new session or reopen Customizations from the left sidebar.</p>
+        </div>
+        <div class="new-composer">
+          <vsc-session-view variant="new"><vsc-chat-input variant="new-session" placeholder="Describe a task to get started"></vsc-chat-input></vsc-session-view>
+        </div>
+      </main>
+    </div>
+
+    <section class="modal-stage" id="modalStage">
+      <vsc-modal-editor id="modalEditor" contained heading="Customizations" description="(Copilot · vscode-designs)" width="1152" height="685">
+        <div class="customizations-page" id="customizationsPage">
+          <vsc-customizations-editor id="customizations" section="plugins" counts="3,7,32,2,3,1,36" style="height: 100%;">
+            <vsc-customization-browse id="browsePage" section="browse" source="All Sources">
+              <vsc-customization-discovery-section heading="Editor's picks" featured>
+                <vsc-customization-discovery-card id="browseKanban" name="accessibility-kanban" meta="Plugin · claude-code-plugins" description="Accessible planning helpers, issue templates, and review skills for inclusive product teams." fallback-icon="extensions"></vsc-customization-discovery-card>
+                <vsc-customization-discovery-card id="browseFigma" name="figma-context-tools" meta="Plugin · GitHub Feed" description="Bring design context, assets, and component metadata into your agent workflow." fallback-icon="extensions"></vsc-customization-discovery-card>
+              </vsc-customization-discovery-section>
+              <vsc-customization-discovery-section heading="Popular plugins" show-all>
+                <vsc-customization-discovery-card id="browseReview" name="review-toolkit" meta="Plugin · vscode-team-kit" description="A focused set of review skills for maintainable pull requests." fallback-icon="extensions"></vsc-customization-discovery-card>
+              </vsc-customization-discovery-section>
+            </vsc-customization-browse>
+
+            <vsc-customization-list id="actionsList" section="actions" kind="plugins" heading="Actions Needed" description="Review and apply available updates for installed plugins." placeholder="Type to search actions...">
+              <vsc-customization-group id="availableUpdatesGroup" label="Plugin Updates" count="2" icon="warning" actions="refresh" first></vsc-customization-group>
+              <vsc-plugin-item id="actionKanban" name="accessibility-kanban" badge="GitHub" location="~/.copilot/installed-plugins/awesome-copilot" metadata="3 skills · Update available: 2.4.0" enabled></vsc-plugin-item>
+              <vsc-plugin-item id="actionFigma" name="figma-context-tools" badge="Marketplace" location="~/.copilot/installed-plugins/figma" metadata="2 tools · Update available: 1.8.2" enabled></vsc-plugin-item>
+            </vsc-customization-list>
+
+            <vsc-customization-list id="pluginsList" section="plugins" kind="plugins" heading="Plugins" description="Extend your AI agent with plugins that add commands, skills, agents, hooks, and MCP servers from reusable packages." link="Learn more about agent plugins" placeholder="Type to search plugins...">
+              <vsc-customization-group id="userGroup" label="User" count="3" actions="refresh,add" add-label="Install Plugin from Source" first></vsc-customization-group>
+              <vsc-plugin-item id="pluginKanban" name="accessibility-kanban" badge="GitHub" location="~/.copilot/installed-plugins/awesome-copilot" metadata="3 skills · Update available: 2.4.0" enabled></vsc-plugin-item>
+              <vsc-plugin-item id="pluginFigma" name="figma-context-tools" badge="Marketplace" location="~/.copilot/installed-plugins/figma" metadata="2 tools · Update available: 1.8.2" enabled></vsc-plugin-item>
+              <vsc-plugin-item id="pluginManaged" name="secure-coding-baseline" badge="Managed" location="Installed by Contoso IT" metadata="1 skill · Update available: 5.1.0" enabled></vsc-plugin-item>
+            </vsc-customization-list>
+            <vsc-plugin-details id="detailPage" section="plugins" name="accessibility-kanban" version="2.3.1" location="~/.copilot/installed-plugins/awesome-copilot" skills="keyboard-navigation,issue-movement,accessible-review" readme="Accessible planning helpers, issue templates, and review skills for inclusive product teams." enabled update-available auto-update hidden></vsc-plugin-details>
+          </vsc-customizations-editor>
+        </div>
+      </vsc-modal-editor>
+    </section>
+
+    <div class="overlay" id="versionOverlay" hidden>
+      <div class="quick-card version-card">
+        <vsc-quick-input position="static" placeholder="Select Version to Install">
+          <vsc-quick-pick-item id="version1761" label="0.176.1" description="10 hrs ago (current)" focused></vsc-quick-pick-item>
+          <vsc-quick-pick-item id="version1760" label="0.176.0" description="2 days ago"></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="0.174.0" description="1 wk ago"></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="0.172.0" description="2 wks ago"></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="0.170.0" description="3 wks ago"></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="0.168.0" description="4 wks ago"></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="0.166.1" description="2 mos ago"></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="0.166.0" description="2 mos ago"></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="0.164.0" description="2 mos ago"></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="0.162.0" description="3 mos ago"></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="0.160.0" description="4 mos ago"></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="0.158.0" description="4 mos ago"></vsc-quick-pick-item>
+        </vsc-quick-input>
+      </div>
+    </div>
+
+    <div class="overlay" id="marketplacesOverlay" hidden>
+      <div class="quick-card">
+        <div class="quick-title-bar">Manage Plugin Marketplaces</div>
+        <vsc-quick-input position="static" placeholder="Select a plugin marketplace">
+          <vsc-quick-pick-item id="addMarketplace" label="Add Marketplace..." description="Add a GitHub repository, Git repository URL, or local repository URI" icon="add" focused></vsc-quick-pick-item>
+          <vsc-quick-pick-item id="browseAllMarketplaces" label="Browse All Marketplaces" separator="Configured Marketplaces"></vsc-quick-pick-item>
+          <vsc-quick-pick-item id="marketplaceClaude" label="claude-code-plugins" description="GitHub: anthropics/claude-code"></vsc-quick-pick-item>
+          <vsc-quick-pick-item id="marketplaceTeamKit" label="vscode-team-kit" description="GitHub: microsoft/vscode-team-kit"></vsc-quick-pick-item>
+        </vsc-quick-input>
+      </div>
+    </div>
+
+    <div class="overlay" id="marketplaceActionOverlay" hidden>
+      <div class="quick-card">
+        <div class="quick-title-bar with-back"><button class="quick-back codicon codicon-arrow-left" id="marketplaceBack" aria-label="Back to marketplaces"></button><span>Manage Plugin Marketplace</span></div>
+        <vsc-quick-input position="static" placeholder="Select an action for 'claude-code-plugins'">
+          <vsc-quick-pick-item id="marketplaceBrowse" label="Browse" focused></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="Refresh Marketplace"></vsc-quick-pick-item>
+          <vsc-quick-pick-item label="Remove Marketplace"></vsc-quick-pick-item>
+          <vsc-quick-pick-item id="marketplaceAutoUpdate" label="Auto Update (2 exceptions)" title="Toggle Auto Update off and overwrite plugin exceptions.">
+            <button id="marketplaceAutoUpdateSwitch" class="inline-switch" slot="actions" type="button" role="switch" aria-label="Auto Update" aria-checked="true"></button>
+          </vsc-quick-pick-item>
+        </vsc-quick-input>
+      </div>
+    </div>
+
+    <div class="menu-layer" id="pluginContextMenu" hidden>
+      <vsc-menu x="0" y="0" label="Plugin actions">
+        <vsc-menu-item id="menuUpdate" label="Update"></vsc-menu-item>
+        <vsc-menu-item id="menuVersion" label="Install Specific Version…"></vsc-menu-item>
+        <vsc-menu-separator></vsc-menu-separator>
+        <vsc-menu-item id="menuDetails" label="View Details"></vsc-menu-item>
+        <vsc-menu-item label="Copy Plugin ID"></vsc-menu-item>
+        <vsc-menu-separator></vsc-menu-separator>
+        <vsc-menu-item label="Uninstall"></vsc-menu-item>
+      </vsc-menu>
+    </div>
+
+    <div class="menu-layer" id="updateSplitMenu" hidden>
+      <vsc-menu x="0" y="0" label="Update options">
+        <vsc-menu-item id="enableAutoUpdate" label="Enable Auto Update"></vsc-menu-item>
+      </vsc-menu>
+    </div>
+
+    <div class="menu-layer" id="sourceMenu" hidden>
+      <vsc-menu x="0" y="0" label="Marketplace sources">
+        <vsc-menu-item label="All Sources" checked></vsc-menu-item>
+        <vsc-menu-item label="MCP Gallery"></vsc-menu-item>
+        <vsc-menu-item label="GitHub Feed"></vsc-menu-item>
+        <vsc-menu-item label="Copilot Connectors"></vsc-menu-item>
+        <vsc-menu-item label="claude-code-plugins"></vsc-menu-item>
+        <vsc-menu-item label="vscode-team-kit"></vsc-menu-item>
+        <vsc-menu-separator></vsc-menu-separator>
+        <vsc-menu-item id="configureMarketplaces" label="Configure Marketplaces"></vsc-menu-item>
+      </vsc-menu>
+    </div>
+
+    <div class="toast-host"><vsc-notification-toasts id="toasts" static></vsc-notification-toasts></div>
+    <vsc-dialog id="marketplaceAutoUpdateDialog" severity="warning" message="Overwrite plugin Auto Update settings?" buttons="Cancel,Overwrite Settings" primary="Overwrite Settings" hidden>
+      This will turn off Auto Update for all 2 installed plugins from claude-code-plugins.<br><br>1 plugin has a different setting that will be replaced.
+    </vsc-dialog>
+  </vsc-workbench>
+
+  <script type="module" src="../../systems/vscode/system.js"></script>
+  <script type="module">
+    const $ = (id) => document.getElementById(id);
+    const modalStage = $('modalStage');
+    const modalEditor = $('modalEditor');
+    const customizations = $('customizations');
+    const customizationsPage = $('customizationsPage');
+    const detailPage = $('detailPage');
+    const versionOverlay = $('versionOverlay');
+    const marketplacesOverlay = $('marketplacesOverlay');
+    const marketplaceActionOverlay = $('marketplaceActionOverlay');
+    const pluginContextMenu = $('pluginContextMenu');
+    const updateSplitMenu = $('updateSplitMenu');
+    const sourceMenu = $('sourceMenu');
+    const marketplaceAutoUpdateDialog = $('marketplaceAutoUpdateDialog');
+    let detailReturnSection = 'plugins';
+    let activePlugin = 'accessibility-kanban';
+    const marketplaceName = 'claude-code-plugins';
+    let marketplaceAutoUpdateEnabled = true;
+    let pendingMarketplaceAutoUpdate = null;
+    let lastMarketplaceChange = null;
+
+    const pluginData = {
+      'accessibility-kanban': { version: '2.3.1', next: '2.4.0', metadata: '3 skills', autoUpdate: false, marketplace: marketplaceName, location: '~/.copilot/installed-plugins/awesome-copilot', skills: 'keyboard-navigation,issue-movement,accessible-review', readme: 'Accessible planning helpers, issue templates, and review skills for inclusive product teams.' },
+      'figma-context-tools': { version: '1.7.4', next: '1.8.2', metadata: '2 tools', autoUpdate: false, marketplace: marketplaceName, location: '~/.copilot/installed-plugins/figma', skills: 'figma-context,component-mapping', readme: 'Bring design context, assets, and component metadata into your agent workflow.' },
+      'secure-coding-baseline': { version: '5.0.2', next: '5.1.0', autoUpdate: false, managed: true, location: 'Installed by Contoso IT', skills: 'secure-review', readme: 'Organization-managed secure coding guidance.' },
+      'review-toolkit': { version: '1.2.0', location: 'vscode-team-kit marketplace', skills: 'pr-review,change-summary', readme: 'A focused set of review skills for maintainable pull requests.' }
+    };
+
+    function closeTransient() {
+      versionOverlay.hidden = true;
+      marketplacesOverlay.hidden = true;
+      marketplaceActionOverlay.hidden = true;
+      pluginContextMenu.hidden = true;
+      updateSplitMenu.hidden = true;
+      sourceMenu.hidden = true;
+    }
+
+    function openModal(section = 'plugins') {
+      closeTransient();
+      modalStage.hidden = false;
+      customizationsPage.hidden = false;
+      $('browsePage').hidden = false;
+      $('actionsList').hidden = false;
+      $('pluginsList').hidden = false;
+      detailPage.hidden = true;
+      customizations.setAttribute('section', section);
+    }
+
+    function closeModal() {
+      closeTransient();
+      modalStage.hidden = true;
+    }
+
+    function openInstalledDetail(name = 'accessibility-kanban', returnSection = 'plugins') {
+      const data = pluginData[name] || pluginData['accessibility-kanban'];
+      activePlugin = name;
+      detailReturnSection = returnSection;
+      detailPage.setAttribute('name', name);
+      detailPage.setAttribute('version', data.version);
+      detailPage.setAttribute('location', data.location);
+      detailPage.setAttribute('skills', data.skills);
+      detailPage.setAttribute('readme', data.readme);
+      detailPage.toggleAttribute('update-available', Boolean(data.next));
+      detailPage.setAttribute('enabled', '');
+      detailPage.toggleAttribute('auto-update', Boolean(data.autoUpdate));
+      detailPage.removeAttribute('uninstalled');
+      detailPage.setAttribute('section', returnSection);
+      updatePluginDetailStatus(name);
+      customizationsPage.hidden = false;
+      $('actionsList').hidden = true;
+      $('pluginsList').hidden = true;
+      detailPage.hidden = false;
+      detailPage.style.display = '';
+      customizations.setAttribute('section', returnSection);
+      pluginContextMenu.hidden = true;
+    }
+
+    function openMarketplaceDetail(name = 'review-toolkit') {
+      const data = pluginData[name] || pluginData['review-toolkit'];
+      activePlugin = name;
+      detailReturnSection = 'browse';
+      detailPage.setAttribute('name', name);
+      detailPage.setAttribute('version', data.version);
+      detailPage.setAttribute('location', data.location);
+      detailPage.setAttribute('skills', data.skills);
+      detailPage.setAttribute('readme', data.readme);
+      detailPage.removeAttribute('update-available');
+      detailPage.removeAttribute('enabled');
+      detailPage.removeAttribute('auto-update');
+      detailPage.setAttribute('uninstalled', '');
+      detailPage.setAttribute('section', 'browse');
+      customizationsPage.hidden = false;
+      $('browsePage').hidden = true;
+      detailPage.hidden = false;
+      detailPage.style.display = '';
+      customizations.setAttribute('section', 'browse');
+    }
+
+    function showToast(message, buttons = '') {
+      const toast = document.createElement('vsc-notification');
+      toast.setAttribute('severity', 'info');
+      toast.setAttribute('message', message);
+      if (buttons) toast.setAttribute('buttons', buttons);
+      toast.setAttribute('sticky', '');
+      toast.setAttribute('no-animation', '');
+      $('toasts').append(toast);
+      return toast;
+    }
+
+    function marketplacePlugins() {
+      return Object.entries(pluginData).filter(([, data]) => data.marketplace === marketplaceName);
+    }
+
+    function marketplaceExceptions() {
+      return marketplacePlugins().filter(([, data]) => data.autoUpdate !== marketplaceAutoUpdateEnabled);
+    }
+
+    function updateMarketplaceAction() {
+      const exceptions = marketplaceExceptions().length;
+      const action = $('marketplaceAutoUpdate');
+      const exceptionSummary = exceptions ? ` (${exceptions} exception${exceptions === 1 ? '' : 's'})` : '';
+      action.setAttribute('label', `Auto Update${exceptionSummary}`);
+      action.removeAttribute('description');
+      action.setAttribute('title', `Toggle Auto Update ${marketplaceAutoUpdateEnabled ? 'off' : 'on'} and overwrite plugin exceptions.`);
+      const toggle = $('marketplaceAutoUpdateSwitch');
+      toggle?.setAttribute('aria-checked', String(marketplaceAutoUpdateEnabled));
+      toggle?.setAttribute('aria-label', `Auto Update ${marketplaceAutoUpdateEnabled ? 'on' : 'off'}`);
+    }
+
+    function updatePluginDetailStatus(name) {
+      const data = pluginData[name];
+      const setting = detailPage.querySelector('.plugin-detail-auto-setting');
+      if (!data?.marketplace || !setting) return;
+      setting.querySelector('.plugin-auto-context')?.remove();
+      if (data.autoUpdate || !marketplaceAutoUpdateEnabled) return;
+      const context = document.createElement('span');
+      context.className = 'plugin-auto-context';
+      const warning = document.createElement('span');
+      warning.className = 'plugin-auto-warning codicon codicon-warning';
+      warning.setAttribute('aria-hidden', 'true');
+      context.append(warning, document.createTextNode('Overwrites '));
+      const marketplaceLink = document.createElement('a');
+      marketplaceLink.href = '#';
+      marketplaceLink.textContent = 'marketplace auto update';
+      marketplaceLink.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        showMarketplaceActions();
+      });
+      context.append(marketplaceLink);
+      setting.insertBefore(context, setting.lastElementChild);
+    }
+
+    function applyMarketplaceAutoUpdate(enabled) {
+      const plugins = marketplacePlugins();
+      lastMarketplaceChange = {
+        marketplaceEnabled: marketplaceAutoUpdateEnabled,
+        pluginStates: plugins.map(([name, data]) => [name, data.autoUpdate])
+      };
+      marketplaceAutoUpdateEnabled = enabled;
+      plugins.forEach(([name, data]) => {
+        data.autoUpdate = enabled;
+        updateRowAction(name);
+      });
+      updateMarketplaceAction();
+      if (pluginData[activePlugin]?.marketplace === marketplaceName && !detailPage.hidden) {
+        detailPage.toggleAttribute('auto-update', enabled);
+        updatePluginDetailStatus(activePlugin);
+      }
+      const toast = showToast(`Auto Update turned ${enabled ? 'on' : 'off'} for ${plugins.length} plugins from ${marketplaceName}.`, 'Undo');
+      toast.addEventListener('action', event => {
+        if (event.detail?.label !== 'Undo' || !lastMarketplaceChange) return;
+        marketplaceAutoUpdateEnabled = lastMarketplaceChange.marketplaceEnabled;
+        lastMarketplaceChange.pluginStates.forEach(([name, autoUpdate]) => {
+          pluginData[name].autoUpdate = autoUpdate;
+          updateRowAction(name);
+        });
+        updateMarketplaceAction();
+        if (pluginData[activePlugin]?.marketplace === marketplaceName && !detailPage.hidden) {
+          detailPage.toggleAttribute('auto-update', pluginData[activePlugin].autoUpdate);
+          updatePluginDetailStatus(activePlugin);
+        }
+        lastMarketplaceChange = null;
+        showToast('Marketplace and plugin Auto Update settings restored.');
+      }, { once: true });
+    }
+
+    function confirmMarketplaceAutoUpdate(enabled) {
+      const plugins = marketplacePlugins();
+      const exceptions = marketplaceExceptions();
+      const changing = plugins.filter(([, data]) => data.autoUpdate !== enabled).length;
+      pendingMarketplaceAutoUpdate = enabled;
+      marketplaceActionOverlay.hidden = true;
+      marketplaceAutoUpdateDialog.setAttribute('message', 'Overwrite plugin Auto Update settings?');
+      marketplaceAutoUpdateDialog.setAttribute('buttons', 'Cancel,Overwrite Settings');
+      marketplaceAutoUpdateDialog.setAttribute('primary', 'Overwrite Settings');
+      marketplaceAutoUpdateDialog.querySelector('.dialog-message-detail').innerHTML = `This will turn ${enabled ? 'on' : 'off'} Auto Update for all ${plugins.length} installed plugins from ${marketplaceName}.<br><br>${changing} plugin${changing === 1 ? '' : 's'} will change. ${exceptions.length} custom setting${exceptions.length === 1 ? '' : 's'} will be replaced.`;
+      marketplaceAutoUpdateDialog.hidden = false;
+    }
+
+    function installMarketplacePlugin() {
+      detailPage.removeAttribute('uninstalled');
+      detailPage.setAttribute('enabled', '');
+      detailPage.setAttribute('auto-update', '');
+      detailPage.setAttribute('location', `~/.copilot/installed-plugins/${activePlugin}`);
+      showToast(`${activePlugin} installed.`);
+    }
+
+    function startUpdate(pluginName = activePlugin) {
+      closeTransient();
+      if (activePlugin === pluginName) detailPage.removeAttribute('update-available');
+      const data = pluginData[pluginName] || pluginData['accessibility-kanban'];
+      const progress = showToast(`Updating ${pluginName} to ${data.next || data.version}…`);
+      window.setTimeout(async () => {
+        progress.remove();
+        data.version = data.next || data.version;
+        data.next = '';
+        if (activePlugin === pluginName) detailPage.setAttribute('version', data.version);
+        updateRowAction(pluginName);
+        const pluginRows = rowByPlugin.get(pluginName) || [];
+        pluginRows.forEach(host => {
+          host.setAttribute('metadata', data.metadata || '');
+          if (host.closest('#actionsList')) host.remove();
+        });
+        const remainingUpdates = Object.values(pluginData).filter(data => !data.managed && Boolean(data.next) && data.location.includes('installed-plugins')).length;
+        const availableUpdatesGroup = $('availableUpdatesGroup');
+        availableUpdatesGroup.setAttribute('count', String(remainingUpdates));
+        availableUpdatesGroup.toggleAttribute('data-empty', remainingUpdates === 0);
+        configureUpdateAllAction();
+        actionsNeededCount.style.display = remainingUpdates === 0 ? 'none' : '';
+        actionsNeededRow.style.display = remainingUpdates === 0 ? 'none' : '';
+        actionsNeededRow.setAttribute('aria-label', remainingUpdates === 0 ? 'Actions Needed' : `Actions Needed, ${remainingUpdates} items`);
+        if (remainingUpdates === 0 && customizations.getAttribute('section') === 'actions') openModal('plugins');
+        const indicatorLabel = `${remainingUpdates} plugin update${remainingUpdates === 1 ? '' : 's'} available`;
+        if (customizationsDot) customizationsDot.style.visibility = remainingUpdates === 0 ? 'hidden' : '';
+        if (customizationsShortcut) {
+          customizationsShortcut.setAttribute('aria-label', remainingUpdates === 0 ? 'Customizations' : `Customizations, ${indicatorLabel}`);
+          if (remainingUpdates === 0) customizationsShortcut.removeAttribute('title');
+          else customizationsShortcut.setAttribute('title', indicatorLabel);
+        }
+      }, 900);
+    }
+
+    function showVersions() {
+      closeTransient();
+      versionOverlay.hidden = false;
+    }
+
+    function installSpecificVersion(item) {
+      const version = item.getAttribute('label');
+      const data = pluginData[activePlugin];
+      if (!version || !data || data.managed) return;
+      const autoUpdateWasEnabled = data.autoUpdate;
+      closeTransient();
+      data.version = version;
+      data.autoUpdate = false;
+      detailPage.setAttribute('version', version);
+      detailPage.removeAttribute('auto-update');
+      versionOverlay.querySelectorAll('vsc-quick-pick-item').forEach(versionItem => {
+        const description = (versionItem.getAttribute('description') || '').replace(/ \(current\)$/, '');
+        versionItem.setAttribute('description', versionItem === item ? `${description} (current)` : description);
+        versionItem.toggleAttribute('focused', versionItem === item);
+      });
+      updateRowAction(activePlugin);
+      updateMarketplaceAction();
+      updatePluginDetailStatus(activePlugin);
+      showToast(`${activePlugin} ${version} installed${autoUpdateWasEnabled ? ' with Auto Update turned off' : ''}.`);
+    }
+
+    function showPluginMenu(host, event) {
+      closeTransient();
+      activePlugin = host.getAttribute('name') || 'accessibility-kanban';
+      const managed = Boolean(pluginData[activePlugin]?.managed);
+      ['menuUpdate', 'menuVersion'].forEach(id => {
+        const item = $(id);
+        item.toggleAttribute('disabled', managed);
+        item.toggleAttribute('aria-disabled', managed);
+        if (managed) item.setAttribute('title', 'Managed by your organization');
+        else item.removeAttribute('title');
+      });
+      const rect = event?.currentTarget?.getBoundingClientRect?.() || host.getBoundingClientRect();
+      pluginContextMenu.style.left = `${Math.min(rect.right - 220, window.innerWidth - 250)}px`;
+      pluginContextMenu.style.top = `${Math.min(rect.bottom + 2, window.innerHeight - 230)}px`;
+      pluginContextMenu.hidden = false;
+    }
+
+    function showUpdateSplitMenu(host, button) {
+      closeTransient();
+      activePlugin = host.getAttribute('name') || 'accessibility-kanban';
+      const rect = button.getBoundingClientRect();
+      updateSplitMenu.style.left = `${Math.min(rect.right - 190, window.innerWidth - 210)}px`;
+      updateSplitMenu.style.top = `${rect.bottom + 2}px`;
+      updateSplitMenu.hidden = false;
+    }
+
+    function showMarketplaces() {
+      closeTransient();
+      marketplacesOverlay.hidden = false;
+    }
+
+    function showMarketplaceActions() {
+      closeTransient();
+      marketplaceActionOverlay.hidden = false;
+    }
+
+    function showSourceMenu(button) {
+      closeTransient();
+      const rect = button.getBoundingClientRect();
+      sourceMenu.style.left = `${Math.min(rect.left, window.innerWidth - 280)}px`;
+      sourceMenu.style.top = `${rect.bottom + 2}px`;
+      sourceMenu.hidden = false;
+    }
+
+    const customizationsShortcut = [...$('shortcuts').querySelectorAll('button')].find(button => button.textContent.includes('Customizations'));
+    customizationsShortcut?.classList.add('customizations-updates-entry');
+    customizationsShortcut?.setAttribute('title', '2 plugin updates available');
+    customizationsShortcut?.setAttribute('aria-label', 'Customizations, 2 plugin updates available');
+    const customizationsDot = customizationsShortcut?.querySelector('.agents-sidebar-update-dot');
+    const customizationsLabel = [...(customizationsShortcut?.children || [])].find(child => child.textContent === 'Customizations');
+    if (customizationsDot && customizationsLabel) customizationsShortcut.insertBefore(customizationsDot, customizationsLabel);
+    $('shortcuts').addEventListener('open-customizations', () => openModal('plugins'));
+    modalEditor.addEventListener('modal-close', closeModal);
+    detailPage.addEventListener('back', () => openModal(detailReturnSection));
+    detailPage.addEventListener('update', startUpdate);
+    detailPage.addEventListener('install', installMarketplacePlugin);
+    detailPage.addEventListener('uninstall-menu', showVersions);
+    detailPage.addEventListener('auto-update-change', event => {
+      const data = pluginData[activePlugin];
+      if (!data || data.managed) return;
+      data.autoUpdate = Boolean(event.detail?.checked);
+      updateRowAction(activePlugin);
+      updateMarketplaceAction();
+      updatePluginDetailStatus(activePlugin);
+    });
+    versionOverlay.addEventListener('click', event => {
+      const item = event.target.closest('vsc-quick-pick-item');
+      if (item) installSpecificVersion(item);
+    });
+    $('menuUpdate').addEventListener('click', () => {
+      if ($('menuUpdate').hasAttribute('disabled')) return;
+      openInstalledDetail(activePlugin);
+      startUpdate();
+    });
+    $('menuVersion').addEventListener('click', () => {
+      if ($('menuVersion').hasAttribute('disabled')) return;
+      showVersions();
+    });
+    $('menuDetails').addEventListener('click', () => openInstalledDetail(activePlugin));
+    $('enableAutoUpdate').addEventListener('click', () => {
+      const data = pluginData[activePlugin];
+      if (!data || data.managed) return;
+      data.autoUpdate = true;
+      updateSplitMenu.hidden = true;
+      updateRowAction(activePlugin);
+      showToast(`Auto Update enabled for ${activePlugin}.`);
+    });
+    $('configureMarketplaces').addEventListener('click', showMarketplaces);
+    $('marketplaceClaude').addEventListener('click', showMarketplaceActions);
+    $('marketplaceTeamKit').addEventListener('click', showMarketplaceActions);
+    $('marketplaceBack').addEventListener('click', showMarketplaces);
+    $('marketplaceBrowse').addEventListener('click', () => openModal('browse'));
+    $('browseAllMarketplaces').addEventListener('click', () => openModal('browse'));
+    $('marketplaceAutoUpdate').addEventListener('click', () => {
+      const enabled = !marketplaceAutoUpdateEnabled;
+      if (marketplaceExceptions().length) confirmMarketplaceAutoUpdate(enabled);
+      else {
+        marketplaceActionOverlay.hidden = true;
+        applyMarketplaceAutoUpdate(enabled);
+      }
+    });
+    marketplaceAutoUpdateDialog.addEventListener('click', event => {
+      if (event.target.closest('.codicon-dialog-close') || event.target.textContent.trim() === 'Cancel') {
+        marketplaceAutoUpdateDialog.hidden = true;
+        pendingMarketplaceAutoUpdate = null;
+        return;
+      }
+      if (!event.target.closest('.monaco-button') || pendingMarketplaceAutoUpdate === null) return;
+      const enabled = pendingMarketplaceAutoUpdate;
+      marketplaceAutoUpdateDialog.hidden = true;
+      pendingMarketplaceAutoUpdate = null;
+      applyMarketplaceAutoUpdate(enabled);
+    });
+
+    [versionOverlay, marketplacesOverlay, marketplaceActionOverlay].forEach(overlay => {
+      overlay.addEventListener('click', event => { if (event.target === overlay) overlay.hidden = true; });
+    });
+
+    await customElements.whenDefined('vsc-plugin-item');
+    await new Promise(resolve => window.setTimeout(resolve, 0));
+    const availableUpdatesGroup = $('availableUpdatesGroup');
+    function configureUpdateAllAction() {
+      const updateAllAction = availableUpdatesGroup.querySelector('.plugin-update-button');
+      if (!updateAllAction) return;
+      updateAllAction.classList.remove('plugin-card-icon-button', 'codicon', 'codicon-refresh');
+      updateAllAction.textContent = 'Update all';
+      updateAllAction.setAttribute('aria-label', 'Update all');
+      updateAllAction.setAttribute('title', 'Update all');
+    }
+    configureUpdateAllAction();
+    availableUpdatesGroup.addEventListener('click', event => {
+      if (!event.target.closest('.plugin-update-button')) return;
+      event.preventDefault();
+      event.stopPropagation();
+      Object.entries(pluginData)
+        .filter(([, data]) => !data.managed && Boolean(data.next) && data.location.includes('installed-plugins'))
+        .forEach(([name]) => startUpdate(name));
+    });
+    const sidebarRows = customizations.querySelector('.management-sidebar .monaco-list-rows');
+    const existingSidebarRows = [...sidebarRows.children];
+    existingSidebarRows.forEach((row, index) => {
+      row.setAttribute('aria-posinset', String(index + 1));
+      row.setAttribute('aria-setsize', String(existingSidebarRows.length + 1));
+      row.removeAttribute('data-last-element');
+    });
+    const actionsNeededRow = document.createElement('div');
+    actionsNeededRow.className = 'monaco-list-row section-list-item section-separator-before';
+    actionsNeededRow.dataset.section = 'actions';
+    actionsNeededRow.dataset.index = String(existingSidebarRows.length);
+    actionsNeededRow.dataset.lastElement = 'true';
+    actionsNeededRow.setAttribute('role', 'listitem');
+    actionsNeededRow.setAttribute('aria-posinset', String(existingSidebarRows.length + 1));
+    actionsNeededRow.setAttribute('aria-setsize', String(existingSidebarRows.length + 1));
+    actionsNeededRow.setAttribute('aria-selected', 'false');
+    actionsNeededRow.setAttribute('aria-label', 'Actions Needed, 2 items');
+    actionsNeededRow.setAttribute('draggable', 'false');
+    actionsNeededRow.style.cssText = `top: ${existingSidebarRows.length * 26 + 8}px; height: 34px;`;
+    const actionsNeededLabel = document.createElement('div');
+    actionsNeededLabel.className = 'section-label';
+    actionsNeededLabel.textContent = 'Actions Needed';
+    const actionsNeededBadge = document.createElement('div');
+    actionsNeededBadge.className = 'section-badge';
+    actionsNeededBadge.style.display = 'none';
+    const actionsNeededCount = document.createElement('div');
+    actionsNeededCount.className = 'section-count actions-needed-dot';
+    actionsNeededRow.append(actionsNeededLabel, actionsNeededBadge, actionsNeededCount);
+    actionsNeededRow.addEventListener('click', () => {
+      customizations.setAttribute('section', 'actions');
+      customizations.dispatchEvent(new CustomEvent('section-change', { bubbles: true, detail: { section: 'actions' } }));
+    });
+    sidebarRows.append(actionsNeededRow);
+    customizations.__rows.push(actionsNeededRow);
+    const sidebarListHeight = (existingSidebarRows.length + 1) * 26 + 16;
+    sidebarRows.style.height = `${sidebarListHeight}px`;
+    customizations.querySelector('.sidebar-sections-list').style.height = `${sidebarListHeight}px`;
+    customizations.querySelector('.management-sidebar .scrollbar.vertical').style.height = `${sidebarListHeight}px`;
+    customizations.applyState();
+
+    const rows = [
+      { host: $('pluginKanban'), managed: false },
+      { host: $('pluginFigma'), managed: false },
+      { host: $('pluginManaged'), managed: true },
+      { host: $('actionKanban'), managed: false },
+      { host: $('actionFigma'), managed: false }
+    ];
+    const rowByPlugin = new Map();
+    rows.forEach(({ host }) => {
+      const name = host.getAttribute('name');
+      const pluginRows = rowByPlugin.get(name) || [];
+      pluginRows.push(host);
+      rowByPlugin.set(name, pluginRows);
+    });
+    updateMarketplaceAction();
+
+    function updateRowAction(name) {
+      const data = pluginData[name];
+      if (!data || data.managed) return;
+      (rowByPlugin.get(name) || []).forEach(host => {
+        const split = host.querySelector('.row-update-split');
+        if (split) split.hidden = !data.next || Boolean(data.autoUpdate);
+      });
+    }
+
+    rows.forEach(({ host, managed }) => {
+      const actionArea = host.querySelector('.plugin-list-item-action');
+      if (managed) {
+        const note = document.createElement('div');
+        note.className = 'managed-note';
+        note.textContent = 'Managed by your admin';
+        actionArea?.prepend(note);
+      } else {
+        const split = document.createElement('div');
+        split.className = 'row-update-split';
+        const updateButton = document.createElement('button');
+        updateButton.type = 'button';
+        updateButton.className = 'row-update-main';
+        updateButton.textContent = 'Update';
+        updateButton.addEventListener('click', event => {
+          event.stopPropagation();
+          activePlugin = host.getAttribute('name');
+          startUpdate();
+        });
+        const arrowButton = document.createElement('button');
+        arrowButton.type = 'button';
+        arrowButton.className = 'row-update-arrow codicon codicon-chevron-down';
+        arrowButton.setAttribute('aria-label', `Update options for ${host.getAttribute('name')}`);
+        arrowButton.addEventListener('click', event => {
+          event.stopPropagation();
+          showUpdateSplitMenu(host, arrowButton);
+        });
+        split.append(updateButton, arrowButton);
+        actionArea?.prepend(split);
+        updateRowAction(host.getAttribute('name'));
+      }
+      host.addEventListener('click', event => {
+        if (event.target.closest('.codicon-ellipsis')) {
+          event.preventDefault();
+          event.stopPropagation();
+          showPluginMenu(host, event);
+          return;
+        }
+        if (!event.target.closest('.plugin-list-item-action')) {
+          openInstalledDetail(host.getAttribute('name'), host.closest('#actionsList') ? 'actions' : 'plugins');
+        }
+      });
+      host.addEventListener('contextmenu', event => { event.preventDefault(); showPluginMenu(host, event); });
+    });
+
+    const pluginsBrowseButton = [...$('pluginsList').querySelectorAll('a,button')].find(node => node.textContent.trim() === 'Browse');
+    pluginsBrowseButton?.addEventListener('click', event => { event.preventDefault(); openModal('browse'); });
+    const pluginsMarketplaceButton = $('pluginsList').querySelector('[aria-label*="Marketplace"], [aria-label*="marketplace"]');
+    pluginsMarketplaceButton?.addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); showMarketplaces(); });
+
+    const sourceButton = $('browsePage').querySelector('[aria-label^="Customization source:"]');
+    sourceButton?.addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); showSourceMenu(sourceButton); });
+
+    ['browseKanban', 'browseFigma', 'browseReview'].forEach(id => {
+      const card = $(id);
+      card.addEventListener('click', () => openMarketplaceDetail(card.getAttribute('name')));
+      card.addEventListener('install', event => { event.stopPropagation(); activePlugin = card.getAttribute('name'); openMarketplaceDetail(activePlugin); installMarketplacePlugin(); });
+    });
+
+    document.addEventListener('pointerdown', event => {
+      if (!pluginContextMenu.hidden && !event.target.closest('.monaco-menu')) pluginContextMenu.hidden = true;
+      if (!updateSplitMenu.hidden && !event.target.closest('.monaco-menu')) updateSplitMenu.hidden = true;
+      if (!sourceMenu.hidden && !event.target.closest('.monaco-menu')) sourceMenu.hidden = true;
+    }, true);
+
+    const previewState = new URLSearchParams(location.search).get('state');
+    if (previewState === 'closed') {
+      closeModal();
+    } else if (previewState === 'browse') {
+      openModal('browse');
+    } else if (previewState === 'browse-detail') {
+      openModal('browse');
+      openMarketplaceDetail('review-toolkit');
+    } else if (previewState === 'detail') {
+      openInstalledDetail('accessibility-kanban');
+    } else if (previewState === 'detail-exception') {
+      openInstalledDetail('figma-context-tools');
+    } else if (previewState === 'versions') {
+      openInstalledDetail('accessibility-kanban');
+      showVersions();
+    } else if (previewState === 'marketplaces') {
+      showMarketplaces();
+    } else if (previewState === 'marketplace-detail') {
+      marketplaceActionOverlay.hidden = false;
+    } else if (previewState === 'marketplace-warning') {
+      confirmMarketplaceAutoUpdate(false);
+    } else if (previewState === 'marketplace-applied') {
+      applyMarketplaceAutoUpdate(false);
+    } else if (previewState === 'source-menu') {
+      openModal('browse');
+      sourceButton && showSourceMenu(sourceButton);
+    }
+  </script>
+</body>
+</html>

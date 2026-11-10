@@ -1,0 +1,21 @@
+{
+  "title": "Customizations - Updates",
+  "description": "Adds an Actions Needed destination in the Customizations sidebar with its own aggregated plugin updates page, while retaining per-plugin Update actions on the Plugins page.",
+  "status": "draft",
+  "tags": [
+    "agents",
+    "customizations",
+    "plugins",
+    "updates",
+    "item-details",
+    "modal",
+    "marketplace"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-updates-v4",
+  "entry": "index.html",
+  "sourceRefs": [],
+  "createdAt": "2026-11-10T21:07:30.522Z",
+  "updatedAt": "2026-11-10T21:56:12.831Z"
+}

@@ -1,8 +1,11 @@
 vsc-plugin-details {
+  box-sizing: border-box;
   height: 100%;
   overflow: auto;
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 6px;
   color: var(--vscode-foreground);
-  background: var(--vscode-editor-background);
+  background: var(--vscode-sideBar-background);
 }
 
 vsc-plugin-details .plugin-detail-page {

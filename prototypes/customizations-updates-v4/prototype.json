@@ -1,6 +1,6 @@
 {
   "title": "Customizations - Updates",
-  "description": "V4: Marketplace Quick Pick shows “Auto Update: On · 2 exceptions.” Both installed marketplace plugins are explicit Off exceptions; toggling the marketplace Off warns that the two custom settings will be overwritten, applies the state to all, and offers Undo.",
+  "description": "V4: Updates apply directly with only a transient updating toast. Completed plugins lose their Update action and update-available metadata, then move from Needs Action into User. When no actionable updates remain, Needs Action and the Plugins/Customizations update indicators disappear. Plugin details retain the Customizations sidebar and show a linked yellow warning when a plugin disables marketplace Auto Update. Marketplace Auto Update exception controls remain available.",
   "status": "review",
   "tags": [
     "agents",
@@ -21,5 +21,5 @@
   },
   "sourceRefs": [],
   "createdAt": "2026-11-06T23:32:11.960Z",
-  "updatedAt": "2026-11-06T23:42:37.889Z"
+  "updatedAt": "2026-11-09T22:55:57.039Z"
 }
