@@ -1,0 +1,26 @@
+{
+  "title": "Customizations Entrypoint",
+  "description": "Welcome shortcuts. Leaves V13's sidebar button as is and moves type discovery to where intent is highest: under the new-session composer, a row of \"Customize\" chips (Skills 84, MCP Servers 8, Agents 5, Plugins 2, Instructions 31, Browse) deep links into the modal. Dismissible. Open sessions rely on V13's Session Customizations side pane. Note: sits next to, not in, the composer (Nov 5 sync: no customization UI in the composer).",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "entry-point",
+    "composer",
+    "discoverability"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-entrypoint",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-11T18:57:48.334Z",
+  "updatedAt": "2026-11-11T18:57:57.494Z"
+}

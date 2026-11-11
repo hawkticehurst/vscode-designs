@@ -1,0 +1,26 @@
+{
+  "title": "Customizations Entrypoint",
+  "description": "Type chips. The Customizations row keeps V13's look, with one line of small type chips under it (Skills, MCP, Agents, Plugins… and +N for what doesn't fit). Each chip deep links into that page of the modal; the row opens the overview. Costs one 20px line of sidebar.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "entry-point",
+    "sidebar",
+    "discoverability"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-entrypoint",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-11T18:57:48.335Z",
+  "updatedAt": "2026-11-11T18:57:57.491Z"
+}
