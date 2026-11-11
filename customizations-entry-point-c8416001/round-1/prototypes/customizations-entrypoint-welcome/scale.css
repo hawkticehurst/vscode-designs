@@ -1,0 +1,217 @@
+/* ===== V10 — Progressive (scale.js). Builds on env.css, everyday.css and library.css. ===== */
+.sc-cfg [hidden] { display: none !important; }
+.sc-nav-label { flex: none; padding: 2px 8px 4px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label2, 11px); }
+
+/* Tags, as the customizations editor's .inline-badge.item-tag. */
+.en-tag { flex: none; display: inline-flex; align-items: center; height: 16px; padding: 0 5px; margin-left: 6px; border-radius: var(--vscode-cornerRadius-small); font-size: 10px; font-weight: 400; line-height: 1;
+  color: var(--vscode-badge-foreground); background: var(--vscode-badge-background); }
+.en-name-link { padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; text-align: left; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.en-name-link:hover { text-decoration: underline; text-underline-offset: 2px; }
+.en-name-link:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+/* Panel: a plugin/extension/organization source row and the items nested under it. */
+.en-src-row { display: flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 var(--vscode-spacing-size100); box-sizing: border-box; box-shadow: inset 0 1px 0 var(--vscode-agentsCard-border); }
+.en-src-row .codicon { font-size: 14px; color: var(--vscode-icon-foreground); }
+.en-src-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: var(--vscode-agents-fontWeight-semiBold, 600); }
+.en-src-kind { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.ev-row.en-nested { min-height: 32px; padding-left: 30px; }
+
+/* ---------- Lists ---------- */
+.sc-list { display: flex; flex-direction: column; gap: 18px; }
+.sc-group { display: flex; flex-direction: column; border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-large); background: var(--se-card); }
+/* Section titles sit above their container, like the Settings modal's groups (.se-group-header). */
+.sc-list > .se-group.sc-grp { margin-top: 0; }
+.sc-grp > .se-group-header { position: static; padding: 0 4px 6px; min-height: 0; background: none; }
+.sc-grp .se-group-icon { font-size: 14px; }
+.sc-group-note { margin-left: auto; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.sc-group > .sc-row:first-child { border-top-left-radius: var(--vscode-cornerRadius-large); border-top-right-radius: var(--vscode-cornerRadius-large); }
+.sc-group > .sc-row:last-child, .sc-group > .sc-where-detail:last-child { border-bottom-left-radius: var(--vscode-cornerRadius-large); border-bottom-right-radius: var(--vscode-cornerRadius-large); }
+.sc-row { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 4px 8px 4px 6px; box-sizing: border-box; }
+.sc-group > .sc-row + .sc-row, .sc-group > .sc-where-detail + .sc-row, .sc-list > .sc-row + .sc-row, .sc-list > .sc-where-detail + .sc-row { border-top: 1px solid color-mix(in srgb, var(--se-line) 70%, transparent); }
+.sc-row:hover { background: var(--vscode-list-hoverBackground); }
+.sc-row.sc-nested { min-height: 32px; padding-left: 20px; }
+.sc-row.sc-nested .ev-logo { width: 16px !important; height: 16px !important; }
+.sc-row.sc-src { min-height: 32px; gap: 6px; }
+.sc-src-icon { font-size: 14px; color: var(--vscode-icon-foreground); margin-left: 2px; }
+.sc-src-label { font-weight: var(--vscode-fontWeight-semiBold, 600); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc-src-kind { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.sc-src-open { visibility: hidden; }
+.sc-row:is(:hover, :focus-within) .sc-src-open { visibility: visible; }
+.sc-twisty, .sc-twisty-space { flex: none; width: 20px; height: 20px; }
+.sc-twisty { display: grid; place-items: center; padding: 0; border: 0; border-radius: var(--vscode-cornerRadius-small); background: transparent; cursor: pointer; color: var(--vscode-icon-foreground); }
+.sc-twisty:hover { background: var(--vscode-toolbar-hoverBackground); }
+.sc-twisty .codicon { font-size: 14px; }
+.sc-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.sc-name-row { display: flex; align-items: center; min-width: 0; }
+.sc-name { min-width: 0; padding: 0; border: 0; background: none; font: inherit; font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-foreground) !important; cursor: pointer; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc-name.is-static { cursor: default; text-decoration: none; }
+.sc-nested .sc-name { font-weight: 400; }
+.sc-sub { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Level 0: one plain summary of where it is. */
+.sc-where { flex: none; max-width: 260px; padding: 2px 6px; border: 0; border-radius: var(--vscode-cornerRadius-small); background: transparent; font: inherit; font-size: var(--vscode-fontSize-label1);
+  color: var(--vscode-descriptionForeground) !important; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+button.sc-where:hover { color: var(--vscode-foreground) !important; background: var(--vscode-toolbar-hoverBackground); }
+.sc-where.is-static, span.sc-where { cursor: default; }
+.sc-where.is-muted { opacity: 0.7; }
+.sc-status { flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: var(--vscode-fontSize-label1); color: var(--vscode-descriptionForeground); white-space: nowrap; }
+.sc-status .codicon { font-size: 14px; }
+.sc-status.is-error { color: var(--vscode-errorForeground); }
+.sc-status.is-ok .sc-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--vscode-charts-green, #3fb950); }
+.sc-pol { flex: none; }
+.sc-lock { color: var(--vscode-descriptionForeground); }
+.sc-row vsc-toolbar { flex: none; }
+.sc-agents { flex: none; display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 4px 0 8px; border: 1px solid var(--se-line, var(--vscode-widget-border)); border-radius: var(--vscode-cornerRadius-medium);
+  background: transparent; cursor: pointer; font: inherit; font-size: var(--vscode-fontSize-label1); color: var(--vscode-foreground) !important; white-space: nowrap; }
+.sc-agents:hover { background: var(--vscode-list-hoverBackground); }
+.sc-agents .codicon { font-size: 12px; color: var(--vscode-descriptionForeground); }
+.sc-agents-static { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+:is(.sc-twisty, .sc-name, .sc-where, .sc-agents, .sc-radio, .sc-chip, .sc-add-row, .sc-detail-path):focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+:is(.sc-twisty, .sc-name, .sc-where, .sc-agents, .sc-radio, .sc-chip, .sc-add-row, .sc-detail-path):focus:not(:focus-visible) { outline: none !important; }
+/* Level 1: the environments it's on, then one line for the rest. */
+.sc-where-detail { display: flex; flex-direction: column; padding: 2px 12px 8px 36px; }
+.sc-env-line { display: flex; align-items: center; gap: 8px; min-height: 30px; font-size: var(--vscode-fontSize-body1); }
+.sc-env-line > .codicon { font-size: 14px; color: var(--vscode-icon-foreground); }
+.sc-env-line small { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.sc-env-line.is-off { color: var(--vscode-descriptionForeground); }
+.sc-env-name { white-space: nowrap; }
+.sc-muted { color: var(--vscode-descriptionForeground); }
+.sc-mono { font-family: var(--se-mono); font-size: 12px; }
+.sc-add-row { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; border: 1px dashed var(--se-line); border-radius: var(--vscode-cornerRadius-large); background: transparent;
+  cursor: pointer; font: inherit; color: var(--vscode-descriptionForeground) !important; }
+.sc-add-row:hover { color: var(--vscode-foreground) !important; background: var(--vscode-list-hoverBackground); }
+.sc-env-row { border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-large); background: var(--se-card); padding: 8px 8px 8px 6px; }
+.sc-env-row.is-open { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.sc-list > .sc-env-row + .sc-env-row, .sc-list > .sc-where-detail + .sc-env-row { border-top: 1px solid var(--se-line); }
+.sc-list:has(.sc-env-row) { gap: 8px; }
+.sc-env-row + .sc-where-detail { margin-top: -9px; border: 1px solid var(--se-line); border-top: 0; border-radius: 0 0 var(--vscode-cornerRadius-large) var(--vscode-cornerRadius-large); background: var(--se-card); padding-left: 34px; }
+.sc-env-row .en-status { margin-left: 8px; }
+.sc-env-row .en-env-ic { width: 28px; height: 28px; }
+
+/* ---------- Level 2: the item ---------- */
+.sc-detail-scroll { padding: 0 14px 24px !important; }
+.sc-detail { display: flex; flex-direction: column; }
+.sc-detail-head { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 10px; padding: 14px 0 12px; background: var(--vscode-editor-background); border-bottom: 1px solid var(--se-line); }
+.sc-detail-title { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sc-detail-name { display: flex; align-items: center; gap: 8px; font-size: var(--vscode-fontSize-heading3, 14px); font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.sc-detail-name .en-tag { margin-left: 0; }
+.sc-detail-path { align-self: flex-start; max-width: 100%; padding: 0; border: 0; background: none; font-family: var(--se-mono); font-size: 11px; color: var(--vscode-textLink-foreground) !important; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc-detail-path:hover { text-decoration: underline; }
+.sc-detail-actions { display: flex; align-items: center; gap: 6px; }
+.sc-saved { display: inline-flex; align-items: center; gap: 4px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.sc-saved .codicon { font-size: 14px; }
+.sc-detail-body { display: flex; flex-direction: column; gap: 20px; padding-top: 16px; }
+.sc-section-head { display: flex; align-items: center; gap: 8px; min-height: 26px; margin-bottom: 6px; }
+.sc-section-head h3 { margin: 0; font-size: var(--vscode-fontSize-body1); font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.sc-section-meta { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.sc-section-desc { margin: 0 0 6px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.sc-env-list { display: flex; flex-direction: column; padding: 0; overflow: hidden; border: 1px solid var(--se-line); border-radius: var(--vscode-cornerRadius-large); background: var(--se-card); }
+.sc-env-list > .sc-env-line + .sc-env-line { border-top: 1px solid color-mix(in srgb, var(--se-line) 70%, transparent); }
+.sc-env-list > .sc-env-line { min-height: 36px; padding: 0 12px; } /* padding on the rows, so dividers run edge to edge */
+/* Diagnostics cards (embeddedMcpServerDetail's .mcp-detail-diagnostic-card). */
+.sc-diag { padding: 10px 12px; border-radius: var(--vscode-cornerRadius-large); border: 1px solid var(--se-line); background: var(--se-card); }
+.sc-diag.is-error { border-color: color-mix(in srgb, var(--vscode-errorForeground) 45%, transparent); background: color-mix(in srgb, var(--vscode-errorForeground) 8%, var(--se-card)); }
+.sc-diag.is-warn { border-color: color-mix(in srgb, var(--vscode-editorWarning-foreground) 45%, transparent); background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 7%, var(--se-card)); }
+.sc-diag-head { display: flex; align-items: center; gap: 8px; font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.sc-diag-head .codicon { font-size: 16px; }
+.sc-diag.is-error .sc-diag-head .codicon { color: var(--vscode-errorForeground); }
+.sc-diag.is-warn .sc-diag-head .codicon { color: var(--vscode-editorWarning-foreground); }
+.sc-diag-where { margin-left: auto; font-weight: 400; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.sc-diag-msg { margin: 6px 0 0 24px; font-family: var(--se-mono); font-size: 12px; color: var(--vscode-foreground); }
+.sc-diag:not(.is-error) .sc-diag-msg { font-family: inherit; font-size: var(--vscode-fontSize-label1); color: var(--vscode-descriptionForeground); }
+.sc-diag-actions { display: flex; gap: 6px; margin: 10px 0 0 24px; }
+.sc-output { margin: 10px 0 0; padding: 8px 10px; max-height: 180px; overflow: auto; border-radius: var(--vscode-cornerRadius-medium); border: 1px solid var(--se-line);
+  background: var(--vscode-terminal-background, var(--vscode-editor-background)); font-family: var(--se-mono); font-size: 12px; line-height: 1.5; white-space: pre; color: var(--vscode-foreground); }
+.sc-banner { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--vscode-cornerRadius-medium); font-size: var(--vscode-fontSize-label1);
+  background: color-mix(in srgb, var(--vscode-editorInfo-foreground, #3794ff) 10%, transparent); }
+.sc-banner .codicon { font-size: 14px; color: var(--vscode-editorInfo-foreground, var(--vscode-textLink-foreground)); }
+.sc-tool-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.sc-tool { padding: 2px 8px; border-radius: var(--vscode-cornerRadius-small); border: 1px solid var(--se-line); font-family: var(--se-mono); font-size: 11px; }
+/* The file, like the embedded editor: line numbers in the gutter. */
+.sc-code { counter-reset: sc-line; padding: 8px 0; border-radius: var(--vscode-cornerRadius-medium); border: 1px solid var(--se-line); background: var(--vscode-editor-background);
+  font-family: var(--se-mono); font-size: 12px; line-height: 18px; color: var(--vscode-editor-foreground, var(--vscode-foreground)); overflow-x: auto; white-space: pre; tab-size: 2; }
+.sc-code.is-editable:focus { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.sc-code-line { counter-increment: sc-line; padding-right: 12px; }
+.sc-code-line::before { content: counter(sc-line); display: inline-block; width: 36px; margin-right: 14px; text-align: right; color: var(--vscode-editorLineNumber-foreground, var(--vscode-descriptionForeground)); user-select: none; }
+
+/* ---------- Install sheet: Everywhere / Only here / This Computer / Choose… ---------- */
+.sc-sheet { width: min(520px, 100%); }
+.sc-radios { display: flex; flex-direction: column; gap: 2px; }
+.sc-checks { display: flex; flex-direction: column; gap: 2px; }
+.sc-check-row { display: flex; align-items: center; gap: 8px; padding: 4px 10px; border-radius: var(--vscode-cornerRadius-medium); cursor: pointer; }
+.sc-check-row:hover { background: var(--vscode-list-hoverBackground); }
+.sc-check-row small { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.sc-check-row.is-disabled { cursor: default; color: var(--vscode-disabledForeground); }
+.sc-check-row.is-disabled:hover { background: none; }
+.sc-radio { display: flex; align-items: flex-start; gap: 10px; padding: 7px 10px; border: 1px solid transparent; border-radius: var(--vscode-cornerRadius-medium); background: transparent; cursor: pointer; text-align: left; font: inherit; color: var(--vscode-foreground); }
+.sc-radio:hover { background: var(--vscode-list-hoverBackground); }
+.sc-radio[aria-checked="true"] { border-color: var(--vscode-focusBorder); background: var(--vscode-list-inactiveSelectionBackground); }
+.sc-radio-dot { flex: none; width: 14px; height: 14px; margin-top: 2px; border-radius: 50%; box-sizing: border-box; border: 1px solid var(--vscode-checkbox-border, var(--vscode-descriptionForeground)); background: var(--vscode-checkbox-background); }
+.sc-radio[aria-checked="true"] .sc-radio-dot { border: 4px solid var(--vscode-button-background); background: var(--vscode-button-foreground); }
+.sc-radio-text { display: flex; flex-direction: column; gap: 1px; }
+.sc-radio-text small { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.sc-choose { display: flex; flex-direction: column; margin: 2px 0 4px 34px; padding: 0; border: 1px solid var(--vscode-agentsCard-border, var(--vscode-widget-border)); border-radius: var(--vscode-cornerRadius-medium); max-height: 220px; overflow-y: auto; }
+.sc-choose-row { display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 10px; } /* padding on the rows, so dividers run edge to edge */
+.sc-choose-row + .sc-choose-row { border-top: 1px solid var(--vscode-agentsCard-border, var(--vscode-widget-border)); }
+.sc-choose-row vsc-checkbox { margin-right: 0 !important; }
+.sc-choose-row > .codicon { font-size: 14px; color: var(--vscode-icon-foreground); }
+.sc-choose-row small { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc-quiet { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.sc-agent-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.sc-chip { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 10px; border-radius: var(--vscode-cornerRadius-circle); cursor: pointer; font: inherit; font-size: var(--vscode-fontSize-label1);
+  border: 1px solid var(--vscode-agentsCard-border, var(--vscode-widget-border)); background: transparent; color: var(--vscode-descriptionForeground); }
+.sc-chip .codicon { font-size: 14px; }
+.sc-chip[aria-checked="true"] { color: var(--vscode-inputOption-activeForeground, var(--vscode-foreground)); background: var(--vscode-inputOption-activeBackground); border-color: var(--vscode-inputOption-activeBorder, transparent); }
+.sc-chip[disabled] { opacity: 0.5; cursor: default; }
+.en-dlg-sec.is-locked { opacity: 0.5; pointer-events: none; }
+.sc-env-line .ev-icon-btn .codicon { font-size: 14px; }
+.sc-src-open-space { flex: none; width: 22px; }
+/* The whole row opens the item (sources and environments expand); its controls keep their own actions. */
+.sc-row[data-row], .sc-row.sc-src, .sc-env-row { cursor: pointer; }
+.sc-name { cursor: inherit; }
+/* Item rows have no chevron (where it's installed is managed on the detail page); nested items line up under their source's icon. */
+.sc-row.sc-item { padding-left: 12px; }
+.sc-row.sc-item.sc-nested { padding-left: 32px; }
+.sc-item span.sc-where { cursor: inherit; }
+/* Plugin, extension and organization rows in the tree: no icon before the label; their items sit one step (16px) in from their siblings. */
+.sc-page .customization-source-node-icon { display: none; }
+/* Source rows (plugin, extension, organization) are children of their group: their chevron starts where the group's other
+   items start, and their own items sit one step deeper (at the source's label).
+   Offsets per tree: prompt rows start at 26px (name), MCP rows at 38px (icon), tool sets at 22px (chevron). */
+.sc-page .ai-customization-list-widget vsc-customization-source-node > .monaco-tl-row > .monaco-tl-twistie { padding-left: 23px !important; }
+.sc-page .ai-customization-list-widget vsc-customization-item[nested] > .monaco-tl-row > .monaco-tl-twistie { padding-left: 38px !important; }
+.sc-page .mcp-list-widget vsc-customization-source-node > .monaco-tl-row > .monaco-tl-twistie { padding-left: 35px !important; }
+.sc-page .mcp-list-widget :is(vsc-mcp-server-item, vsc-plugin-item)[nested] > .monaco-tl-row > .monaco-tl-twistie { padding-left: 38px !important; }
+.sc-page .tools-list-widget vsc-customization-source-node > .monaco-tl-row > .monaco-tl-twistie { padding-left: 19px !important; }
+.sc-page .tools-list-widget vsc-tool-set-item[nested] > .monaco-tl-row > .monaco-tl-twistie { padding-left: 35px !important; }
+/* Items under a source row are as tall as their siblings (the product's 32px nested rows read as a different kind of row). */
+.sc-page :is(vsc-customization-item, vsc-mcp-server-item)[nested] { height: 44px !important; line-height: 44px !important; }
+/* Where it's installed, configured in place. */
+.sc-env-line.is-editable { min-height: 40px !important; }
+.sc-env-line .sc-install { height: 22px; padding: 0 8px; }
+.sc-env-line vsc-toolbar { flex: none; margin-right: -4px; }
+.sc-follow { margin-left: 4px; padding: 0 6px; border-radius: var(--vscode-cornerRadius-small); font-size: var(--vscode-fontSize-label2, 11px); line-height: 18px;
+  color: var(--vscode-descriptionForeground); border: 1px solid var(--se-line); white-space: nowrap; }
+.sc-page .en-tri { line-height: normal; }
+/* Search + environment filter: one row, same height. */
+.sc-page :is(.list-search-and-button-container, .tools-list-search-and-button-container) { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sc-head-actions { display: flex; align-items: center; gap: 8px; flex: none; }
+.sc-head-actions .se-btn { height: 26px; box-sizing: border-box; }
+.sc-head-actions :is(.list-search-container, .tools-list-search-container) { width: 240px; flex: none; margin: 0 !important; }
+/* Filter sentence: "View skills for all agents in all workspaces across all environments". */
+.sc-page .list-search-and-button-container > .list-add-button-container { display: none; }
+.sc-page .sc-lens { flex: 0 1 auto; min-width: 0; display: flex; order: -1; }
+.sc-ctx { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 4px; min-height: 26px; color: var(--vscode-descriptionForeground); font-size: 13px; }
+.sc-ctx-word { white-space: nowrap; }
+.sc-ctx-seg { display: inline-flex; align-items: center; gap: 4px; height: 24px; box-sizing: border-box; padding: 0 4px 0 8px; margin: 0 2px;
+  border: 1px solid var(--vscode-dropdown-border, var(--se-line)); border-radius: var(--vscode-cornerRadius-medium); background: var(--vscode-dropdown-background); font: inherit; cursor: pointer; white-space: nowrap; }
+.sc-page .sc-ctx .sc-ctx-seg { color: var(--vscode-dropdown-foreground, var(--vscode-foreground)); }
+.sc-page .sc-ctx .sc-ctx-seg.set { border-color: var(--vscode-inputOption-activeBorder); }
+.sc-ctx-seg:hover { border-color: var(--vscode-focusBorder); }
+.sc-ctx-seg:focus-visible, .sc-ctx-clear:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.sc-ctx-seg .codicon { font-size: 12px !important; color: var(--vscode-descriptionForeground); }
+.sc-ctx-clear { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-left: 2px; padding: 0; border: 0;
+  border-radius: var(--vscode-cornerRadius-small); background: none; color: var(--vscode-icon-foreground); cursor: pointer; }
+.sc-ctx-clear:hover { background: var(--vscode-toolbar-hoverBackground); }
+.sc-ctx-clear .codicon { font-size: 14px !important; }
+.sc-ctx-empty { padding: 16px 4px; color: var(--vscode-descriptionForeground); }
+.sc-follow { display: inline-flex; align-items: center; gap: 3px; }
+.sc-follow .codicon, .sc-agents .sc-sync-ic { font-size: 12px !important; color: inherit !important; }

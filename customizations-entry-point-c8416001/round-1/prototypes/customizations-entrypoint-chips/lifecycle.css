@@ -1,0 +1,163 @@
+/* ===== "How it runs" (lifecycle-view.js), in V2's overview → detail language ===== */
+.cpanel .cp-view[hidden] { display: none !important; }
+.lc-stack { position: relative; flex: 1; min-height: 0; overflow: hidden; }
+.lc-stack > .cp-view { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--cp-bg);
+  transition: transform 220ms cubic-bezier(0.2, 0, 0, 1), opacity 220ms cubic-bezier(0.2, 0, 0, 1), visibility 0s linear 0s; }
+.lc-stack[data-depth="1"] > .lc-home { transform: translateX(-25%); opacity: 0; visibility: hidden; transition-delay: 0s, 0s, 220ms; }
+.lc-stack > .lc-detail { transform: translateX(100%); visibility: hidden; transition-delay: 0s, 0s, 220ms; box-shadow: -1px 0 0 var(--vscode-agentsPanel-border); }
+.lc-stack[data-depth="1"] > .lc-detail { transform: none; visibility: visible; transition-delay: 0s; }
+.lc-scroll { padding: 0 var(--vscode-spacing-size120) var(--vscode-spacing-size160); display: flex; flex-direction: column; gap: var(--vscode-spacing-size160); }
+
+/* V2 list pieces: grouped rounded lists of rows with an icon tile, title, one-line summary and chevron. */
+.cpanel .ov-group-label { display: flex; align-items: center; gap: 6px; margin: 0 0 var(--vscode-spacing-size60) var(--vscode-spacing-size40); color: var(--vscode-descriptionForeground);
+  font-size: var(--vscode-fontSize-label1); font-weight: var(--vscode-agents-fontWeight-semiBold); letter-spacing: 0.01em; }
+.cpanel .ov-group-label .n { font-weight: 400; }
+.cpanel .ov-list { border: 1px solid var(--vscode-agentsCard-border); border-radius: var(--vscode-cornerRadius-large); background: var(--cp-bg); }
+.cpanel .ov-row { display: flex; align-items: center; gap: var(--vscode-spacing-size100); width: 100%; min-height: 48px; padding: var(--vscode-spacing-size60) var(--vscode-spacing-size80) var(--vscode-spacing-size60) var(--vscode-spacing-size100);
+  box-sizing: border-box; text-align: left; cursor: pointer; border: 0; background: transparent; color: inherit; font: inherit; }
+.cpanel .ov-row + .ov-row { box-shadow: inset 0 1px 0 var(--vscode-agentsCard-border); }
+.cpanel button.ov-row:hover { background: var(--vscode-list-hoverBackground); }
+.cpanel .ov-row:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.cpanel .ov-row:first-child { border-top-left-radius: calc(var(--vscode-cornerRadius-large) - 1px); border-top-right-radius: calc(var(--vscode-cornerRadius-large) - 1px); }
+.cpanel .ov-row:last-child { border-bottom-left-radius: calc(var(--vscode-cornerRadius-large) - 1px); border-bottom-right-radius: calc(var(--vscode-cornerRadius-large) - 1px); }
+.cpanel .ov-row .cp-tile { width: 26px; height: 26px; }
+.cpanel .ov-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cpanel .ov-title { font-weight: var(--vscode-agents-fontWeight-semiBold); color: var(--vscode-foreground); }
+.cpanel .ov-sub { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cpanel .ov-sub.lc-wrap { white-space: normal; line-height: 1.45; }
+.cpanel .ov-chev { flex: none; color: var(--vscode-icon-foreground); font-size: 16px; }
+
+/* Context budget */
+.lc-budget { padding: var(--vscode-spacing-size120); border: 1px solid var(--vscode-agentsCard-border); border-radius: var(--vscode-cornerRadius-large); }
+.lc-budget-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: var(--vscode-spacing-size80); line-height: 16px;
+  font-weight: var(--vscode-agents-fontWeight-semiBold); color: var(--vscode-foreground); }
+.lc-budget-total { font-weight: 400; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); font-variant-numeric: tabular-nums; }
+.lc-bar { display: flex; gap: 2px; height: 6px; border-radius: 3px; overflow: hidden; background: var(--vscode-toolbar-hoverBackground); }
+.lc-bar .seg { display: block; height: 100%; min-width: 3px; }
+.lc-budget :is(.seg, .dot).instr { background: var(--vscode-charts-blue); }
+.lc-budget :is(.seg, .dot).skills { background: var(--vscode-charts-purple); }
+.lc-budget :is(.seg, .dot).tools { background: var(--vscode-charts-orange); }
+/* Rows are 24px with 16px lines: pulling the legend out by that 4px slack on the sides and bottom keeps the text 12px from every
+   card edge (like the heading) and leaves each row's hover background 8px inside the card on every side. */
+.lc-legend { display: flex; flex-direction: column; margin: var(--vscode-spacing-size80) calc(-1 * var(--vscode-spacing-size40)) calc(-1 * var(--vscode-spacing-size40)); }
+.lc-leg { display: flex; align-items: center; gap: var(--vscode-spacing-size80); height: 24px; padding: 0 var(--vscode-spacing-size40); border: 0; border-radius: var(--vscode-cornerRadius-small); line-height: 16px;
+  background: transparent; color: var(--vscode-foreground); font: inherit; font-size: var(--vscode-fontSize-label1); cursor: pointer; text-align: left; }
+.lc-leg:hover { background: var(--vscode-list-hoverBackground); }
+.lc-leg:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.cpanel button:focus:not(:focus-visible) { outline: none !important; }
+.lc-leg .dot { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+.lc-leg .v { margin-left: auto; color: var(--vscode-descriptionForeground); font-variant-numeric: tabular-nums; }
+
+/* Worth knowing: overrides and duplicates */
+.lc-note { align-items: flex-start; }
+.lc-note .ov-chev { align-self: center; }
+
+/* Timeline: one node per stage of the agent loop, joined by a rail. */
+.lc-timeline { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--vscode-spacing-size160); }
+.lc-stage { position: relative; padding-left: 34px; }
+.lc-stage::before { content: ""; position: absolute; left: 11px; top: 26px; bottom: calc(-1 * var(--vscode-spacing-size160)); width: 2px; border-radius: 1px; background: var(--vscode-agentsCard-border); }
+.lc-stage:last-child::before { bottom: 0; }
+.lc-stage-head { position: relative; display: flex; align-items: flex-start; min-height: 24px; margin-bottom: var(--vscode-spacing-size80); }
+/* Icon only; its background breaks the rail around it. */
+.lc-node { position: absolute; left: -34px; top: 0; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; box-sizing: border-box;
+  background: var(--cp-bg); color: var(--vscode-icon-foreground); }
+.lc-node .codicon { font-size: 16px; }
+.lc-stage-text { display: flex; flex-direction: column; gap: 1px; padding-top: 3px; }
+.lc-stage-label { font-weight: var(--vscode-agents-fontWeight-semiBold); color: var(--vscode-foreground); }
+.lc-stage-sub { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.cpanel .ov-row.lc-empty { min-height: 32px; padding-block: 0; cursor: default; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.lc-empty-text { flex: 1; min-width: 0; }
+/* Empty hook points offer to add one, on hover or focus. */
+.lc-add { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 6px; border: 0; border-radius: var(--vscode-cornerRadius-small); cursor: pointer;
+  background: transparent; color: var(--vscode-foreground); font: inherit; font-size: var(--vscode-fontSize-label1); opacity: 0; }
+.lc-add .codicon { font-size: 14px; }
+.lc-add:hover { background: var(--vscode-toolbar-hoverBackground); }
+.lc-add:focus-visible { opacity: 1; outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.ov-row.lc-empty:hover .lc-add { opacity: 1; }
+
+/* Row metadata */
+.lc-tok { flex: none; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Title with its badges beside it. */
+.cpanel .ov-title-row { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 6px; min-width: 0; }
+.lc-flag { display: inline-flex; align-items: center; gap: 3px; height: 16px; padding: 0 5px; border-radius: var(--vscode-cornerRadius-small); font-size: var(--vscode-fontSize-label2);
+  background: var(--vscode-toolbar-hoverBackground); color: var(--vscode-descriptionForeground); white-space: nowrap; }
+.lc-flag .codicon { font-size: 12px; }
+.lc-flag.warn { background: color-mix(in srgb, var(--vscode-editorWarning-foreground, #cca700) 16%, transparent); color: var(--vscode-foreground); }
+.lc-flag.warn .codicon { color: var(--vscode-editorWarning-foreground, #cca700); }
+.lc-flag.on { margin-left: 6px; background: color-mix(in srgb, var(--vscode-charts-green) 18%, transparent); color: var(--vscode-foreground); }
+
+/* Detail */
+.lc-detail-head { padding-left: calc(var(--vscode-spacing-size120) - 3px); }
+.lc-d-intro { flex: none; margin: 0 var(--vscode-spacing-size120) var(--vscode-spacing-size80); color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); line-height: 1.45; }
+.lc-d-list { padding: 0 var(--vscode-spacing-size120) var(--vscode-spacing-size160); display: flex; flex-direction: column; gap: var(--vscode-spacing-size120); }
+.lc-d-group[hidden], .lc-item[hidden] { display: none !important; }
+.lc-item { display: flex; align-items: flex-start; gap: var(--vscode-spacing-size80); padding: var(--vscode-spacing-size80) var(--vscode-spacing-size100); }
+.lc-item + .lc-item { box-shadow: inset 0 1px 0 var(--vscode-agentsCard-border); }
+.lc-item-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.lc-item-name { display: flex; align-items: center; min-width: 0; color: var(--vscode-foreground); font-weight: var(--vscode-agents-fontWeight-semiBold); }
+.lc-item-name .nm { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lc-item-when { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.lc-item-when.mono { font-family: var(--monaco-monospace-font, monospace); font-size: 11px; word-break: break-all; }
+.lc-item-note { display: flex; align-items: center; gap: 4px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.lc-item-note .codicon { font-size: 12px; }
+/* Overridden: present but not used. Muted, with a badge naming what replaces it. */
+.lc-item.state-overridden :is(.nm, .lc-item-when) { color: var(--vscode-descriptionForeground); opacity: 0.8; }
+.lc-item-name { flex-wrap: wrap; gap: 4px 6px; }
+.lc-flag.on { margin-left: 0; }
+.lc-flag.override { background: color-mix(in srgb, var(--vscode-charts-blue) 14%, transparent); color: var(--vscode-foreground); }
+.lc-flag.override .codicon { color: var(--vscode-charts-blue); }
+/* Overrides section at the top of a detail page: the used copy and the replaced one, side by side in one card. */
+.lc-ovr-intro { margin: 0 0 var(--vscode-spacing-size80) var(--vscode-spacing-size40); color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); line-height: 1.45; }
+.lc-item.lc-ovr { flex-direction: column; align-items: stretch; gap: var(--vscode-spacing-size80); }
+.lc-ovr-name { font-weight: var(--vscode-agents-fontWeight-semiBold); color: var(--vscode-foreground); }
+.lc-ovr-pair { display: flex; flex-direction: column; border-radius: var(--vscode-cornerRadius-medium); overflow: hidden; border: 1px solid var(--vscode-agentsCard-border); }
+.lc-ovr-side { display: flex; align-items: center; gap: var(--vscode-spacing-size80); padding: var(--vscode-spacing-size60) var(--vscode-spacing-size80); }
+.lc-ovr-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.lc-ovr-head { display: flex; align-items: center; gap: 6px; }
+.lc-ovr-side .lc-item-when { -webkit-line-clamp: 2; }
+.lc-ovr-foot { display: flex; align-items: center; gap: 8px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.lc-ovr-foot > span { flex: 1; min-width: 0; }
+.lc-use { flex: none; height: 22px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; font: inherit; font-size: var(--vscode-fontSize-label1); white-space: nowrap;
+  border: 1px solid var(--vscode-button-secondaryBorder, var(--vscode-agentsCard-border)); background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); }
+.lc-use:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.lc-use:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+.lc-switch { align-self: center; margin-left: 2px; }
+.lc-ovr-side.win { background: color-mix(in srgb, var(--vscode-charts-green) 7%, transparent); box-shadow: inset 2px 0 0 var(--vscode-charts-green); }
+.lc-ovr-side.lose { border-top: 1px solid var(--vscode-agentsCard-border); }
+.lc-ovr-side.lose :is(.lc-ovr-src, .lc-item-when) { color: var(--vscode-descriptionForeground); }
+.lc-ovr-src { font-size: var(--vscode-fontSize-label1); font-weight: var(--vscode-agents-fontWeight-semiBold); color: var(--vscode-foreground); }
+.lc-item:is(.state-unavailable, .state-off) .lc-item-name { color: var(--vscode-descriptionForeground); }
+.lc-item .lc-tok { margin-top: 2px; }
+/* Items open in the Customizations modal. */
+.cpanel [data-open-type] { cursor: pointer; }
+.cpanel .lc-item[data-open-type]:hover, .cpanel .lc-ovr-side[data-open-type]:hover { background-color: var(--vscode-list-hoverBackground); }
+.cpanel [data-open-type]:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.cpanel .lc-item[data-open-type]:first-child { border-top-left-radius: calc(var(--vscode-cornerRadius-large) - 1px); border-top-right-radius: calc(var(--vscode-cornerRadius-large) - 1px); }
+.cpanel .lc-item[data-open-type]:last-child { border-bottom-left-radius: calc(var(--vscode-cornerRadius-large) - 1px); border-bottom-right-radius: calc(var(--vscode-cornerRadius-large) - 1px); }
+.lc-ovr-detail { -webkit-line-clamp: 3; }
+
+/* Managing: inline on/off, the budget's savings line and resolve actions on overrides and overlaps. */
+.lc-act:focus-visible, .lc-link:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+.lc-budget-foot { display: flex; align-items: center; gap: 8px; margin-top: var(--vscode-spacing-size80); padding-top: var(--vscode-spacing-size80);
+  border-top: 1px solid var(--vscode-agentsCard-border); color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.lc-budget-foot > span { flex: 1; min-width: 0; }
+.lc-link { flex: none; padding: 0; border: 0; background: none; cursor: pointer; font: inherit; color: var(--vscode-textLink-foreground); }
+.lc-link:hover { text-decoration: underline; }
+.lc-acts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--vscode-spacing-size80); }
+.lc-act { height: 24px; padding: 0 10px; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; font: inherit; font-size: var(--vscode-fontSize-label1); white-space: nowrap;
+  border: 1px solid var(--vscode-button-secondaryBorder, var(--vscode-agentsCard-border)); background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); }
+.lc-act:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.lc-act.primary { border-color: var(--vscode-button-border, transparent); background: var(--vscode-button-background); color: var(--vscode-button-foreground); }
+.lc-act.primary:hover { background: var(--vscode-button-hoverBackground); }
+.lc-note { cursor: pointer; }
+.cpanel .lc-note:hover { background: var(--vscode-list-hoverBackground); }
+.lc-kept { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.lc-item.state-off .lc-item-name .nm { color: var(--vscode-descriptionForeground); }
+.lc-ovr-side.dup + .lc-ovr-side.dup { border-top: 1px solid var(--vscode-agentsCard-border); }
+.lc-ovr-item { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--vscode-foreground); }
+
+/* View switch above both views */
+.v7-head { padding-left: var(--vscode-spacing-size80); }
+.v7-head vsc-view-tabs { flex: 1; min-width: 0; }
+.v7-view { flex: 1; min-height: 0; display: flex; flex-direction: column; }

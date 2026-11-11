@@ -1,0 +1,70 @@
+/* Customizations entry points (entrypoint.js). Sidebar rows reuse session.css's .ssb-short. */
+
+/* Rows that add a description keep their label whole; the description takes what's left and ellipsizes. */
+.ssb .ep-row .ssb-label { flex: none; }
+
+/* ---- inline ---- */
+.ep-desc { flex: 1 1 auto; min-width: 0; margin-left: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-weight: 400; opacity: 0.75; }
+.ssb-short.ep-design-inline:hover .ep-desc { opacity: 0.9; }
+
+/* Managed hover card, after the workbench hover (editorHoverWidget colors, widget shadow). */
+.ep-card { position: fixed; z-index: 60; width: 248px; box-sizing: border-box; padding: 4px; border-radius: var(--vscode-cornerRadius-large);
+  background: var(--vscode-editorHoverWidget-background); color: var(--vscode-editorHoverWidget-foreground);
+  border: 1px solid var(--vscode-editorHoverWidget-border); box-shadow: 0 4px 16px var(--vscode-widget-shadow);
+  font-size: var(--vscode-fontSize-label1, 12px); animation: ep-in 120ms ease-out; }
+.ep-card[hidden] { display: none; }
+@keyframes ep-in { from { opacity: 0; transform: translateX(-3px); } }
+.ep-card-head { display: flex; flex-direction: column; gap: 2px; padding: 6px 8px 8px; }
+.ep-card-title { font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-foreground); }
+.ep-card-sub { color: var(--vscode-descriptionForeground); line-height: 16px; }
+.ep-card-list, .ep-card-foot { display: flex; flex-direction: column; }
+.ep-card-foot { margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--vscode-editorHoverWidget-border); }
+.ep-card-row { display: flex; align-items: center; gap: 8px; height: 26px; padding: 0 8px; border: 0; border-radius: var(--vscode-cornerRadius-medium);
+  background: transparent; color: var(--vscode-foreground); font: inherit; text-align: left; cursor: pointer; }
+.ep-card-row:hover, .ep-card-row:focus-visible { background: var(--vscode-list-hoverBackground); outline: none; }
+.ep-card-row:focus-visible { box-shadow: inset 0 0 0 1px var(--vscode-focusBorder); }
+.ep-card-row .codicon { font-size: 14px !important; color: var(--vscode-descriptionForeground); }
+.ep-card-label { flex: 1; min-width: 0; }
+.ep-card-count { color: var(--vscode-descriptionForeground); font-variant-numeric: tabular-nums; }
+.ep-card-go { opacity: 0; }
+.ep-card-row:hover .ep-card-go { opacity: 1; }
+
+/* ---- chips ---- */
+.ep-chips { display: flex; flex-wrap: wrap; gap: 4px; overflow: hidden; max-height: 20px; margin: 0 var(--vscode-spacing-size40) 4px;
+  padding: 0 0 0 calc(10px + 16px + 6px); }
+.ep-chip { height: 20px; padding: 0 7px; border-radius: var(--vscode-cornerRadius-medium); border: 1px solid var(--vscode-agentsCard-border) !important;
+  font-size: var(--vscode-fontSize-label2, 11px) !important; line-height: 18px; color: var(--vscode-descriptionForeground) !important; white-space: nowrap; }
+.ep-chip:hover { background: var(--vscode-list-hoverBackground) !important; color: var(--vscode-foreground) !important; }
+.ep-chip:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.ep-chip[hidden] { display: none; }
+
+/* ---- ticker ---- */
+.ep-ticker { position: relative; flex: 1 1 auto; min-width: 0; height: 16px; margin-left: 6px; overflow: hidden; font-weight: 400;
+  -webkit-mask-image: linear-gradient(transparent, #000 25%, #000 75%, transparent); mask-image: linear-gradient(transparent, #000 25%, #000 75%, transparent); }
+.ep-ticker-track { display: flex; flex-direction: column; transition: transform 420ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.ep-ticker-item { flex: none; height: 16px; line-height: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: 0.75; }
+.ep-ticker-count { font-variant-numeric: tabular-nums; }
+.ssb-short.ep-design-ticker:not(.is-settled) .ep-ticker-item.on { color: var(--vscode-foreground); opacity: 0.85; }
+.ssb-short.ep-design-ticker:not(.is-settled) .ep-ticker:hover .ep-ticker-item.on { text-decoration: underline; text-underline-offset: 2px; }
+.ssb-short.ep-design-ticker.is-settled .ep-ticker { -webkit-mask-image: none; mask-image: none; }
+
+/* ---- welcome ---- */
+.ep-welcome { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; width: 100%; max-width: 800px;
+  margin-top: var(--vscode-spacing-size160); box-sizing: border-box; animation: ep-rise 200ms ease-out; }
+@keyframes ep-rise { from { opacity: 0; transform: translateY(4px); } }
+.ep-welcome-label { margin-right: 2px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.ep-wchip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; box-sizing: border-box; cursor: pointer;
+  border-radius: var(--vscode-cornerRadius-large); border: 1px solid var(--vscode-agentsCard-border); background: transparent;
+  color: var(--vscode-foreground); font: inherit; font-size: var(--vscode-fontSize-label1, 12px); }
+.ep-wchip:hover { background: var(--vscode-list-hoverBackground); }
+.ep-wchip:focus-visible, .ep-welcome-close:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.ep-wchip .codicon { font-size: 14px !important; color: var(--vscode-descriptionForeground); }
+.ep-wchip-count { color: var(--vscode-descriptionForeground); font-variant-numeric: tabular-nums; }
+.ep-wchip-browse { border-style: dashed; color: var(--vscode-descriptionForeground); }
+.ep-welcome-close { display: inline-grid; place-items: center; width: 22px; height: 22px; padding: 0; border: 0; border-radius: var(--vscode-cornerRadius-medium);
+  background: transparent; color: var(--vscode-descriptionForeground); cursor: pointer; opacity: 0; }
+.ep-welcome:hover .ep-welcome-close, .ep-welcome-close:focus-visible { opacity: 1; }
+.ep-welcome-close:hover { background: var(--vscode-toolbar-hoverBackground); }
+
+@media (prefers-reduced-motion: reduce) { .ep-card, .ep-welcome { animation: none; } .ep-ticker-track { transition: none; } }
