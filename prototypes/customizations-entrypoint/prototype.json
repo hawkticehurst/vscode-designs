@@ -1,7 +1,7 @@
 {
   "title": "Customizations Entrypoint",
   "description": "Inline types + hover card. Forked from Customizations V13 (session accordions: Session Customizations in the right Session Activity Bar, global modal). The sidebar's Customizations row stays one row tall but follows its label with a muted \"Skills · MCP · Agents\" description, like a tree item's description. Hovering (or keyboard focus) shows a managed hover listing every type with its global count; each row deep links into that page of the modal, plus Browse Marketplace. Context: vscode-internalbacklog#10416 (the single button cut Customizations opens 45%). Compare designs with ?entry=inline|chips|ticker|named|welcome.",
-  "status": "draft",
+  "status": "review",
   "tags": [
     "vscode",
     "agents",
@@ -20,5 +20,5 @@
     "vscode"
   ],
   "createdAt": "2026-11-11T18:43:34.693Z",
-  "updatedAt": "2026-11-11T18:57:48.127Z"
+  "updatedAt": "2026-11-11T19:16:29.401Z"
 }

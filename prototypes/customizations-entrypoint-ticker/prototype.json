@@ -1,7 +1,7 @@
 {
   "title": "Customizations Entrypoint",
   "description": "Ticker. One row: \"Customizations\" with a description that cycles once through the types with their counts (84 Skills → 8 MCP Servers → 5 Agents …) when a new session opens, then settles on \"Skills, MCP, Agents…\". Hover pauses it; clicking the description while it cycles opens that type. Static under reduced motion. Zero extra sidebar space; motion buys attention without permanent noise.",
-  "status": "draft",
+  "status": "review",
   "tags": [
     "vscode",
     "agents",
@@ -22,5 +22,5 @@
     "vscode"
   ],
   "createdAt": "2026-11-11T18:57:48.335Z",
-  "updatedAt": "2026-11-11T18:57:57.492Z"
+  "updatedAt": "2026-11-11T19:16:29.393Z"
 }

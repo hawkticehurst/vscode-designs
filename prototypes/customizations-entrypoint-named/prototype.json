@@ -1,7 +1,7 @@
 {
   "title": "Customizations Entrypoint",
   "description": "Named entry. The cheapest test of the hypothesis: same single row and position as V13's button, but labeled with the familiar terms (\"Skills, MCP & more\") instead of \"Customizations\". The modal keeps its Customizations title; the row's tooltip lists every type.",
-  "status": "draft",
+  "status": "review",
   "tags": [
     "vscode",
     "agents",
@@ -22,5 +22,5 @@
     "vscode"
   ],
   "createdAt": "2026-11-11T18:57:48.335Z",
-  "updatedAt": "2026-11-11T18:57:57.494Z"
+  "updatedAt": "2026-11-11T19:16:29.401Z"
 }

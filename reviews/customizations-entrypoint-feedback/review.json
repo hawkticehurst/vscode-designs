@@ -1,0 +1,75 @@
+{
+  "title": "Customizations Entry Point",
+  "intro": "How should people find the Customizations modal in the Agents window?\n\nIn a recent A/B experiment (vscode-internalbacklog#10416), replacing the bottom-of-sidebar section that listed each customization type with a single \"Customizations\" button at the top of the sidebar cut Customizations opens by 45% and creation starts by 40%. The hypothesis: \"Customizations\" is an opaque term, while \"Skills\" and \"MCP Servers\" have well-known value.\n\nThese five options try to keep the cleaner, smaller footprint while still showing people which customization types exist. All are built on the latest Session Customizations direction (session-scoped right sidebar, global Customizations modal).\n\nTry hovering and clicking the entry point at the top of the left sidebar (in the last option, the chips under the composer), then open a session and start a new one (⌘N). Please focus on the entry point itself, not the modal's contents.",
+  "questions": [
+    "Which option best balances a clean, compact sidebar with making the customization types visible? Why?",
+    "Which option would most make you want to click in and explore Skills, MCP Servers, Agents, etc.?",
+    "Do any options feel noisy, distracting, or out of place in the Agents window?",
+    "For options with type links (hover card, chips), is jumping straight to a type more useful than opening the overview?",
+    "Anything you'd combine across options?"
+  ],
+  "presentation": "both",
+  "device": "desktop",
+  "theme": "dark-2026",
+  "items": [
+    {
+      "prototype": "customizations-entrypoint",
+      "label": "Inline types + hover card",
+      "note": "One row: \"Customizations\" followed by a muted \"Skills · MCP · Agents\". Hover it for a card listing every type with counts; each links straight to that type."
+    },
+    {
+      "prototype": "customizations-entrypoint-chips",
+      "label": "Type chips",
+      "note": "The Customizations row plus one line of small type chips underneath. Each chip opens that type; +N opens the overview."
+    },
+    {
+      "prototype": "customizations-entrypoint-ticker",
+      "label": "Ticker",
+      "note": "One row whose description cycles once through the types with counts (84 Skills → 8 MCP Servers → …) and then settles. Replays when you start a new session."
+    },
+    {
+      "prototype": "customizations-entrypoint-named",
+      "label": "Named entry",
+      "note": "Same single button as today, relabeled \"Skills, MCP & more\" instead of \"Customizations\"."
+    },
+    {
+      "prototype": "customizations-entrypoint-welcome",
+      "label": "Composer shortcuts",
+      "note": "Today's sidebar button stays as is. On the new-session view, a dismissible row of type chips sits under the composer."
+    }
+  ],
+  "slug": "customizations-entry-point-c8416001",
+  "rounds": [
+    {
+      "round": 1,
+      "publishedAt": "2026-11-11T19:15:32.500Z",
+      "target": "github-pages",
+      "url": "https://hawkticehurst.github.io/vscode-designs/customizations-entry-point-c8416001/round-1/",
+      "path": "customizations-entry-point-c8416001/round-1",
+      "prototypes": [
+        {
+          "id": "customizations-entrypoint",
+          "updatedAt": "2026-11-11T18:57:48.127Z"
+        },
+        {
+          "id": "customizations-entrypoint-chips",
+          "updatedAt": "2026-11-11T18:57:57.491Z"
+        },
+        {
+          "id": "customizations-entrypoint-ticker",
+          "updatedAt": "2026-11-11T18:57:57.492Z"
+        },
+        {
+          "id": "customizations-entrypoint-named",
+          "updatedAt": "2026-11-11T18:57:57.494Z"
+        },
+        {
+          "id": "customizations-entrypoint-welcome",
+          "updatedAt": "2026-11-11T18:57:57.494Z"
+        }
+      ]
+    }
+  ],
+  "createdAt": "2026-11-11T19:13:20.897Z",
+  "updatedAt": "2026-11-11T19:15:32.500Z"
+}
