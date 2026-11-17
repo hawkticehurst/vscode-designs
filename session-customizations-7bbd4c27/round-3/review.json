@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "title": "Session Customizations",
+  "intro": "Round 3 is a single, consolidated direction that builds on feedback from rounds 1 and 2.\n\nThe Customizations modal now:\n- Scopes everything with cascading pickers. Environment, then Workspace, then Agent. Each choice narrows the next, because not every environment has the same workspaces and not every workspace supports the same agents. The pickers start out matched to the active session.\n- Shows each customization type as a table. You can filter it by source (User, Workspace, Built-in, Plugin, …).\n- Opens details in a resizable right panel. Click any row or Browse card. The panel starts in a Rich UI view, with Details first. A header picker switches to the raw Editor, or to Output for MCP servers.\n- Shows status in context. MCP server status sits next to its name. Stopped, signed-out and error states appear as inline cards with the action to fix them.\n- Simplifies installing from Browse. Install and Connect are split buttons. One click installs for Copilot on this computer at the user level. The dropdown opens the full dialog to choose Environment, Workspace and Agents.\n\nTry opening the modal, changing the pickers, opening a few items (try MCP Servers, Plugins and Skills), and installing something from Browse.",
+  "questions": [
+    "Do the Environment → Workspace → Agent pickers make it clear where a customization applies? Is the filtering between them intuitive?",
+    "Is the table and right-panel layout easier to scan and act on than the earlier list treatment? Is anything missing from the tables?",
+    "In the detail panel, does Details-first plus the Rich UI / Editor / Output picker give you what you need, or do you miss inline action buttons?",
+    "Is the one-click Install (Copilot, this computer, user level) the right default? Is the split-button path to the full dialog discoverable?",
+    "What feels confusing, missing or unnecessary in this direction?"
+  ],
+  "presentation": "sequence",
+  "device": "desktop",
+  "theme": "dark-2026",
+  "round": 3,
+  "exportedAt": "2026-11-17T22:11:45.692Z",
+  "project": "VS Code",
+  "items": [
+    {
+      "key": "a",
+      "label": "Latest direction",
+      "note": "V16 has cascading scope pickers, table views with source filters, a resizable Rich UI detail panel, and one-click Install split buttons.",
+      "entry": "prototypes/customizations-v16-table/index.html",
+      "pages": []
+    }
+  ]
+}
