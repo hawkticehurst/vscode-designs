@@ -1,0 +1,25 @@
+{
+  "title": "Customizations In Place",
+  "description": "3 · Agent Profile — a home in the Agents window (future sessions). \"Agent profile\" sits at the top of the sessions sidebar and replaces the session view with \"Your defaults for <harness> sessions in vscode\": the default agent, plus your guidance, skills, connections and hooks, each with a default switch. What the repo provides sits behind \"Everything this repo provides\". Changes save immediately. New sessions show the current defaults above the composer, and every session captures a versioned snapshot, so older sessions show \"Started from an earlier profile\". Vetted and cut by the design council (2 review rounds).",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "exploration",
+    "placement"
+  ],
+  "system": "vscode",
+  "group": "customizations-rethink",
+  "variantOf": "customizations-in-place",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-12T20:47:52.024Z",
+  "updatedAt": "2026-11-12T21:11:22.661Z"
+}

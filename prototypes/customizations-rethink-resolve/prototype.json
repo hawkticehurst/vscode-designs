@@ -1,0 +1,25 @@
+{
+  "title": "Customizations Rethink",
+  "description": "B · Resolve — \"Why is this available — or absent — here?\" DevTools \"Computed\" for agents. Pick a context (file, agent, where it runs) and every instruction, skill, tool source, agent and hook is resolved with its reason: attached, available on demand, only with /name, or unavailable and why. The inspector leads with the verdict and its fix (sign in, set a secret, install a provider, add to an agent's tools: list, convert), edits applyTo with an unsaved preview, and keeps the full eligibility chain behind a disclosure. \"Last Request\" compares with a frozen record, never a recomputation. Vetted and cut by the design council (2 review rounds).",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "modal",
+    "exploration",
+    "debugging"
+  ],
+  "group": "customizations-rethink",
+  "variantOf": "customizations-rethink",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-12T20:05:03.302Z",
+  "updatedAt": "2026-11-12T20:32:47.971Z"
+}

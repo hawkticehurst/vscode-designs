@@ -1,0 +1,25 @@
+{
+  "title": "Customizations In Place",
+  "description": "2 · Applies Here — in the editor (this file). In the main VS Code window, the open file's breadcrumbs end with \"N rules match this file\". The picker lists the rules that match, the ones that don't (with their exact glob), and a collapsed \"plus N rules for every request\". A rule opens in a peek view where you can edit its applyTo and text in place, and the breadcrumb previews the change live (Save / Cancel). \"Add a rule for files like this…\" drafts one with a narrowly inferred glob. Matching a file isn't the same as being attached to a request, and the copy says so. Vetted and cut by the design council.",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "exploration",
+    "placement"
+  ],
+  "system": "vscode",
+  "group": "customizations-rethink",
+  "variantOf": "customizations-in-place",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-12T20:47:52.024Z",
+  "updatedAt": "2026-11-12T21:01:33.055Z"
+}

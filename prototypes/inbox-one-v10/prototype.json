@@ -1,0 +1,24 @@
+{
+  "title": "Inbox One",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "inbox",
+    "composer"
+  ],
+  "system": "vscode",
+  "group": "agents-inbox",
+  "variantOf": "inbox-one-v9",
+  "entry": "index.html",
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-17T18:01:20.751Z",
+  "updatedAt": "2026-11-17T18:01:20.751Z",
+  "description": "Fork of V9, unchanged baseline for the next Inbox One exploration, informed by the latest Agents window Inbox grouping sidebar.",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  }
+}

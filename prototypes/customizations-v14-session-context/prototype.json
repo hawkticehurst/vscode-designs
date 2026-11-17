@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "Explores a single session picker in the Customizations editor header, replacing per-page harness/workspace/environment filters, plus a dedicated Session page for the selected session and a path back to Session Customizations. There is no \"All sessions\" option: the picker always shows the active (or most recent) session when the modal opens.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v13-session-accordions",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-17T16:35:50.744Z",
+  "updatedAt": "2026-11-17T18:09:36.425Z"
+}

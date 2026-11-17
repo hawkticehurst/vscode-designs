@@ -1,0 +1,119 @@
+/* Concept A — Charter: what agents can do, as a short readable document. */
+.ch { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.ch-head { flex: none; display: flex; align-items: center; gap: 12px; padding: 14px 20px 12px 32px; border-bottom: 1px solid var(--vscode-agentsPanel-border, var(--vscode-widget-border)); }
+.ch-head h1 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+.ch-head .grow { flex: 1; }
+.ch-head .lbl { font-size: 12px; color: var(--vscode-descriptionForeground); margin-right: 6px; white-space: nowrap; }
+.ch-find { position: relative; }
+.ch-find .codicon { position: absolute; left: 7px; top: 5px; color: var(--vscode-descriptionForeground); font-size: 14px !important; }
+.ch-find .tf { width: 200px; padding-left: 26px; }
+.filter-chip { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 4px 0 8px; border-radius: 11px; font-size: 12px;
+  background: color-mix(in srgb, var(--vscode-focusBorder) 18%, transparent); border: 1px solid var(--vscode-focusBorder); }
+.filter-chip .ib { width: 18px; height: 18px; }
+
+.ch-doc { flex: 1; min-height: 0; overflow: auto; padding: 4px 32px 24px; }
+.ch-inner { max-width: 860px; }
+
+/* Needs attention. */
+.attn { margin: 16px 0 4px; border-radius: var(--vscode-cornerRadius-large); border: 1px solid var(--vscode-agentsCard-border, var(--vscode-widget-border)); overflow: hidden; }
+.attn-h { padding: 8px 12px; font-size: 12px; font-weight: 600; background: var(--vscode-textBlockQuote-background); }
+.attn-r { display: flex; align-items: center; gap: 10px; padding: 7px 12px; font-size: 13px; border-top: 1px solid var(--vscode-agentsCard-border, var(--vscode-widget-border)); }
+.attn-r > .codicon { color: var(--vscode-editorWarning-foreground); font-size: 14px !important; }
+.attn-r .t { flex: 1; min-width: 0; }
+.attn-r .t span { color: var(--vscode-descriptionForeground); }
+
+/* Clauses. */
+.cl { display: grid; grid-template-columns: 172px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--vscode-agentsPanel-border, var(--vscode-widget-border)); }
+.cl:last-of-type { border-bottom: 0; }
+.cl-verb { font-size: 13px; font-weight: 600; padding-top: 3px; }
+.cl-text { font-size: 14px; line-height: 2; min-width: 0; }
+.cl-text p { margin: 0 0 6px; }
+.cl-text .muted { font-size: 13px; }
+.cl.dim { opacity: .35; }
+.more { color: var(--vscode-textLink-foreground); cursor: pointer; border: 0; background: none; padding: 0; font-size: 13px; white-space: nowrap; font-family: inherit; }
+.more:hover { text-decoration: underline; }
+
+/* Tokens. */
+.tk { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 7px; margin: 0 1px; vertical-align: 1px; border-radius: var(--vscode-cornerRadius-medium);
+  border: 1px solid var(--vscode-agentsCard-border, var(--vscode-widget-border)); background: color-mix(in srgb, var(--vscode-foreground) 5%, transparent);
+  color: var(--vscode-foreground); font-size: 13px; line-height: 20px; cursor: pointer; white-space: nowrap; transition: opacity .15s, background .15s, box-shadow .15s; }
+.tk:hover { background: var(--vscode-list-hoverBackground); }
+.tk .codicon { font-size: 13px !important; color: var(--vscode-descriptionForeground); }
+.tk.hl { box-shadow: 0 0 0 1px var(--vscode-focusBorder); background: color-mix(in srgb, var(--vscode-focusBorder) 16%, transparent); }
+.tk.fade { opacity: .25; }
+.tk.new, .tk.flash { animation: tk-new 2.4s ease-out; }
+@keyframes tk-new { 0%, 40% { box-shadow: 0 0 0 2px var(--vscode-focusBorder); background: color-mix(in srgb, var(--vscode-focusBorder) 28%, transparent); } }
+.tk.miss { display: none; }
+
+/* View-all lists. */
+.vlist { margin: 6px 0 4px; border-radius: var(--vscode-cornerRadius-medium); border: 1px solid var(--vscode-agentsCard-border, var(--vscode-widget-border)); line-height: 1.4; font-size: 13px; max-height: 320px; overflow: auto; }
+.vrow { display: grid; grid-template-columns: minmax(140px, 220px) 1fr auto auto; gap: 10px; align-items: center; padding: 5px 10px; border-top: 1px solid var(--vscode-agentsPanel-border, var(--vscode-widget-border)); cursor: pointer; }
+.vrow:first-child { border-top: 0; }
+.vrow:hover { background: var(--vscode-list-hoverBackground); }
+.vrow .d { color: var(--vscode-descriptionForeground); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vrow .d code { font-size: 11px; }
+.vrow.miss { display: none; }
+
+/* Not active here. */
+.inactive { margin-top: 8px; padding: 14px 0 0; border-top: 1px solid var(--vscode-agentsPanel-border, var(--vscode-widget-border)); }
+.inactive > button { display: flex; align-items: center; gap: 6px; border: 0; background: none; padding: 0; color: var(--vscode-descriptionForeground); font: inherit; font-size: 13px; cursor: pointer; }
+.inactive > button:hover { color: var(--vscode-foreground); }
+.ina-r { display: grid; grid-template-columns: 20px minmax(140px, 220px) 1fr auto; gap: 8px; align-items: center; padding: 5px 0; font-size: 13px; border-bottom: 1px solid var(--vscode-agentsPanel-border, var(--vscode-widget-border)); }
+.ina-r input { margin: 0; accent-color: var(--vscode-button-background); }
+.ina-r .d { color: var(--vscode-descriptionForeground); font-size: 12px; }
+.ina-actions { display: flex; gap: 6px; align-items: center; margin-top: 10px; }
+
+/* Composer. */
+.ch-compose { flex: none; padding: 10px 32px 14px; border-top: 1px solid var(--vscode-agentsPanel-border, var(--vscode-widget-border)); }
+.ch-cbox { max-width: 860px; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 6px 0 12px; border-radius: var(--vscode-cornerRadius-large);
+  background: var(--vscode-agentsChatInput-background, var(--vscode-input-background)); border: 1px solid var(--vscode-agentsChatInput-border, var(--vscode-input-border)); }
+.ch-cbox:focus-within { border-color: var(--vscode-agentsChatInput-focusBorder, var(--vscode-focusBorder)); }
+.ch-cbox > .codicon { color: var(--vscode-descriptionForeground); }
+.ch-cbox input { flex: 1; min-width: 0; height: 100%; border: 0; outline: none; background: transparent; color: var(--vscode-agentsChatInput-foreground, var(--vscode-input-foreground)); font: inherit; font-size: 13.5px; }
+.ch-cbox input::placeholder { color: var(--vscode-agentsChatInput-placeholderForeground, var(--vscode-input-placeholderForeground)); }
+
+/* Draft. */
+.draft { max-width: 860px; margin: 16px 0 4px; border-radius: var(--vscode-cornerRadius-large); border: 1px solid var(--vscode-focusBorder); background: var(--vscode-editorWidget-background); animation: toast-in .18s ease-out; }
+.draft-row { display: flex; align-items: center; gap: 10px; padding: 10px 14px 0; flex-wrap: wrap; font-size: 12px; }
+.draft-row .lbl { color: var(--vscode-descriptionForeground); width: 44px; }
+.draft-row .grow { flex: 1; }
+.draft-sentence { padding: 10px 14px 0; font-size: 14px; line-height: 1.8; }
+.draft-ask { padding: 10px 14px 0; font-size: 13px; color: var(--vscode-descriptionForeground); }
+.draft-file { margin: 10px 14px 0; border-radius: var(--vscode-cornerRadius-medium); border: 1px solid var(--vscode-agentsCard-border, var(--vscode-widget-border)); overflow: hidden; }
+.draft-file .fh { padding: 4px 8px; font-size: 12px; color: var(--vscode-descriptionForeground); background: var(--vscode-textBlockQuote-background); font-family: var(--monaco-monospace-font, ui-monospace, Menlo, monospace); }
+.draft-file pre { margin: 0; padding: 8px 10px; font-family: var(--monaco-monospace-font, ui-monospace, Menlo, monospace); font-size: 12px; line-height: 1.5; white-space: pre-wrap; outline: none;
+  background: var(--vscode-diffEditor-insertedLineBackground, transparent); }
+.draft-note { padding: 8px 14px 0; font-size: 12px; color: var(--vscode-descriptionForeground); }
+.draft-foot { display: flex; justify-content: flex-end; gap: 6px; padding: 12px 14px; }
+
+/* Token inspector. */
+.ins-h { display: flex; align-items: flex-start; gap: 8px; }
+.ins-h > .codicon { margin-top: 2px; }
+.ins-h .t { flex: 1; min-width: 0; }
+.ins-h b { font-size: 14px; font-weight: 600; word-break: break-word; }
+.ins-h small { display: block; color: var(--vscode-descriptionForeground); font-size: 12px; }
+.ins-d { margin: 8px 0 0; }
+.ins-k { display: grid; grid-template-columns: 64px 1fr; gap: 4px 10px; margin-top: 10px; font-size: 12px; }
+.ins-k dt { color: var(--vscode-descriptionForeground); }
+.ins-k dd { margin: 0; min-width: 0; word-break: break-word; }
+.ins-f { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--vscode-widget-border, var(--vscode-agentsCard-border)); flex-wrap: wrap; }
+.ins-f .grow { flex: 1; }
+.ins-f label { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; }
+
+.menu { margin: -6px; }
+.menu-i { display: flex; align-items: center; gap: 8px; height: 26px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; font-size: 12.5px; white-space: nowrap; }
+.menu-i:hover { background: var(--vscode-list-hoverBackground); }
+.menu-i.sub { padding-left: 30px; }
+.menu-i .codicon { font-size: 14px !important; }
+.menu-i small { color: var(--vscode-descriptionForeground); margin-left: auto; padding-left: 16px; }
+.menu-sep { height: 1px; margin: 4px 0; background: var(--vscode-widget-border, var(--vscode-agentsPanel-border)); }
+.ch-cbox input:focus-visible, .draft-file pre:focus-visible { outline: none; }
+.policy { display: flex; align-items: center; gap: 6px; margin: 4px 0 0; padding-top: 14px; border-top: 1px solid var(--vscode-agentsPanel-border, var(--vscode-widget-border)); font-size: 12px; color: var(--vscode-descriptionForeground); }
+.policy .codicon { font-size: 13px !important; }
+.attn-r.miss, .ina-r.miss { display: none; }
+.draft-row .lbl { width: 52px; }
+.draft-title { padding: 10px 14px 0; font-weight: 600; font-size: 13px; }
+.ch-head { padding-left: 32px; }
+.ch-head { padding: 14px max(32px, calc((100% - 860px) / 2)) 12px; }
+.ch-doc { padding: 4px max(32px, calc((100% - 860px) / 2)) 32px; }
+.cz .more { color: var(--vscode-textLink-foreground); }

@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V15: Removes the session picker and Session page. The modal header has separate Workspace, Agent (harness) and Environment pickers that filter every customization page. There is no \"All\" option: each picker always has a value, synced to the active (or most recent) session each time the modal opens, and choosing one moves the others to a compatible combination.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v14-session-context",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-17T17:45:23.674Z",
+  "updatedAt": "2026-11-17T18:09:36.425Z"
+}

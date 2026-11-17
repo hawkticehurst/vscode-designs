@@ -1,0 +1,107 @@
+/* Shared shell for the Customizations Rethink concepts: the Agents window behind the modal, and small shared parts
+   (source glyphs, status marks, popovers, toasts, switches). Everything custom uses VS Code theme tokens. */
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--vscode-agents-background, #121314); }
+#wb { position: relative; width: 100vw; height: 100vh; display: block; background: var(--vscode-agents-background); color: var(--vscode-foreground);
+  font-size: var(--vscode-agents-fontSize-body1, 13px); }
+.cz, .cz *, .aw, .aw * { box-sizing: border-box; }
+
+/* ── Agents window backdrop (dimmed by the modal) ───────────────────────── */
+.aw { position: absolute; inset: 0; display: flex; flex-direction: column; }
+.aw-title { height: 38px; flex: none; display: flex; align-items: center; justify-content: center; position: relative; }
+.aw-cc { width: 31vw; max-width: 600px; height: 22px; display: flex; align-items: center; gap: 6px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-medium);
+  border: 1px solid var(--vscode-commandCenter-border, var(--vscode-widget-border)); color: var(--vscode-descriptionForeground); font-size: 12px; }
+.aw-parts { flex: 1; min-height: 0; display: flex; gap: 2px; margin: 0 4px 4px; }
+.aw-side { width: 272px; flex: none; display: flex; flex-direction: column; gap: 2px; padding: 6px 8px; }
+.aw-new { display: flex; align-items: center; justify-content: center; gap: 6px; height: 28px; border-radius: var(--vscode-cornerRadius-medium); margin-bottom: 10px;
+  background: var(--vscode-agentsNewSessionButton-background); border: 1px solid var(--vscode-agentsNewSessionButton-border); color: var(--vscode-agentsNewSessionButton-foreground); }
+.aw-group { font-size: 11px; color: var(--vscode-descriptionForeground); padding: 10px 8px 4px; }
+.aw-row { display: flex; align-items: center; gap: 8px; height: 26px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-medium); color: var(--vscode-foreground); white-space: nowrap; overflow: hidden; }
+.aw-row .codicon { color: var(--vscode-descriptionForeground); }
+.aw-row span:last-child { overflow: hidden; text-overflow: ellipsis; }
+.aw-row.active { background: var(--vscode-list-inactiveSelectionBackground); }
+.aw-foot { margin-top: auto; border-top: 1px solid var(--vscode-agentsPanel-border); padding-top: 6px; }
+.aw-page { flex: 1; min-width: 0; border-radius: var(--vscode-cornerRadius-large); background: var(--vscode-agentsPanel-background); border: 1px solid var(--vscode-agentsPanel-border);
+  display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.aw-page vsc-session-view { width: min(800px, 90%); }
+
+/* The modal: our concept fills the editor area. */
+.cz { position: relative; height: 100%; display: flex; flex-direction: column; color: var(--vscode-foreground); font-size: 13px; line-height: 1.4;
+  background: var(--vscode-editor-background); overflow: hidden; }
+.cz button { font: inherit; color: inherit; }
+.cz :focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.cz .codicon { font-size: 16px; }
+.cz .muted { color: var(--vscode-descriptionForeground); }
+.cz code, .cz .mono { font-family: var(--monaco-monospace-font, ui-monospace, "SF Mono", Menlo, monospace); font-size: 12px; }
+.cz code { background: var(--vscode-textPreformat-background); color: var(--vscode-textPreformat-foreground); padding: 1px 4px; border-radius: var(--vscode-cornerRadius-small); }
+.cz a.link, .cz .link { color: var(--vscode-textLink-foreground); cursor: pointer; text-decoration: none; background: none; border: 0; padding: 0; }
+.cz a.link:hover, .cz .link:hover { text-decoration: underline; color: var(--vscode-textLink-activeForeground); }
+
+/* Icon buttons, like action-bar items. */
+.cz .ib { width: 22px; height: 22px; display: inline-grid; place-items: center; border: 0; background: none; border-radius: var(--vscode-cornerRadius-small); color: var(--vscode-icon-foreground); cursor: pointer; flex: none; }
+.cz .ib:hover { background: var(--vscode-toolbar-hoverBackground); }
+
+/* Small text buttons for inline actions (secondary button colors). */
+.cz .sb { height: 22px; padding: 0 8px; display: inline-flex; align-items: center; gap: 4px; border-radius: var(--vscode-cornerRadius-small); cursor: pointer; white-space: nowrap; font-size: 12px;
+  border: 1px solid var(--vscode-button-secondaryBorder, transparent); background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); }
+.cz .sb:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.cz .sb.primary { background: var(--vscode-button-background); color: var(--vscode-button-foreground); border-color: var(--vscode-button-border, transparent); }
+.cz .sb.primary:hover { background: var(--vscode-button-hoverBackground); }
+.cz .sb .codicon { font-size: 14px; }
+
+/* Source glyph: who supplied an item. */
+.src { display: inline-flex; align-items: center; gap: 4px; color: var(--vscode-descriptionForeground); font-size: 12px; white-space: nowrap; }
+.src .codicon { font-size: 14px !important; }
+
+/* Status marks. */
+.st-warn { color: var(--vscode-editorWarning-foreground); }
+.st-error, .st-blocked { color: var(--vscode-errorForeground); }
+.st-ok { color: var(--vscode-testing-iconPassed); }
+.st-update, .st-new { color: var(--vscode-textLink-foreground); }
+.dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex: none; background: currentColor; }
+
+/* Pills. */
+.pill { display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 9px; font-size: 11px; white-space: nowrap;
+  background: var(--vscode-badge-background); color: var(--vscode-badge-foreground); }
+.pill.outline { background: transparent; border: 1px solid var(--vscode-widget-border, var(--vscode-agentsCard-border)); color: var(--vscode-descriptionForeground); }
+.pill .codicon { font-size: 12px !important; }
+
+/* Popover / inspector card. */
+.pop { position: fixed; z-index: 2600; width: 360px; max-height: 70vh; overflow: auto; padding: 12px; border-radius: var(--vscode-cornerRadius-large);
+  background: var(--vscode-editorWidget-background); color: var(--vscode-editorWidget-foreground); border: 1px solid var(--vscode-editorWidget-border, var(--vscode-widget-border));
+  box-shadow: var(--vscode-shadow-lg, 0 8px 24px var(--vscode-widget-shadow)); font-size: 13px; line-height: 1.4; }
+
+/* Toast (notification-style). */
+.toast { position: fixed; right: 24px; bottom: 24px; z-index: 2700; display: flex; align-items: center; gap: 8px; max-width: 420px; padding: 10px 12px; border-radius: var(--vscode-cornerRadius-large);
+  background: var(--vscode-notifications-background); color: var(--vscode-notifications-foreground); border: 1px solid var(--vscode-notifications-border, var(--vscode-widget-border));
+  box-shadow: var(--vscode-shadow-lg, 0 8px 24px var(--vscode-widget-shadow)); animation: toast-in .18s ease-out; }
+.toast .codicon { color: var(--vscode-textLink-foreground); }
+@keyframes toast-in { from { transform: translateY(8px); opacity: 0; } }
+
+/* Text field, matching .monaco-inputbox. */
+.cz .tf { height: 26px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-small); border: 1px solid var(--vscode-input-border, transparent);
+  background: var(--vscode-input-background); color: var(--vscode-input-foreground); font: inherit; outline: none; min-width: 0; }
+.cz .tf:focus { border-color: var(--vscode-focusBorder); }
+.cz .tf::placeholder { color: var(--vscode-input-placeholderForeground); }
+
+/* Segmented control (as used in Agents window pickers). */
+.seg { display: inline-flex; padding: 2px; gap: 2px; border-radius: var(--vscode-cornerRadius-medium); background: var(--vscode-input-background); border: 1px solid var(--vscode-input-border, var(--vscode-widget-border)); }
+.seg button { height: 22px; display: inline-flex; align-items: center; gap: 5px; padding: 0 8px; border: 0; border-radius: var(--vscode-cornerRadius-small); background: transparent; color: var(--vscode-descriptionForeground); cursor: pointer; font-size: 12px; white-space: nowrap; }
+.seg button .codicon { font-size: 14px; }
+.seg button:hover { color: var(--vscode-foreground); }
+.seg button[aria-pressed="true"] { background: var(--vscode-list-inactiveSelectionBackground, var(--vscode-toolbar-hoverBackground)); color: var(--vscode-foreground); }
+
+/* Scrollbars inside the modal. */
+.cz ::-webkit-scrollbar { width: 10px; height: 10px; }
+.cz ::-webkit-scrollbar-thumb { background: var(--vscode-scrollbarSlider-background); }
+.cz ::-webkit-scrollbar-thumb:hover { background: var(--vscode-scrollbarSlider-hoverBackground); }
+
+/* Live (non-modal) Agents window. */
+.aw.live { pointer-events: auto; }
+.aw.live button.aw-new, .aw.live button.aw-row { font: inherit; border-left: 0; border-right: 0; cursor: pointer; text-align: left; width: 100%; }
+.aw.live button.aw-row { background: transparent; border: 0; }
+.aw.live button.aw-row:hover { background: var(--vscode-list-hoverBackground); }
+.aw.live button.aw-row.active { background: var(--vscode-list-inactiveSelectionBackground); }
+.aw.live button.aw-new:hover { background: var(--vscode-agentsNewSessionButton-hoverBackground); }
+.aw-page.live { display: block; position: relative; overflow: hidden; }
+.aw.live .codicon { font-size: 16px; }
+.aw.live, .aw.live * { box-sizing: border-box; }

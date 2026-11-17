@@ -1,0 +1,25 @@
+{
+  "title": "Customizations Rethink",
+  "description": "C · Receipts — \"Customize from what the agent actually did.\" Opens on recent sessions; each reply has a Receipt showing what that request actually involved, frozen at request time: attached instructions, skills whose SKILL.md was read, tools called by provider, hooks that ran (inferred or unknown evidence is marked as such). Failure pins separate what was observed from what's true now and offer the fix. Teach on any reply turns a correction into a scoped, harness-valid instruction, /command or agent draft. A Customizations tab holds the full inventory (Needs attention / No use recorded in 7 days / From plugins) with an Add menu. Vetted and cut by the design council (2 review rounds).",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "modal",
+    "exploration",
+    "sessions"
+  ],
+  "group": "customizations-rethink",
+  "variantOf": "customizations-rethink",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-12T20:05:03.302Z",
+  "updatedAt": "2026-11-12T20:38:36.123Z"
+}

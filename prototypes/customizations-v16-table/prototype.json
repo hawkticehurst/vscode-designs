@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V15's Environment → Workspace → Agent scope pickers (cascading, always set and synced to the active session), with each page shown as a table. Clicking a row or a Discover card opens a resizable right panel modeled on the Settings JSON panel. The panel defaults to a Rich UI view; a header picker switches it to Editor, or to Output for MCP servers. MCP servers use the product's editable form (Server Type, Command/URL, Arguments, Environment Variables or Headers, Working Directory, Save/Discard). Copilot Connectors show a Preview badge, Disconnect/Connect, and Details, Contains and Other Information tables. Install/Connect are split buttons: one click installs for Copilot on This Computer at user level (toast offers Undo / Change Where…), and the dropdown opens the full install dialog. Plugins are always user-level.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v15-scope-filters",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-17T18:00:42.015Z",
+  "updatedAt": "2026-11-17T21:14:41.282Z"
+}

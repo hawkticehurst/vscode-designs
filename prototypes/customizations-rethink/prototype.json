@@ -1,0 +1,23 @@
+{
+  "title": "Customizations Rethink",
+  "description": "A · Charter — \"What can my agent do here?\" The setup reads as five short paragraphs grouped by behavior (Guidance · Skills and agents · Tools and connections · Hooks and schedules), not by file type. Only what's active for the selected harness (\"Applies to\" Copilot CLI / Claude Code / Codex) is stated as fact; everything else sits under \"Not active\" with its reason and a selective, copy-creating conversion. Every noun is a token you can inspect, toggle or open. \"Needs attention\" leads with explicit fixes; Add → Describe It drafts a typed, scoped, harness-valid change you review before anything is written. Vetted and cut by a 4-member design council (2 review rounds).",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "modal",
+    "exploration",
+    "information-architecture"
+  ],
+  "group": "customizations-rethink",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "human"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-12T19:47:40.431Z",
+  "updatedAt": "2026-11-12T20:32:47.971Z"
+}

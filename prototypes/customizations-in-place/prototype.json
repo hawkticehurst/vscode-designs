@@ -1,0 +1,24 @@
+{
+  "title": "Customizations In Place",
+  "description": "1 · Turn Zero — in the session (this session). What a new session starts with is a one-line summary above the new-session composer (agent, capabilities and connections, what's unavailable), which expands into an adjustable card with session-only switches. After the first request it becomes a pinned header at the top of the transcript; expand it to see or change the setup, with changes applying from the next request. The first reply visibly respects what you chose. Follow-up to Customizations Rethink; vetted and cut by the design council.",
+  "status": "review",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "exploration",
+    "placement"
+  ],
+  "system": "vscode",
+  "group": "customizations-rethink",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-12T20:47:28.689Z",
+  "updatedAt": "2026-11-12T21:07:10.885Z"
+}
