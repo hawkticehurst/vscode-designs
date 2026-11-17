@@ -1,0 +1,24 @@
+{
+  "title": "Customizations - Updates",
+  "description": "Explores plugin update management with a dedicated Actions Needed page, plugin detail update and version flows, a dedicated Marketplace page with per-source auto update and managed behavior, and Browse menus for managing or adding marketplaces.",
+  "status": "draft",
+  "tags": [
+    "agents",
+    "customizations",
+    "plugins",
+    "updates",
+    "item-details",
+    "modal",
+    "marketplace"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-updates-v5",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "human"
+  },
+  "sourceRefs": [],
+  "createdAt": "2026-11-12T22:46:54.547Z",
+  "updatedAt": "2026-11-12T23:43:05.324Z"
+}
