@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "title": "Session Customizations",
+  "questions": [],
+  "presentation": "sequence",
+  "device": "desktop",
+  "theme": "dark-2026",
+  "round": 4,
+  "exportedAt": "2026-11-19T20:47:26.634Z",
+  "project": "VS Code",
+  "items": [
+    {
+      "key": "a",
+      "label": "Rich Management Modal",
+      "entry": "prototypes/customizations-v25-panel-status/index.html",
+      "pages": [
+        "prototypes/customizations-v25-panel-status/settings/index.html"
+      ]
+    }
+  ]
+}
