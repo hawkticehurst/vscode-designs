@@ -1,0 +1,16 @@
+/* V22 — The page header's search is the global search: it widens while it's in use, and its results sit below that bar. */
+.mg-gs-results { top: 37px; }
+.sc-scope-filters :is(.ct-search, .md-search) { transition: flex-basis 120ms ease-out; }
+.sc-scope-filters :is(.ct-search, .md-search):is(:focus-within, .mg-gs-on) { flex-basis: 320px; }
+#cfg-root[data-section="environments"] .sc-scope-filters .ct-search .input { padding-right: 6px; }
+@media (prefers-reduced-motion: reduce) { .sc-scope-filters :is(.ct-search, .md-search) { transition: none; } }
+/* Discover's details drawer overlays the cards and the header instead of reflowing them, like the other pages' drawers. */
+.sc-cfg.has-disc-drawer .lib-hosted { padding-right: 0; }
+.sc-cfg.has-disc-drawer .sc-scope-filters { padding-right: 14px; }
+/* The "/" shortcut: right-aligned in the search box, styled as inline code. Hidden while the box has focus or text. */
+.sc-scope-filters .ct-search .ibwrapper { display: flex; align-items: center; }
+.sc-scope-filters .ct-search .ibwrapper .input { flex: 1; min-width: 0; }
+.gs-key { flex: none; margin: 0 4px 0 6px; padding: 0 5px; border-radius: var(--vscode-cornerRadius-small, 3px); background: var(--vscode-textCodeBlock-background, rgba(128,128,128,.17));
+  color: var(--vscode-textPreformat-foreground, var(--vscode-descriptionForeground)); font-family: var(--vscode-editor-font-family, monospace); font-size: 11px; line-height: 16px; pointer-events: none; }
+.md-search .gs-key { margin-right: 2px; }
+:is(.ct-search, .md-search):focus-within .gs-key, .input:not(:placeholder-shown) + .gs-key { display: none; }

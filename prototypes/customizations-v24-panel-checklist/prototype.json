@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V24 · Panel as a checklist. Same as V22, but every row in the session's Customizations panel has an always-visible checkbox as its switch for this session; hidden hover switches are gone:\n- sign-ins and errors get a real secondary button (Sign In, Show Output);\n- section headers show \"3 of 5 on\";\n- the footer becomes Discover and Manage buttons plus a Customize Panel action;\n- right-click or the keyboard opens a row menu.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v22-panel-manage",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-19T20:37:53.485Z",
+  "updatedAt": "2026-11-19T20:39:21.296Z"
+}

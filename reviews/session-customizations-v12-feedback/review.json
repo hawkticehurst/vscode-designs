@@ -1,25 +1,13 @@
 {
   "title": "Session Customizations",
-  "intro": "Round 2 compares the original Session Customizations direction with a refinement based on initial Slack feedback.\n\nBoth options separate the scoped **Session Customizations** right sidebar from the global **Customizations** modal. The refinement removes explicit session-scope pickers, combines MCP Servers and Connectors, introduces collapsible high-value sections, and aligns the sidebar treatment more closely with the Sessions list.\n\nPlease compare the two options rather than focusing on intentionally omitted customization detail-page content.",
-  "questions": [
-    "Which option makes the session-scoped nature of the right sidebar clearer, and why?",
-    "Does combining MCP Servers and Connectors reduce terminology without losing useful meaning?",
-    "Do collapsible Plugins and MCP Servers sections improve scanability, or add unnecessary interaction?",
-    "Does the refined typography, spacing, and density feel more consistent with the Sessions list?"
-  ],
-  "presentation": "both",
+  "questions": [],
+  "presentation": "sequence",
   "device": "desktop",
   "theme": "dark-2026",
   "items": [
     {
-      "prototype": "customizations-v12",
-      "label": "Original direction",
-      "note": "V12 keeps explicit session scope pickers and separate Plugins, MCP Servers, and Connectors sections."
-    },
-    {
-      "prototype": "customizations-v13-session-accordions",
-      "label": "Feedback refinement",
-      "note": "V13 inherits the active session scope, combines MCP Servers and Connectors, and uses collapsible sections with Sessions-list-aligned styling."
+      "prototype": "customizations-v25-panel-status",
+      "label": "Rich Management Modal"
     }
   ],
   "slug": "session-customizations-7bbd4c27",
@@ -53,8 +41,34 @@
           "updatedAt": "2026-11-10T21:07:19.459Z"
         }
       ]
+    },
+    {
+      "round": 3,
+      "publishedAt": "2026-11-17T22:11:49.054Z",
+      "target": "github-pages",
+      "url": "https://hawkticehurst.github.io/vscode-designs/session-customizations-7bbd4c27/round-3/",
+      "path": "session-customizations-7bbd4c27/round-3",
+      "prototypes": [
+        {
+          "id": "customizations-v16-table",
+          "updatedAt": "2026-11-17T21:14:41.282Z"
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "publishedAt": "2026-11-19T20:47:30.634Z",
+      "target": "github-pages",
+      "url": "https://hawkticehurst.github.io/vscode-designs/session-customizations-7bbd4c27/round-4/",
+      "path": "session-customizations-7bbd4c27/round-4",
+      "prototypes": [
+        {
+          "id": "customizations-v25-panel-status",
+          "updatedAt": "2026-11-19T20:39:22.603Z"
+        }
+      ]
     }
   ],
   "createdAt": "2026-11-10T18:18:23.489Z",
-  "updatedAt": "2026-11-10T21:08:19.394Z"
+  "updatedAt": "2026-11-19T20:47:30.634Z"
 }

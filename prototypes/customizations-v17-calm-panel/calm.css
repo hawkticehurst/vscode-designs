@@ -1,0 +1,36 @@
+/* V17 — Calm session panel. Fewer competing components; state shows in text, controls on demand. */
+.sb-panel.cv-panel .cv-row { min-height: 28px; padding-top: 4px; padding-bottom: 4px; }
+.sb-panel.cv-panel .cv-row .ev-row-text { gap: 0; }
+.sb-panel.cv-panel .cv-row .ev-row-sub { font-size: var(--vscode-fontSize-label1, 12px); line-height: 16px; }
+.sb-panel.cv-panel .cv-row .ev-row-sub.is-error { color: var(--vscode-errorForeground); }
+
+/* Switches stay out of the way until you reach for them; an item that's off says so in words. */
+.sb-panel.cv-panel .cv-row .monaco-switch { display: none; }
+.sb-panel.cv-panel .cv-row:is(:hover, :focus-within) .monaco-switch { display: inline-flex; }
+.sb-panel.cv-panel .cv-row:is(:hover, :focus-within) .cv-off { display: none; }
+.sb-panel.cv-panel .cv-off { flex: none; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.sb-panel.cv-panel .cv-row.is-off :is(.ev-logo, .ev-row-name) { opacity: .6; }
+.sb-panel.cv-panel .cv-row.is-off .ev-row-text { opacity: 1; }
+
+/* One quiet text action per item that needs you. */
+.sb-panel.cv-panel .cv-action { flex: none; padding: 2px 4px; border: 0; border-radius: var(--vscode-cornerRadius-small); background: none; color: var(--vscode-textLink-foreground); font: inherit; font-size: var(--vscode-fontSize-label1, 12px); cursor: pointer; }
+.sb-panel.cv-panel .cv-action:hover { color: var(--vscode-textLink-activeForeground); text-decoration: underline; }
+.sb-panel.cv-panel .cv-action:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+
+/* Links to the rest of Customizations, set off from the session's own items. */
+.sb-panel.cv-panel .cv-more { margin-top: var(--vscode-spacing-size80); padding-top: var(--vscode-spacing-size40); border-top: 1px solid var(--vscode-sideBarSectionHeader-border, var(--vscode-widget-border, transparent)); }
+.sb-panel.cv-panel .cv-link { width: calc(100% - 2 * var(--vscode-spacing-size40)); min-height: 26px !important; border: 0; background: none; color: var(--vscode-descriptionForeground) !important; font: inherit; text-align: left; cursor: pointer; display: flex; align-items: center; }
+.sb-panel.cv-panel .cv-link .codicon { font-size: 14px; flex: none; }
+.sb-panel.cv-panel .cv-link:hover { color: var(--vscode-foreground) !important; }
+.sb-panel.cv-panel .cv-link .ov-title { color: inherit !important; }
+
+/* Just-in-time access, in the style of chat confirmations. */
+.cv-jit { margin: 4px 16px 12px; padding: var(--vscode-spacing-size100) var(--vscode-spacing-size120); border: 1px solid var(--vscode-chat-requestBorder, var(--vscode-widget-border)); border-radius: var(--vscode-cornerRadius-medium); background: var(--vscode-chat-requestBackground, transparent); display: flex; flex-direction: column; gap: var(--vscode-spacing-size100); }
+.cv-jit-head { display: flex; align-items: flex-start; gap: 8px; }
+.cv-jit-head .ev-logo { margin-top: 1px; flex: none; }
+.cv-jit-text { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cv-jit-title { color: var(--vscode-foreground); font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.cv-jit-sub { color: var(--vscode-descriptionForeground); }
+.cv-jit-actions { display: flex; flex-wrap: wrap; gap: 6px; padding-left: 24px; }
+.cv-jit-actions vsc-button { display: inline-flex; width: auto; flex: none; }
+.cv-jit-actions vsc-button .monaco-button { width: auto; padding: 4px 12px; }

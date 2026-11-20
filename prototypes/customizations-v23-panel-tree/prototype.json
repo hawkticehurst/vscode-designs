@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V23 · Panel as a VS Code tree. Same as V22, but the session's Customizations panel uses VS Code view controls:\n- a Filter box and a title toolbar (Discover, Manage, Customize Panel, Collapse All) replace the footer links;\n- uppercase pane-style section headers with a muted summary (cost, \"3 of 5 on\") and a count badge for problems;\n- one-line rows with a muted description, a warning or error decoration, and inline icon actions on hover (Sign In or Show Output, Turn Off/On for This Session, More Actions);\n- a context menu on every row.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v22-panel-manage",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-19T20:37:53.485Z",
+  "updatedAt": "2026-11-19T20:39:20.116Z"
+}

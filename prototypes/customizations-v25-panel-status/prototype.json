@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V25 · Panel, status first. Same as V22, but the session's Customizations panel leads with what needs you:\n- a context strip (repo · agent · environment) with a toolbar;\n- sign-in and error notifications with buttons at the top;\n- quiet uppercase section labels;\n- two-line rows (name, then source and state) with an always-visible switch and a More Actions button;\n- a plugin expands to show what it brings.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v22-panel-manage",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-19T20:37:53.485Z",
+  "updatedAt": "2026-11-19T20:39:22.603Z"
+}

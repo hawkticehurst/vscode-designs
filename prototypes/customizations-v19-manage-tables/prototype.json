@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V19 — From V18: \"Customizations\" panel as a zebra-striped tree table with collapsible groups and a workspace sub-page for workspace-scoped skills, instructions, agents and hooks. Manage has one nav grouped by domain: Agents (Copilot, Claude, Codex landing pages, Chat & Agents settings, Environments), Workbench (settings categories plus Extensions) and General (Commonly Used, Privacy, Modified, Managed…), with cross-links from agents and Extensions to their related settings. The embedded Settings prototype uses the same minimal flat rows as the other pages. Remotes → Environments as a compact table. Per-agent Models page matched to the live Language Models editor (search and filters in the shared top bar, Add Models / Install Model Providers, provider groups, hide/show, cost in credits per 1M tokens, model warnings, provider status).",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v18-manage",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-18T20:44:32.180Z",
+  "updatedAt": "2026-11-19T16:35:04.111Z"
+}

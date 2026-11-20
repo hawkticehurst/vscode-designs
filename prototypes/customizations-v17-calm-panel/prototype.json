@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V17 — Calmer session panel (from the Nov 18 Agents Window + Customization Squad syncs). Polishes only the right-side Session Customizations panel, the piece going into code behind an experimental setting. Less visual noise: no count bubbles, no logo card, no external-link icons; switches appear on hover/focus and Off items just say \"Off\". A \"Needs Attention\" group gathers sign-in and errors with one text action each. Plugin-provided MCP servers (Semgrep) show their plugin, and when the plugin is off they say why they're unavailable. Just-in-time access: in the \"Triage customization migration issues\" session the agent asks to use Slack, which is off for this session, and offers Allow Once / Turn On for This Session inline in chat. The modal is unchanged from V16.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v16-table",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-18T20:07:11.930Z",
+  "updatedAt": "2026-11-18T20:09:28.026Z"
+}

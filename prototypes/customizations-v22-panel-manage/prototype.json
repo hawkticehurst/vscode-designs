@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V22 combines V20's customizable side panel with V21's Manage modal.\n- Side panel (from V20): usage and cost per session, presets in Customize, a Source column when the panel is wide, and a sign-in prompt in the chat.\n- Manage no longer includes Settings. The Customizations, Runtime and Workbench groups stay (Workbench now holds only Extensions).\n- Global search: the modal header's search box is gone, and the search box at the right of each page's header bar now runs the global search, with results for the current page first. It works on every page, including Models and Environments; ⌘, focuses it.\n- The agent picker reads \"All agents\" or just the agent's name.\n- Tables no longer have the User and Workspace separator rows; the Source column already shows where each item comes from.\n- Manage appears in both the left sidebar (under Automations) and the title bar gear.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v21-manage-search",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-19T19:57:53.184Z",
+  "updatedAt": "2026-11-19T20:33:48.690Z"
+}

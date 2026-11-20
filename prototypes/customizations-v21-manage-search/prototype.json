@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V21 — \"Manage, searchable\" (fork of V19, from the Nov 18 standup + Nov 19 Agents Window Sync feedback). Manage opens from a title bar gear or ⌘,. One search box searches settings, customizations, models, environments, extensions and Discover, with results grouped by type. Settings is one continuous list you can filter, again. A scope switcher (All / User / Workspace / Managed) shows where each row comes from. The nav is organized by artifact (Customizations / Runtime / Workbench), with an Agent filter instead of a landing page per harness. Environments sync customizations by default, with per-environment exceptions.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v19-manage-tables",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-19T19:07:51.030Z",
+  "updatedAt": "2026-11-19T19:21:06.213Z"
+}

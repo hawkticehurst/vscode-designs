@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V20 — \"Your panel\" (fork of V19, from the Nov 18 standup + Nov 19 Agents Window Sync feedback). The side panel turns into a session status view that you can customize: a \"Used in This Session\" section shows what the agent loaded or called, with cost, stalls and per-session overrides. A Customize view (footer link, or the section header context menu) has presets (Minimal / Default / Troubleshooting / Everything), lets you show, hide and reorder sections by dragging, and sets row options. You can hide a section from its header on hover. Sign-ins needed right now are asked for in the chat, above the input (try the Settings prototype session), not in the panel. A wide panel adds a Source column.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v19-manage-tables",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-19T19:07:51.035Z",
+  "updatedAt": "2026-11-19T19:14:25.007Z"
+}

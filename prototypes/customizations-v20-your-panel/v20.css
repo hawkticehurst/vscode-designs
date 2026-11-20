@@ -1,0 +1,66 @@
+/* V20 — A side panel you can customize, session usage, and the chat's just-in-time asks. */
+
+/* Section headers: a Hide button on hover or focus. */
+.pt-group .ct-cell { gap: 6px; }
+.pt-hide { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-left: auto; padding: 0; border: 0;
+  border-radius: var(--vscode-cornerRadius-small, 3px); background: none; color: var(--vscode-icon-foreground); cursor: pointer; visibility: hidden; }
+.pt-hide .codicon { font-size: 14px !important; }
+.pt-group:is(:hover, :focus-within) .pt-hide { visibility: visible; }
+.pt-hide:hover { background: var(--vscode-toolbar-hoverBackground); }
+.pt-hide:focus-visible { visibility: visible; outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+
+/* Used in This Session. */
+.pt-summary .pt-note-text { font-size: var(--vscode-fontSize-label1, 12px); }
+.pt-warn-text { color: var(--vscode-problemsWarningIcon-foreground, var(--vscode-editorWarning-foreground)); }
+.pt-row .ct-status.is-warn .codicon { color: var(--vscode-problemsWarningIcon-foreground, var(--vscode-editorWarning-foreground)); }
+.pt-cost { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); font-variant-numeric: tabular-nums; padding-right: 4px; }
+.pt-use { cursor: pointer; }
+.pt-row .ct-status.pt-session { font-style: italic; }
+
+/* Switches always visible, if you turn off "Show switches on hover". */
+.pt-panel.is-switches-always .pt-row .monaco-switch { display: inline-flex; }
+
+/* Wide panels: a Source column. */
+.pt-src { font-size: var(--vscode-fontSize-label1, 12px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pt-panel.is-wide .pt-scroll { padding-inline: 16px; }
+
+/* Footer: Discover and Manage, with Customize at the end. */
+.pt-link-end { margin-left: auto; }
+.pt-blank { margin: 24px 8px 8px; color: var(--vscode-descriptionForeground); }
+.pt-blank p { margin: 0 0 8px; }
+
+/* Customize Panel. */
+.pc-head { margin: 16px 4px 6px; color: var(--vscode-foreground); font-size: var(--vscode-fontSize-label1, 12px); font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.pc-presets { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 4px; }
+.pc-preset { height: 24px; padding: 0 10px; border: 1px solid var(--vscode-button-border, var(--vscode-widget-border, rgba(128,128,128,.35))); border-radius: var(--vscode-cornerRadius-medium, 4px);
+  background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); font: inherit; font-size: var(--vscode-fontSize-label1, 12px); cursor: pointer; }
+.pc-preset:hover:not(:disabled) { background: var(--vscode-button-secondaryHoverBackground); }
+.pc-preset.is-on { border-color: var(--vscode-focusBorder); background: var(--vscode-button-background); color: var(--vscode-button-foreground); }
+.pc-preset:disabled { cursor: default; opacity: 1; }
+.pc-preset:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+.pc-list { margin: 0; padding: 0; list-style: none; }
+.pc-row { position: relative; display: flex; align-items: flex-start; gap: 8px; padding: 6px 6px 6px 4px; border-radius: var(--vscode-cornerRadius-medium, 4px); }
+.pc-row:hover { background: var(--vscode-list-hoverBackground); }
+.pc-row vsc-checkbox { flex: none; margin-top: 1px; }
+.pc-grip { flex: none; margin-top: 1px; font-size: 16px !important; color: var(--vscode-descriptionForeground); cursor: grab; opacity: .6; }
+.pc-row:hover .pc-grip { opacity: 1; }
+.pc-opt { padding-left: 28px; }
+.pc-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.pc-label { color: var(--vscode-foreground); }
+.pc-desc { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); line-height: 16px; }
+.pc-row.is-off .pc-label { color: var(--vscode-descriptionForeground); }
+.pc-move { flex: none; display: flex; gap: 2px; visibility: hidden; }
+.pc-row:is(:hover, :focus-within) .pc-move { visibility: visible; }
+.pt-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; padding: 0; border: 0; border-radius: var(--vscode-cornerRadius-small, 3px);
+  background: none; color: var(--vscode-icon-foreground); cursor: pointer; }
+.pt-icon-btn:hover:not(:disabled) { background: var(--vscode-toolbar-hoverBackground); }
+.pt-icon-btn:disabled { opacity: .4; cursor: default; }
+.pt-icon-btn:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.pt-icon-btn .codicon { font-size: 14px !important; }
+.pc-row.is-dragging { opacity: .5; }
+.pc-row.drop-before::before, .pc-row.drop-after::after { content: ""; position: absolute; left: 4px; right: 4px; height: 2px; background: var(--vscode-focusBorder); }
+.pc-row.drop-before::before { top: -1px; }
+.pc-row.drop-after::after { bottom: -1px; }
+
+/* The chat's just-in-time ask, right above the input. */
+#session-page .s-composer .jit-bar { margin: 0 16px 8px; }

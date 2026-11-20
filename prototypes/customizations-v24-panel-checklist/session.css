@@ -1,0 +1,97 @@
+/* ===== "This session" view (session-view.js) ===== */
+.ss-scope { flex: none; padding: var(--vscode-spacing-size120) var(--vscode-spacing-size120) var(--vscode-spacing-size80); }
+.ss-scope-label { margin-bottom: var(--vscode-spacing-size60); color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); }
+.ss-chips { display: flex; flex-wrap: wrap; gap: var(--vscode-spacing-size40); }
+/* Same picker look as the composer's session options (workspace, harness, environment) they mirror. */
+.ss-chip { display: inline-flex; align-items: center; gap: var(--vscode-spacing-size40); height: 24px; padding: 0 var(--vscode-spacing-size60) 0 var(--vscode-spacing-size80);
+  box-sizing: border-box; border-radius: var(--vscode-cornerRadius-medium); border: 1px solid var(--vscode-agentsCard-border); background: transparent;
+  color: var(--vscode-foreground); font-size: var(--vscode-fontSize-label1); cursor: pointer; white-space: nowrap; }
+.ss-chip:hover { background: var(--vscode-list-hoverBackground); }
+.ss-chip:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.ss-chip .codicon { font-size: 14px; }
+.ss-chip .ss-chev { font-size: 12px; color: var(--vscode-descriptionForeground); }
+.ss-scroll { padding-bottom: var(--vscode-spacing-size80); }
+.ss-sub { margin: 0 var(--vscode-spacing-size120) var(--vscode-spacing-size60) 46px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); line-height: 1.45; }
+.ss-path { font-family: var(--monaco-monospace-font, monospace); font-size: 11px; }
+.ss-sec[data-collapsed] > .ss-sub { display: none; }
+.ss-sec { padding-bottom: var(--vscode-spacing-size40); }
+.ss-sec + .ss-sec { margin-top: var(--vscode-spacing-size40); border-top: 1px solid var(--vscode-agentsPanel-border); padding-top: var(--vscode-spacing-size40); }
+.ss-none { margin: 0 var(--vscode-spacing-size120) var(--vscode-spacing-size80) 46px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1); line-height: 1.45; }
+.ss-muted .cust-list-wrap { opacity: 0.75; }
+.ss-muted .cp-sec-label { color: var(--vscode-descriptionForeground); }
+/* Rows turned off for the session read as off. */
+.ss-flow vsc-customization-item:is([badge^="Off"]) .item-name { color: var(--vscode-descriptionForeground); }
+.ss-footer { flex: none; display: flex; gap: var(--vscode-spacing-size40); padding: var(--vscode-spacing-size80) var(--vscode-spacing-size120);
+  border-top: 1px solid var(--vscode-agentsPanel-border); }
+.ss-foot-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: var(--vscode-spacing-size60); height: 26px; cursor: pointer;
+  border-radius: var(--vscode-cornerRadius-small); border: 1px solid var(--vscode-button-secondaryBorder, transparent);
+  background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground) !important; font-size: var(--vscode-fontSize-body1); }
+.ss-foot-btn:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.ss-foot-btn:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+
+/* ===== Sessions sidebar (left): the experimental navigation layout (customizations presentation "treatment"):
+   New Session, Automations and Customizations as rows above Sessions. After src/vs/sessions/contrib/sessions/browser/
+   media/sessionsViewPane.css and sessionsList.css (28px shortcut rows, 32px header row, 26px sections). ===== */
+.ssb { flex: none; width: 280px; display: flex; flex-direction: column; min-height: 0; margin-right: 2px; box-sizing: border-box; padding-top: var(--vscode-spacing-size40);
+  color: var(--vscode-sideBar-foreground, var(--vscode-foreground)); }
+.ssb[hidden] { display: none; }
+.ssb button { font: inherit; color: inherit; border: 0; background: transparent; text-align: left; cursor: pointer; }
+.ssb :is(.ssb-short, .ssb-section, .ssb-chat) { display: flex; align-items: center; box-sizing: border-box; margin: 0 var(--vscode-spacing-size40); width: calc(100% - 2 * var(--vscode-spacing-size40));
+  border-radius: var(--vscode-cornerRadius-small); }
+.ssb :is(.ssb-short, .ssb-chat):focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.ssb-icon { flex-shrink: 0; margin-right: 6px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.ssb-label { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* .session-section.session-section-shortcut */
+.ssb .ssb-short { height: 28px; padding: 0 10px; font-size: var(--vscode-fontSize-label1, 12px); font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-descriptionForeground) !important; }
+.ssb-short:hover { background: var(--vscode-list-hoverBackground) !important; }
+.ssb-short:hover .ssb-label { color: var(--vscode-strongForeground, var(--vscode-foreground)); }
+.ssb-short.ssb-new { color: var(--vscode-foreground) !important; }
+.ssb-short.active { background: var(--vscode-list-inactiveSelectionBackground) !important; color: var(--vscode-foreground) !important; }
+.ssb-short vsc-keybinding { margin-left: auto; font-weight: 400; display: inline-flex; gap: 3px; }
+/* macOS keycaps sit side by side without a "+" (⌘ N). */
+.ssb-short vsc-keybinding .monaco-keybinding-key-separator { display: none; }
+/* .agent-sessions-header-row */
+.ssb-header { flex: none; display: flex; align-items: center; height: 32px; padding: 0 var(--vscode-spacing-size100); margin-top: var(--vscode-spacing-size40); box-sizing: border-box; user-select: none; }
+.ssb-header-label { flex: 1; min-width: 0; font-size: var(--vscode-fontSize-label1, 12px); font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-sideBar-foreground, var(--vscode-foreground)); }
+.ssb-header vsc-toolbar .actions-container { gap: 4px; }
+.ssb-list { flex: 1; min-height: 0; overflow-y: auto; padding-bottom: var(--vscode-spacing-size80); }
+/* .session-section (26px) */
+.ssb .ssb-section { height: 26px; padding: 0 10px; font-size: var(--vscode-fontSize-label1, 12px); font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-descriptionForeground); user-select: none; }
+.ssb-section + .ssb-section, .ssb-chat + .ssb-section { margin-top: var(--vscode-spacing-size40); }
+/* .session-item.quick-chat (28px) and regular sessions (title + details). */
+.ssb .ssb-chat { min-height: 28px; padding: 6px 6px 6px 12px; align-items: flex-start; gap: 6px; color: var(--vscode-foreground); font-size: var(--vscode-fontSize-body1, 13px); }
+.ssb-chat:hover { background: var(--vscode-list-hoverBackground) !important; }
+.ssb-status { flex: none; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; color: var(--vscode-descriptionForeground); }
+.ssb-status .codicon { font-size: 14px; }
+.ssb-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--vscode-textLink-foreground); }
+.ssb-dot.idle { width: 5px; height: 5px; background: var(--vscode-descriptionForeground); opacity: 0.6; }
+/* A small pixel spinner (product: .monaco-pixel-spinner). */
+.ssb-spinner { width: 6px; height: 10px; background: radial-gradient(circle, var(--vscode-textLink-foreground) 1px, transparent 1.4px) 0 0 / 3px 3.4px; animation: ssb-pulse 1.2s ease-in-out infinite; }
+@keyframes ssb-pulse { 50% { opacity: 0.45; } }
+.ssb-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 16px; }
+.ssb-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.ssb-detail { display: flex; align-items: center; gap: 4px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); line-height: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ssb-detail .codicon { font-size: 12px; }
+
+.ssb .ssb-chat.selected { background: var(--vscode-list-inactiveSelectionBackground) !important; }
+
+/* Scope bar: a new session's pickers (same state as the composer's) or an open session's fixed scope. */
+.ss-chips.ss-fixed { align-items: center; gap: var(--vscode-spacing-size40); color: var(--vscode-foreground); }
+.ss-fixed .ss-chip { border: 0; padding: 0; height: 20px; cursor: default; background: transparent !important; }
+.ss-fixed .ss-sep { color: var(--vscode-descriptionForeground); }
+.ss-fixed .ss-lock { margin-left: auto; display: inline-flex; color: var(--vscode-descriptionForeground); cursor: help; }
+.ss-fixed .ss-lock .codicon { font-size: 14px; }
+/* The composer's picker flashes when the panel changes it. */
+@keyframes scope-flash { 0%, 60% { background: color-mix(in srgb, var(--vscode-focusBorder) 28%, transparent); } 100% { background: transparent; } }
+vsc-session-picker.scope-flash .action-label { animation: scope-flash 900ms ease-out; border-radius: var(--vscode-cornerRadius-small); }
+
+/* Open session: header, transcript and the composer pinned to the bottom (after prototypes/inbox-one-v4). */
+.page > vsc-session-view[hidden], #session-page[hidden] { display: none; }
+#session-page { min-height: 100%; display: flex; flex-direction: column; }
+#session-page .s-head { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; gap: 8px; box-sizing: border-box; width: 100%; max-width: 800px; height: 40px;
+  margin: 0 auto; padding: 0 16px; background: var(--vscode-agentsPanel-background); }
+#session-page .s-head h2 { flex: 1; min-width: 0; margin: 0; font-size: 13px; font-weight: 400; line-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#session-page .s-chat { flex: 1; width: 100%; max-width: 800px; margin: 0 auto; padding-bottom: 8px; }
+#session-page vsc-chat-view { background: transparent; display: block; }
+#session-page .s-composer { position: sticky; bottom: 0; z-index: 2; width: 100%; max-width: 800px; margin: 0 auto; padding-bottom: 12px; background: var(--vscode-agentsPanel-background); }
+#session-page .s-composer vsc-session-view { --session-view-content-horizontal-padding: 16px; }

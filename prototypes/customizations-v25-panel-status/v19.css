@@ -1,0 +1,132 @@
+/* V19 — The session panel as a tree table (sidebar.js), and the Manage modal's Environments and Models tables. */
+.pt-panel { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.pt-scroll { padding: 4px 8px 16px; }
+.pt-table { font-size: var(--vscode-fontSize-body1, 13px); }
+.pt-table th { background: var(--vscode-sideBar-background, var(--vscode-editor-background)); }
+.pt-table td { height: 24px; }
+.pt-table .ct-row:nth-child(odd) { background: none; }
+.pt-table .ct-row:hover { background: var(--vscode-list-hoverBackground); }
+.pt-table .ct-row:focus-visible { outline: 1px solid var(--vscode-list-focusOutline, var(--vscode-focusBorder)); outline-offset: -1px; }
+.pt-table .ct-cell { gap: 6px; padding: 0 6px; }
+.pt-table td:first-child .ct-cell { padding-left: calc((var(--pt-level, 1) - 1) * 12px + 2px); }
+.pt-sr { visibility: hidden; }
+.pt-end { justify-content: flex-end; }
+
+/* Parent rows: a twisty, a label and a count. The whole row toggles. */
+.pt-group { cursor: pointer; }
+.pt-group td { height: 26px; }
+.pt-group:not(:first-child) td { padding-top: 6px; }
+.pt-group:hover .pt-group-label { color: var(--vscode-foreground); }
+.pt-group .ct-cell { padding-left: 2px; }
+.pt-group-label { color: var(--vscode-foreground); font-weight: var(--vscode-fontWeight-semiBold, 600); font-size: var(--vscode-fontSize-label1, 12px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pt-count { flex: none; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.pt-twisty, .pt-twisty-space { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; }
+.pt-twisty { padding: 0; border: 0; border-radius: var(--vscode-cornerRadius-small, 3px); background: none; color: var(--vscode-icon-foreground); cursor: pointer; }
+.pt-twisty .codicon { font-size: 16px !important; }
+.pt-twisty:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.pt-empty td { height: 24px; }
+
+/* State in words; the session switch only on hover or focus. */
+.pt-row .monaco-switch { display: none; }
+.pt-row:is(:hover, :focus-within, :focus) .monaco-switch { display: inline-flex; }
+.pt-row.is-off :is(.ev-logo, .ct-icon, .ct-name) { opacity: .6; }
+.pt-row .cv-action { flex: none; padding: 2px 4px; border: 0; border-radius: var(--vscode-cornerRadius-small); background: none; color: var(--vscode-textLink-foreground); font: inherit; font-size: var(--vscode-fontSize-label1, 12px); cursor: pointer; white-space: nowrap; }
+.pt-row .cv-action:hover { color: var(--vscode-textLink-activeForeground); text-decoration: underline; }
+.pt-row .cv-action:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.pt-row .ct-status { font-size: var(--vscode-fontSize-label1, 12px); min-width: 0; }
+.pt-row .ct-status .codicon { font-size: 14px !important; }
+.pt-drill-ic { font-size: 16px !important; color: var(--vscode-icon-foreground); }
+
+/* Links to the rest of Manage, under the table. */
+.pt-foot { display: flex; gap: 12px; margin: 12px 4px 0; padding-top: 8px; border-top: 1px solid var(--vscode-sideBarSectionHeader-border, var(--vscode-widget-border, transparent)); }
+.pt-link { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 4px; border: 0; border-radius: var(--vscode-cornerRadius-small); background: none; color: var(--vscode-descriptionForeground); font: inherit; cursor: pointer; }
+.pt-link .codicon { font-size: 14px; }
+.pt-link:hover { color: var(--vscode-foreground); background: var(--vscode-toolbar-hoverBackground); }
+.pt-link:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+
+/* The workspace sub-page: a breadcrumb back, then a table per type. */
+.pt-sub { flex: none; display: flex; align-items: center; gap: 4px; height: 30px; padding: 0 6px; border-bottom: 1px solid var(--vscode-sideBarSectionHeader-border, var(--vscode-widget-border, transparent)); }
+.pt-sub[hidden] { display: none; }
+.pt-crumb:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.pt-crumbs { min-width: 0; display: flex; align-items: center; gap: 2px; }
+.pt-crumbs > .codicon { font-size: 14px; color: var(--vscode-descriptionForeground); }
+.pt-crumb { padding: 1px 4px; border: 0; border-radius: var(--vscode-cornerRadius-small); background: none; color: var(--vscode-descriptionForeground); font: inherit; cursor: pointer; white-space: nowrap; }
+.pt-crumb:hover { color: var(--vscode-foreground); }
+.pt-crumb.is-current { color: var(--vscode-foreground); cursor: default; font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.pt-note { margin: 6px 4px 8px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); line-height: 16px; }
+.pt-path { font-family: var(--vscode-editor-font-family, monospace); }
+.pt-panel.is-sub .pt-scroll { animation: pt-in .15s ease-out; }
+@keyframes pt-in { from { transform: translateX(12px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .pt-panel.is-sub .pt-scroll { animation: none; } }
+
+/* ---------- Manage: Settings (the Settings prototype in a frame; its categories nest in the nav) ---------- */
+#cfg-root .sc-page:has(> .mg-settings-frame) { padding: 0; }
+.mg-settings-frame { flex: 1; min-height: 0; width: 100%; height: 100%; border: 0; display: block; background: transparent; }
+
+/* ---------- Manage: Environments ---------- */
+.ev-env-table .sc-twisty { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin: 0; padding: 0; }
+.ev-env-table .ct-status.is-ok .codicon, .ev-env-table .ct-status.is-muted .codicon { font-size: 8px !important; }
+.ev-env-table .is-offline .ct-name, .ev-env-table .is-offline .ct-icon { opacity: .6; }
+.ev-env-table .ev-env-sub { cursor: default; }
+.ev-env-table .ev-env-sub td { height: 24px; font-size: var(--vscode-fontSize-label1, 12px); }
+.ev-env-table .ev-env-sync { display: inline-flex; align-items: center; gap: 4px; min-width: 0; max-width: 100%; height: 22px; margin: 0; padding: 0 4px; }
+.ev-env-table .ev-env-sync .codicon { flex: none; font-size: 12px !important; }
+.ev-env-missing { color: var(--vscode-descriptionForeground); }
+
+/* ---------- Manage: Models (the Models editor) ---------- */
+.sc-scope-filters .md-search { display: none; }
+#cfg-root[data-section="models"] .sc-scope-filters .ct-search { display: none; }
+#cfg-root[data-section="models"] .sc-scope-filters .md-search { display: flex; }
+.md-search { flex: 0 1 220px; min-width: 120px; margin-left: auto; align-items: center; gap: 2px; height: 24px; padding: 0 2px 0 8px; box-sizing: border-box; border: 1px solid var(--vscode-input-border, transparent); border-radius: var(--vscode-cornerRadius-medium); background: var(--vscode-input-background); }
+.md-search:focus-within { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.md-search > .codicon { flex: none; font-size: 14px; color: var(--vscode-descriptionForeground); }
+.md-search .input { flex: 1; min-width: 0; height: 22px; padding: 0; border: 0; outline: none !important; background: none; color: var(--vscode-input-foreground); font: inherit; }
+.md-search .input::placeholder { color: var(--vscode-input-placeholderForeground); }
+.md-icon-btn { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; padding: 0; border: 0; border-radius: var(--vscode-cornerRadius-small, 3px); background: none; color: var(--vscode-icon-foreground); cursor: pointer; }
+.md-icon-btn[hidden] { display: none; }
+.md-icon-btn:hover { background: var(--vscode-toolbar-hoverBackground); }
+.md-icon-btn:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.md-icon-btn .codicon { font-size: 16px; }
+.md-table .md-gutter { gap: 2px; padding: 0 4px; }
+/* Zebra rows like the other tables, restarting in each provider group so its header and status rows don't shift them. */
+.md-table .ct-row:nth-child(odd) { background: none; }
+.md-table .ct-row.is-alt { background: var(--vscode-keybindingTable-rowsBackground); }
+.md-table .ct-row:hover { background: var(--vscode-list-hoverBackground); }
+.md-vendor { cursor: pointer; }
+.md-vendor td { height: 30px; border-top: 1px solid var(--se-line, var(--vscode-widget-border)); }
+.md-vendor:first-child td { border-top: 0; }
+.md-vendor-name { font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.md-byok { flex: none; padding: 0 5px; border-radius: var(--vscode-cornerRadius-small, 3px); background: var(--vscode-badge-background); color: var(--vscode-badge-foreground); font-size: 11px; line-height: 16px; }
+.md-status td { height: 24px; font-size: var(--vscode-fontSize-label1, 12px); }
+.md-row.is-hidden td:not(:first-child) > .ct-cell { opacity: .55; }
+.md-row.is-hidden .md-eye { opacity: .7; }
+.md-name { gap: 6px; }
+.md-warn { flex: none; margin-left: auto; font-size: 14px !important; color: var(--vscode-problemsWarningIcon-foreground, var(--vscode-editorWarning-foreground)); }
+.md-cost { display: grid !important; grid-template-columns: 56px 64px 1fr 1fr; gap: 8px; white-space: nowrap; }
+.md-cost > span { overflow: hidden; text-overflow: ellipsis; }
+.md-caps { gap: 4px; }
+.md-cap { flex: none; height: 18px; padding: 0 6px; border: 1px solid var(--vscode-widget-border, var(--vscode-contrastBorder, rgba(128,128,128,.35))); border-radius: var(--vscode-cornerRadius-small, 3px); background: none; color: var(--vscode-foreground); font: inherit; font-size: 11px; cursor: pointer; }
+.md-cap:hover { background: var(--vscode-toolbar-hoverBackground); }
+.md-cap:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+.se-btn .codicon-chevron-down { margin-left: 4px; font-size: 12px; }
+
+/* Agent landing pages (Copilot, Claude, Codex): a list of the agent's pages. Their pages lead with a breadcrumb back. */
+.mg-land { padding: 8px 20px 20px; overflow: auto; }
+.mg-land .cd-list { display: flex; flex-direction: column; }
+.mg-land-row { width: 100%; box-sizing: border-box; min-height: 48px !important; padding: 4px 8px !important; }
+.mg-land-row > .codicon:first-child { font-size: 16px !important; }
+.mg-land-row .cd-list-text { flex: 1; min-width: 0; }
+.mg-land-row .cd-list-desc { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mg-land-count { flex: none; min-width: 20px; text-align: right; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.mg-land-row > .codicon-chevron-right { color: var(--vscode-descriptionForeground); }
+.mg-land-head { margin: 20px 0 4px; padding: 0 8px 6px; border-bottom: 1px solid var(--se-line, var(--vscode-widget-border)); font-size: var(--vscode-fontSize-body1, 13px); font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-foreground); }
+.mg-crumbs { display: flex; align-items: center; gap: 2px; margin: 0 0 2px -4px; font-size: var(--vscode-fontSize-label1, 12px); }
+.mg-crumbs > .codicon { font-size: 12px; color: var(--vscode-descriptionForeground); }
+.mg-crumb { padding: 1px 4px; border: 0; border-radius: var(--vscode-cornerRadius-small, 3px); background: none; color: var(--vscode-textLink-foreground); font: inherit; cursor: pointer; }
+.mg-crumb:hover { text-decoration: underline; }
+.mg-crumb:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.mg-crumb.is-current { color: var(--vscode-descriptionForeground); cursor: default; text-decoration: none; }
+
+/* The Manage nav: every page and Settings category has an icon, like the Settings editor's table of contents. */
+.sc-cfg .se-nav-item .se-nav-icon { flex: none; font-size: 16px; }
+.sc-cfg .se-nav-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Settings</title>
+<!-- V19 — The latest Settings prototype (settings-theme-picker-specimen), in the Agents window context, embedded as
+     the Manage modal's Settings page. The modal's nav lists its categories, so its own nav is hidden here. -->
+<link rel="stylesheet" href="../../../systems/vscode/system.css" />
+<link rel="stylesheet" href="styles.css?v=4" />
+<style>
+	html, body { margin: 0; height: 100%; overflow: hidden; background: transparent; }
+	#wb { display: block; position: relative; width: 100vw; height: 100vh; overflow: hidden; background: var(--vscode-editor-background); }
+	#settings-root { height: 100%; }
+	#settings-root .se > .se-nav { display: none; }
+	#settings-root .se { height: 100%; grid-template-columns: minmax(0, 1fr); }
+</style>
+<script>
+	// Prototype configuration: which window hosts Settings, sidebar style and group style.
+	window.PROTO_CONFIG = { context: 'agents', nav: 'flat', chips: false, pages: 'nested', groups: 'cards', managed: true, themePicker: true, themePreview: 'specimen' };
+	// Simulated organization policies (Contoso). Keys and values follow each setting's real policy schema.
+	// source: 'github' = GitHub Copilot Business/Enterprise policies for the signed-in account;
+	//         'device' = device management (macOS configuration profile, Windows Group Policy, Linux policy.json).
+	window.PROTO_POLICIES = {
+		// GitHub Copilot policies
+		'chat.agent.enabled': { value: true, source: 'github' },
+		'chat.mcp.access': { value: 'registry', source: 'github' },
+		'chat.tools.global.autoApprove': { value: false, source: 'github' },
+		'chat.sessionSync.enabled': { value: false, source: 'github' },
+		'chat.useHooks': { value: true, source: 'github' },
+		'chat.plugins.enabledPlugins': { value: { 'secure-code-review@contoso-plugins': true, 'web-scraper@public-feed': false }, source: 'github' },
+		'chat.customizations.marketplace.enabled': { value: false, source: 'github' },
+		'chat.agentHost.githubEnvironments.enabled': { value: true, source: 'github' },
+		// Device management: agent sandboxing and network
+		'chat.agent.sandbox.enabled': { value: 'on', source: 'device' },
+		'chat.agent.sandbox.allowUnsandboxedCommands': { value: false, source: 'device' },
+		'chat.agent.sandbox.network.allowNetwork': { value: true, source: 'device' },
+		'chat.agent.networkFilter': { value: true, source: 'device' },
+		'chat.agent.sandbox.network.allowedDomains': { value: ['github.com', '*.githubusercontent.com', 'registry.npmjs.org', '*.contoso.com'], source: 'device' },
+		'chat.agent.sandbox.network.deniedDomains': { value: ['pastebin.com', '*.ngrok.io'], source: 'device' },
+		// Device management: approvals and tools
+		'chat.tools.terminal.enableAutoApprove': { value: false, source: 'device' },
+		'chat.tools.eligibleForAutoApproval': { value: { fetch: false, runInTerminal: false }, source: 'device' },
+		'workbench.browser.enableChatTools': { value: false, source: 'device' },
+		// Device management: observability (Claude and Codex stay allowed: the Manage modal lists them)
+		'chat.agentHost.otel.enabled': { value: true, source: 'device' },
+		'chat.agentHost.otel.exporterType': { value: 'otlp-http', source: 'device' },
+		'chat.agentHost.otel.otlpEndpoint': { value: 'https://otel.contoso.com:4318', source: 'device' },
+		'chat.agentHost.otel.captureContent': { value: false, source: 'device' },
+		// Device management: extensions, updates and telemetry
+		'extensions.allowed': { value: { microsoft: true, github: true, contoso: true, 'esbenp.prettier-vscode': true, 'dbaeumer.vscode-eslint': true, '*': false }, source: 'device' },
+		'update.mode': { value: 'start', source: 'device' },
+		'telemetry.telemetryLevel': { value: 'error', source: 'device' },
+		'telemetry.feedback.enabled': { value: false, source: 'device' },
+	};
+</script>
+<script src="settings-data.js"></script>
+<script src="ia.js"></script>
+<script>
+	// Proposed Commonly Used: most impactful first (appearance → saving/formatting → editing → AI → terminal → files).
+	window.SETTINGS_IA.commonlyUsed = [
+		'workbench.colorTheme', 'editor.fontSize', 'editor.fontFamily', 'window.zoomLevel',
+		'files.autoSave', 'editor.formatOnSave', 'editor.defaultFormatter',
+		'editor.tabSize', 'editor.wordWrap', 'editor.minimap.enabled',
+		'editor.inlineSuggest.enabled', 'chat.agent.maxRequests',
+		'terminal.integrated.fontSize', 'terminal.integrated.defaultProfile.osx',
+		'files.exclude', 'workbench.iconTheme', 'editor.formatOnPaste', 'editor.mouseWheelZoom',
+	];
+</script>
+<script src="model.js"></script>
+<script src="format.js"></script>
+<script src="controls.js"></script>
+<script src="rows.js"></script>
+<script src="app.js?v=2"></script>
+<script src="themes-data.js"></script>
+<script src="themes.js"></script>
+</head>
+<body>
+<vsc-workbench id="wb" theme="dark-2026" window="agents"><div id="settings-root"></div></vsc-workbench>
+<script type="module" src="../../../systems/vscode/system.js"></script>
+<script type="module">
+	const theme = new URLSearchParams(location.search).get('wbtheme');
+	if (theme) document.getElementById('wb').setAttribute('theme', theme);
+	await customElements.whenDefined('vsc-workbench');
+	window.SE.mount(document.getElementById('settings-root'));
+	window.dispatchEvent(new CustomEvent('se-ready'));
+	// The Manage modal may host this frame cross-origin (sandboxed viewer), so it talks to us only by message.
+	const SE = window.SE, plain = (c) => c && { id: c.id, icon: c.icon, label: c.label, navLabel: c.navLabel };
+	const post = () => window.parent?.postMessage({
+		type: 'se-state', cat: SE.state.cat, query: SE.state.query || '',
+		categories: SE.categories.map(plain),
+		specials: { POPULAR: plain(SE.specials.POPULAR), EXPERIMENTAL: plain(SE.specials.EXPERIMENTAL), MODIFIED: plain(SE.specials.MODIFIED), MANAGED: plain(SE.specials.MANAGED) },
+	}, '*');
+	SE.state.listeners.add(post);
+	addEventListener('message', (e) => {
+		const d = e.data;
+		if (d?.type === 'se-go' && typeof d.cat === 'string') { SE.go(d.cat); post(); }
+		else if (d?.type === 'se-theme' && typeof d.theme === 'string') document.getElementById('wb').setAttribute('theme', d.theme);
+		else if (d?.type === 'se-sync') post();
+	});
+	post();
+</script>
+</body>
+</html>

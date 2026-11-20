@@ -1,0 +1,31 @@
+{
+  "title": "Customizations",
+  "description": "V18 — One \"Manage\" surface (Martin's direction from the Nov 18 Customization Squad Sync, built on V17's calm session panel). The Customizations modal becomes Manage: true globals at the top (Settings, Remotes, Models, Extensions), then each agent harness (Copilot, Claude, Codex) with only the customization types it supports. The Environment › Workspace › Agent pickers become one Remote picker; the agent comes from where you are in the nav. Only user-level items appear, grouped by where they come from: Yours, From the harness, From VS Code. Workspace customizations stay with the repo and the session's Customizations panel, which handles in-session troubleshooting.",
+  "status": "draft",
+  "tags": [
+    "vscode",
+    "agents",
+    "customizations",
+    "side-panel",
+    "session",
+    "plugins",
+    "mcp",
+    "connectors",
+    "pared-back",
+    "exploration",
+    "navigation"
+  ],
+  "system": "vscode",
+  "group": "agent-customizations",
+  "variantOf": "customizations-v17-calm-panel",
+  "entry": "index.html",
+  "createdBy": {
+    "kind": "agent",
+    "name": "Copilot"
+  },
+  "sourceRefs": [
+    "vscode"
+  ],
+  "createdAt": "2026-11-18T20:11:53.379Z",
+  "updatedAt": "2026-11-19T16:35:03.549Z"
+}

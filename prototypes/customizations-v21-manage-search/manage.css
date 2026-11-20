@@ -1,0 +1,22 @@
+/* V18 — Manage. */
+/* Table groups: where items come from (Yours, From the harness, From VS Code). */
+.ct-table tr.ct-group th { position: static; height: 30px; padding: 10px 8px 4px; box-shadow: none; background: transparent; font-weight: normal; text-align: left; white-space: nowrap; }
+.ct-table tr.ct-group:not(:first-child) th { padding-top: 16px; }
+.ct-group-label { color: var(--vscode-foreground); font-weight: var(--vscode-fontWeight-semiBold, 600); font-size: var(--vscode-fontSize-label1, 12px); }
+.ct-group-note { margin-left: 8px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.ct-ws-note { display: flex; align-items: center; gap: 6px; margin: 16px 8px 0; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.ct-ws-note .codicon { font-size: 14px; }
+
+/* Settings: VS Code settings-editor rhythm, with the control at the end of each row. */
+.mg-settings { padding: 4px 24px 32px; display: flex; flex-direction: column; max-width: 760px; }
+.mg-sec { margin: 20px 0 4px; font-size: var(--vscode-fontSize-body1, 13px); font-weight: var(--vscode-fontWeight-semiBold, 600); color: var(--vscode-foreground); }
+.mg-sec:first-child { margin-top: 8px; }
+.mg-setting { display: flex; align-items: center; gap: 24px; padding: 10px 0; border-bottom: 1px solid var(--vscode-agentsCard-border, var(--vscode-widget-border)); }
+.mg-setting-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.mg-setting-title { color: var(--vscode-foreground); }
+.mg-setting-desc { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.mg-setting-control { flex: none; display: flex; align-items: center; }
+.mg-select-wrap { position: relative; display: inline-flex; }
+.mg-select-wrap .codicon { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 14px; pointer-events: none; color: var(--vscode-icon-foreground); }
+.mg-select { appearance: none; -webkit-appearance: none; padding-right: 26px !important; min-width: 200px; height: 26px; padding: 0 6px; border: 1px solid var(--vscode-dropdown-border, var(--vscode-widget-border)); border-radius: var(--vscode-cornerRadius-medium, 4px); background: var(--vscode-dropdown-background); color: var(--vscode-dropdown-foreground); font: inherit; font-size: var(--vscode-fontSize-body1, 13px); }
+.mg-select:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }

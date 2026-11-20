@@ -1,0 +1,93 @@
+/* V21 — Manage: global search, artifact-first nav, scopes, sync-by-default environments, title-bar entry point. */
+
+/* ---------- Entry point: the title bar gear replaces Manage in the sessions list ---------- */
+#nav-customizations[hidden] { display: none !important; }
+.tb-manage { flex: none; }
+
+/* ---------- Global search, centered in the modal's header ---------- */
+#configure .modal-editor-header { position: relative; }
+.mg-gsearch { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2; width: min(520px, calc(100% - 320px)); min-width: 240px; height: 26px; box-sizing: border-box;
+  display: flex; align-items: center; gap: 6px; padding: 0 4px 0 8px; border: 1px solid var(--vscode-input-border, var(--vscode-widget-border, transparent)); border-radius: var(--vscode-cornerRadius-medium, 6px);
+  background: var(--vscode-input-background); color: var(--vscode-input-foreground); }
+.mg-gsearch.focused { border-color: var(--vscode-focusBorder); }
+.mg-gs-icon { flex: none; font-size: 14px; color: var(--vscode-icon-foreground); opacity: 0.8; }
+.mg-gs-input { flex: 1; min-width: 0; height: 100%; padding: 0; border: 0; outline: 0; background: transparent; color: inherit; font: inherit; font-size: var(--vscode-fontSize-body1, 13px); }
+.mg-gs-input::placeholder { color: var(--vscode-input-placeholderForeground); }
+.mg-gs-kbd { flex: none; padding: 0 5px; height: 18px; line-height: 18px; border-radius: 3px; font: inherit; font-size: 11px; color: var(--vscode-keybindingLabel-foreground, var(--vscode-descriptionForeground));
+  background: var(--vscode-keybindingLabel-background, transparent); border: 1px solid var(--vscode-keybindingLabel-border, var(--vscode-widget-border)); border-bottom-color: var(--vscode-keybindingLabel-bottomBorder, var(--vscode-widget-border)); }
+.mg-gs-kbd[hidden], .mg-gs-clear[hidden] { display: none; }
+.mg-gs-clear { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; padding: 0; border: 0; border-radius: var(--vscode-cornerRadius-small, 3px); background: none; color: var(--vscode-icon-foreground); cursor: pointer; }
+.mg-gs-clear:hover { background: var(--vscode-toolbar-hoverBackground); }
+.mg-gs-clear .codicon { font-size: 14px; }
+
+/* Results cover the page (the nav stays, so you can still go anywhere). */
+#cfg-root .se-main { position: relative; }
+.mg-gs-results { position: absolute; inset: 0; z-index: 20; overflow-y: auto; padding: 10px 16px 24px; background: var(--vscode-editor-background); }
+.mg-gs-results[hidden] { display: none; }
+.mg-gs-summary { display: flex; align-items: baseline; gap: 12px; padding: 4px 8px 10px; color: var(--vscode-descriptionForeground); font-size: 12px; }
+.mg-gs-hint { margin-left: auto; opacity: 0.8; }
+.mg-gs-group { margin-bottom: 12px; }
+.mg-gs-head { display: flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; color: var(--vscode-descriptionForeground); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+.mg-gs-count { font-weight: 400; padding: 0 6px; border-radius: 9px; background: var(--vscode-badge-background); color: var(--vscode-badge-foreground); letter-spacing: 0; text-transform: none; font-size: 10px; line-height: 16px; }
+.mg-gs-row { display: flex; align-items: center; gap: 8px; min-height: 28px; padding: 0 8px; border-radius: var(--vscode-cornerRadius-medium, 4px); cursor: pointer; color: var(--vscode-foreground); }
+.mg-gs-row:hover { background: var(--vscode-list-hoverBackground); }
+.mg-gs-row.active { background: var(--vscode-list-activeSelectionBackground); color: var(--vscode-list-activeSelectionForeground); outline: 1px solid var(--vscode-list-focusOutline, transparent); outline-offset: -1px; }
+.mg-gs-ic { flex: none; font-size: 16px; color: var(--vscode-icon-foreground); }
+.mg-gs-row.active .mg-gs-ic { color: inherit; }
+.mg-gs-main { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 8px; overflow: hidden; white-space: nowrap; }
+.mg-gs-label { flex: none; max-width: 60%; overflow: hidden; text-overflow: ellipsis; }
+.mg-gs-prefix { color: var(--vscode-descriptionForeground); }
+.mg-gs-row.active .mg-gs-prefix { color: inherit; opacity: 0.85; }
+.mg-gs-detail { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--vscode-descriptionForeground); font-size: 12px; }
+.mg-gs-detail .codicon { font-size: 12px; vertical-align: -2px; margin-right: 3px; }
+.mg-gs-key { font-family: var(--vscode-editor-font-family, monospace); font-size: 11px; }
+.mg-gs-row.active .mg-gs-detail, .mg-gs-row.active .mg-gs-where { color: inherit; opacity: 0.85; }
+.mg-gs-where { flex: none; color: var(--vscode-descriptionForeground); font-size: 12px; }
+.mg-gs-lock { flex: none; font-size: 13px; color: var(--vscode-descriptionForeground); }
+.mg-gs-link { color: var(--vscode-textLink-foreground); }
+.mg-gs-row.active .mg-gs-link { color: inherit; }
+.mg-gs-note { padding: 4px 8px 4px 32px; color: var(--vscode-descriptionForeground); font-size: 12px; }
+.mg-gs-results mark { background: none; color: var(--vscode-list-highlightForeground); font-weight: 600; }
+.mg-gs-row.active mark { color: var(--vscode-list-focusHighlightForeground, var(--vscode-list-highlightForeground)); }
+.mg-gs-empty { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 64px 16px; color: var(--vscode-foreground); }
+.mg-gs-empty .codicon { font-size: 28px; color: var(--vscode-descriptionForeground); }
+.mg-gs-empty-sub { color: var(--vscode-descriptionForeground); font-size: 12px; }
+
+/* ---------- Nav: Settings' categories are its table of contents, shown while you're in Settings ---------- */
+.mg-toc { display: none; flex-direction: column; gap: 1px; margin: 1px 0 4px; }
+#cfg-root[data-section="settings"] .mg-toc { display: flex; }
+.se-nav-item.mg-toc-item { height: 22px; padding-left: 32px; font-size: 12px; color: var(--vscode-descriptionForeground); }
+.se-nav-item.mg-toc-item.active { background: none; font-weight: 400; color: var(--vscode-foreground); box-shadow: inset 2px 0 0 var(--vscode-focusBorder); border-radius: 0 var(--vscode-cornerRadius-medium) var(--vscode-cornerRadius-medium) 0; }
+.se-nav-item.mg-toc-item:hover { background: var(--vscode-list-hoverBackground); }
+.mg-toc-item .se-nav-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- Scope bar: All · User · Workspace · Managed, and the agent ---------- */
+.mg-segs { display: inline-flex; align-items: center; flex: none; height: 24px; box-sizing: border-box; padding: 1px; gap: 1px; border: 1px solid var(--vscode-dropdown-border, var(--vscode-widget-border)); border-radius: var(--vscode-cornerRadius-medium, 6px); background: var(--vscode-dropdown-background); }
+.mg-seg { display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 8px; border: 0; border-radius: calc(var(--vscode-cornerRadius-medium, 6px) - 2px); background: none; color: var(--vscode-descriptionForeground); font: inherit; font-size: 12px; cursor: pointer; white-space: nowrap; }
+.mg-seg:hover { color: var(--vscode-foreground); background: var(--vscode-toolbar-hoverBackground); }
+.mg-seg:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.mg-seg.on { background: var(--vscode-inputOption-activeBackground, var(--vscode-list-activeSelectionBackground)); color: var(--vscode-inputOption-activeForeground, var(--vscode-foreground)); box-shadow: inset 0 0 0 1px var(--vscode-inputOption-activeBorder, transparent); }
+.mg-seg .codicon { font-size: 13px; }
+.mg-seg .codicon-chevron-down { font-size: 11px; margin-left: -2px; }
+.mg-seg-count { font-size: 11px; opacity: 0.75; font-variant-numeric: tabular-nums; }
+.mg-agent-picker.set { border-color: var(--vscode-inputOption-activeBorder, var(--vscode-focusBorder)); }
+
+/* ---------- Tables: the source (with a lock when your organization manages it) and the agents that can use it ---------- */
+.mg-src .ct-tag { margin-left: 6px; }
+.mg-src.is-managed .ct-src-icon { color: var(--vscode-descriptionForeground); }
+.mg-agents { gap: 6px; }
+.mg-agent { font-size: 14px; color: var(--vscode-descriptionForeground); }
+.mg-agent.on { color: var(--vscode-foreground); }
+
+@keyframes mg-flash { from { background: var(--vscode-editor-findMatchHighlightBackground, var(--vscode-list-hoverBackground)); } }
+.mg-flash, .mg-flash > td { animation: mg-flash 1.6s ease-out; }
+@media (prefers-reduced-motion: reduce) { .mg-flash, .mg-flash > td { animation: none; } }
+
+/* ---------- Environments: sync by default, exceptions by choice ---------- */
+.mg-sync-card { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; padding: 12px 14px; border: 1px solid var(--vscode-agentsCard-border, var(--vscode-widget-border)); border-radius: var(--vscode-cornerRadius-large, 8px); background: var(--vscode-agentsCard-background, transparent); }
+.mg-sync-icon { flex: none; font-size: 18px; color: var(--vscode-icon-foreground); }
+.mg-sync-text { flex: 1; min-width: 0; }
+.mg-sync-title { font-weight: 600; color: var(--vscode-foreground); }
+.mg-sync-desc { margin-top: 2px; color: var(--vscode-descriptionForeground); font-size: 12px; }
+.ev-env-table tr.is-exception .mg-optout { color: var(--vscode-descriptionForeground); }
+.mg-optout + .ev-link { margin-left: 8px; }

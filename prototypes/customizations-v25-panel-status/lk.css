@@ -1,0 +1,101 @@
+/* V23 — Three looks for the session's Customizations panel. Shared row anatomy first, then each look. */
+.pt-top[hidden] { display: none; }
+.lk-list { font-size: var(--vscode-fontSize-body1, 13px); }
+.lk-list .ct-row:nth-child(odd) { background: none; }
+.lk-row, .lk-head { position: relative; display: flex; align-items: center; gap: 6px; min-width: 0; box-sizing: border-box; cursor: pointer; border-radius: var(--vscode-cornerRadius-medium, 4px); outline: none; }
+.lk-row { height: 22px; padding: 0 4px 0 calc((var(--lk-level, 2) - 1) * 12px + 4px); }
+.lk-list .lk-row:hover, .lk-list .lk-head:hover { background: var(--vscode-list-hoverBackground); }
+.lk-row:focus-visible, .lk-head:focus-visible { outline: 1px solid var(--vscode-list-focusOutline, var(--vscode-focusBorder)); outline-offset: -1px; }
+.lk-label { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--vscode-foreground); }
+.lk-desc { flex: 0 10000 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.lk-desc.pt-session { font-style: italic; }
+.lk-desc.is-warn { color: var(--vscode-list-warningForeground, var(--vscode-editorWarning-foreground)); }
+.lk-desc.is-error { color: var(--vscode-list-errorForeground, var(--vscode-errorForeground)); }
+.lk-end { flex: none; display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.lk-tw, .lk-tw-space { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; }
+.lk-tw { font-size: 16px !important; color: var(--vscode-icon-foreground); cursor: pointer; }
+.lk-deco { flex: none; font-size: 14px !important; color: var(--vscode-icon-foreground); }
+.lk-deco.is-warn { color: var(--vscode-problemsWarningIcon-foreground, var(--vscode-editorWarning-foreground)); }
+.lk-deco.is-error { color: var(--vscode-problemsErrorIcon-foreground, var(--vscode-errorForeground)); }
+.lk-cost { color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); font-variant-numeric: tabular-nums; }
+.lk-row.is-off :is(.ev-logo, .ct-icon, .lk-label) { opacity: .6; }
+.lk-note { display: flex; align-items: center; gap: 6px; min-height: 22px; padding: 0 4px 0 calc((var(--lk-level, 2) - 1) * 12px + 4px); color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.lk-act { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; padding: 0; border: 0; border-radius: var(--vscode-cornerRadius-small, 3px); background: none; color: var(--vscode-icon-foreground); cursor: pointer; }
+.lk-act .codicon { font-size: 16px !important; }
+.lk-act:hover { background: var(--vscode-toolbar-hoverBackground); }
+.lk-act:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.lk-head-acts { display: flex; align-items: center; visibility: hidden; }
+.lk-head:is(:hover, :focus-within, :focus-visible) .lk-head-acts { visibility: visible; }
+.lk-bar { display: flex; align-items: center; gap: 6px; padding: 6px 8px 4px; }
+.lk-bar vsc-toolbar { flex: none; margin-left: auto; }
+.pt-panel.is-wide .lk-bar { padding-inline: 16px; }
+.pt-blank { margin: 16px 8px; }
+
+/* ---- Tree: a VS Code view ---- */
+.lk-filter { flex: 1; min-width: 0; display: flex; align-items: center; gap: 4px; height: 24px; padding: 0 6px; box-sizing: border-box; border: 1px solid var(--vscode-input-border, transparent); border-radius: var(--vscode-cornerRadius-medium, 4px); background: var(--vscode-input-background); }
+.lk-filter:focus-within { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.lk-filter > .codicon { flex: none; font-size: 14px; color: var(--vscode-descriptionForeground); }
+.lk-filter .input { flex: 1; min-width: 0; height: 22px; padding: 0; border: 0; outline: none !important; background: none; color: var(--vscode-input-foreground); font: inherit; font-size: var(--vscode-fontSize-body1, 13px); }
+.lk-filter .input::placeholder { color: var(--vscode-input-placeholderForeground); }
+.lk-list.lk-tree .lk-sec + .lk-sec { margin-top: 4px; }
+.lk-list.lk-tree .lk-head { height: 22px; padding: 0 4px 0 2px; gap: 4px; }
+.lk-list.lk-tree .lk-head-label { color: var(--vscode-sideBarSectionHeader-foreground, var(--vscode-foreground)); font-size: 11px; font-weight: var(--vscode-fontWeight-bold, 700); text-transform: uppercase; letter-spacing: .02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lk-list.lk-tree .lk-head-meta { flex: none; color: var(--vscode-descriptionForeground); font-size: 11px; white-space: nowrap; }
+.lk-list.lk-tree .lk-head-acts { margin-left: auto; }
+.lk-list.lk-tree .lk-badge { flex: none; margin-left: 2px; }
+.lk-list.lk-tree .lk-badge ~ .lk-head-acts, .lk-list.lk-tree .lk-head-meta ~ .lk-head-acts { margin-left: auto; }
+.lk-list.lk-tree .lk-row .lk-desc { margin-left: 2px; }
+.lk-list.lk-tree .lk-acts { display: none; align-items: center; gap: 2px; }
+.lk-list.lk-tree .lk-row:is(:hover, :focus-within, :focus) .lk-acts, .is-switches-always .lk-list.lk-tree .lk-acts { display: flex; }
+.lk-list.lk-tree .lk-row:is(:hover, :focus-within, :focus) .lk-acts + .lk-deco { display: none; }
+
+/* ---- Checklist: a checkbox per row, real buttons ---- */
+.lk-checklist .lk-sec + .lk-sec { margin-top: 8px; }
+.lk-checklist .lk-head { height: 28px; padding: 0 6px 0 2px; gap: 4px; }
+.lk-checklist .lk-head-label { color: var(--vscode-foreground); font-weight: var(--vscode-fontWeight-semiBold, 600); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lk-checklist .lk-head-acts { margin-left: 2px; }
+.lk-checklist .lk-head-meta { flex: none; margin-left: auto; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); }
+.lk-checklist .lk-row { height: 28px; gap: 8px; padding-right: 6px; }
+.lk-checklist .lk-row .lk-tw-space, .lk-checklist .lk-row .lk-tw { margin-right: -4px; }
+.lk-checklist .lk-cb { flex: none; }
+.lk-checklist .lk-row .ct-status { font-size: var(--vscode-fontSize-label1, 12px); white-space: nowrap; }
+.lk-checklist .lk-row .ct-status.pt-session { font-style: italic; }
+.lk-checklist .lk-row.is-off .lk-label { color: var(--vscode-descriptionForeground); opacity: 1; }
+.lk-btn { flex: none; height: 22px; padding: 0 8px !important; box-sizing: border-box; display: inline-flex !important; align-items: center; font-size: var(--vscode-fontSize-label1, 12px); line-height: 20px; border-radius: var(--vscode-cornerRadius-medium, 4px); white-space: nowrap; }
+.lk-foot { display: flex; align-items: center; gap: 6px; margin: 14px 2px 0; padding-top: 12px; border-top: 1px solid var(--vscode-sideBarSectionHeader-border, var(--vscode-widget-border, rgba(128,128,128,.2))); }
+.lk-foot vsc-button { height: 26px; padding: 0 10px !important; box-sizing: border-box; display: inline-flex !important; align-items: center; gap: 4px; border-radius: var(--vscode-cornerRadius-medium, 4px); }
+.lk-foot vsc-toolbar { margin-left: auto; }
+
+/* ---- Status first: notifications on top, two-line rows with a switch ---- */
+.lk-ctx { min-width: 0; display: inline-flex; align-items: center; gap: 5px; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lk-ctx .codicon { font-size: 14px; }
+.lk-dot { opacity: .7; }
+.lk-cards { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 10px; }
+.lk-card { display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 10px; border: 1px solid; border-radius: var(--vscode-cornerRadius-large, 6px); font-size: var(--vscode-fontSize-label1, 12px); line-height: 16px; }
+.lk-card > .codicon { flex: none; font-size: 16px; }
+.lk-card-text { flex: 1; min-width: 0; color: var(--vscode-foreground); }
+.lk-card b { font-weight: var(--vscode-fontWeight-semiBold, 600); }
+.lk-card.is-warn { border-color: color-mix(in srgb, var(--vscode-editorWarning-foreground) 35%, transparent); background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 8%, transparent); }
+.lk-card.is-warn > .codicon { color: var(--vscode-problemsWarningIcon-foreground, var(--vscode-editorWarning-foreground)); }
+.lk-card.is-error { border-color: color-mix(in srgb, var(--vscode-errorForeground) 35%, transparent); background: color-mix(in srgb, var(--vscode-errorForeground) 8%, transparent); }
+.lk-card.is-error > .codicon { color: var(--vscode-problemsErrorIcon-foreground, var(--vscode-errorForeground)); }
+.lk-status .lk-sec + .lk-sec { margin-top: 10px; }
+.lk-status .lk-head { height: 26px; padding: 0 6px; gap: 6px; }
+.lk-status .lk-head-label { color: var(--vscode-descriptionForeground); font-size: 11px; font-weight: var(--vscode-fontWeight-semiBold, 600); text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
+.lk-status .lk-head-meta { color: var(--vscode-descriptionForeground); font-size: 11px; white-space: nowrap; }
+.lk-status .lk-head > .lk-tw { margin-left: auto; font-size: 14px !important; visibility: hidden; }
+.lk-status .lk-head:is(:hover, :focus-visible) > .lk-tw, .lk-status .lk-head[aria-expanded="false"] > .lk-tw { visibility: visible; }
+.lk-status .lk-row { height: 26px; gap: 8px; padding: 0 6px 0 calc((var(--lk-level, 2) - 2) * 28px + 6px); }
+.lk-status .lk-row.is-two { height: 42px; gap: 10px; }
+.lk-status .lk-row[aria-level="3"] { padding-left: 36px; }
+.lk-status .lk-row.is-two > .ct-icon { width: 20px; font-size: 18px !important; text-align: center; }
+.lk-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.lk-text .lk-label { display: flex; align-items: center; gap: 5px; }
+.lk-sub { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--vscode-descriptionForeground); font-size: var(--vscode-fontSize-label1, 12px); line-height: 16px; }
+.lk-status .lk-row .lk-end { gap: 6px; }
+.lk-status .lk-row .lk-act { visibility: hidden; }
+.lk-status .lk-row:is(:hover, :focus-within, :focus) .lk-act, .lk-status .lk-row[aria-expanded] .lk-act[data-pt-toggle] { visibility: visible; }
+.lk-status .lk-row .monaco-switch { display: inline-flex; }
+.lk-status .lk-note { padding-left: 6px; min-height: 26px; }
+.lk-btn, .lk-foot vsc-button { width: auto !important; }
+.lk-checklist .lk-cost { min-width: 38px; text-align: right; }
